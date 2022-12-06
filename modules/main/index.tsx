@@ -71,6 +71,13 @@ export default class Module1 extends Module implements PageBlock {
     this.carouselSlider.swipe = this._data.swipe;
     this.btnPrev.visible = this._data.controls;
     this.btnNext.visible = this._data.controls;
+    if (this._data.controls) {
+      this.btnNext.classList.add('--arrow-button');
+      this.btnPrev.classList.add('--arrow-button');
+    } else {
+      this.btnNext.classList.remove('--arrow-button');
+      this.btnPrev.classList.remove('--arrow-button');
+    }
     if (this._data.indicators)
       this.carouselSlider.classList.add("--indicators");
     else
@@ -116,29 +123,29 @@ export default class Module1 extends Module implements PageBlock {
       <i-panel id="pnlBlock" class={customStyles} maxHeight="100%">
         <i-panel id="pnlCarousel" maxHeight="100%" overflow={{y: 'hidden'}}>
           <i-grid-layout id="gridCarousel" width="100%" height="100%" position='relative'>
-            <i-button
-              id="btnPrev"
-              class="--arrow-button"
-              height="100%"
-              width="45px"
-              icon={{ name: 'chevron-left', fill: 'rgba(160,168,177,.68)' }}
-              background={{ color: 'transparent' }}
-              display="flex"
-              position="absolute" left="2rem" zIndex={999}
-              onClick={this.prev.bind(this)}
-            ></i-button>
+            <i-vstack height="100%" width="45px" position="absolute" left="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
+              <i-button
+                id="btnPrev"
+                height="32px"
+                width="32px"
+                icon={{ name: 'chevron-left', fill: '#000' }}
+                background={{ color: 'transparent' }}
+                border={{radius: '50%', width: '0px'}}
+                onClick={this.prev.bind(this)}
+              ></i-button>
+            </i-vstack>
             <i-carousel-slider id="carouselSlider" width="100%" height="100%" onSwipeStart={this.onSwipeStart} onSwipeEnd={this.onSwipeEnd}></i-carousel-slider>
-            <i-button
-              id="btnNext"
-              class="--arrow-button"
-              height="100%"
-              width="45px"
-              icon={{ name: 'chevron-right', fill: 'rgba(160,168,177,.68)' }}
-              background={{ color: 'transparent' }}
-              display="flex"
-              position="absolute" right="2rem" zIndex={999}
-              onClick={this.next.bind(this)}
-            ></i-button>
+            <i-vstack height="100%" width="45px" position="absolute" right="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
+              <i-button
+                id="btnNext"
+                height="32px"
+                width="32px"
+                icon={{ name: 'chevron-right', fill: '#000' }}
+                background={{ color: 'transparent' }}
+                border={{radius: '50%', width: '0px'}}
+                onClick={this.next.bind(this)}
+              ></i-button>
+            </i-vstack>
           </i-grid-layout>
         </i-panel>
         <pageblock-carousel-config id="carouselConfig" visible={false}></pageblock-carousel-config>

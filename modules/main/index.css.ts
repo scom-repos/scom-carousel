@@ -32,20 +32,29 @@ export default Styles.style({
       maxWidth: '100%',
       maxHeight: '100%'
     },
+    '.--button-wrap:hover': {
+      $nest: {
+        '.--arrow-button:not(.disabled)': {
+          boxShadow: 'none',
+          display: 'flex !important',
+          background: '#fff !important',
+          borderRadius: '50%',
+          $nest: {
+            '> i-icon': {
+              visibility: 'visible'
+            }
+          }
+        }
+      }
+    },
     '.--arrow-button': {
       boxShadow: 'none',
       $nest: {
         '& > span': {
           display: 'none'
         },
-        '&:not(.disabled):hover': {
-          background: 'transparent',
-          boxShadow: 'none',
-          $nest: {
-            '> i-icon': {
-              fill: 'rgba(117,124,131,.68) !important'
-            }
-          }
+        '& > i-icon': {
+          visibility: 'hidden'
         }
       }
     },

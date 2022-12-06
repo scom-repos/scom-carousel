@@ -39,20 +39,29 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
                 maxWidth: '100%',
                 maxHeight: '100%'
             },
+            '.--button-wrap:hover': {
+                $nest: {
+                    '.--arrow-button:not(.disabled)': {
+                        boxShadow: 'none',
+                        display: 'flex !important',
+                        background: '#fff !important',
+                        borderRadius: '50%',
+                        $nest: {
+                            '> i-icon': {
+                                visibility: 'visible'
+                            }
+                        }
+                    }
+                }
+            },
             '.--arrow-button': {
                 boxShadow: 'none',
                 $nest: {
                     '& > span': {
                         display: 'none'
                     },
-                    '&:not(.disabled):hover': {
-                        background: 'transparent',
-                        boxShadow: 'none',
-                        $nest: {
-                            '> i-icon': {
-                                fill: 'rgba(117,124,131,.68) !important'
-                            }
-                        }
+                    '& > i-icon': {
+                        visibility: 'hidden'
                     }
                 }
             },
@@ -114,6 +123,12 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
             this.checkControls.checked = config.controls;
             this.checkIndicators.checked = config.indicators;
             this.checkSwipe.checked = config.swipe;
+            this.itemList = config.data || [];
+            this.listStack.clearInnerHTML();
+            this.itemMap = new Map();
+            this._itemList.forEach(item => {
+                this.addItem(item);
+            });
         }
         get itemList() {
             return Array.from(this.itemMap).map(item => item[1]);
@@ -121,22 +136,23 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
         set itemList(data) {
             this._itemList = data;
         }
-        addItem() {
+        addItem(item) {
             const lastIndex = this.itemList.length;
+            const uploadElm = (this.$render("i-upload", { maxHeight: 200, maxWidth: 200, class: config_css_1.uploadStyle, fileList: (item === null || item === void 0 ? void 0 : item.file) ? [item.file] : [], onChanged: (source, files) => this.updateList(source, lastIndex, 'image', files), onRemoved: () => this.onRemovedImage(lastIndex) }));
             const itemElm = (this.$render("i-vstack", { gap: '0.5rem', padding: { top: '1rem', bottom: '1rem', left: '1rem', right: '1rem' }, border: { width: 1, style: 'solid', color: 'rgba(217,225,232,.38)', radius: 5 }, position: "relative" },
                 this.$render("i-icon", { name: "times", fill: "red", width: 20, height: 20, position: "absolute", top: 10, right: 10, class: config_css_1.pointerStyle, onClick: (source) => this.deleteItem(itemElm, lastIndex) }),
-                this.$render("i-hstack", null,
-                    this.$render("i-label", { caption: "Name" }),
-                    this.$render("i-label", { caption: "*", font: { color: 'red' }, margin: { left: '4px' } }),
-                    this.$render("i-label", { caption: ":" })),
-                this.$render("i-input", { width: "100%", onChanged: (source) => this.updateList(source, lastIndex, 'title') }),
+                this.$render("i-label", { caption: "Name:" }),
+                this.$render("i-input", { width: "100%", value: (item === null || item === void 0 ? void 0 : item.title) || '', onChanged: (source) => this.updateList(source, lastIndex, 'title') }),
                 this.$render("i-label", { caption: "Description:" }),
-                this.$render("i-input", { class: config_css_1.textareaStyle, width: "100%", height: "auto", resize: "auto-grow", inputType: 'textarea', onChanged: (source) => this.updateList(source, lastIndex, 'description') }),
-                this.$render("i-label", { caption: "Image:" }),
-                this.$render("i-panel", null,
-                    this.$render("i-upload", { maxHeight: 200, maxWidth: 200, class: config_css_1.uploadStyle, onChanged: (source) => this.updateList(source, lastIndex, 'image'), onRemoved: () => this.onRemovedImage(lastIndex) }))));
+                this.$render("i-input", { class: config_css_1.textareaStyle, width: "100%", height: "auto", resize: "auto-grow", inputType: 'textarea', value: (item === null || item === void 0 ? void 0 : item.description) || '', onChanged: (source) => this.updateList(source, lastIndex, 'description') }),
+                this.$render("i-hstack", null,
+                    this.$render("i-label", { caption: "Image" }),
+                    this.$render("i-label", { caption: ":" })),
+                this.$render("i-panel", null, uploadElm)));
+            if (item === null || item === void 0 ? void 0 : item.image)
+                uploadElm.preview(item === null || item === void 0 ? void 0 : item.image);
             this.listStack.appendChild(itemElm);
-            this.itemMap.set(lastIndex, { title: '', description: '' });
+            this.itemMap.set(lastIndex, item || { title: '', description: '' });
         }
         deleteItem(source, index) {
             if (this.itemMap.has(index)) {
@@ -147,15 +163,17 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
         onRemovedImage(index) {
             if (this.itemMap.has(index)) {
                 const item = this.itemMap.get(index);
-                item.image = undefined;
+                delete item.image;
+                item.file = undefined;
                 this.itemMap.set(index, item);
             }
         }
-        updateList(source, index, prop) {
+        async updateList(source, index, prop, files) {
             const item = this.itemMap.get(index);
             if (prop === 'image') {
-                const imgUploader = source.getElementsByTagName("img")[0];
-                item.image = imgUploader.src || '';
+                const uploadElm = source;
+                item.image = files ? await uploadElm.toBase64(files[0]) : '';
+                item.file = files[0];
             }
             else {
                 item[prop] = source.value;
@@ -168,7 +186,7 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
                 this.$render("i-checkbox", { id: "checkIndicators", caption: "Indicators?" }),
                 this.$render("i-checkbox", { id: "checkSwipe", caption: "Swipe?" }),
                 this.$render("i-panel", null,
-                    this.$render("i-button", { caption: "Add Item", padding: { left: '1rem', right: '1rem', top: '0.5rem', bottom: '0.5rem' }, onClick: this.addItem.bind(this) })),
+                    this.$render("i-button", { caption: "Add Item", padding: { left: '1rem', right: '1rem', top: '0.5rem', bottom: '0.5rem' }, onClick: () => this.addItem() })),
                 this.$render("i-vstack", { id: "listStack", gap: "0.5rem" })));
         }
     };
@@ -225,6 +243,14 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             this.carouselSlider.swipe = this._data.swipe;
             this.btnPrev.visible = this._data.controls;
             this.btnNext.visible = this._data.controls;
+            if (this._data.controls) {
+                this.btnNext.classList.add('--arrow-button');
+                this.btnPrev.classList.add('--arrow-button');
+            }
+            else {
+                this.btnNext.classList.remove('--arrow-button');
+                this.btnPrev.classList.remove('--arrow-button');
+            }
             if (this._data.indicators)
                 this.carouselSlider.classList.add("--indicators");
             else
@@ -259,9 +285,11 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             return (this.$render("i-panel", { id: "pnlBlock", class: index_css_1.default, maxHeight: "100%" },
                 this.$render("i-panel", { id: "pnlCarousel", maxHeight: "100%", overflow: { y: 'hidden' } },
                     this.$render("i-grid-layout", { id: "gridCarousel", width: "100%", height: "100%", position: 'relative' },
-                        this.$render("i-button", { id: "btnPrev", class: "--arrow-button", height: "100%", width: "45px", icon: { name: 'chevron-left', fill: 'rgba(160,168,177,.68)' }, background: { color: 'transparent' }, display: "flex", position: "absolute", left: "2rem", zIndex: 999, onClick: this.prev.bind(this) }),
+                        this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", left: "2rem", zIndex: 999, verticalAlignment: "center", class: "--button-wrap" },
+                            this.$render("i-button", { id: "btnPrev", height: "32px", width: "32px", icon: { name: 'chevron-left', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.prev.bind(this) })),
                         this.$render("i-carousel-slider", { id: "carouselSlider", width: "100%", height: "100%", onSwipeStart: this.onSwipeStart, onSwipeEnd: this.onSwipeEnd }),
-                        this.$render("i-button", { id: "btnNext", class: "--arrow-button", height: "100%", width: "45px", icon: { name: 'chevron-right', fill: 'rgba(160,168,177,.68)' }, background: { color: 'transparent' }, display: "flex", position: "absolute", right: "2rem", zIndex: 999, onClick: this.next.bind(this) }))),
+                        this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", right: "2rem", zIndex: 999, verticalAlignment: "center", class: "--button-wrap" },
+                            this.$render("i-button", { id: "btnNext", height: "32px", width: "32px", icon: { name: 'chevron-right', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.next.bind(this) })))),
                 this.$render("pageblock-carousel-config", { id: "carouselConfig", visible: false })));
         }
     };
