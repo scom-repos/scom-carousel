@@ -11,7 +11,6 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
         $nest: {
             'i-carousel-slider.--indicators .dots-pagination': {
                 display: 'flex',
-                marginBottom: '1rem',
                 position: 'absolute',
                 width: '100%',
                 justifyContent: 'flex-end',
@@ -259,7 +258,7 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
                 name: item.title,
                 controls: [
                     this.$render("i-image", { display: 'block', class: `--carousel-item`, width: "100%", padding: { left: '0.5em', right: '0.5em' }, url: item.image }),
-                    this.$render("i-vstack", { gap: "0.75rem", padding: { left: '2rem' }, position: "absolute", bottom: "1.75rem", zIndex: 999, width: "50%" },
+                    this.$render("i-vstack", { gap: item.description ? '0.75rem' : '0rem', padding: { left: '2rem' }, position: "absolute", bottom: "1.75rem", zIndex: 999, width: "50%" },
                         this.$render("i-label", { caption: item.title || '', font: { size: '1.125rem', color: '#fff' }, lineHeight: '1.688rem' }),
                         this.$render("i-label", { caption: item.description || '', font: { size: '1.125rem', color: '#fff' }, lineHeight: '1.688rem' }))
                 ]

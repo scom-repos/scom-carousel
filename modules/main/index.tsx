@@ -92,7 +92,7 @@ export default class Module1 extends Module implements PageBlock {
           padding={{ left: '0.5em', right: '0.5em' }}
           url={item.image}
         ></i-image>,
-        <i-vstack gap="0.75rem" padding={{left: '2rem'}} position="absolute" bottom="1.75rem" zIndex={999} width="50%">
+        <i-vstack gap={item.description ? '0.75rem' : '0rem'} padding={{left: '2rem'}} position="absolute" bottom="1.75rem" zIndex={999} width="50%">
           <i-label caption={item.title || ''} font={{ size: '1.125rem', color: '#fff' }} lineHeight='1.688rem'></i-label>
           <i-label caption={item.description || ''} font={{size: '1.125rem', color: '#fff'}} lineHeight='1.688rem'></i-label>
         </i-vstack>

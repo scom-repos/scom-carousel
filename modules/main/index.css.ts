@@ -4,7 +4,6 @@ export default Styles.style({
   $nest: {
     'i-carousel-slider.--indicators .dots-pagination': {
       display: 'flex',
-      marginBottom: '1rem',
       position: 'absolute',
       width: '100%',
       justifyContent: 'flex-end',
