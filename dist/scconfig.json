@@ -1,0 +1,23 @@
+{
+    "name": "@carousel/main",
+    "version": "0.1.0",
+    "env": "",
+    "moduleDir": "modules",
+    "main": "@carousel/main",
+    "modules": {
+        "@carousel/main": {
+            "path": "main",
+            "dependencies": [
+                "@carousel/global"
+            ]
+        },
+        "@carousel/global": {
+            "path": "global",
+            "dependencies": []
+        }
+    },
+    "dependencies": {
+        "@ijstech/eth-wallet": "*",
+        "@ijstech/eth-contract": "*"
+    }
+}
