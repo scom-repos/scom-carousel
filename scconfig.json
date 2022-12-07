@@ -10,6 +10,9 @@
     },
     "@carousel/global": {
       "path": "global"
+    },
+    "@carousel/config": {
+      "path": "config"
     }
   },
   "dependencies": {

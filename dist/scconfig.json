@@ -8,12 +8,19 @@
         "@carousel/main": {
             "path": "main",
             "dependencies": [
-                "@carousel/global"
+                "@carousel/global",
+                "@carousel/config"
             ]
         },
         "@carousel/global": {
             "path": "global",
             "dependencies": []
+        },
+        "@carousel/config": {
+            "path": "config",
+            "dependencies": [
+                "@carousel/global"
+            ]
         }
     },
     "dependencies": {

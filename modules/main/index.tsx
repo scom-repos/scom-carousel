@@ -7,7 +7,7 @@ import {
 } from '@ijstech/components';
 import { IConfig, PageBlock } from '@carousel/global';
 import customStyles from './index.css';
-import Config from './config';
+import Config from '@carousel/config';
 export { Config };
 
 @customModule
