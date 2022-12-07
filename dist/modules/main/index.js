@@ -36,7 +36,8 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
             '.--carousel-item > img': {
                 width: '100%',
                 maxWidth: '100%',
-                maxHeight: '100%'
+                maxHeight: '100%',
+                // borderRadius: 13
             },
             '.--button-wrap:hover': {
                 $nest: {
@@ -112,12 +113,9 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
                 swipe: this.checkSwipe.checked,
                 data: this.itemList || []
             };
-            // const slidesToShow = Number(this.edtSlidesToShow.value);
-            // if (Number.isInteger(slidesToShow)) _data.slidesToShow = slidesToShow;
             return _data;
         }
         set data(config) {
-            // this.edtSlidesToShow.value = config.slidesToShow || "";
             this.checkAutoplay.checked = config.autoplay;
             this.checkControls.checked = config.controls;
             this.checkIndicators.checked = config.indicators;
@@ -140,12 +138,16 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
             const uploadElm = (this.$render("i-upload", { maxHeight: 200, maxWidth: 200, class: config_css_1.uploadStyle, fileList: (item === null || item === void 0 ? void 0 : item.file) ? [item.file] : [], onChanged: (source, files) => this.updateList(source, lastIndex, 'image', files), onRemoved: () => this.onRemovedImage(lastIndex) }));
             const itemElm = (this.$render("i-vstack", { gap: '0.5rem', padding: { top: '1rem', bottom: '1rem', left: '1rem', right: '1rem' }, border: { width: 1, style: 'solid', color: 'rgba(217,225,232,.38)', radius: 5 }, position: "relative" },
                 this.$render("i-icon", { name: "times", fill: "red", width: 20, height: 20, position: "absolute", top: 10, right: 10, class: config_css_1.pointerStyle, onClick: (source) => this.deleteItem(itemElm, lastIndex) }),
-                this.$render("i-label", { caption: "Name:" }),
+                this.$render("i-hstack", null,
+                    this.$render("i-label", { caption: "Name" }),
+                    this.$render("i-label", { caption: "*", font: { color: 'red' }, margin: { left: '4px' } }),
+                    this.$render("i-label", { caption: ":" })),
                 this.$render("i-input", { width: "100%", value: (item === null || item === void 0 ? void 0 : item.title) || '', onChanged: (source) => this.updateList(source, lastIndex, 'title') }),
                 this.$render("i-label", { caption: "Description:" }),
                 this.$render("i-input", { class: config_css_1.textareaStyle, width: "100%", height: "auto", resize: "auto-grow", inputType: 'textarea', value: (item === null || item === void 0 ? void 0 : item.description) || '', onChanged: (source) => this.updateList(source, lastIndex, 'description') }),
                 this.$render("i-hstack", null,
                     this.$render("i-label", { caption: "Image" }),
+                    this.$render("i-label", { caption: "*", font: { color: 'red' }, margin: { left: '4px' } }),
                     this.$render("i-label", { caption: ":" })),
                 this.$render("i-panel", null, uploadElm)));
             if (item === null || item === void 0 ? void 0 : item.image)
@@ -191,7 +193,7 @@ define("@carousel/main/config.tsx", ["require", "exports", "@ijstech/components"
     };
     Config = __decorate([
         components_3.customModule,
-        components_3.customElements("pageblock-carousel-config")
+        components_3.customElements("pageblock-slideshow-config")
     ], Config);
     exports.default = Config;
 });
@@ -224,6 +226,14 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             this.carouselConfig.data = this._data;
             this.pnlCarousel.visible = false;
             this.carouselConfig.visible = true;
+        }
+        validate() {
+            var _a;
+            const dataList = ((_a = this.carouselConfig.data) === null || _a === void 0 ? void 0 : _a.data) || [];
+            if (dataList.length < 1)
+                return false;
+            const emptyProp = dataList.find(item => !item.title || !item.image);
+            return !emptyProp;
         }
         async confirm() {
             this._data = this.carouselConfig.data;
@@ -289,7 +299,7 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
                         this.$render("i-carousel-slider", { id: "carouselSlider", width: "100%", height: "100%", onSwipeStart: this.onSwipeStart, onSwipeEnd: this.onSwipeEnd }),
                         this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", right: "2rem", zIndex: 999, verticalAlignment: "center", class: "--button-wrap" },
                             this.$render("i-button", { id: "btnNext", height: "32px", width: "32px", icon: { name: 'chevron-right', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.next.bind(this) })))),
-                this.$render("pageblock-carousel-config", { id: "carouselConfig", visible: false })));
+                this.$render("pageblock-slideshow-config", { id: "carouselConfig", visible: false })));
         }
     };
     Module1 = __decorate([

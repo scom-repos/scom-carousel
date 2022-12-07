@@ -15,15 +15,14 @@ import { textareaStyle, uploadStyle, pointerStyle } from './config.css';
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      ['pageblock-carousel-config']: ControlElement;
+      ['pageblock-slideshow-config']: ControlElement;
     }
   }
 }
 
 @customModule
-@customElements("pageblock-carousel-config")
+@customElements("pageblock-slideshow-config")
 export default class Config extends Module {
-  // private edtSlidesToShow: Input;
   private checkAutoplay: Checkbox;
   private checkControls: Checkbox;
   private checkIndicators: Checkbox;
@@ -41,13 +40,10 @@ export default class Config extends Module {
       swipe: this.checkSwipe.checked,
       data: this.itemList || []
     };
-    // const slidesToShow = Number(this.edtSlidesToShow.value);
-    // if (Number.isInteger(slidesToShow)) _data.slidesToShow = slidesToShow;
     return _data;
   }
 
   set data(config: IConfig) {
-    // this.edtSlidesToShow.value = config.slidesToShow || "";
     this.checkAutoplay.checked = config.autoplay;
     this.checkControls.checked = config.controls;
     this.checkIndicators.checked = config.indicators;
@@ -93,7 +89,11 @@ export default class Config extends Module {
           class={pointerStyle}
           onClick={(source: Control) => this.deleteItem(itemElm, lastIndex)}
         ></i-icon>
-        <i-label caption="Name:"></i-label>
+        <i-hstack>
+          <i-label caption="Name"></i-label>
+          <i-label caption="*" font={{ color: 'red' }} margin={{left: '4px'}}></i-label>
+          <i-label caption=":"></i-label>
+        </i-hstack>
         <i-input width="100%" value={item?.title || ''} onChanged={(source: Control) => this.updateList(source, lastIndex, 'title')}></i-input>
         <i-label caption="Description:"></i-label>
         <i-input
@@ -107,7 +107,7 @@ export default class Config extends Module {
         ></i-input>
         <i-hstack>
           <i-label caption="Image"></i-label>
-          {/* <i-label caption="*" font={{ color: 'red' }} margin={{left: '4px'}}></i-label> */}
+          <i-label caption="*" font={{ color: 'red' }} margin={{left: '4px'}}></i-label>
           <i-label caption=":"></i-label>
         </i-hstack>
         <i-panel>
@@ -151,8 +151,6 @@ export default class Config extends Module {
   render() {
     return (
       <i-vstack id="pnlConfig" gap='0.5rem' padding={{ top: '1rem', bottom: '1rem', left: '1rem', right: '1rem' }}>
-        {/* <i-label caption="Slides to show:"></i-label> */}
-        {/* <i-input id="edtSlidesToShow" width="100%" inputType='number'></i-input> */}
         <i-checkbox id="checkAutoplay" caption="Autoplay?"></i-checkbox>
         <i-checkbox id="checkControls" caption="Controls?"></i-checkbox>
         <i-checkbox id="checkIndicators" caption="Indicators?"></i-checkbox>

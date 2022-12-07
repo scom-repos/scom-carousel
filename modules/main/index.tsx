@@ -3,8 +3,7 @@ import {
   customModule,
   Panel,
   CarouselSlider,
-  Button,
-  GridLayout
+  Button
 } from '@ijstech/components';
 import { IConfig, PageBlock } from '@carousel/global';
 import customStyles from './index.css';
@@ -49,6 +48,13 @@ export default class Module1 extends Module implements PageBlock {
     this.carouselConfig.data = this._data;
     this.pnlCarousel.visible = false;
     this.carouselConfig.visible = true;
+  }
+
+  validate() {
+    const dataList = this.carouselConfig.data?.data || [];
+    if (dataList.length < 1) return false;
+    const emptyProp = dataList.find(item => !item.title || !item.image);
+    return !emptyProp;
   }
 
   async confirm() {
@@ -148,7 +154,7 @@ export default class Module1 extends Module implements PageBlock {
             </i-vstack>
           </i-grid-layout>
         </i-panel>
-        <pageblock-carousel-config id="carouselConfig" visible={false}></pageblock-carousel-config>
+        <pageblock-slideshow-config id="carouselConfig" visible={false}></pageblock-slideshow-config>
       </i-panel>
     )
   }

@@ -29,7 +29,8 @@ export default Styles.style({
     '.--carousel-item > img': {
       width: '100%',
       maxWidth: '100%',
-      maxHeight: '100%'
+      maxHeight: '100%',
+      // borderRadius: 13
     },
     '.--button-wrap:hover': {
       $nest: {
