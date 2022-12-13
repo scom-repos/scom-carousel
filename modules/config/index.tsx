@@ -65,12 +65,11 @@ export default class Config extends Module {
 
   private addItem(item?: IData) {
     const lastIndex = this.itemList.length;
-    const uploadElm = (
+    const uploadElm: Upload = (
       <i-upload
         maxHeight={200}
         maxWidth={200}
         class={uploadStyle}
-        fileList={item?.file ? [item.file] : [] }
         onChanged={(source: Control, files: File[]) => this.updateList(source, lastIndex, 'image', files)}
         onRemoved={() => this.onRemovedImage(lastIndex)}
       ></i-upload>
@@ -115,8 +114,10 @@ export default class Config extends Module {
         </i-panel>
       </i-vstack>
     );
-    if (item?.image)
+    if (item?.image) {
+      uploadElm.fileList = [new File([], '')];
       uploadElm.preview(item?.image);
+    }
     this.listStack.appendChild(itemElm);
     this.itemMap.set(lastIndex, item || { title: '', description: '' });
   }
@@ -132,7 +133,6 @@ export default class Config extends Module {
     if (this.itemMap.has(index)) {
       const item = this.itemMap.get(index);
       delete item.image;
-      item.file = undefined;
       this.itemMap.set(index, item);
     }
   }
@@ -142,7 +142,6 @@ export default class Config extends Module {
     if (prop === 'image') {
       const uploadElm = source as Upload;
       item.image = files ? await uploadElm.toBase64(files[0]) : '';
-      item.file = files[0];
     } else {
       item[prop] = (source as Input).value;
     }

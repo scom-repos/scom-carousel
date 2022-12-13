@@ -71,7 +71,7 @@ define("@carousel/config", ["require", "exports", "@ijstech/components", "@carou
         }
         addItem(item) {
             const lastIndex = this.itemList.length;
-            const uploadElm = (this.$render("i-upload", { maxHeight: 200, maxWidth: 200, class: config_css_1.uploadStyle, fileList: (item === null || item === void 0 ? void 0 : item.file) ? [item.file] : [], onChanged: (source, files) => this.updateList(source, lastIndex, 'image', files), onRemoved: () => this.onRemovedImage(lastIndex) }));
+            const uploadElm = (this.$render("i-upload", { maxHeight: 200, maxWidth: 200, class: config_css_1.uploadStyle, onChanged: (source, files) => this.updateList(source, lastIndex, 'image', files), onRemoved: () => this.onRemovedImage(lastIndex) }));
             const itemElm = (this.$render("i-vstack", { gap: '0.5rem', padding: { top: '1rem', bottom: '1rem', left: '1rem', right: '1rem' }, border: { width: 1, style: 'solid', color: 'rgba(217,225,232,.38)', radius: 5 }, position: "relative" },
                 this.$render("i-icon", { name: "times", fill: "red", width: 20, height: 20, position: "absolute", top: 10, right: 10, class: config_css_1.pointerStyle, onClick: (source) => this.deleteItem(itemElm, lastIndex) }),
                 this.$render("i-hstack", null,
@@ -86,8 +86,10 @@ define("@carousel/config", ["require", "exports", "@ijstech/components", "@carou
                     this.$render("i-label", { caption: "*", font: { color: 'red' }, margin: { left: '4px' } }),
                     this.$render("i-label", { caption: ":" })),
                 this.$render("i-panel", null, uploadElm)));
-            if (item === null || item === void 0 ? void 0 : item.image)
+            if (item === null || item === void 0 ? void 0 : item.image) {
+                uploadElm.fileList = [new File([], '')];
                 uploadElm.preview(item === null || item === void 0 ? void 0 : item.image);
+            }
             this.listStack.appendChild(itemElm);
             this.itemMap.set(lastIndex, item || { title: '', description: '' });
         }
@@ -101,7 +103,6 @@ define("@carousel/config", ["require", "exports", "@ijstech/components", "@carou
             if (this.itemMap.has(index)) {
                 const item = this.itemMap.get(index);
                 delete item.image;
-                item.file = undefined;
                 this.itemMap.set(index, item);
             }
         }
@@ -110,7 +111,6 @@ define("@carousel/config", ["require", "exports", "@ijstech/components", "@carou
             if (prop === 'image') {
                 const uploadElm = source;
                 item.image = files ? await uploadElm.toBase64(files[0]) : '';
-                item.file = files[0];
             }
             else {
                 item[prop] = source.value;
