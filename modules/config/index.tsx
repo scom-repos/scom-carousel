@@ -12,6 +12,8 @@ import {
 import { IConfig, IData } from '@carousel/global';
 import { textareaStyle, uploadStyle, pointerStyle } from './config.css';
 
+type PropType = 'title' | 'description' | 'image' | 'color';
+
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -93,7 +95,10 @@ export default class Config extends Module {
           <i-label caption="*" font={{ color: 'red' }} margin={{left: '4px'}}></i-label>
           <i-label caption=":"></i-label>
         </i-hstack>
-        <i-input width="100%" value={item?.title || ''} onChanged={(source: Control) => this.updateList(source, lastIndex, 'title')}></i-input>
+        <i-input
+          width="100%" value={item?.title || ''}
+          onChanged={(source: Control) => this.updateList(source, lastIndex, 'title')}
+        ></i-input>
         <i-label caption="Description:"></i-label>
         <i-input
           class={textareaStyle}
@@ -103,6 +108,12 @@ export default class Config extends Module {
           inputType='textarea'
           value={item?.description || ''}
           onChanged={(source: Control) => this.updateList(source, lastIndex, 'description')}
+        ></i-input>
+        <i-label caption="Font Color:"></i-label>
+        <i-input
+          width="200px" inputType="color"
+          value={item?.color || ''}
+          onChanged={(source: Control) => this.updateList(source, lastIndex, 'color')}
         ></i-input>
         <i-hstack>
           <i-label caption="Image"></i-label>
@@ -137,7 +148,7 @@ export default class Config extends Module {
     }
   }
 
-  private async updateList(source: Control, index: number, prop: 'title' | 'description' | 'image', files?: File[]) {
+  private async updateList(source: Control, index: number, prop: PropType, files?: File[]) {
     const item: any = this.itemMap.get(index);
     if (prop === 'image') {
       const uploadElm = source as Upload;

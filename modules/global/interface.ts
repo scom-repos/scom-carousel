@@ -33,6 +33,7 @@ interface IData {
   title: string;
   description: string;
   image?: string;
+  color?: string;
 }
 
 export { IConfig, PageBlock, IData };

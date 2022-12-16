@@ -88,22 +88,25 @@ export default class Module1 extends Module implements PageBlock {
       this.carouselSlider.classList.add("--indicators");
     else
       this.carouselSlider.classList.remove("--indicators");
-    this.carouselSlider.items = (this._data.data || []).map(item => ({
-      name: item.title,
-      controls: [
-        <i-image
-          display='block'
-          class={`--carousel-item`}
-          width="100%"
-          padding={{ left: '0.5em', right: '0.5em' }}
-          url={item.image}
-        ></i-image>,
-        <i-vstack gap={item.description ? '0.75rem' : '0rem'} padding={{left: '2rem'}} position="absolute" bottom="1.75rem" zIndex={999} width="50%">
-          <i-label caption={item.title || ''} font={{ size: '1.125rem', color: '#fff' }} lineHeight='1.688rem'></i-label>
-          <i-label caption={item.description || ''} font={{size: '1.125rem', color: '#fff'}} lineHeight='1.688rem'></i-label>
-        </i-vstack>
-      ]
-    }));
+    this.carouselSlider.items = (this._data.data || []).map(item => {
+      const color = item?.color || '#fff';
+      return {
+        name: item.title,
+          controls: [
+            <i-image
+              display='block'
+              class={`--carousel-item`}
+              width="100%"
+              padding={{ left: '0.5em', right: '0.5em' }}
+              url={item.image}
+            ></i-image>,
+            <i-vstack gap={item.description ? '0.75rem' : '0rem'} padding={{ left: '2rem' }} position="absolute" bottom="1.75rem" zIndex={999} width="50%">
+              <i-label caption={item.title || ''} font={{ size: '1.125rem', color }} lineHeight='1.688rem' class="text-left"></i-label>
+              <i-label caption={item.description || ''} font={{ size: '1.125rem', color }} lineHeight='1.688rem' class="text-left"></i-label>
+            </i-vstack>
+          ]
+      }
+    });
   }
 
   private prev() {
@@ -127,32 +130,34 @@ export default class Module1 extends Module implements PageBlock {
   render() {
     return (
       <i-panel id="pnlBlock" class={customStyles} maxHeight="100%">
-        <i-panel id="pnlCarousel" maxHeight="100%" overflow={{y: 'hidden'}}>
-          <i-grid-layout id="gridCarousel" width="100%" height="100%" position='relative'>
-            <i-vstack height="100%" width="45px" position="absolute" left="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
-              <i-button
-                id="btnPrev"
-                height="32px"
-                width="32px"
-                icon={{ name: 'chevron-left', fill: '#000' }}
-                background={{ color: 'transparent' }}
-                border={{radius: '50%', width: '0px'}}
-                onClick={this.prev.bind(this)}
-              ></i-button>
-            </i-vstack>
-            <i-carousel-slider id="carouselSlider" width="100%" height="100%" onSwipeStart={this.onSwipeStart} onSwipeEnd={this.onSwipeEnd}></i-carousel-slider>
-            <i-vstack height="100%" width="45px" position="absolute" right="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
-              <i-button
-                id="btnNext"
-                height="32px"
-                width="32px"
-                icon={{ name: 'chevron-right', fill: '#000' }}
-                background={{ color: 'transparent' }}
-                border={{radius: '50%', width: '0px'}}
-                onClick={this.next.bind(this)}
-              ></i-button>
-            </i-vstack>
-          </i-grid-layout>
+        <i-panel id="pnlCarousel" maxHeight="100%" overflow={{ y: 'hidden' }}>
+          <i-panel class="container">
+            <i-grid-layout id="gridCarousel" width="100%" height="100%" position='relative'>
+              <i-vstack height="100%" width="45px" position="absolute" left="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
+                <i-button
+                  id="btnPrev"
+                  height="32px"
+                  width="32px"
+                  icon={{ name: 'chevron-left', fill: '#000' }}
+                  background={{ color: 'transparent' }}
+                  border={{radius: '50%', width: '0px'}}
+                  onClick={this.prev.bind(this)}
+                ></i-button>
+              </i-vstack>
+              <i-carousel-slider id="carouselSlider" width="100%" height="100%" onSwipeStart={this.onSwipeStart} onSwipeEnd={this.onSwipeEnd}></i-carousel-slider>
+              <i-vstack height="100%" width="45px" position="absolute" right="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
+                <i-button
+                  id="btnNext"
+                  height="32px"
+                  width="32px"
+                  icon={{ name: 'chevron-right', fill: '#000' }}
+                  background={{ color: 'transparent' }}
+                  border={{radius: '50%', width: '0px'}}
+                  onClick={this.next.bind(this)}
+                ></i-button>
+              </i-vstack>
+            </i-grid-layout>
+          </i-panel>
         </i-panel>
         <pageblock-slideshow-config id="carouselConfig" visible={false}></pageblock-slideshow-config>
       </i-panel>

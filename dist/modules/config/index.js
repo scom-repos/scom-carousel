@@ -81,6 +81,8 @@ define("@carousel/config", ["require", "exports", "@ijstech/components", "@carou
                 this.$render("i-input", { width: "100%", value: (item === null || item === void 0 ? void 0 : item.title) || '', onChanged: (source) => this.updateList(source, lastIndex, 'title') }),
                 this.$render("i-label", { caption: "Description:" }),
                 this.$render("i-input", { class: config_css_1.textareaStyle, width: "100%", height: "auto", resize: "auto-grow", inputType: 'textarea', value: (item === null || item === void 0 ? void 0 : item.description) || '', onChanged: (source) => this.updateList(source, lastIndex, 'description') }),
+                this.$render("i-label", { caption: "Font Color:" }),
+                this.$render("i-input", { width: "200px", inputType: "color", value: (item === null || item === void 0 ? void 0 : item.color) || '', onChanged: (source) => this.updateList(source, lastIndex, 'color') }),
                 this.$render("i-hstack", null,
                     this.$render("i-label", { caption: "Image" }),
                     this.$render("i-label", { caption: "*", font: { color: 'red' }, margin: { left: '4px' } }),
