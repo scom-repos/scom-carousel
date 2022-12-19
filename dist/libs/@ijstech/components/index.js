@@ -10016,6 +10016,7 @@ __export(exports, {
   Unobserve: () => Unobserve,
   Upload: () => Upload,
   VStack: () => VStack,
+  Video: () => Video,
   application: () => application,
   customElements: () => customElements2,
   customModule: () => customModule,
@@ -10394,8 +10395,8 @@ var defaultTheme = {
   background: {
     default: "#fafafa",
     paper: "#fff",
-    main: "#181e3e",
-    modal: "#192046",
+    main: "#ffffff",
+    modal: "#ffffff",
     gradient: "linear-gradient(90deg, #a8327f 0%, #d4626a 100%)"
   },
   breakboints: {
@@ -10442,6 +10443,14 @@ var defaultTheme = {
       dark: "#f57c00",
       light: "#ffb74d",
       main: "#ff9800"
+    }
+  },
+  layout: {
+    container: {
+      width: "100%",
+      maxWidth: "100%",
+      textAlign: "left",
+      overflow: "auto"
     }
   },
   shadows: {
@@ -10540,6 +10549,14 @@ var darkTheme = {
       dark: "#f57c00",
       light: "#ffb74d",
       main: "#ffa726"
+    }
+  },
+  layout: {
+    container: {
+      width: "100%",
+      maxWidth: "100%",
+      textAlign: "left",
+      overflow: "auto"
     }
   },
   divider: "rgba(255, 255, 255, 0.12)",
@@ -11853,6 +11870,9 @@ var Component = class extends HTMLElement {
   }
   init() {
     this.initialized = true;
+    if (this.options["class"]) {
+      this.setAttribute("class", this.options["class"]);
+    }
     if (this._ready === void 0) {
       this._ready = true;
       if (this._readyCallback) {
@@ -13459,7 +13479,7 @@ var Control = class extends Component {
     this.style.fontFamily = value.name || "";
     this.style.fontStyle = value.style || "";
     this.style.textTransform = value.transform || "none";
-    this.style.fontWeight = value.bold ? "bold" : `${value.weight}` || "";
+    this.style.fontWeight = value.bold ? "bold" : `${value.weight || ""}`;
   }
   get display() {
     return this._display;
@@ -13630,8 +13650,8 @@ var RequireJS = {
   config(config) {
     window.require.config(config);
   },
-  require(reqs, callback) {
-    window.require(reqs, callback);
+  require(reqs2, callback) {
+    window.require(reqs2, callback);
   },
   defined(module2) {
     return window.require.defined(module2);
@@ -14090,15 +14110,6 @@ var Application = class {
   }
   async loadPackage(packageName, modulePath, options) {
     var _a, _b, _c;
-    if (RequireJS.defined(packageName)) {
-      if (!this.packages[packageName]) {
-        let m = window["require"](packageName);
-        if (m)
-          this.packages[packageName] = m.default || m;
-      }
-      return this.packages[packageName];
-    }
-    ;
     options = options || this._initOptions;
     if (options && options.modules && options.modules[packageName]) {
       let pack = options.modules[packageName];
@@ -14112,17 +14123,19 @@ var Application = class {
     ;
     if (!modulePath) {
       if ((_b = options == null ? void 0 : options.modules) == null ? void 0 : _b[packageName])
-        modulePath = "modules/" + ((_c = options == null ? void 0 : options.modules) == null ? void 0 : _c[packageName].path) + "/index.js";
+        modulePath = ((options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : "") + "modules/" + ((_c = options == null ? void 0 : options.modules) == null ? void 0 : _c[packageName].path) + "/index.js";
       else
         return null;
     } else if (modulePath == "*") {
-      modulePath = "libs/" + packageName + "/index.js";
+      modulePath = ((options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : "") + "libs/" + packageName + "/index.js";
     } else if (modulePath.startsWith("{LIB}/")) {
       let libPath = LibPath || "";
       if (LibPath && !LibPath.endsWith("/"))
         libPath = libPath + "/";
       modulePath = modulePath.replace("{LIB}/", libPath);
     }
+    if (this.packages[modulePath])
+      return this.packages[modulePath];
     let script = await this.getScript(modulePath);
     if (script) {
       _currentDefineModule = null;
@@ -14135,14 +14148,16 @@ var Application = class {
       this.currentModulePath = "";
       this.currentModuleDir = "";
       let m = window["require"](packageName);
-      if (m)
+      if (m) {
+        this.packages[modulePath] = m.default || m;
         return m.default || m;
+      }
     }
     ;
     return null;
   }
-  async loadModule(modulePath, options) {
-    let module2 = await this.newModule(modulePath, options);
+  async loadModule(modulePath, options, forceInit) {
+    let module2 = await this.newModule(modulePath, options, forceInit);
     if (module2)
       document.body.append(module2);
     return module2;
@@ -14151,7 +14166,7 @@ var Application = class {
     let options = this._initOptions;
     let modulePath = module2;
     if (options && options.modules && options.modules[module2] && options.modules[module2].path) {
-      modulePath = "/";
+      modulePath = "";
       if (options.rootDir)
         modulePath += options.rootDir + "/";
       if (options.moduleDir)
@@ -14160,11 +14175,12 @@ var Application = class {
       if (!modulePath.endsWith(".js"))
         modulePath += "/index.js";
     } else if (options.dependencies && options.dependencies[module2])
-      modulePath = `libs/${module2}/index.js`;
+      modulePath = `${(options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : ""}libs/${module2}/index.js`;
     return modulePath;
   }
-  async newModule(module2, options) {
-    if (!this._initOptions && options) {
+  async newModule(module2, options, forceInit) {
+    const _initOptions = this._initOptions;
+    if ((!this._initOptions || forceInit) && options) {
       this._initOptions = options;
       if (!this._assets && this._initOptions.assets)
         this._assets = await this.loadPackage(this._initOptions.assets) || {};
@@ -14182,8 +14198,11 @@ var Application = class {
     if (this._initOptions)
       modulePath = this.getModulePath(module2);
     let elmId = this.modulesId[modulePath];
-    if (elmId && modulePath)
+    if (elmId && modulePath) {
+      if (forceInit && _initOptions)
+        this._initOptions = _initOptions;
       return document.createElement(elmId);
+    }
     let script;
     if (options && options.script)
       script = options.script;
@@ -14192,8 +14211,8 @@ var Application = class {
         let dependencies = this._initOptions.modules[module2].dependencies;
         for (let i = 0; i < dependencies.length; i++) {
           let dep = dependencies[i];
-          if (!this.packages[dep]) {
-            let path = this.getModulePath(dep);
+          let path = this.getModulePath(dep);
+          if (!this.packages[path]) {
             await this.loadPackage(dep, path);
           }
           ;
@@ -14225,11 +14244,15 @@ var Application = class {
           };
           customElements.define(elmId, Module2);
           let result = new Module2(null, options);
+          if (forceInit && _initOptions)
+            this._initOptions = _initOptions;
           return result;
         }
         ;
       }
     }
+    if (forceInit && _initOptions)
+      this._initOptions = _initOptions;
     return null;
   }
   async copyToClipboard(value) {
@@ -15479,7 +15502,7 @@ var ComboBox = class extends Control {
       this.openList();
     const ulElm = this.createElement("ul", this.listElm);
     for (let item of this.items) {
-      const label = item.label;
+      const label = item.label || "";
       if (!this.searchStr || label.toLowerCase().includes(this.searchStr.toLowerCase())) {
         const liElm = this.createElement("li", ulElm);
         liElm.setAttribute("data-key", item.value);
@@ -16767,6 +16790,19 @@ var Input = class extends Control {
         this.inputElm.addEventListener("blur", this._handleOnBlur.bind(this));
         this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
         break;
+      case "color":
+        this.captionSpanElm = this.createElement("span", this);
+        this.labelElm = this.createElement("label", this.captionSpanElm);
+        this.inputElm = this.createElement("input", this);
+        this.inputElm.style.height = "auto";
+        this.inputElm.disabled = enabled === false;
+        this.inputElm.setAttribute("type", "color");
+        this.inputElm.addEventListener("input", this._handleChange.bind(this));
+        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
+        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
+        this.inputElm.addEventListener("blur", this._handleOnBlur.bind(this));
+        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
+        break;
       default:
         const inputType = type == "password" ? type : "text";
         this.captionSpanElm = this.createElement("span", this);
@@ -17973,7 +18009,8 @@ var Modal = class extends Container {
     });
   }
   get visible() {
-    return this.wrapperDiv.classList.contains(visibleStyle);
+    var _a;
+    return ((_a = this.wrapperDiv) == null ? void 0 : _a.classList.contains(visibleStyle)) || false;
   }
   set visible(value) {
     var _a, _b;
@@ -21487,34 +21524,36 @@ cssRule("i-pagination", {
   color: Theme24.text.primary,
   "$nest": {
     ".pagination": {
-      display: "inline-flex"
+      display: "inline-flex",
+      flexWrap: "wrap",
+      justifyContent: "center"
     },
     ".pagination a": {
       color: Theme24.text.primary,
       float: "left",
-      padding: "8px 16px",
+      padding: "4px 8px",
+      textAlign: "center",
       textDecoration: "none",
       transition: "background-color .3s",
-      border: "1px solid #ddd"
+      border: "1px solid #ddd",
+      minWidth: 36
     },
     ".pagination a.active": {
       backgroundColor: "#4CAF50",
       color: "white",
-      border: "1px solid #4CAF50"
+      border: "1px solid #4CAF50",
+      cursor: "default"
     },
     ".pagination a.disabled": {
       color: Theme24.text.disabled,
       pointerEvents: "none"
-    },
-    ".pagination-main": {
-      display: "flex"
     }
   }
 });
 
 // packages/pagination/src/pagination.ts
 var pagerCount = 7;
-var pagerCountMobile = 3;
+var pagerCountMobile = 5;
 var defaultCurrentPage = 1;
 var pageSize = 10;
 var Pagination = class extends Control {
@@ -21597,10 +21636,10 @@ var Pagination = class extends Control {
     if (!this.enabled)
       return;
     const target = event.target;
-    target.innerHTML = direction === -1 ? "<<" : ">>";
+    target.innerHTML = direction === -1 ? "&laquo;" : "&raquo;";
   }
   renderEllipsis(step) {
-    let item = this.createElement("a", this._mainPagiElm);
+    let item = this.createElement("a", this._paginationDiv);
     item.id = step === -1 ? "prevMoreElm" : "nextMoreElm";
     item.setAttribute("href", "#");
     item.innerHTML = "...";
@@ -21620,7 +21659,7 @@ var Pagination = class extends Control {
     });
   }
   renderPage(index) {
-    let item = this.createElement("a", this._mainPagiElm);
+    let item = this.createElement("a", this._paginationDiv);
     this.pageItems.push(item);
     item.setAttribute("href", "#");
     item.innerHTML = `${index}`;
@@ -21673,7 +21712,10 @@ var Pagination = class extends Control {
   }
   renderPageItem(size) {
     this.visible = size > 0;
-    this._mainPagiElm.innerHTML = "";
+    this._paginationDiv.innerHTML = "";
+    if (this._prevElm) {
+      this._paginationDiv.appendChild(this._prevElm);
+    }
     this.pageItems = [];
     if (size > 0) {
       if (size > this.pagerCount) {
@@ -21693,9 +21735,12 @@ var Pagination = class extends Control {
     } else if (size < 0) {
       const _s = this.pageItems.length + size;
       for (let i = this.pageItems.length - 1; i >= _s; i--) {
-        this._mainPagiElm.removeChild(this.pageItems[i]);
+        this._paginationDiv.removeChild(this.pageItems[i]);
         this.pageItems.pop();
       }
+    }
+    if (this._nextElm) {
+      this._paginationDiv.append(this._nextElm);
     }
   }
   init() {
@@ -21703,7 +21748,7 @@ var Pagination = class extends Control {
     if (!this._paginationDiv) {
       this.pageItems = [];
       this._paginationDiv = this.createElement("div", this);
-      this._paginationDiv.classList.add("pagination");
+      this._paginationDiv.classList.add("pagination", "pagination-main");
       this._prevElm = this.createElement("a", this._paginationDiv);
       this._prevElm.setAttribute("href", "#");
       this._prevElm.innerHTML = "&laquo;";
@@ -21713,8 +21758,6 @@ var Pagination = class extends Control {
         e.stopPropagation();
         this._handleOnPrev(e);
       });
-      this._mainPagiElm = this.createElement("div", this._paginationDiv);
-      this._mainPagiElm.classList.add("pagination-main");
       this.currentPage = +this.getAttribute("currentPage", true, defaultCurrentPage);
       this.totalPages = +this.getAttribute("totalPages", true, 0);
       this.pageSize = +this.getAttribute("pageSize", true, pageSize);
@@ -23354,26 +23397,11 @@ var CarouselItem = class extends Container {
   }
   set name(value) {
     this._name = value;
-    if (!this.nameElm) {
-      this.nameElm = this.createElement("div", this);
-    }
-    this.labelElm.innerHTML = value;
-  }
-  get label() {
-    return this._label;
-  }
-  set label(value) {
-    this._label = value;
-    if (!this.labelElm) {
-      this.labelElm = this.createElement("div", this);
-    }
-    this.labelElm.innerHTML = value;
   }
   addChildControl(control) {
     this.appendChild(control);
   }
   init() {
-    this.label = this.options.label;
     this.name = this.options.name;
     this._controls = this.options.controls || [];
     super.init();
@@ -23433,6 +23461,83 @@ var moment;
 RequireJS.require(["@moment"], (_moment) => {
   moment = _moment;
 });
+
+// packages/video/src/style/video.css.ts
+cssRule("i-video", {
+  $nest: {}
+});
+
+// packages/video/src/video.ts
+var reqs = ["video-js"];
+RequireJS.config({
+  baseUrl: `${LibPath}lib/video-js`,
+  paths: {
+    "video-js": "video-js"
+  }
+});
+function loadCss() {
+  const cssId = "videoCss";
+  if (!document.getElementById(cssId)) {
+    const head = document.getElementsByTagName("head")[0];
+    const link = document.createElement("link");
+    link.id = cssId;
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = `${LibPath}lib/video-js/video-js.css`;
+    link.media = "all";
+    head.appendChild(link);
+  }
+}
+var Video = class extends Container {
+  get url() {
+    return this._url;
+  }
+  set url(value) {
+    this._url = value;
+    if (value && !this.sourceElm)
+      this.sourceElm = this.createElement("source", this.videoElm);
+    if (this.sourceElm)
+      this.sourceElm.src = value;
+  }
+  init() {
+    if (!this.initialized) {
+      super.init();
+      loadCss();
+      const self = this;
+      let id = `video-${new Date().getTime()}`;
+      this.videoElm = this.createElement("video-js", this);
+      this.videoElm.id = id;
+      this.videoElm.setAttribute("controls", "true");
+      this.videoElm.setAttribute("preload", "auto");
+      this.videoElm.classList.add("vjs-default-skin");
+      this.sourceElm = this.createElement("source", this.videoElm);
+      this.sourceElm.type = "application/x-mpegURL";
+      this.url = this.getAttribute("url", true);
+      RequireJS.require(reqs, function(videojs) {
+        self.player = videojs(id, {
+          playsinline: true,
+          autoplay: false,
+          controls: true,
+          fluid: true,
+          aspectRatio: "16:9",
+          responsive: true,
+          inactivityTimeout: 500,
+          preload: "auto",
+          techOrder: ["html5"],
+          plugins: {}
+        });
+      });
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+Video = __decorateClass([
+  customElements2("i-video")
+], Video);
 /*!-----------------------------------------------------------
 * Copyright (c) IJS Technologies. All rights reserved.
 * Released under dual AGPLv3/commercial license
