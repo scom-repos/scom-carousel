@@ -26,15 +26,23 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
                 bottom: '1.75rem',
                 paddingRight: '1.75rem',
                 $nest: {
+                    'li.--dot': {
+                        zIndex: 2
+                    },
                     'li > span': {
                         display: 'inline-block',
-                        height: 4,
-                        width: 24,
+                        height: 5,
+                        width: 25,
                         transition: 'all 0.2s ease 0s',
                         borderRadius: '9999px',
                         minHeight: 0,
                         minWidth: 0,
-                        border: `1px solid ${components_1.Styles.Theme.ThemeVars.colors.primary.main}`
+                        backgroundColor: '#ffffff66',
+                        border: 0,
+                        // border: `1px solid ${Styles.Theme.ThemeVars.colors.primary.main}`
+                    },
+                    'li.--active > span': {
+                        backgroundColor: '#fff'
                     }
                 }
             },
@@ -114,7 +122,7 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             const dataList = ((_a = this.carouselConfig.data) === null || _a === void 0 ? void 0 : _a.data) || [];
             if (dataList.length < 1)
                 return false;
-            const emptyProp = dataList.find(item => !item.title || !item.image);
+            const emptyProp = dataList.find(item => !item.title || !(item.image || item.imageUrl));
             return !emptyProp;
         }
         async confirm() {
@@ -148,11 +156,15 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
                 this.carouselSlider.classList.remove("--indicators");
             this.carouselSlider.items = (this._data.data || []).map(item => {
                 const color = (item === null || item === void 0 ? void 0 : item.color) || '#fff';
+                const imageUrl = item.imageUrl || item.image || "";
                 return {
                     name: item.title,
                     controls: [
-                        this.$render("i-image", { display: 'block', class: `--carousel-item`, width: "100%", padding: { left: '0.5em', right: '0.5em' }, url: item.image }),
-                        this.$render("i-vstack", { gap: item.description ? '0.75rem' : '0rem', padding: { left: '2rem' }, position: "absolute", bottom: "1.75rem", zIndex: 999, width: "50%" },
+                        this.$render("i-panel", { padding: { left: '0.5em', right: '0.5em' } },
+                            this.$render("i-panel", { display: 'flex', width: "100%", height: "100%", overflow: "hidden", border: { radius: '0.75rem' } },
+                                this.$render("i-image", { display: 'block', class: `--carousel-item`, width: "100%", url: imageUrl, overflow: "hidden" }),
+                                this.$render("i-panel", { position: 'absolute', width: "100%", height: "100%", background: { color: 'linear-gradient(transparent 45%, rgba(0, 0, 0, 0.35) 75%, rgba(0, 0, 0, 0.55))' } }))),
+                        this.$render("i-vstack", { gap: item.description ? '0.75rem' : '0rem', padding: { left: '2rem' }, position: "absolute", bottom: "1.75rem", zIndex: 1, width: "50%" },
                             this.$render("i-label", { caption: item.title || '', font: { size: '1.125rem', color }, lineHeight: '1.688rem', class: "text-left" }),
                             this.$render("i-label", { caption: item.description || '', font: { size: '1.125rem', color }, lineHeight: '1.688rem', class: "text-left" }))
                     ]
@@ -180,10 +192,10 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
                 this.$render("i-panel", { id: "pnlCarousel", maxHeight: "100%", overflow: { y: 'hidden' } },
                     this.$render("i-panel", { class: "container" },
                         this.$render("i-grid-layout", { id: "gridCarousel", width: "100%", height: "100%", position: 'relative' },
-                            this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", left: "2rem", zIndex: 999, verticalAlignment: "center", class: "--button-wrap" },
+                            this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", left: "2rem", zIndex: 1, verticalAlignment: "center", class: "--button-wrap" },
                                 this.$render("i-button", { id: "btnPrev", height: "32px", width: "32px", icon: { name: 'chevron-left', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.prev.bind(this) })),
-                            this.$render("i-carousel-slider", { id: "carouselSlider", width: "100%", height: "100%", onSwipeStart: this.onSwipeStart, onSwipeEnd: this.onSwipeEnd }),
-                            this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", right: "2rem", zIndex: 999, verticalAlignment: "center", class: "--button-wrap" },
+                            this.$render("i-carousel-slider", { id: "carouselSlider", width: "100%", height: "100%", autoplaySpeed: 8000, onSwipeStart: this.onSwipeStart, onSwipeEnd: this.onSwipeEnd }),
+                            this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", right: "2rem", zIndex: 1, verticalAlignment: "center", class: "--button-wrap" },
                                 this.$render("i-button", { id: "btnNext", height: "32px", width: "32px", icon: { name: 'chevron-right', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.next.bind(this) }))))),
                 this.$render("pageblock-slideshow-config", { id: "carouselConfig", visible: false })));
         }

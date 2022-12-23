@@ -87,7 +87,10 @@ define("@carousel/config", ["require", "exports", "@ijstech/components", "@carou
                     this.$render("i-label", { caption: "Image" }),
                     this.$render("i-label", { caption: "*", font: { color: 'red' }, margin: { left: '4px' } }),
                     this.$render("i-label", { caption: ":" })),
-                this.$render("i-panel", null, uploadElm)));
+                this.$render("i-panel", null, uploadElm),
+                this.$render("i-panel", { id: "linkStack" },
+                    this.$render("i-label", { caption: "URL" }),
+                    this.$render("i-input", { width: "100%", onChanged: (source) => this.updateList(source, lastIndex, 'imageUrl') }))));
             if (item === null || item === void 0 ? void 0 : item.image) {
                 uploadElm.fileList = [new File([], '')];
                 uploadElm.preview(item === null || item === void 0 ? void 0 : item.image);

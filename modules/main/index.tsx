@@ -53,7 +53,7 @@ export default class Module1 extends Module implements PageBlock {
   validate() {
     const dataList = this.carouselConfig.data?.data || [];
     if (dataList.length < 1) return false;
-    const emptyProp = dataList.find(item => !item.title || !item.image);
+    const emptyProp = dataList.find(item => !item.title || !(item.image || item.imageUrl));
     return !emptyProp;
   }
 
@@ -90,21 +90,27 @@ export default class Module1 extends Module implements PageBlock {
       this.carouselSlider.classList.remove("--indicators");
     this.carouselSlider.items = (this._data.data || []).map(item => {
       const color = item?.color || '#fff';
+      const imageUrl = item.imageUrl || item.image || "";
       return {
         name: item.title,
-          controls: [
-            <i-image
-              display='block'
-              class={`--carousel-item`}
-              width="100%"
-              padding={{ left: '0.5em', right: '0.5em' }}
-              url={item.image}
-            ></i-image>,
-            <i-vstack gap={item.description ? '0.75rem' : '0rem'} padding={{ left: '2rem' }} position="absolute" bottom="1.75rem" zIndex={999} width="50%">
-              <i-label caption={item.title || ''} font={{ size: '1.125rem', color }} lineHeight='1.688rem' class="text-left"></i-label>
-              <i-label caption={item.description || ''} font={{ size: '1.125rem', color }} lineHeight='1.688rem' class="text-left"></i-label>
-            </i-vstack>
-          ]
+        controls: [
+          <i-panel padding={{ left: '0.5em', right: '0.5em' }}>
+            <i-panel display='flex' width="100%" height="100%" overflow="hidden" border={{ radius: '0.75rem' }}>
+              <i-image
+                display='block'
+                class={`--carousel-item`}
+                width="100%"
+                url={imageUrl}
+                overflow="hidden"
+              ></i-image>
+              <i-panel position='absolute' width="100%" height="100%" background={{ color: 'linear-gradient(transparent 45%, rgba(0, 0, 0, 0.35) 75%, rgba(0, 0, 0, 0.55))' }}></i-panel>
+            </i-panel>
+          </i-panel>,
+          <i-vstack gap={item.description ? '0.75rem' : '0rem'} padding={{ left: '2rem' }} position="absolute" bottom="1.75rem" zIndex={1} width="50%">
+            <i-label caption={item.title || ''} font={{ size: '1.125rem', color }} lineHeight='1.688rem' class="text-left"></i-label>
+            <i-label caption={item.description || ''} font={{ size: '1.125rem', color }} lineHeight='1.688rem' class="text-left"></i-label>
+          </i-vstack>
+        ]
       }
     });
   }
@@ -133,7 +139,7 @@ export default class Module1 extends Module implements PageBlock {
         <i-panel id="pnlCarousel" maxHeight="100%" overflow={{ y: 'hidden' }}>
           <i-panel class="container">
             <i-grid-layout id="gridCarousel" width="100%" height="100%" position='relative'>
-              <i-vstack height="100%" width="45px" position="absolute" left="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
+              <i-vstack height="100%" width="45px" position="absolute" left="2rem" zIndex={1} verticalAlignment="center" class="--button-wrap">
                 <i-button
                   id="btnPrev"
                   height="32px"
@@ -144,8 +150,15 @@ export default class Module1 extends Module implements PageBlock {
                   onClick={this.prev.bind(this)}
                 ></i-button>
               </i-vstack>
-              <i-carousel-slider id="carouselSlider" width="100%" height="100%" onSwipeStart={this.onSwipeStart} onSwipeEnd={this.onSwipeEnd}></i-carousel-slider>
-              <i-vstack height="100%" width="45px" position="absolute" right="2rem" zIndex={999} verticalAlignment="center" class="--button-wrap">
+              <i-carousel-slider
+                id="carouselSlider"
+                width="100%"
+                height="100%"
+                autoplaySpeed={8000}
+                onSwipeStart={this.onSwipeStart}
+                onSwipeEnd={this.onSwipeEnd}
+              ></i-carousel-slider>
+              <i-vstack height="100%" width="45px" position="absolute" right="2rem" zIndex={1} verticalAlignment="center" class="--button-wrap">
                 <i-button
                   id="btnNext"
                   height="32px"

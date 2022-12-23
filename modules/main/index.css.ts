@@ -19,15 +19,23 @@ export default Styles.style({
       bottom: '1.75rem',
       paddingRight: '1.75rem',
       $nest: {
+        'li.--dot': {
+          zIndex: 2
+        },
         'li > span': {
           display: 'inline-block',
-          height: 4,
-          width: 24,
+          height: 5,
+          width: 25,
           transition: 'all 0.2s ease 0s',
           borderRadius: '9999px',
           minHeight: 0,
           minWidth: 0,
-          border: `1px solid ${Styles.Theme.ThemeVars.colors.primary.main}`
+          backgroundColor: '#ffffff66',
+          border: 0,
+          // border: `1px solid ${Styles.Theme.ThemeVars.colors.primary.main}`
+        },
+        'li.--active > span': {
+          backgroundColor: '#fff'
         }
       }
     },

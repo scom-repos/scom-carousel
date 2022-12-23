@@ -12,7 +12,7 @@ import {
 import { IConfig, IData } from '@carousel/global';
 import { textareaStyle, uploadStyle, pointerStyle } from './config.css';
 
-type PropType = 'title' | 'description' | 'image' | 'color';
+type PropType = 'title' | 'description' | 'image' | 'imageUrl' | 'color';
 
 declare global {
   namespace JSX {
@@ -92,7 +92,7 @@ export default class Config extends Module {
         ></i-icon>
         <i-hstack>
           <i-label caption="Name"></i-label>
-          <i-label caption="*" font={{ color: 'red' }} margin={{left: '4px'}}></i-label>
+          <i-label caption="*" font={{ color: 'red' }} margin={{ left: '4px' }}></i-label>
           <i-label caption=":"></i-label>
         </i-hstack>
         <i-input
@@ -117,11 +117,15 @@ export default class Config extends Module {
         ></i-input>
         <i-hstack>
           <i-label caption="Image"></i-label>
-          <i-label caption="*" font={{ color: 'red' }} margin={{left: '4px'}}></i-label>
+          <i-label caption="*" font={{ color: 'red' }} margin={{ left: '4px' }}></i-label>
           <i-label caption=":"></i-label>
         </i-hstack>
         <i-panel>
           {uploadElm}
+        </i-panel>
+        <i-panel id="linkStack">
+          <i-label caption="URL"></i-label>
+          <i-input width="100%" onChanged={(source: Control) => this.updateList(source, lastIndex, 'imageUrl')}></i-input>
         </i-panel>
       </i-vstack>
     );
@@ -139,7 +143,7 @@ export default class Config extends Module {
       this.itemMap.delete(index);
     }
   }
-  
+
   private onRemovedImage(index: number) {
     if (this.itemMap.has(index)) {
       const item = this.itemMap.get(index);
