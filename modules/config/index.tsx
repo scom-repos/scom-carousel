@@ -67,16 +67,16 @@ export default class Config extends Module {
 
   private addItem(item?: IData) {
     const lastIndex = this.itemList.length;
-    const uploadElm: Upload = (
-      <i-upload
-        maxHeight={200}
-        maxWidth={200}
-        margin={{ top: 0, bottom: 0 }}
-        class={uploadStyle}
-        onChanged={(source: Control, files: File[]) => this.updateList(source, lastIndex, 'image', files)}
-        onRemoved={() => this.onRemovedImage(lastIndex)}
-      ></i-upload>
-    )
+    // const uploadElm: Upload = (
+    //   <i-upload
+    //     maxHeight={200}
+    //     maxWidth={200}
+    //     margin={{ top: 0, bottom: 0 }}
+    //     class={uploadStyle}
+    //     onChanged={(source: Control, files: File[]) => this.updateList(source, lastIndex, 'image', files)}
+    //     onRemoved={() => this.onRemovedImage(lastIndex)}
+    //   ></i-upload>
+    // )
     const itemElm = (
       <i-vstack
         gap='0.5rem'
@@ -116,28 +116,32 @@ export default class Config extends Module {
           value={item?.color || ''}
           onChanged={(source: Control) => this.updateList(source, lastIndex, 'color')}
         ></i-input>
-        <i-hstack>
+        {/* <i-hstack>
           <i-label caption="Image"></i-label>
           <i-label caption="*" font={{ color: 'red' }} margin={{ left: '4px' }}></i-label>
           <i-label caption=":"></i-label>
         </i-hstack>
         <i-panel>
           {uploadElm}
-        </i-panel>
+        </i-panel> */}
         <i-panel>
-          <i-label caption="Image URL"></i-label>
+          <i-hstack>
+            <i-label caption="Image URL"></i-label>
+            <i-label caption="*" font={{ color: 'red' }} margin={{ left: '4px' }}></i-label>
+            <i-label caption=":"></i-label>
+          </i-hstack>
           <i-input width="100%" value={item?.imageUrl || ''} onChanged={(source: Control) => this.updateList(source, lastIndex, 'imageUrl')}></i-input>
         </i-panel>
         <i-panel>
-          <i-label caption="Link URL"></i-label>
+          <i-label caption="Link URL:"></i-label>
           <i-input width="100%" value={item?.link || ''} onChanged={(source: Control) => this.updateList(source, lastIndex, 'link')}></i-input>
         </i-panel>
       </i-vstack>
     );
-    if (item?.image) {
-      uploadElm.fileList = [new File([], '')];
-      uploadElm.preview(item?.image);
-    }
+    // if (item?.image) {
+    //   uploadElm.fileList = [new File([], '')];
+    //   uploadElm.preview(item?.image);
+    // }
     this.listStack.appendChild(itemElm);
     this.itemMap.set(lastIndex, item || { title: '', description: '' });
   }
