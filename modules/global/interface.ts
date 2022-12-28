@@ -35,6 +35,7 @@ interface IData {
   image?: string;
   imageUrl?: string;
   color?: string;
+  link?: string;
 }
 
 export { IConfig, PageBlock, IData };

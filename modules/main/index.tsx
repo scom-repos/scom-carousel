@@ -94,7 +94,7 @@ export default class Module1 extends Module implements PageBlock {
       return {
         name: item.title,
         controls: [
-          <i-panel padding={{ left: '0.5em', right: '0.5em' }}>
+          <i-panel class={item.link ? "pointer" : ""} padding={{ left: '0.5em', right: '0.5em' }} onClick={() => this.openLink(item.link)}>
             <i-panel display='flex' width="100%" height="100%" overflow="hidden" border={{ radius: '0.75rem' }}>
               <i-image
                 display='block'
@@ -113,6 +113,10 @@ export default class Module1 extends Module implements PageBlock {
         ]
       }
     });
+  }
+
+  private openLink = (url: string) => {
+    if (url) window.open(url, '_self')
   }
 
   private prev() {

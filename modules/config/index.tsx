@@ -12,7 +12,7 @@ import {
 import { IConfig, IData } from '@carousel/global';
 import { textareaStyle, uploadStyle, pointerStyle } from './config.css';
 
-type PropType = 'title' | 'description' | 'image' | 'imageUrl' | 'color';
+type PropType = 'title' | 'description' | 'image' | 'imageUrl' | 'color' | 'link';
 
 declare global {
   namespace JSX {
@@ -71,6 +71,7 @@ export default class Config extends Module {
       <i-upload
         maxHeight={200}
         maxWidth={200}
+        margin={{ top: 0, bottom: 0 }}
         class={uploadStyle}
         onChanged={(source: Control, files: File[]) => this.updateList(source, lastIndex, 'image', files)}
         onRemoved={() => this.onRemovedImage(lastIndex)}
@@ -123,9 +124,13 @@ export default class Config extends Module {
         <i-panel>
           {uploadElm}
         </i-panel>
-        <i-panel id="linkStack">
-          <i-label caption="URL"></i-label>
+        <i-panel>
+          <i-label caption="Image URL"></i-label>
           <i-input width="100%" value={item?.imageUrl || ''} onChanged={(source: Control) => this.updateList(source, lastIndex, 'imageUrl')}></i-input>
+        </i-panel>
+        <i-panel>
+          <i-label caption="Link URL"></i-label>
+          <i-input width="100%" value={item?.link || ''} onChanged={(source: Control) => this.updateList(source, lastIndex, 'link')}></i-input>
         </i-panel>
       </i-vstack>
     );

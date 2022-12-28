@@ -97,6 +97,10 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             super(...arguments);
             this._data = {};
             this.defaultEdit = true;
+            this.openLink = (url) => {
+                if (url)
+                    window.open(url, '_self');
+            };
         }
         getData() {
             return this._data;
@@ -160,7 +164,7 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
                 return {
                     name: item.title,
                     controls: [
-                        this.$render("i-panel", { padding: { left: '0.5em', right: '0.5em' } },
+                        this.$render("i-panel", { class: item.link ? "pointer" : "", padding: { left: '0.5em', right: '0.5em' }, onClick: () => this.openLink(item.link) },
                             this.$render("i-panel", { display: 'flex', width: "100%", height: "100%", overflow: "hidden", border: { radius: '0.75rem' } },
                                 this.$render("i-image", { display: 'block', class: `--carousel-item`, width: "100%", url: imageUrl, overflow: "hidden" }),
                                 this.$render("i-panel", { position: 'absolute', width: "100%", height: "100%", background: { color: 'linear-gradient(transparent 45%, rgba(0, 0, 0, 0.35) 75%, rgba(0, 0, 0, 0.55))' } }))),
