@@ -23,8 +23,5 @@
             ]
         }
     },
-    "dependencies": {
-        "@ijstech/eth-wallet": "*",
-        "@ijstech/eth-contract": "*"
-    }
+    "dependencies": {}
 }
