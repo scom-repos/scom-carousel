@@ -1,25 +1,25 @@
 {
-    "name": "@carousel/main",
+    "name": "@scom-carousel/main",
     "version": "0.1.0",
     "env": "",
     "moduleDir": "modules",
-    "main": "@carousel/main",
+    "main": "@scom-carousel/main",
     "modules": {
-        "@carousel/main": {
+        "@scom-carousel/main": {
             "path": "main",
             "dependencies": [
-                "@carousel/global",
-                "@carousel/config"
+                "@scom-carousel/global",
+                "@scom-carousel/config"
             ]
         },
-        "@carousel/global": {
+        "@scom-carousel/global": {
             "path": "global",
             "dependencies": []
         },
-        "@carousel/config": {
+        "@scom-carousel/config": {
             "path": "config",
             "dependencies": [
-                "@carousel/global"
+                "@scom-carousel/global"
             ]
         }
     },

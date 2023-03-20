@@ -1,20 +1,19 @@
 {
-  "name": "@carousel/main",
+  "name": "@scom-carousel/main",
   "version": "0.1.0",
   "env": "",
-  "moduleDir": "modules",
-  "main": "@carousel/main",
+  "moduleDir": "src",
+  "main": "@scom-carousel/main",
   "modules": {
-    "@carousel/main": {
+    "@scom-carousel/main": {
       "path": "main"
     },
-    "@carousel/global": {
+    "@scom-carousel/global": {
       "path": "global"
     },
-    "@carousel/config": {
+    "@scom-carousel/config": {
       "path": "config"
     }
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

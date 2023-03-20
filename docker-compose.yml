@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   install:
     image: node:18
@@ -6,17 +6,17 @@ services:
     volumes:
       - .:/app
     command: bash -c "cd /app && rm -rf node_modules && rm -f package-lock.json && npm i"
-  build: 
+  build:
     image: node:18
     user: root
     volumes:
       - .:/app
-    command: bash -c "cd /app && npm run build"  
+    command: bash -c "cd /app && npm run build"
   serve:
     image: node:18
     user: root
     ports:
-      - "8075:8080"
+      - '8075:8080'
     volumes:
       - .:/app
     command: bash -c "cd /app && npm run build && npm run serve"

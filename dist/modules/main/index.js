@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/components"], function (require, exports, components_1) {
+define("@scom-carousel/main/index.css.ts", ["require", "exports", "@ijstech/components"], function (require, exports, components_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const Theme = components_1.Styles.Theme.ThemeVars;
@@ -15,7 +15,7 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
                 maxWidth: Theme.layout.container.maxWidth,
                 overflow: Theme.layout.container.overflow,
                 textAlign: Theme.layout.container.textAlign,
-                margin: '0 auto'
+                margin: '0 auto',
             },
             'i-carousel-slider.--indicators .dots-pagination': {
                 display: 'flex',
@@ -27,7 +27,7 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
                 paddingRight: '1.75rem',
                 $nest: {
                     'li.--dot': {
-                        zIndex: 2
+                        zIndex: 2,
                     },
                     'li > span': {
                         display: 'inline-block',
@@ -42,12 +42,12 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
                         // border: `1px solid ${Styles.Theme.ThemeVars.colors.primary.main}`
                     },
                     'li.--active > span': {
-                        backgroundColor: '#fff'
-                    }
-                }
+                        backgroundColor: '#fff',
+                    },
+                },
             },
             'i-carousel-slider .dots-pagination': {
-                display: 'none'
+                display: 'none',
             },
             '.--carousel-item > img': {
                 width: '100%',
@@ -64,30 +64,30 @@ define("@carousel/main/index.css.ts", ["require", "exports", "@ijstech/component
                         borderRadius: '50%',
                         $nest: {
                             '> i-icon': {
-                                visibility: 'visible'
-                            }
-                        }
-                    }
-                }
+                                visibility: 'visible',
+                            },
+                        },
+                    },
+                },
             },
             '.--arrow-button': {
                 boxShadow: 'none',
                 $nest: {
                     '& > span': {
-                        display: 'none'
+                        display: 'none',
                     },
                     '& > i-icon': {
-                        visibility: 'hidden'
-                    }
-                }
+                        visibility: 'hidden',
+                    },
+                },
             },
             '.text-left': {
-                textAlign: 'left'
-            }
-        }
+                textAlign: 'left',
+            },
+        },
     });
 });
-define("@carousel/main", ["require", "exports", "@ijstech/components", "@carousel/main/index.css.ts", "@carousel/config"], function (require, exports, components_2, index_css_1, config_1) {
+define("@scom-carousel/main", ["require", "exports", "@ijstech/components", "@scom-carousel/main/index.css.ts", "@scom-carousel/config"], function (require, exports, components_2, index_css_1, config_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Config = void 0;
@@ -126,7 +126,7 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             const dataList = ((_a = this.carouselConfig.data) === null || _a === void 0 ? void 0 : _a.data) || [];
             if (dataList.length < 1)
                 return false;
-            const emptyProp = dataList.find(item => !item.title || !(item.image || item.imageUrl));
+            const emptyProp = dataList.find((item) => !item.title || !(item.image || item.imageUrl));
             return !emptyProp;
         }
         async confirm() {
@@ -155,23 +155,25 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
                 this.btnPrev.classList.remove('--arrow-button');
             }
             if (this._data.indicators)
-                this.carouselSlider.classList.add("--indicators");
+                this.carouselSlider.classList.add('--indicators');
             else
-                this.carouselSlider.classList.remove("--indicators");
-            this.carouselSlider.items = (this._data.data || []).map(item => {
+                this.carouselSlider.classList.remove('--indicators');
+            this.carouselSlider.items = (this._data.data || []).map((item) => {
                 const color = (item === null || item === void 0 ? void 0 : item.color) || '#fff';
-                const imageUrl = item.imageUrl || item.image || "";
+                const imageUrl = item.imageUrl || item.image || '';
                 return {
                     name: item.title,
                     controls: [
-                        this.$render("i-panel", { class: item.link ? "pointer" : "", padding: { left: '0.5em', right: '0.5em' }, onClick: () => this.openLink(item.link) },
-                            this.$render("i-panel", { display: 'flex', width: "100%", height: "100%", overflow: "hidden", border: { radius: '0.75rem' } },
-                                this.$render("i-image", { display: 'block', class: `--carousel-item`, width: "100%", url: imageUrl, overflow: "hidden" }),
-                                this.$render("i-panel", { position: 'absolute', width: "100%", height: "100%", background: { color: 'linear-gradient(transparent 45%, rgba(0, 0, 0, 0.35) 75%, rgba(0, 0, 0, 0.55))' } }))),
+                        this.$render("i-panel", { class: item.link ? 'pointer' : '', padding: { left: '0.5em', right: '0.5em' }, onClick: () => this.openLink(item.link) },
+                            this.$render("i-panel", { display: "flex", width: "100%", height: "100%", overflow: "hidden", border: { radius: '0.75rem' } },
+                                this.$render("i-image", { display: "block", class: `--carousel-item`, width: "100%", url: imageUrl, overflow: "hidden" }),
+                                this.$render("i-panel", { position: "absolute", width: "100%", height: "100%", background: {
+                                        color: 'linear-gradient(transparent 45%, rgba(0, 0, 0, 0.35) 75%, rgba(0, 0, 0, 0.55))',
+                                    } }))),
                         this.$render("i-vstack", { gap: item.description ? '0.75rem' : '0rem', padding: { left: '2rem' }, position: "absolute", bottom: "1.75rem", zIndex: 1, width: "50%" },
-                            this.$render("i-label", { caption: item.title || '', font: { size: '1.125rem', color }, lineHeight: '1.688rem', class: "text-left" }),
-                            this.$render("i-label", { caption: item.description || '', font: { size: '1.125rem', color }, lineHeight: '1.688rem', class: "text-left" }))
-                    ]
+                            this.$render("i-label", { caption: item.title || '', font: { size: '1.125rem', color }, lineHeight: "1.688rem", class: "text-left" }),
+                            this.$render("i-label", { caption: item.description || '', font: { size: '1.125rem', color }, lineHeight: "1.688rem", class: "text-left" })),
+                    ],
                 };
             });
         }
@@ -195,7 +197,7 @@ define("@carousel/main", ["require", "exports", "@ijstech/components", "@carouse
             return (this.$render("i-panel", { id: "pnlBlock", class: index_css_1.default, maxHeight: "100%" },
                 this.$render("i-panel", { id: "pnlCarousel", maxHeight: "100%", overflow: { y: 'hidden' } },
                     this.$render("i-panel", { class: "container" },
-                        this.$render("i-grid-layout", { id: "gridCarousel", width: "100%", height: "100%", position: 'relative' },
+                        this.$render("i-grid-layout", { id: "gridCarousel", width: "100%", height: "100%", position: "relative" },
                             this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", left: "2rem", zIndex: 1, verticalAlignment: "center", class: "--button-wrap" },
                                 this.$render("i-button", { id: "btnPrev", height: "32px", width: "32px", icon: { name: 'chevron-left', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.prev.bind(this) })),
                             this.$render("i-carousel-slider", { id: "carouselSlider", width: "100%", height: "100%", autoplaySpeed: 8000, onSwipeStart: this.onSwipeStart, onSwipeEnd: this.onSwipeEnd }),

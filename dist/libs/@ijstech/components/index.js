@@ -5208,21 +5208,21 @@ function BufferBigIntNotDefined () {
   };
 
   //https://github.com/protobufjs/protobuf.js/blob/2cdbba32da9951c1ff14e55e65e4a9a9f24c70fd/src/util/minimal.js#L402
-  util_configure = function () {
-    var Buffer = util_Buffer;
-    if (!Buffer) {
-      util_Buffer_from = util_Buffer_allocUnsafe = null;
-      return;
-    }
-    util_Buffer_from = Buffer.from !== Uint8Array.from && Buffer.from ||
-      function Buffer_from(value, encoding) {
-        return new Buffer(value, encoding);
-      };
-    util_Buffer_allocUnsafe = Buffer.allocUnsafe ||
-      function Buffer_allocUnsafe(size) {
-        return new Buffer(size);
-      };
-  };
+  // util_configure = function () {
+  //   var Buffer = util_Buffer;
+  //   if (!Buffer) {
+  //     util_Buffer_from = util_Buffer_allocUnsafe = null;
+  //     return;
+  //   }
+  //   util_Buffer_from = Buffer.from !== Uint8Array.from && Buffer.from ||
+  //     function Buffer_from(value, encoding) {
+  //       return new Buffer(value, encoding);
+  //     };
+  //   util_Buffer_allocUnsafe = Buffer.allocUnsafe ||
+  //     function Buffer_allocUnsafe(size) {
+  //       return new Buffer(size);
+  //     };
+  // };
 
   protobuf.rpc = {};
   protobuf.roots = {};
@@ -5230,7 +5230,7 @@ function BufferBigIntNotDefined () {
 
   //https://github.com/protobufjs/protobuf.js/blob/2cdbba32da9951c1ff14e55e65e4a9a9f24c70fd/src/index-minimal.js#L29
   function configure() {
-    util_configure();
+    // util_configure();
     Writer._configure(BufferWriter);
     Reader._configure(BufferReader);
   }
@@ -5937,7 +5937,7 @@ function BufferBigIntNotDefined () {
   const from = ({ name, code, encode }) => new Hasher(name, code, encode)
 
   //https://github.com/multiformats/js-multiformats/blob/bb14a29dd823a517ef0c6c741d265e022591d831/src/hashes/sha2.js#L7
-  s_sha256 = from({
+  const s_sha256 = from({
     name: 'sha2-256',
     code: 18,
     //encode: (input) => coerce(crypto__default["default"].createHash('sha256').update(input).digest())
@@ -6241,7 +6241,7 @@ function BufferBigIntNotDefined () {
         Tsize: item.size
       })
     };
-
+    Links.sort(linkComparator);
     try {
       const dirUnixFS = new UnixFS({
         type: 'directory',
@@ -9925,6 +9925,1773 @@ function BufferBigIntNotDefined () {
   //   globalObject.IPFSUtils = { parse, hashItems, hashContent, hashFile, mergeOptions };
   // };
 })(this);
+/*! @license DOMPurify 3.0.1 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.0.1/LICENSE */
+
+(function (global, factory) {
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DOMPurify = factory());
+})(this, (function () { 'use strict';
+
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+      return typeof obj;
+    } : function (obj) {
+      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    }, _typeof(obj);
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
+  function _isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function _construct(Parent, args, Class) {
+    if (_isNativeReflectConstruct()) {
+      _construct = Reflect.construct;
+    } else {
+      _construct = function _construct(Parent, args, Class) {
+        var a = [null];
+        a.push.apply(a, args);
+        var Constructor = Function.bind.apply(Parent, a);
+        var instance = new Constructor();
+        if (Class) _setPrototypeOf(instance, Class.prototype);
+        return instance;
+      };
+    }
+
+    return _construct.apply(null, arguments);
+  }
+
+  function _slicedToArray(arr, i) {
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+  }
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+  }
+
+  function _arrayWithHoles(arr) {
+    if (Array.isArray(arr)) return arr;
+  }
+
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  }
+
+  function _iterableToArrayLimit(arr, i) {
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+
+    var _s, _e;
+
+    try {
+      for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"] != null) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _createForOfIteratorHelper(o, allowArrayLike) {
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+
+    if (!it) {
+      if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+        if (it) o = it;
+        var i = 0;
+
+        var F = function () {};
+
+        return {
+          s: F,
+          n: function () {
+            if (i >= o.length) return {
+              done: true
+            };
+            return {
+              done: false,
+              value: o[i++]
+            };
+          },
+          e: function (e) {
+            throw e;
+          },
+          f: F
+        };
+      }
+
+      throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+
+    var normalCompletion = true,
+        didErr = false,
+        err;
+    return {
+      s: function () {
+        it = it.call(o);
+      },
+      n: function () {
+        var step = it.next();
+        normalCompletion = step.done;
+        return step;
+      },
+      e: function (e) {
+        didErr = true;
+        err = e;
+      },
+      f: function () {
+        try {
+          if (!normalCompletion && it.return != null) it.return();
+        } finally {
+          if (didErr) throw err;
+        }
+      }
+    };
+  }
+
+  var entries = Object.entries,
+      setPrototypeOf = Object.setPrototypeOf,
+      isFrozen = Object.isFrozen,
+      getPrototypeOf = Object.getPrototypeOf,
+      getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+  var freeze = Object.freeze,
+      seal = Object.seal,
+      create = Object.create; // eslint-disable-line import/no-mutable-exports
+
+  var _ref = typeof Reflect !== 'undefined' && Reflect,
+      apply = _ref.apply,
+      construct = _ref.construct;
+
+  if (!apply) {
+    apply = function apply(fun, thisValue, args) {
+      return fun.apply(thisValue, args);
+    };
+  }
+
+  if (!freeze) {
+    freeze = function freeze(x) {
+      return x;
+    };
+  }
+
+  if (!seal) {
+    seal = function seal(x) {
+      return x;
+    };
+  }
+
+  if (!construct) {
+    construct = function construct(Func, args) {
+      return _construct(Func, _toConsumableArray(args));
+    };
+  }
+
+  var arrayForEach = unapply(Array.prototype.forEach);
+  var arrayPop = unapply(Array.prototype.pop);
+  var arrayPush = unapply(Array.prototype.push);
+  var stringToLowerCase = unapply(String.prototype.toLowerCase);
+  var stringToString = unapply(String.prototype.toString);
+  var stringMatch = unapply(String.prototype.match);
+  var stringReplace = unapply(String.prototype.replace);
+  var stringIndexOf = unapply(String.prototype.indexOf);
+  var stringTrim = unapply(String.prototype.trim);
+  var regExpTest = unapply(RegExp.prototype.test);
+  var typeErrorCreate = unconstruct(TypeError);
+  function unapply(func) {
+    return function (thisArg) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      return apply(func, thisArg, args);
+    };
+  }
+  function unconstruct(func) {
+    return function () {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return construct(func, args);
+    };
+  }
+  /* Add properties to a lookup table */
+
+  function addToSet(set, array, transformCaseFunc) {
+    transformCaseFunc = transformCaseFunc ? transformCaseFunc : stringToLowerCase;
+
+    if (setPrototypeOf) {
+      // Make 'in' and truthy checks like Boolean(set.constructor)
+      // independent of any properties defined on Object.prototype.
+      // Prevent prototype setters from intercepting set as a this value.
+      setPrototypeOf(set, null);
+    }
+
+    var l = array.length;
+
+    while (l--) {
+      var element = array[l];
+
+      if (typeof element === 'string') {
+        var lcElement = transformCaseFunc(element);
+
+        if (lcElement !== element) {
+          // Config presets (e.g. tags.js, attrs.js) are immutable.
+          if (!isFrozen(array)) {
+            array[l] = lcElement;
+          }
+
+          element = lcElement;
+        }
+      }
+
+      set[element] = true;
+    }
+
+    return set;
+  }
+  /* Shallow clone an object */
+
+  function clone(object) {
+    var newObject = create(null);
+
+    var _iterator = _createForOfIteratorHelper(entries(object)),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = _slicedToArray(_step.value, 2),
+            property = _step$value[0],
+            value = _step$value[1];
+
+        newObject[property] = value;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return newObject;
+  }
+  /* This method automatically checks if the prop is function
+   * or getter and behaves accordingly. */
+
+  function lookupGetter(object, prop) {
+    while (object !== null) {
+      var desc = getOwnPropertyDescriptor(object, prop);
+
+      if (desc) {
+        if (desc.get) {
+          return unapply(desc.get);
+        }
+
+        if (typeof desc.value === 'function') {
+          return unapply(desc.value);
+        }
+      }
+
+      object = getPrototypeOf(object);
+    }
+
+    function fallbackValue(element) {
+      console.warn('fallback value for', element);
+      return null;
+    }
+
+    return fallbackValue;
+  }
+
+  var html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'select', 'shadow', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']); // SVG
+
+  var svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
+  var svgFilters = freeze(['feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode', 'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feSpotLight', 'feTile', 'feTurbulence']); // List of SVG elements that are disallowed by default.
+  // We still need to know them so that we can do namespace
+  // checks properly in case one wants to add them to
+  // allow-list.
+
+  var svgDisallowed = freeze(['animate', 'color-profile', 'cursor', 'discard', 'fedropshadow', 'font-face', 'font-face-format', 'font-face-name', 'font-face-src', 'font-face-uri', 'foreignobject', 'hatch', 'hatchpath', 'mesh', 'meshgradient', 'meshpatch', 'meshrow', 'missing-glyph', 'script', 'set', 'solidcolor', 'unknown', 'use']);
+  var mathMl$1 = freeze(['math', 'menclose', 'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded', 'mphantom', 'mroot', 'mrow', 'ms', 'mspace', 'msqrt', 'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd', 'mtext', 'mtr', 'munder', 'munderover']); // Similarly to SVG, we want to know all MathML elements,
+  // even those that we disallow by default.
+
+  var mathMlDisallowed = freeze(['maction', 'maligngroup', 'malignmark', 'mlongdiv', 'mscarries', 'mscarry', 'msgroup', 'mstack', 'msline', 'msrow', 'semantics', 'annotation', 'annotation-xml', 'mprescripts', 'none']);
+  var text = freeze(['#text']);
+
+  var html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'pattern', 'placeholder', 'playsinline', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'xmlns', 'slot']);
+  var svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
+  var mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnsalign', 'columnlines', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lspace', 'lquote', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
+  var xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
+
+  var MUSTACHE_EXPR = seal(/\{\{[\w\W]*|[\w\W]*\}\}/gm); // Specify template detection regex for SAFE_FOR_TEMPLATES mode
+
+  var ERB_EXPR = seal(/<%[\w\W]*|[\w\W]*%>/gm);
+  var TMPLIT_EXPR = seal(/\${[\w\W]*}/gm);
+  var DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]/); // eslint-disable-line no-useless-escape
+
+  var ARIA_ATTR = seal(/^aria-[\-\w]+$/); // eslint-disable-line no-useless-escape
+
+  var IS_ALLOWED_URI = seal(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i // eslint-disable-line no-useless-escape
+  );
+  var IS_SCRIPT_OR_DATA = seal(/^(?:\w+script|data):/i);
+  var ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g // eslint-disable-line no-control-regex
+  );
+  var DOCTYPE_NAME = seal(/^html$/i);
+
+  var getGlobal = function getGlobal() {
+    return typeof window === 'undefined' ? null : window;
+  };
+  /**
+   * Creates a no-op policy for internal use only.
+   * Don't export this function outside this module!
+   * @param {?TrustedTypePolicyFactory} trustedTypes The policy factory.
+   * @param {Document} document The document object (to determine policy name suffix)
+   * @return {?TrustedTypePolicy} The policy created (or null, if Trusted Types
+   * are not supported).
+   */
+
+
+  var _createTrustedTypesPolicy = function _createTrustedTypesPolicy(trustedTypes, document) {
+    if (_typeof(trustedTypes) !== 'object' || typeof trustedTypes.createPolicy !== 'function') {
+      return null;
+    } // Allow the callers to control the unique policy name
+    // by adding a data-tt-policy-suffix to the script element with the DOMPurify.
+    // Policy creation with duplicate names throws in Trusted Types.
+
+
+    var suffix = null;
+    var ATTR_NAME = 'data-tt-policy-suffix';
+
+    if (document.currentScript && document.currentScript.hasAttribute(ATTR_NAME)) {
+      suffix = document.currentScript.getAttribute(ATTR_NAME);
+    }
+
+    var policyName = 'dompurify' + (suffix ? '#' + suffix : '');
+
+    try {
+      return trustedTypes.createPolicy(policyName, {
+        createHTML: function createHTML(html) {
+          return html;
+        },
+        createScriptURL: function createScriptURL(scriptUrl) {
+          return scriptUrl;
+        }
+      });
+    } catch (_) {
+      // Policy creation failed (most likely another DOMPurify script has
+      // already run). Skip creating the policy, as this will only cause errors
+      // if TT are enforced.
+      console.warn('TrustedTypes policy ' + policyName + ' could not be created.');
+      return null;
+    }
+  };
+
+  function createDOMPurify() {
+    var window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
+
+    var DOMPurify = function DOMPurify(root) {
+      return createDOMPurify(root);
+    };
+    /**
+     * Version label, exposed for easier checks
+     * if DOMPurify is up to date or not
+     */
+
+
+    DOMPurify.version = '3.0.1';
+    /**
+     * Array of elements that DOMPurify removed during sanitation.
+     * Empty if nothing was removed.
+     */
+
+    DOMPurify.removed = [];
+
+    if (!window || !window.document || window.document.nodeType !== 9) {
+      // Not running in a browser, provide a factory function
+      // so that you can pass your own Window
+      DOMPurify.isSupported = false;
+      return DOMPurify;
+    }
+
+    var originalDocument = window.document;
+    var document = window.document;
+    var DocumentFragment = window.DocumentFragment,
+        HTMLTemplateElement = window.HTMLTemplateElement,
+        Node = window.Node,
+        Element = window.Element,
+        NodeFilter = window.NodeFilter,
+        _window$NamedNodeMap = window.NamedNodeMap,
+        NamedNodeMap = _window$NamedNodeMap === void 0 ? window.NamedNodeMap || window.MozNamedAttrMap : _window$NamedNodeMap,
+        HTMLFormElement = window.HTMLFormElement,
+        DOMParser = window.DOMParser,
+        trustedTypes = window.trustedTypes;
+    var ElementPrototype = Element.prototype;
+    var cloneNode = lookupGetter(ElementPrototype, 'cloneNode');
+    var getNextSibling = lookupGetter(ElementPrototype, 'nextSibling');
+    var getChildNodes = lookupGetter(ElementPrototype, 'childNodes');
+    var getParentNode = lookupGetter(ElementPrototype, 'parentNode'); // As per issue #47, the web-components registry is inherited by a
+    // new document created via createHTMLDocument. As per the spec
+    // (http://w3c.github.io/webcomponents/spec/custom/#creating-and-passing-registries)
+    // a new empty registry is used when creating a template contents owner
+    // document, so we use that as our parent document to ensure nothing
+    // is inherited.
+
+    if (typeof HTMLTemplateElement === 'function') {
+      var template = document.createElement('template');
+
+      if (template.content && template.content.ownerDocument) {
+        document = template.content.ownerDocument;
+      }
+    }
+
+    var trustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, originalDocument);
+
+    var emptyHTML = trustedTypesPolicy ? trustedTypesPolicy.createHTML('') : '';
+    var _document = document,
+        implementation = _document.implementation,
+        createNodeIterator = _document.createNodeIterator,
+        createDocumentFragment = _document.createDocumentFragment,
+        getElementsByTagName = _document.getElementsByTagName;
+    var importNode = originalDocument.importNode;
+    var hooks = {};
+    /**
+     * Expose whether this browser supports running the full DOMPurify.
+     */
+
+    DOMPurify.isSupported = typeof entries === 'function' && typeof getParentNode === 'function' && implementation && typeof implementation.createHTMLDocument !== 'undefined';
+    var MUSTACHE_EXPR$1 = MUSTACHE_EXPR,
+        ERB_EXPR$1 = ERB_EXPR,
+        TMPLIT_EXPR$1 = TMPLIT_EXPR,
+        DATA_ATTR$1 = DATA_ATTR,
+        ARIA_ATTR$1 = ARIA_ATTR,
+        IS_SCRIPT_OR_DATA$1 = IS_SCRIPT_OR_DATA,
+        ATTR_WHITESPACE$1 = ATTR_WHITESPACE;
+    var IS_ALLOWED_URI$1 = IS_ALLOWED_URI;
+    /**
+     * We consider the elements and attributes below to be safe. Ideally
+     * don't add any new ones but feel free to remove unwanted ones.
+     */
+
+    /* allowed element names */
+
+    var ALLOWED_TAGS = null;
+    var DEFAULT_ALLOWED_TAGS = addToSet({}, [].concat(_toConsumableArray(html$1), _toConsumableArray(svg$1), _toConsumableArray(svgFilters), _toConsumableArray(mathMl$1), _toConsumableArray(text)));
+    /* Allowed attribute names */
+
+    var ALLOWED_ATTR = null;
+    var DEFAULT_ALLOWED_ATTR = addToSet({}, [].concat(_toConsumableArray(html), _toConsumableArray(svg), _toConsumableArray(mathMl), _toConsumableArray(xml)));
+    /*
+     * Configure how DOMPUrify should handle custom elements and their attributes as well as customized built-in elements.
+     * @property {RegExp|Function|null} tagNameCheck one of [null, regexPattern, predicate]. Default: `null` (disallow any custom elements)
+     * @property {RegExp|Function|null} attributeNameCheck one of [null, regexPattern, predicate]. Default: `null` (disallow any attributes not on the allow list)
+     * @property {boolean} allowCustomizedBuiltInElements allow custom elements derived from built-ins if they pass CUSTOM_ELEMENT_HANDLING.tagNameCheck. Default: `false`.
+     */
+
+    var CUSTOM_ELEMENT_HANDLING = Object.seal(Object.create(null, {
+      tagNameCheck: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: null
+      },
+      attributeNameCheck: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: null
+      },
+      allowCustomizedBuiltInElements: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: false
+      }
+    }));
+    /* Explicitly forbidden tags (overrides ALLOWED_TAGS/ADD_TAGS) */
+
+    var FORBID_TAGS = null;
+    /* Explicitly forbidden attributes (overrides ALLOWED_ATTR/ADD_ATTR) */
+
+    var FORBID_ATTR = null;
+    /* Decide if ARIA attributes are okay */
+
+    var ALLOW_ARIA_ATTR = true;
+    /* Decide if custom data attributes are okay */
+
+    var ALLOW_DATA_ATTR = true;
+    /* Decide if unknown protocols are okay */
+
+    var ALLOW_UNKNOWN_PROTOCOLS = false;
+    /* Decide if self-closing tags in attributes are allowed.
+     * Usually removed due to a mXSS issue in jQuery 3.0 */
+
+    var ALLOW_SELF_CLOSE_IN_ATTR = true;
+    /* Output should be safe for common template engines.
+     * This means, DOMPurify removes data attributes, mustaches and ERB
+     */
+
+    var SAFE_FOR_TEMPLATES = false;
+    /* Decide if document with <html>... should be returned */
+
+    var WHOLE_DOCUMENT = false;
+    /* Track whether config is already set on this instance of DOMPurify. */
+
+    var SET_CONFIG = false;
+    /* Decide if all elements (e.g. style, script) must be children of
+     * document.body. By default, browsers might move them to document.head */
+
+    var FORCE_BODY = false;
+    /* Decide if a DOM `HTMLBodyElement` should be returned, instead of a html
+     * string (or a TrustedHTML object if Trusted Types are supported).
+     * If `WHOLE_DOCUMENT` is enabled a `HTMLHtmlElement` will be returned instead
+     */
+
+    var RETURN_DOM = false;
+    /* Decide if a DOM `DocumentFragment` should be returned, instead of a html
+     * string  (or a TrustedHTML object if Trusted Types are supported) */
+
+    var RETURN_DOM_FRAGMENT = false;
+    /* Try to return a Trusted Type object instead of a string, return a string in
+     * case Trusted Types are not supported  */
+
+    var RETURN_TRUSTED_TYPE = false;
+    /* Output should be free from DOM clobbering attacks?
+     * This sanitizes markups named with colliding, clobberable built-in DOM APIs.
+     */
+
+    var SANITIZE_DOM = true;
+    /* Achieve full DOM Clobbering protection by isolating the namespace of named
+     * properties and JS variables, mitigating attacks that abuse the HTML/DOM spec rules.
+     *
+     * HTML/DOM spec rules that enable DOM Clobbering:
+     *   - Named Access on Window (§7.3.3)
+     *   - DOM Tree Accessors (§3.1.5)
+     *   - Form Element Parent-Child Relations (§4.10.3)
+     *   - Iframe srcdoc / Nested WindowProxies (§4.8.5)
+     *   - HTMLCollection (§4.2.10.2)
+     *
+     * Namespace isolation is implemented by prefixing `id` and `name` attributes
+     * with a constant string, i.e., `user-content-`
+     */
+
+    var SANITIZE_NAMED_PROPS = false;
+    var SANITIZE_NAMED_PROPS_PREFIX = 'user-content-';
+    /* Keep element content when removing element? */
+
+    var KEEP_CONTENT = true;
+    /* If a `Node` is passed to sanitize(), then performs sanitization in-place instead
+     * of importing it into a new Document and returning a sanitized copy */
+
+    var IN_PLACE = false;
+    /* Allow usage of profiles like html, svg and mathMl */
+
+    var USE_PROFILES = {};
+    /* Tags to ignore content of when KEEP_CONTENT is true */
+
+    var FORBID_CONTENTS = null;
+    var DEFAULT_FORBID_CONTENTS = addToSet({}, ['annotation-xml', 'audio', 'colgroup', 'desc', 'foreignobject', 'head', 'iframe', 'math', 'mi', 'mn', 'mo', 'ms', 'mtext', 'noembed', 'noframes', 'noscript', 'plaintext', 'script', 'style', 'svg', 'template', 'thead', 'title', 'video', 'xmp']);
+    /* Tags that are safe for data: URIs */
+
+    var DATA_URI_TAGS = null;
+    var DEFAULT_DATA_URI_TAGS = addToSet({}, ['audio', 'video', 'img', 'source', 'image', 'track']);
+    /* Attributes safe for values like "javascript:" */
+
+    var URI_SAFE_ATTRIBUTES = null;
+    var DEFAULT_URI_SAFE_ATTRIBUTES = addToSet({}, ['alt', 'class', 'for', 'id', 'label', 'name', 'pattern', 'placeholder', 'role', 'summary', 'title', 'value', 'style', 'xmlns']);
+    var MATHML_NAMESPACE = 'http://www.w3.org/1998/Math/MathML';
+    var SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+    var HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
+    /* Document namespace */
+
+    var NAMESPACE = HTML_NAMESPACE;
+    var IS_EMPTY_INPUT = false;
+    /* Allowed XHTML+XML namespaces */
+
+    var ALLOWED_NAMESPACES = null;
+    var DEFAULT_ALLOWED_NAMESPACES = addToSet({}, [MATHML_NAMESPACE, SVG_NAMESPACE, HTML_NAMESPACE], stringToString);
+    /* Parsing of strict XHTML documents */
+
+    var PARSER_MEDIA_TYPE;
+    var SUPPORTED_PARSER_MEDIA_TYPES = ['application/xhtml+xml', 'text/html'];
+    var DEFAULT_PARSER_MEDIA_TYPE = 'text/html';
+    var transformCaseFunc;
+    /* Keep a reference to config to pass to hooks */
+
+    var CONFIG = null;
+    /* Ideally, do not touch anything below this line */
+
+    /* ______________________________________________ */
+
+    var formElement = document.createElement('form');
+
+    var isRegexOrFunction = function isRegexOrFunction(testValue) {
+      return testValue instanceof RegExp || testValue instanceof Function;
+    };
+    /**
+     * _parseConfig
+     *
+     * @param  {Object} cfg optional config literal
+     */
+    // eslint-disable-next-line complexity
+
+
+    var _parseConfig = function _parseConfig(cfg) {
+      if (CONFIG && CONFIG === cfg) {
+        return;
+      }
+      /* Shield configuration object from tampering */
+
+
+      if (!cfg || _typeof(cfg) !== 'object') {
+        cfg = {};
+      }
+      /* Shield configuration object from prototype pollution */
+
+
+      cfg = clone(cfg);
+      PARSER_MEDIA_TYPE = // eslint-disable-next-line unicorn/prefer-includes
+      SUPPORTED_PARSER_MEDIA_TYPES.indexOf(cfg.PARSER_MEDIA_TYPE) === -1 ? PARSER_MEDIA_TYPE = DEFAULT_PARSER_MEDIA_TYPE : PARSER_MEDIA_TYPE = cfg.PARSER_MEDIA_TYPE; // HTML tags and attributes are not case-sensitive, converting to lowercase. Keeping XHTML as is.
+
+      transformCaseFunc = PARSER_MEDIA_TYPE === 'application/xhtml+xml' ? stringToString : stringToLowerCase;
+      /* Set configuration parameters */
+
+      ALLOWED_TAGS = 'ALLOWED_TAGS' in cfg ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc) : DEFAULT_ALLOWED_TAGS;
+      ALLOWED_ATTR = 'ALLOWED_ATTR' in cfg ? addToSet({}, cfg.ALLOWED_ATTR, transformCaseFunc) : DEFAULT_ALLOWED_ATTR;
+      ALLOWED_NAMESPACES = 'ALLOWED_NAMESPACES' in cfg ? addToSet({}, cfg.ALLOWED_NAMESPACES, stringToString) : DEFAULT_ALLOWED_NAMESPACES;
+      URI_SAFE_ATTRIBUTES = 'ADD_URI_SAFE_ATTR' in cfg ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES), // eslint-disable-line indent
+      cfg.ADD_URI_SAFE_ATTR, // eslint-disable-line indent
+      transformCaseFunc // eslint-disable-line indent
+      ) // eslint-disable-line indent
+      : DEFAULT_URI_SAFE_ATTRIBUTES;
+      DATA_URI_TAGS = 'ADD_DATA_URI_TAGS' in cfg ? addToSet(clone(DEFAULT_DATA_URI_TAGS), // eslint-disable-line indent
+      cfg.ADD_DATA_URI_TAGS, // eslint-disable-line indent
+      transformCaseFunc // eslint-disable-line indent
+      ) // eslint-disable-line indent
+      : DEFAULT_DATA_URI_TAGS;
+      FORBID_CONTENTS = 'FORBID_CONTENTS' in cfg ? addToSet({}, cfg.FORBID_CONTENTS, transformCaseFunc) : DEFAULT_FORBID_CONTENTS;
+      FORBID_TAGS = 'FORBID_TAGS' in cfg ? addToSet({}, cfg.FORBID_TAGS, transformCaseFunc) : {};
+      FORBID_ATTR = 'FORBID_ATTR' in cfg ? addToSet({}, cfg.FORBID_ATTR, transformCaseFunc) : {};
+      USE_PROFILES = 'USE_PROFILES' in cfg ? cfg.USE_PROFILES : false;
+      ALLOW_ARIA_ATTR = cfg.ALLOW_ARIA_ATTR !== false; // Default true
+
+      ALLOW_DATA_ATTR = cfg.ALLOW_DATA_ATTR !== false; // Default true
+
+      ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false; // Default false
+
+      ALLOW_SELF_CLOSE_IN_ATTR = cfg.ALLOW_SELF_CLOSE_IN_ATTR !== false; // Default true
+
+      SAFE_FOR_TEMPLATES = cfg.SAFE_FOR_TEMPLATES || false; // Default false
+
+      WHOLE_DOCUMENT = cfg.WHOLE_DOCUMENT || false; // Default false
+
+      RETURN_DOM = cfg.RETURN_DOM || false; // Default false
+
+      RETURN_DOM_FRAGMENT = cfg.RETURN_DOM_FRAGMENT || false; // Default false
+
+      RETURN_TRUSTED_TYPE = cfg.RETURN_TRUSTED_TYPE || false; // Default false
+
+      FORCE_BODY = cfg.FORCE_BODY || false; // Default false
+
+      SANITIZE_DOM = cfg.SANITIZE_DOM !== false; // Default true
+
+      SANITIZE_NAMED_PROPS = cfg.SANITIZE_NAMED_PROPS || false; // Default false
+
+      KEEP_CONTENT = cfg.KEEP_CONTENT !== false; // Default true
+
+      IN_PLACE = cfg.IN_PLACE || false; // Default false
+
+      IS_ALLOWED_URI$1 = cfg.ALLOWED_URI_REGEXP || IS_ALLOWED_URI$1;
+      NAMESPACE = cfg.NAMESPACE || HTML_NAMESPACE;
+      CUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || {};
+
+      if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck)) {
+        CUSTOM_ELEMENT_HANDLING.tagNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck;
+      }
+
+      if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck)) {
+        CUSTOM_ELEMENT_HANDLING.attributeNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck;
+      }
+
+      if (cfg.CUSTOM_ELEMENT_HANDLING && typeof cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements === 'boolean') {
+        CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements = cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements;
+      }
+
+      if (SAFE_FOR_TEMPLATES) {
+        ALLOW_DATA_ATTR = false;
+      }
+
+      if (RETURN_DOM_FRAGMENT) {
+        RETURN_DOM = true;
+      }
+      /* Parse profile info */
+
+
+      if (USE_PROFILES) {
+        ALLOWED_TAGS = addToSet({}, _toConsumableArray(text));
+        ALLOWED_ATTR = [];
+
+        if (USE_PROFILES.html === true) {
+          addToSet(ALLOWED_TAGS, html$1);
+          addToSet(ALLOWED_ATTR, html);
+        }
+
+        if (USE_PROFILES.svg === true) {
+          addToSet(ALLOWED_TAGS, svg$1);
+          addToSet(ALLOWED_ATTR, svg);
+          addToSet(ALLOWED_ATTR, xml);
+        }
+
+        if (USE_PROFILES.svgFilters === true) {
+          addToSet(ALLOWED_TAGS, svgFilters);
+          addToSet(ALLOWED_ATTR, svg);
+          addToSet(ALLOWED_ATTR, xml);
+        }
+
+        if (USE_PROFILES.mathMl === true) {
+          addToSet(ALLOWED_TAGS, mathMl$1);
+          addToSet(ALLOWED_ATTR, mathMl);
+          addToSet(ALLOWED_ATTR, xml);
+        }
+      }
+      /* Merge configuration parameters */
+
+
+      if (cfg.ADD_TAGS) {
+        if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
+          ALLOWED_TAGS = clone(ALLOWED_TAGS);
+        }
+
+        addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);
+      }
+
+      if (cfg.ADD_ATTR) {
+        if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
+          ALLOWED_ATTR = clone(ALLOWED_ATTR);
+        }
+
+        addToSet(ALLOWED_ATTR, cfg.ADD_ATTR, transformCaseFunc);
+      }
+
+      if (cfg.ADD_URI_SAFE_ATTR) {
+        addToSet(URI_SAFE_ATTRIBUTES, cfg.ADD_URI_SAFE_ATTR, transformCaseFunc);
+      }
+
+      if (cfg.FORBID_CONTENTS) {
+        if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
+          FORBID_CONTENTS = clone(FORBID_CONTENTS);
+        }
+
+        addToSet(FORBID_CONTENTS, cfg.FORBID_CONTENTS, transformCaseFunc);
+      }
+      /* Add #text in case KEEP_CONTENT is set to true */
+
+
+      if (KEEP_CONTENT) {
+        ALLOWED_TAGS['#text'] = true;
+      }
+      /* Add html, head and body to ALLOWED_TAGS in case WHOLE_DOCUMENT is true */
+
+
+      if (WHOLE_DOCUMENT) {
+        addToSet(ALLOWED_TAGS, ['html', 'head', 'body']);
+      }
+      /* Add tbody to ALLOWED_TAGS in case tables are permitted, see #286, #365 */
+
+
+      if (ALLOWED_TAGS.table) {
+        addToSet(ALLOWED_TAGS, ['tbody']);
+        delete FORBID_TAGS.tbody;
+      } // Prevent further manipulation of configuration.
+      // Not available in IE8, Safari 5, etc.
+
+
+      if (freeze) {
+        freeze(cfg);
+      }
+
+      CONFIG = cfg;
+    };
+
+    var MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ['mi', 'mo', 'mn', 'ms', 'mtext']);
+    var HTML_INTEGRATION_POINTS = addToSet({}, ['foreignobject', 'desc', 'title', 'annotation-xml']); // Certain elements are allowed in both SVG and HTML
+    // namespace. We need to specify them explicitly
+    // so that they don't get erroneously deleted from
+    // HTML namespace.
+
+    var COMMON_SVG_AND_HTML_ELEMENTS = addToSet({}, ['title', 'style', 'font', 'a', 'script']);
+    /* Keep track of all possible SVG and MathML tags
+     * so that we can perform the namespace checks
+     * correctly. */
+
+    var ALL_SVG_TAGS = addToSet({}, svg$1);
+    addToSet(ALL_SVG_TAGS, svgFilters);
+    addToSet(ALL_SVG_TAGS, svgDisallowed);
+    var ALL_MATHML_TAGS = addToSet({}, mathMl$1);
+    addToSet(ALL_MATHML_TAGS, mathMlDisallowed);
+    /**
+     *
+     *
+     * @param  {Element} element a DOM element whose namespace is being checked
+     * @returns {boolean} Return false if the element has a
+     *  namespace that a spec-compliant parser would never
+     *  return. Return true otherwise.
+     */
+
+    var _checkValidNamespace = function _checkValidNamespace(element) {
+      var parent = getParentNode(element); // In JSDOM, if we're inside shadow DOM, then parentNode
+      // can be null. We just simulate parent in this case.
+
+      if (!parent || !parent.tagName) {
+        parent = {
+          namespaceURI: NAMESPACE,
+          tagName: 'template'
+        };
+      }
+
+      var tagName = stringToLowerCase(element.tagName);
+      var parentTagName = stringToLowerCase(parent.tagName);
+
+      if (!ALLOWED_NAMESPACES[element.namespaceURI]) {
+        return false;
+      }
+
+      if (element.namespaceURI === SVG_NAMESPACE) {
+        // The only way to switch from HTML namespace to SVG
+        // is via <svg>. If it happens via any other tag, then
+        // it should be killed.
+        if (parent.namespaceURI === HTML_NAMESPACE) {
+          return tagName === 'svg';
+        } // The only way to switch from MathML to SVG is via`
+        // svg if parent is either <annotation-xml> or MathML
+        // text integration points.
+
+
+        if (parent.namespaceURI === MATHML_NAMESPACE) {
+          return tagName === 'svg' && (parentTagName === 'annotation-xml' || MATHML_TEXT_INTEGRATION_POINTS[parentTagName]);
+        } // We only allow elements that are defined in SVG
+        // spec. All others are disallowed in SVG namespace.
+
+
+        return Boolean(ALL_SVG_TAGS[tagName]);
+      }
+
+      if (element.namespaceURI === MATHML_NAMESPACE) {
+        // The only way to switch from HTML namespace to MathML
+        // is via <math>. If it happens via any other tag, then
+        // it should be killed.
+        if (parent.namespaceURI === HTML_NAMESPACE) {
+          return tagName === 'math';
+        } // The only way to switch from SVG to MathML is via
+        // <math> and HTML integration points
+
+
+        if (parent.namespaceURI === SVG_NAMESPACE) {
+          return tagName === 'math' && HTML_INTEGRATION_POINTS[parentTagName];
+        } // We only allow elements that are defined in MathML
+        // spec. All others are disallowed in MathML namespace.
+
+
+        return Boolean(ALL_MATHML_TAGS[tagName]);
+      }
+
+      if (element.namespaceURI === HTML_NAMESPACE) {
+        // The only way to switch from SVG to HTML is via
+        // HTML integration points, and from MathML to HTML
+        // is via MathML text integration points
+        if (parent.namespaceURI === SVG_NAMESPACE && !HTML_INTEGRATION_POINTS[parentTagName]) {
+          return false;
+        }
+
+        if (parent.namespaceURI === MATHML_NAMESPACE && !MATHML_TEXT_INTEGRATION_POINTS[parentTagName]) {
+          return false;
+        } // We disallow tags that are specific for MathML
+        // or SVG and should never appear in HTML namespace
+
+
+        return !ALL_MATHML_TAGS[tagName] && (COMMON_SVG_AND_HTML_ELEMENTS[tagName] || !ALL_SVG_TAGS[tagName]);
+      } // For XHTML and XML documents that support custom namespaces
+
+
+      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && ALLOWED_NAMESPACES[element.namespaceURI]) {
+        return true;
+      } // The code should never reach this place (this means
+      // that the element somehow got namespace that is not
+      // HTML, SVG, MathML or allowed via ALLOWED_NAMESPACES).
+      // Return false just in case.
+
+
+      return false;
+    };
+    /**
+     * _forceRemove
+     *
+     * @param  {Node} node a DOM node
+     */
+
+
+    var _forceRemove = function _forceRemove(node) {
+      arrayPush(DOMPurify.removed, {
+        element: node
+      });
+
+      try {
+        // eslint-disable-next-line unicorn/prefer-dom-node-remove
+        node.parentNode.removeChild(node);
+      } catch (_) {
+        node.remove();
+      }
+    };
+    /**
+     * _removeAttribute
+     *
+     * @param  {String} name an Attribute name
+     * @param  {Node} node a DOM node
+     */
+
+
+    var _removeAttribute = function _removeAttribute(name, node) {
+      try {
+        arrayPush(DOMPurify.removed, {
+          attribute: node.getAttributeNode(name),
+          from: node
+        });
+      } catch (_) {
+        arrayPush(DOMPurify.removed, {
+          attribute: null,
+          from: node
+        });
+      }
+
+      node.removeAttribute(name); // We void attribute values for unremovable "is"" attributes
+
+      if (name === 'is' && !ALLOWED_ATTR[name]) {
+        if (RETURN_DOM || RETURN_DOM_FRAGMENT) {
+          try {
+            _forceRemove(node);
+          } catch (_) {}
+        } else {
+          try {
+            node.setAttribute(name, '');
+          } catch (_) {}
+        }
+      }
+    };
+    /**
+     * _initDocument
+     *
+     * @param  {String} dirty a string of dirty markup
+     * @return {Document} a DOM, filled with the dirty markup
+     */
+
+
+    var _initDocument = function _initDocument(dirty) {
+      /* Create a HTML document */
+      var doc;
+      var leadingWhitespace;
+
+      if (FORCE_BODY) {
+        dirty = '<remove></remove>' + dirty;
+      } else {
+        /* If FORCE_BODY isn't used, leading whitespace needs to be preserved manually */
+        var matches = stringMatch(dirty, /^[\r\n\t ]+/);
+        leadingWhitespace = matches && matches[0];
+      }
+
+      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && NAMESPACE === HTML_NAMESPACE) {
+        // Root of XHTML doc must contain xmlns declaration (see https://www.w3.org/TR/xhtml1/normative.html#strict)
+        dirty = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + dirty + '</body></html>';
+      }
+
+      var dirtyPayload = trustedTypesPolicy ? trustedTypesPolicy.createHTML(dirty) : dirty;
+      /*
+       * Use the DOMParser API by default, fallback later if needs be
+       * DOMParser not work for svg when has multiple root element.
+       */
+
+      if (NAMESPACE === HTML_NAMESPACE) {
+        try {
+          doc = new DOMParser().parseFromString(dirtyPayload, PARSER_MEDIA_TYPE);
+        } catch (_) {}
+      }
+      /* Use createHTMLDocument in case DOMParser is not available */
+
+
+      if (!doc || !doc.documentElement) {
+        doc = implementation.createDocument(NAMESPACE, 'template', null);
+
+        try {
+          doc.documentElement.innerHTML = IS_EMPTY_INPUT ? emptyHTML : dirtyPayload;
+        } catch (_) {// Syntax error if dirtyPayload is invalid xml
+        }
+      }
+
+      var body = doc.body || doc.documentElement;
+
+      if (dirty && leadingWhitespace) {
+        body.insertBefore(document.createTextNode(leadingWhitespace), body.childNodes[0] || null);
+      }
+      /* Work on whole document or just its body */
+
+
+      if (NAMESPACE === HTML_NAMESPACE) {
+        return getElementsByTagName.call(doc, WHOLE_DOCUMENT ? 'html' : 'body')[0];
+      }
+
+      return WHOLE_DOCUMENT ? doc.documentElement : body;
+    };
+    /**
+     * _createIterator
+     *
+     * @param  {Document} root document/fragment to create iterator for
+     * @return {Iterator} iterator instance
+     */
+
+
+    var _createIterator = function _createIterator(root) {
+      return createNodeIterator.call(root.ownerDocument || root, root, // eslint-disable-next-line no-bitwise
+      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT, null, false);
+    };
+    /**
+     * _isClobbered
+     *
+     * @param  {Node} elm element to check for clobbering attacks
+     * @return {Boolean} true if clobbered, false if safe
+     */
+
+
+    var _isClobbered = function _isClobbered(elm) {
+      return elm instanceof HTMLFormElement && (typeof elm.nodeName !== 'string' || typeof elm.textContent !== 'string' || typeof elm.removeChild !== 'function' || !(elm.attributes instanceof NamedNodeMap) || typeof elm.removeAttribute !== 'function' || typeof elm.setAttribute !== 'function' || typeof elm.namespaceURI !== 'string' || typeof elm.insertBefore !== 'function' || typeof elm.hasChildNodes !== 'function');
+    };
+    /**
+     * _isNode
+     *
+     * @param  {Node} obj object to check whether it's a DOM node
+     * @return {Boolean} true is object is a DOM node
+     */
+
+
+    var _isNode = function _isNode(object) {
+      return _typeof(Node) === 'object' ? object instanceof Node : object && _typeof(object) === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string';
+    };
+    /**
+     * _executeHook
+     * Execute user configurable hooks
+     *
+     * @param  {String} entryPoint  Name of the hook's entry point
+     * @param  {Node} currentNode node to work on with the hook
+     * @param  {Object} data additional hook parameters
+     */
+
+
+    var _executeHook = function _executeHook(entryPoint, currentNode, data) {
+      if (!hooks[entryPoint]) {
+        return;
+      }
+
+      arrayForEach(hooks[entryPoint], function (hook) {
+        hook.call(DOMPurify, currentNode, data, CONFIG);
+      });
+    };
+    /**
+     * _sanitizeElements
+     *
+     * @protect nodeName
+     * @protect textContent
+     * @protect removeChild
+     *
+     * @param   {Node} currentNode to check for permission to exist
+     * @return  {Boolean} true if node was killed, false if left alive
+     */
+
+
+    var _sanitizeElements = function _sanitizeElements(currentNode) {
+      var content;
+      /* Execute a hook if present */
+
+      _executeHook('beforeSanitizeElements', currentNode, null);
+      /* Check if element is clobbered or can clobber */
+
+
+      if (_isClobbered(currentNode)) {
+        _forceRemove(currentNode);
+
+        return true;
+      }
+      /* Now let's check the element's type and name */
+
+
+      var tagName = transformCaseFunc(currentNode.nodeName);
+      /* Execute a hook if present */
+
+      _executeHook('uponSanitizeElement', currentNode, {
+        tagName: tagName,
+        allowedTags: ALLOWED_TAGS
+      });
+      /* Detect mXSS attempts abusing namespace confusion */
+
+
+      if (currentNode.hasChildNodes() && !_isNode(currentNode.firstElementChild) && (!_isNode(currentNode.content) || !_isNode(currentNode.content.firstElementChild)) && regExpTest(/<[/\w]/g, currentNode.innerHTML) && regExpTest(/<[/\w]/g, currentNode.textContent)) {
+        _forceRemove(currentNode);
+
+        return true;
+      }
+      /* Remove element if anything forbids its presence */
+
+
+      if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+        /* Check if we have a custom element to handle */
+        if (!FORBID_TAGS[tagName] && _basicCustomElementTest(tagName)) {
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) return false;
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) return false;
+        }
+        /* Keep content except for bad-listed elements */
+
+
+        if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
+          var parentNode = getParentNode(currentNode) || currentNode.parentNode;
+          var childNodes = getChildNodes(currentNode) || currentNode.childNodes;
+
+          if (childNodes && parentNode) {
+            var childCount = childNodes.length;
+
+            for (var i = childCount - 1; i >= 0; --i) {
+              parentNode.insertBefore(cloneNode(childNodes[i], true), getNextSibling(currentNode));
+            }
+          }
+        }
+
+        _forceRemove(currentNode);
+
+        return true;
+      }
+      /* Check whether element has a valid namespace */
+
+
+      if (currentNode instanceof Element && !_checkValidNamespace(currentNode)) {
+        _forceRemove(currentNode);
+
+        return true;
+      }
+      /* Make sure that older browsers don't get noscript mXSS */
+
+
+      if ((tagName === 'noscript' || tagName === 'noembed') && regExpTest(/<\/no(script|embed)/i, currentNode.innerHTML)) {
+        _forceRemove(currentNode);
+
+        return true;
+      }
+      /* Sanitize element content to be template-safe */
+
+
+      if (SAFE_FOR_TEMPLATES && currentNode.nodeType === 3) {
+        /* Get the element's text content */
+        content = currentNode.textContent;
+        content = stringReplace(content, MUSTACHE_EXPR$1, ' ');
+        content = stringReplace(content, ERB_EXPR$1, ' ');
+        content = stringReplace(content, TMPLIT_EXPR$1, ' ');
+
+        if (currentNode.textContent !== content) {
+          arrayPush(DOMPurify.removed, {
+            element: currentNode.cloneNode()
+          });
+          currentNode.textContent = content;
+        }
+      }
+      /* Execute a hook if present */
+
+
+      _executeHook('afterSanitizeElements', currentNode, null);
+
+      return false;
+    };
+    /**
+     * _isValidAttribute
+     *
+     * @param  {string} lcTag Lowercase tag name of containing element.
+     * @param  {string} lcName Lowercase attribute name.
+     * @param  {string} value Attribute value.
+     * @return {Boolean} Returns true if `value` is valid, otherwise false.
+     */
+    // eslint-disable-next-line complexity
+
+
+    var _isValidAttribute = function _isValidAttribute(lcTag, lcName, value) {
+      /* Make sure attribute cannot clobber */
+      if (SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)) {
+        return false;
+      }
+      /* Allow valid data-* attributes: At least one character after "-"
+          (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
+          XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
+          We don't need to check the value; it's always URI safe. */
+
+
+      if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR$1, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR$1, lcName)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
+        if ( // First condition does a very basic check if a) it's basically a valid custom element tagname AND
+        // b) if the tagName passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
+        // and c) if the attribute name passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.attributeNameCheck
+        _basicCustomElementTest(lcTag) && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, lcTag) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(lcTag)) && (CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.attributeNameCheck, lcName) || CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.attributeNameCheck(lcName)) || // Alternative, second condition checks if it's an `is`-attribute, AND
+        // the value passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
+        lcName === 'is' && CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, value) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(value))) ; else {
+          return false;
+        }
+        /* Check value is safe. First, is attr inert? If so, is safe */
+
+      } else if (URI_SAFE_ATTRIBUTES[lcName]) ; else if (regExpTest(IS_ALLOWED_URI$1, stringReplace(value, ATTR_WHITESPACE$1, ''))) ; else if ((lcName === 'src' || lcName === 'xlink:href' || lcName === 'href') && lcTag !== 'script' && stringIndexOf(value, 'data:') === 0 && DATA_URI_TAGS[lcTag]) ; else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA$1, stringReplace(value, ATTR_WHITESPACE$1, ''))) ; else if (!value) ; else {
+        return false;
+      }
+
+      return true;
+    };
+    /**
+     * _basicCustomElementCheck
+     * checks if at least one dash is included in tagName, and it's not the first char
+     * for more sophisticated checking see https://github.com/sindresorhus/validate-element-name
+     * @param {string} tagName name of the tag of the node to sanitize
+     */
+
+
+    var _basicCustomElementTest = function _basicCustomElementTest(tagName) {
+      return tagName.indexOf('-') > 0;
+    };
+    /**
+     * _sanitizeAttributes
+     *
+     * @protect attributes
+     * @protect nodeName
+     * @protect removeAttribute
+     * @protect setAttribute
+     *
+     * @param  {Node} currentNode to sanitize
+     */
+
+
+    var _sanitizeAttributes = function _sanitizeAttributes(currentNode) {
+      var attr;
+      var value;
+      var lcName;
+      var l;
+      /* Execute a hook if present */
+
+      _executeHook('beforeSanitizeAttributes', currentNode, null);
+
+      var attributes = currentNode.attributes;
+      /* Check if we have attributes; if not we might have a text node */
+
+      if (!attributes) {
+        return;
+      }
+
+      var hookEvent = {
+        attrName: '',
+        attrValue: '',
+        keepAttr: true,
+        allowedAttributes: ALLOWED_ATTR
+      };
+      l = attributes.length;
+      /* Go backwards over all attributes; safely remove bad ones */
+
+      while (l--) {
+        attr = attributes[l];
+        var _attr = attr,
+            name = _attr.name,
+            namespaceURI = _attr.namespaceURI;
+        value = name === 'value' ? attr.value : stringTrim(attr.value);
+        lcName = transformCaseFunc(name);
+        /* Execute a hook if present */
+
+        hookEvent.attrName = lcName;
+        hookEvent.attrValue = value;
+        hookEvent.keepAttr = true;
+        hookEvent.forceKeepAttr = undefined; // Allows developers to see this is a property they can set
+
+        _executeHook('uponSanitizeAttribute', currentNode, hookEvent);
+
+        value = hookEvent.attrValue;
+        /* Did the hooks approve of the attribute? */
+
+        if (hookEvent.forceKeepAttr) {
+          continue;
+        }
+        /* Remove attribute */
+
+
+        _removeAttribute(name, currentNode);
+        /* Did the hooks approve of the attribute? */
+
+
+        if (!hookEvent.keepAttr) {
+          continue;
+        }
+        /* Work around a security issue in jQuery 3.0 */
+
+
+        if (!ALLOW_SELF_CLOSE_IN_ATTR && regExpTest(/\/>/i, value)) {
+          _removeAttribute(name, currentNode);
+
+          continue;
+        }
+        /* Sanitize attribute content to be template-safe */
+
+
+        if (SAFE_FOR_TEMPLATES) {
+          value = stringReplace(value, MUSTACHE_EXPR$1, ' ');
+          value = stringReplace(value, ERB_EXPR$1, ' ');
+          value = stringReplace(value, TMPLIT_EXPR$1, ' ');
+        }
+        /* Is `value` valid for this attribute? */
+
+
+        var lcTag = transformCaseFunc(currentNode.nodeName);
+
+        if (!_isValidAttribute(lcTag, lcName, value)) {
+          continue;
+        }
+        /* Full DOM Clobbering protection via namespace isolation,
+         * Prefix id and name attributes with `user-content-`
+         */
+
+
+        if (SANITIZE_NAMED_PROPS && (lcName === 'id' || lcName === 'name')) {
+          // Remove the attribute with this value
+          _removeAttribute(name, currentNode); // Prefix the value and later re-create the attribute with the sanitized value
+
+
+          value = SANITIZE_NAMED_PROPS_PREFIX + value;
+        }
+        /* Handle attributes that require Trusted Types */
+
+
+        if (trustedTypesPolicy && _typeof(trustedTypes) === 'object' && typeof trustedTypes.getAttributeType === 'function') {
+          if (namespaceURI) ; else {
+            switch (trustedTypes.getAttributeType(lcTag, lcName)) {
+              case 'TrustedHTML':
+                value = trustedTypesPolicy.createHTML(value);
+                break;
+
+              case 'TrustedScriptURL':
+                value = trustedTypesPolicy.createScriptURL(value);
+                break;
+            }
+          }
+        }
+        /* Handle invalid data-* attribute set by try-catching it */
+
+
+        try {
+          if (namespaceURI) {
+            currentNode.setAttributeNS(namespaceURI, name, value);
+          } else {
+            /* Fallback to setAttribute() for browser-unrecognized namespaces e.g. "x-schema". */
+            currentNode.setAttribute(name, value);
+          }
+
+          arrayPop(DOMPurify.removed);
+        } catch (_) {}
+      }
+      /* Execute a hook if present */
+
+
+      _executeHook('afterSanitizeAttributes', currentNode, null);
+    };
+    /**
+     * _sanitizeShadowDOM
+     *
+     * @param  {DocumentFragment} fragment to iterate over recursively
+     */
+
+
+    var _sanitizeShadowDOM = function _sanitizeShadowDOM(fragment) {
+      var shadowNode;
+
+      var shadowIterator = _createIterator(fragment);
+      /* Execute a hook if present */
+
+
+      _executeHook('beforeSanitizeShadowDOM', fragment, null);
+
+      while (shadowNode = shadowIterator.nextNode()) {
+        /* Execute a hook if present */
+        _executeHook('uponSanitizeShadowNode', shadowNode, null);
+        /* Sanitize tags and elements */
+
+
+        if (_sanitizeElements(shadowNode)) {
+          continue;
+        }
+        /* Deep shadow DOM detected */
+
+
+        if (shadowNode.content instanceof DocumentFragment) {
+          _sanitizeShadowDOM(shadowNode.content);
+        }
+        /* Check attributes, sanitize if necessary */
+
+
+        _sanitizeAttributes(shadowNode);
+      }
+      /* Execute a hook if present */
+
+
+      _executeHook('afterSanitizeShadowDOM', fragment, null);
+    };
+    /**
+     * Sanitize
+     * Public method providing core sanitation functionality
+     *
+     * @param {String|Node} dirty string or DOM node
+     * @param {Object} configuration object
+     */
+    // eslint-disable-next-line complexity
+
+
+    DOMPurify.sanitize = function (dirty) {
+      var cfg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var body;
+      var importedNode;
+      var currentNode;
+      var returnNode;
+      /* Make sure we have a string to sanitize.
+        DO NOT return early, as this will return the wrong type if
+        the user has requested a DOM object rather than a string */
+
+      IS_EMPTY_INPUT = !dirty;
+
+      if (IS_EMPTY_INPUT) {
+        dirty = '<!-->';
+      }
+      /* Stringify, in case dirty is an object */
+
+
+      if (typeof dirty !== 'string' && !_isNode(dirty)) {
+        // eslint-disable-next-line no-negated-condition
+        if (typeof dirty.toString !== 'function') {
+          throw typeErrorCreate('toString is not a function');
+        } else {
+          dirty = dirty.toString();
+
+          if (typeof dirty !== 'string') {
+            throw typeErrorCreate('dirty is not a string, aborting');
+          }
+        }
+      }
+      /* Return dirty HTML if DOMPurify cannot run */
+
+
+      if (!DOMPurify.isSupported) {
+        return dirty;
+      }
+      /* Assign config vars */
+
+
+      if (!SET_CONFIG) {
+        _parseConfig(cfg);
+      }
+      /* Clean up removed elements */
+
+
+      DOMPurify.removed = [];
+      /* Check if dirty is correctly typed for IN_PLACE */
+
+      if (typeof dirty === 'string') {
+        IN_PLACE = false;
+      }
+
+      if (IN_PLACE) {
+        /* Do some early pre-sanitization to avoid unsafe root nodes */
+        if (dirty.nodeName) {
+          var tagName = transformCaseFunc(dirty.nodeName);
+
+          if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+            throw typeErrorCreate('root node is forbidden and cannot be sanitized in-place');
+          }
+        }
+      } else if (dirty instanceof Node) {
+        /* If dirty is a DOM element, append to an empty document to avoid
+           elements being stripped by the parser */
+        body = _initDocument('<!---->');
+        importedNode = body.ownerDocument.importNode(dirty, true);
+
+        if (importedNode.nodeType === 1 && importedNode.nodeName === 'BODY') {
+          /* Node is already a body, use as is */
+          body = importedNode;
+        } else if (importedNode.nodeName === 'HTML') {
+          body = importedNode;
+        } else {
+          // eslint-disable-next-line unicorn/prefer-dom-node-append
+          body.appendChild(importedNode);
+        }
+      } else {
+        /* Exit directly if we have nothing to do */
+        if (!RETURN_DOM && !SAFE_FOR_TEMPLATES && !WHOLE_DOCUMENT && // eslint-disable-next-line unicorn/prefer-includes
+        dirty.indexOf('<') === -1) {
+          return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(dirty) : dirty;
+        }
+        /* Initialize the document to work on */
+
+
+        body = _initDocument(dirty);
+        /* Check we have a DOM node from the data */
+
+        if (!body) {
+          return RETURN_DOM ? null : RETURN_TRUSTED_TYPE ? emptyHTML : '';
+        }
+      }
+      /* Remove first element node (ours) if FORCE_BODY is set */
+
+
+      if (body && FORCE_BODY) {
+        _forceRemove(body.firstChild);
+      }
+      /* Get node iterator */
+
+
+      var nodeIterator = _createIterator(IN_PLACE ? dirty : body);
+      /* Now start iterating over the created document */
+
+
+      while (currentNode = nodeIterator.nextNode()) {
+        /* Sanitize tags and elements */
+        if (_sanitizeElements(currentNode)) {
+          continue;
+        }
+        /* Shadow DOM detected, sanitize it */
+
+
+        if (currentNode.content instanceof DocumentFragment) {
+          _sanitizeShadowDOM(currentNode.content);
+        }
+        /* Check attributes, sanitize if necessary */
+
+
+        _sanitizeAttributes(currentNode);
+      }
+      /* If we sanitized `dirty` in-place, return it. */
+
+
+      if (IN_PLACE) {
+        return dirty;
+      }
+      /* Return sanitized string or DOM */
+
+
+      if (RETURN_DOM) {
+        if (RETURN_DOM_FRAGMENT) {
+          returnNode = createDocumentFragment.call(body.ownerDocument);
+
+          while (body.firstChild) {
+            // eslint-disable-next-line unicorn/prefer-dom-node-append
+            returnNode.appendChild(body.firstChild);
+          }
+        } else {
+          returnNode = body;
+        }
+
+        if (ALLOWED_ATTR.shadowroot || ALLOWED_ATTR.shadowrootmod) {
+          /*
+            AdoptNode() is not used because internal state is not reset
+            (e.g. the past names map of a HTMLFormElement), this is safe
+            in theory but we would rather not risk another attack vector.
+            The state that is cloned by importNode() is explicitly defined
+            by the specs.
+          */
+          returnNode = importNode.call(originalDocument, returnNode, true);
+        }
+
+        return returnNode;
+      }
+
+      var serializedHTML = WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
+      /* Serialize doctype if allowed */
+
+      if (WHOLE_DOCUMENT && ALLOWED_TAGS['!doctype'] && body.ownerDocument && body.ownerDocument.doctype && body.ownerDocument.doctype.name && regExpTest(DOCTYPE_NAME, body.ownerDocument.doctype.name)) {
+        serializedHTML = '<!DOCTYPE ' + body.ownerDocument.doctype.name + '>\n' + serializedHTML;
+      }
+      /* Sanitize final string template-safe */
+
+
+      if (SAFE_FOR_TEMPLATES) {
+        serializedHTML = stringReplace(serializedHTML, MUSTACHE_EXPR$1, ' ');
+        serializedHTML = stringReplace(serializedHTML, ERB_EXPR$1, ' ');
+        serializedHTML = stringReplace(serializedHTML, TMPLIT_EXPR$1, ' ');
+      }
+
+      return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(serializedHTML) : serializedHTML;
+    };
+    /**
+     * Public method to set the configuration once
+     * setConfig
+     *
+     * @param {Object} cfg configuration object
+     */
+
+
+    DOMPurify.setConfig = function (cfg) {
+      _parseConfig(cfg);
+
+      SET_CONFIG = true;
+    };
+    /**
+     * Public method to remove the configuration
+     * clearConfig
+     *
+     */
+
+
+    DOMPurify.clearConfig = function () {
+      CONFIG = null;
+      SET_CONFIG = false;
+    };
+    /**
+     * Public method to check if an attribute value is valid.
+     * Uses last set config, if any. Otherwise, uses config defaults.
+     * isValidAttribute
+     *
+     * @param  {string} tag Tag name of containing element.
+     * @param  {string} attr Attribute name.
+     * @param  {string} value Attribute value.
+     * @return {Boolean} Returns true if `value` is valid. Otherwise, returns false.
+     */
+
+
+    DOMPurify.isValidAttribute = function (tag, attr, value) {
+      /* Initialize shared config vars if necessary. */
+      if (!CONFIG) {
+        _parseConfig({});
+      }
+
+      var lcTag = transformCaseFunc(tag);
+      var lcName = transformCaseFunc(attr);
+      return _isValidAttribute(lcTag, lcName, value);
+    };
+    /**
+     * AddHook
+     * Public method to add DOMPurify hooks
+     *
+     * @param {String} entryPoint entry point for the hook to add
+     * @param {Function} hookFunction function to execute
+     */
+
+
+    DOMPurify.addHook = function (entryPoint, hookFunction) {
+      if (typeof hookFunction !== 'function') {
+        return;
+      }
+
+      hooks[entryPoint] = hooks[entryPoint] || [];
+      arrayPush(hooks[entryPoint], hookFunction);
+    };
+    /**
+     * RemoveHook
+     * Public method to remove a DOMPurify hook at a given entryPoint
+     * (pops it from the stack of hooks if more are present)
+     *
+     * @param {String} entryPoint entry point for the hook to remove
+     * @return {Function} removed(popped) hook
+     */
+
+
+    DOMPurify.removeHook = function (entryPoint) {
+      if (hooks[entryPoint]) {
+        return arrayPop(hooks[entryPoint]);
+      }
+    };
+    /**
+     * RemoveHooks
+     * Public method to remove all DOMPurify hooks at a given entryPoint
+     *
+     * @param  {String} entryPoint entry point for the hooks to remove
+     */
+
+
+    DOMPurify.removeHooks = function (entryPoint) {
+      if (hooks[entryPoint]) {
+        hooks[entryPoint] = [];
+      }
+    };
+    /**
+     * RemoveAllHooks
+     * Public method to remove all DOMPurify hooks
+     *
+     */
+
+
+    DOMPurify.removeAllHooks = function () {
+      hooks = {};
+    };
+
+    return DOMPurify;
+  }
+
+  var purify = createDOMPurify();
+
+  return purify;
+
+}));
+//# sourceMappingURL=purify.js.map
+
 define("@ijstech/components",(require, exports)=>{
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -9933,6 +11700,9 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
 var __export = (target, all) => {
   __markAsModule(target);
   for (var name in all)
@@ -9959,6 +11729,3705 @@ var __decorateClass = (decorators, target, key2, kind) => {
   return result;
 };
 
+// node_modules/moment/moment.js
+var require_moment = __commonJS({
+  "node_modules/moment/moment.js"(exports, module2) {
+    (function(global, factory) {
+      typeof exports === "object" && typeof module2 !== "undefined" ? module2.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global.moment = factory();
+    })(exports, function() {
+      "use strict";
+      var hookCallback;
+      function hooks() {
+        return hookCallback.apply(null, arguments);
+      }
+      function setHookCallback(callback) {
+        hookCallback = callback;
+      }
+      function isArray(input) {
+        return input instanceof Array || Object.prototype.toString.call(input) === "[object Array]";
+      }
+      function isObject(input) {
+        return input != null && Object.prototype.toString.call(input) === "[object Object]";
+      }
+      function hasOwnProp(a, b) {
+        return Object.prototype.hasOwnProperty.call(a, b);
+      }
+      function isObjectEmpty(obj) {
+        if (Object.getOwnPropertyNames) {
+          return Object.getOwnPropertyNames(obj).length === 0;
+        } else {
+          var k;
+          for (k in obj) {
+            if (hasOwnProp(obj, k)) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+      function isUndefined(input) {
+        return input === void 0;
+      }
+      function isNumber(input) {
+        return typeof input === "number" || Object.prototype.toString.call(input) === "[object Number]";
+      }
+      function isDate(input) {
+        return input instanceof Date || Object.prototype.toString.call(input) === "[object Date]";
+      }
+      function map(arr, fn) {
+        var res = [], i, arrLen = arr.length;
+        for (i = 0; i < arrLen; ++i) {
+          res.push(fn(arr[i], i));
+        }
+        return res;
+      }
+      function extend2(a, b) {
+        for (var i in b) {
+          if (hasOwnProp(b, i)) {
+            a[i] = b[i];
+          }
+        }
+        if (hasOwnProp(b, "toString")) {
+          a.toString = b.toString;
+        }
+        if (hasOwnProp(b, "valueOf")) {
+          a.valueOf = b.valueOf;
+        }
+        return a;
+      }
+      function createUTC(input, format2, locale2, strict) {
+        return createLocalOrUTC(input, format2, locale2, strict, true).utc();
+      }
+      function defaultParsingFlags() {
+        return {
+          empty: false,
+          unusedTokens: [],
+          unusedInput: [],
+          overflow: -2,
+          charsLeftOver: 0,
+          nullInput: false,
+          invalidEra: null,
+          invalidMonth: null,
+          invalidFormat: false,
+          userInvalidated: false,
+          iso: false,
+          parsedDateParts: [],
+          era: null,
+          meridiem: null,
+          rfc2822: false,
+          weekdayMismatch: false
+        };
+      }
+      function getParsingFlags(m) {
+        if (m._pf == null) {
+          m._pf = defaultParsingFlags();
+        }
+        return m._pf;
+      }
+      var some;
+      if (Array.prototype.some) {
+        some = Array.prototype.some;
+      } else {
+        some = function(fun) {
+          var t = Object(this), len = t.length >>> 0, i;
+          for (i = 0; i < len; i++) {
+            if (i in t && fun.call(this, t[i], i, t)) {
+              return true;
+            }
+          }
+          return false;
+        };
+      }
+      function isValid(m) {
+        if (m._isValid == null) {
+          var flags = getParsingFlags(m), parsedParts = some.call(flags.parsedDateParts, function(i) {
+            return i != null;
+          }), isNowValid = !isNaN(m._d.getTime()) && flags.overflow < 0 && !flags.empty && !flags.invalidEra && !flags.invalidMonth && !flags.invalidWeekday && !flags.weekdayMismatch && !flags.nullInput && !flags.invalidFormat && !flags.userInvalidated && (!flags.meridiem || flags.meridiem && parsedParts);
+          if (m._strict) {
+            isNowValid = isNowValid && flags.charsLeftOver === 0 && flags.unusedTokens.length === 0 && flags.bigHour === void 0;
+          }
+          if (Object.isFrozen == null || !Object.isFrozen(m)) {
+            m._isValid = isNowValid;
+          } else {
+            return isNowValid;
+          }
+        }
+        return m._isValid;
+      }
+      function createInvalid(flags) {
+        var m = createUTC(NaN);
+        if (flags != null) {
+          extend2(getParsingFlags(m), flags);
+        } else {
+          getParsingFlags(m).userInvalidated = true;
+        }
+        return m;
+      }
+      var momentProperties = hooks.momentProperties = [], updateInProgress = false;
+      function copyConfig(to2, from2) {
+        var i, prop, val, momentPropertiesLen = momentProperties.length;
+        if (!isUndefined(from2._isAMomentObject)) {
+          to2._isAMomentObject = from2._isAMomentObject;
+        }
+        if (!isUndefined(from2._i)) {
+          to2._i = from2._i;
+        }
+        if (!isUndefined(from2._f)) {
+          to2._f = from2._f;
+        }
+        if (!isUndefined(from2._l)) {
+          to2._l = from2._l;
+        }
+        if (!isUndefined(from2._strict)) {
+          to2._strict = from2._strict;
+        }
+        if (!isUndefined(from2._tzm)) {
+          to2._tzm = from2._tzm;
+        }
+        if (!isUndefined(from2._isUTC)) {
+          to2._isUTC = from2._isUTC;
+        }
+        if (!isUndefined(from2._offset)) {
+          to2._offset = from2._offset;
+        }
+        if (!isUndefined(from2._pf)) {
+          to2._pf = getParsingFlags(from2);
+        }
+        if (!isUndefined(from2._locale)) {
+          to2._locale = from2._locale;
+        }
+        if (momentPropertiesLen > 0) {
+          for (i = 0; i < momentPropertiesLen; i++) {
+            prop = momentProperties[i];
+            val = from2[prop];
+            if (!isUndefined(val)) {
+              to2[prop] = val;
+            }
+          }
+        }
+        return to2;
+      }
+      function Moment2(config) {
+        copyConfig(this, config);
+        this._d = new Date(config._d != null ? config._d.getTime() : NaN);
+        if (!this.isValid()) {
+          this._d = new Date(NaN);
+        }
+        if (updateInProgress === false) {
+          updateInProgress = true;
+          hooks.updateOffset(this);
+          updateInProgress = false;
+        }
+      }
+      function isMoment(obj) {
+        return obj instanceof Moment2 || obj != null && obj._isAMomentObject != null;
+      }
+      function warn(msg) {
+        if (hooks.suppressDeprecationWarnings === false && typeof console !== "undefined" && console.warn) {
+          console.warn("Deprecation warning: " + msg);
+        }
+      }
+      function deprecate(msg, fn) {
+        var firstTime = true;
+        return extend2(function() {
+          if (hooks.deprecationHandler != null) {
+            hooks.deprecationHandler(null, msg);
+          }
+          if (firstTime) {
+            var args = [], arg, i, key2, argLen = arguments.length;
+            for (i = 0; i < argLen; i++) {
+              arg = "";
+              if (typeof arguments[i] === "object") {
+                arg += "\n[" + i + "] ";
+                for (key2 in arguments[0]) {
+                  if (hasOwnProp(arguments[0], key2)) {
+                    arg += key2 + ": " + arguments[0][key2] + ", ";
+                  }
+                }
+                arg = arg.slice(0, -2);
+              } else {
+                arg = arguments[i];
+              }
+              args.push(arg);
+            }
+            warn(msg + "\nArguments: " + Array.prototype.slice.call(args).join("") + "\n" + new Error().stack);
+            firstTime = false;
+          }
+          return fn.apply(this, arguments);
+        }, fn);
+      }
+      var deprecations = {};
+      function deprecateSimple(name, msg) {
+        if (hooks.deprecationHandler != null) {
+          hooks.deprecationHandler(name, msg);
+        }
+        if (!deprecations[name]) {
+          warn(msg);
+          deprecations[name] = true;
+        }
+      }
+      hooks.suppressDeprecationWarnings = false;
+      hooks.deprecationHandler = null;
+      function isFunction(input) {
+        return typeof Function !== "undefined" && input instanceof Function || Object.prototype.toString.call(input) === "[object Function]";
+      }
+      function set(config) {
+        var prop, i;
+        for (i in config) {
+          if (hasOwnProp(config, i)) {
+            prop = config[i];
+            if (isFunction(prop)) {
+              this[i] = prop;
+            } else {
+              this["_" + i] = prop;
+            }
+          }
+        }
+        this._config = config;
+        this._dayOfMonthOrdinalParseLenient = new RegExp((this._dayOfMonthOrdinalParse.source || this._ordinalParse.source) + "|" + /\d{1,2}/.source);
+      }
+      function mergeConfigs(parentConfig, childConfig) {
+        var res = extend2({}, parentConfig), prop;
+        for (prop in childConfig) {
+          if (hasOwnProp(childConfig, prop)) {
+            if (isObject(parentConfig[prop]) && isObject(childConfig[prop])) {
+              res[prop] = {};
+              extend2(res[prop], parentConfig[prop]);
+              extend2(res[prop], childConfig[prop]);
+            } else if (childConfig[prop] != null) {
+              res[prop] = childConfig[prop];
+            } else {
+              delete res[prop];
+            }
+          }
+        }
+        for (prop in parentConfig) {
+          if (hasOwnProp(parentConfig, prop) && !hasOwnProp(childConfig, prop) && isObject(parentConfig[prop])) {
+            res[prop] = extend2({}, res[prop]);
+          }
+        }
+        return res;
+      }
+      function Locale(config) {
+        if (config != null) {
+          this.set(config);
+        }
+      }
+      var keys;
+      if (Object.keys) {
+        keys = Object.keys;
+      } else {
+        keys = function(obj) {
+          var i, res = [];
+          for (i in obj) {
+            if (hasOwnProp(obj, i)) {
+              res.push(i);
+            }
+          }
+          return res;
+        };
+      }
+      var defaultCalendar = {
+        sameDay: "[Today at] LT",
+        nextDay: "[Tomorrow at] LT",
+        nextWeek: "dddd [at] LT",
+        lastDay: "[Yesterday at] LT",
+        lastWeek: "[Last] dddd [at] LT",
+        sameElse: "L"
+      };
+      function calendar(key2, mom, now2) {
+        var output = this._calendar[key2] || this._calendar["sameElse"];
+        return isFunction(output) ? output.call(mom, now2) : output;
+      }
+      function zeroFill(number, targetLength, forceSign) {
+        var absNumber = "" + Math.abs(number), zerosToFill = targetLength - absNumber.length, sign2 = number >= 0;
+        return (sign2 ? forceSign ? "+" : "" : "-") + Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
+      }
+      var formattingTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g, localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g, formatFunctions = {}, formatTokenFunctions = {};
+      function addFormatToken(token2, padded, ordinal2, callback) {
+        var func = callback;
+        if (typeof callback === "string") {
+          func = function() {
+            return this[callback]();
+          };
+        }
+        if (token2) {
+          formatTokenFunctions[token2] = func;
+        }
+        if (padded) {
+          formatTokenFunctions[padded[0]] = function() {
+            return zeroFill(func.apply(this, arguments), padded[1], padded[2]);
+          };
+        }
+        if (ordinal2) {
+          formatTokenFunctions[ordinal2] = function() {
+            return this.localeData().ordinal(func.apply(this, arguments), token2);
+          };
+        }
+      }
+      function removeFormattingTokens(input) {
+        if (input.match(/\[[\s\S]/)) {
+          return input.replace(/^\[|\]$/g, "");
+        }
+        return input.replace(/\\/g, "");
+      }
+      function makeFormatFunction(format2) {
+        var array = format2.match(formattingTokens), i, length;
+        for (i = 0, length = array.length; i < length; i++) {
+          if (formatTokenFunctions[array[i]]) {
+            array[i] = formatTokenFunctions[array[i]];
+          } else {
+            array[i] = removeFormattingTokens(array[i]);
+          }
+        }
+        return function(mom) {
+          var output = "", i2;
+          for (i2 = 0; i2 < length; i2++) {
+            output += isFunction(array[i2]) ? array[i2].call(mom, format2) : array[i2];
+          }
+          return output;
+        };
+      }
+      function formatMoment(m, format2) {
+        if (!m.isValid()) {
+          return m.localeData().invalidDate();
+        }
+        format2 = expandFormat(format2, m.localeData());
+        formatFunctions[format2] = formatFunctions[format2] || makeFormatFunction(format2);
+        return formatFunctions[format2](m);
+      }
+      function expandFormat(format2, locale2) {
+        var i = 5;
+        function replaceLongDateFormatTokens(input) {
+          return locale2.longDateFormat(input) || input;
+        }
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format2)) {
+          format2 = format2.replace(localFormattingTokens, replaceLongDateFormatTokens);
+          localFormattingTokens.lastIndex = 0;
+          i -= 1;
+        }
+        return format2;
+      }
+      var defaultLongDateFormat = {
+        LTS: "h:mm:ss A",
+        LT: "h:mm A",
+        L: "MM/DD/YYYY",
+        LL: "MMMM D, YYYY",
+        LLL: "MMMM D, YYYY h:mm A",
+        LLLL: "dddd, MMMM D, YYYY h:mm A"
+      };
+      function longDateFormat(key2) {
+        var format2 = this._longDateFormat[key2], formatUpper = this._longDateFormat[key2.toUpperCase()];
+        if (format2 || !formatUpper) {
+          return format2;
+        }
+        this._longDateFormat[key2] = formatUpper.match(formattingTokens).map(function(tok) {
+          if (tok === "MMMM" || tok === "MM" || tok === "DD" || tok === "dddd") {
+            return tok.slice(1);
+          }
+          return tok;
+        }).join("");
+        return this._longDateFormat[key2];
+      }
+      var defaultInvalidDate = "Invalid date";
+      function invalidDate() {
+        return this._invalidDate;
+      }
+      var defaultOrdinal = "%d", defaultDayOfMonthOrdinalParse = /\d{1,2}/;
+      function ordinal(number) {
+        return this._ordinal.replace("%d", number);
+      }
+      var defaultRelativeTime = {
+        future: "in %s",
+        past: "%s ago",
+        s: "a few seconds",
+        ss: "%d seconds",
+        m: "a minute",
+        mm: "%d minutes",
+        h: "an hour",
+        hh: "%d hours",
+        d: "a day",
+        dd: "%d days",
+        w: "a week",
+        ww: "%d weeks",
+        M: "a month",
+        MM: "%d months",
+        y: "a year",
+        yy: "%d years"
+      };
+      function relativeTime(number, withoutSuffix, string, isFuture) {
+        var output = this._relativeTime[string];
+        return isFunction(output) ? output(number, withoutSuffix, string, isFuture) : output.replace(/%d/i, number);
+      }
+      function pastFuture(diff2, output) {
+        var format2 = this._relativeTime[diff2 > 0 ? "future" : "past"];
+        return isFunction(format2) ? format2(output) : format2.replace(/%s/i, output);
+      }
+      var aliases = {};
+      function addUnitAlias(unit, shorthand) {
+        var lowerCase = unit.toLowerCase();
+        aliases[lowerCase] = aliases[lowerCase + "s"] = aliases[shorthand] = unit;
+      }
+      function normalizeUnits(units) {
+        return typeof units === "string" ? aliases[units] || aliases[units.toLowerCase()] : void 0;
+      }
+      function normalizeObjectUnits(inputObject) {
+        var normalizedInput = {}, normalizedProp, prop;
+        for (prop in inputObject) {
+          if (hasOwnProp(inputObject, prop)) {
+            normalizedProp = normalizeUnits(prop);
+            if (normalizedProp) {
+              normalizedInput[normalizedProp] = inputObject[prop];
+            }
+          }
+        }
+        return normalizedInput;
+      }
+      var priorities = {};
+      function addUnitPriority(unit, priority) {
+        priorities[unit] = priority;
+      }
+      function getPrioritizedUnits(unitsObj) {
+        var units = [], u;
+        for (u in unitsObj) {
+          if (hasOwnProp(unitsObj, u)) {
+            units.push({ unit: u, priority: priorities[u] });
+          }
+        }
+        units.sort(function(a, b) {
+          return a.priority - b.priority;
+        });
+        return units;
+      }
+      function isLeapYear(year) {
+        return year % 4 === 0 && year % 100 !== 0 || year % 400 === 0;
+      }
+      function absFloor(number) {
+        if (number < 0) {
+          return Math.ceil(number) || 0;
+        } else {
+          return Math.floor(number);
+        }
+      }
+      function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion, value = 0;
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+          value = absFloor(coercedNumber);
+        }
+        return value;
+      }
+      function makeGetSet(unit, keepTime) {
+        return function(value) {
+          if (value != null) {
+            set$1(this, unit, value);
+            hooks.updateOffset(this, keepTime);
+            return this;
+          } else {
+            return get(this, unit);
+          }
+        };
+      }
+      function get(mom, unit) {
+        return mom.isValid() ? mom._d["get" + (mom._isUTC ? "UTC" : "") + unit]() : NaN;
+      }
+      function set$1(mom, unit, value) {
+        if (mom.isValid() && !isNaN(value)) {
+          if (unit === "FullYear" && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
+            value = toInt(value);
+            mom._d["set" + (mom._isUTC ? "UTC" : "") + unit](value, mom.month(), daysInMonth(value, mom.month()));
+          } else {
+            mom._d["set" + (mom._isUTC ? "UTC" : "") + unit](value);
+          }
+        }
+      }
+      function stringGet(units) {
+        units = normalizeUnits(units);
+        if (isFunction(this[units])) {
+          return this[units]();
+        }
+        return this;
+      }
+      function stringSet(units, value) {
+        if (typeof units === "object") {
+          units = normalizeObjectUnits(units);
+          var prioritized = getPrioritizedUnits(units), i, prioritizedLen = prioritized.length;
+          for (i = 0; i < prioritizedLen; i++) {
+            this[prioritized[i].unit](units[prioritized[i].unit]);
+          }
+        } else {
+          units = normalizeUnits(units);
+          if (isFunction(this[units])) {
+            return this[units](value);
+          }
+        }
+        return this;
+      }
+      var match1 = /\d/, match2 = /\d\d/, match3 = /\d{3}/, match4 = /\d{4}/, match6 = /[+-]?\d{6}/, match1to2 = /\d\d?/, match3to4 = /\d\d\d\d?/, match5to6 = /\d\d\d\d\d\d?/, match1to3 = /\d{1,3}/, match1to4 = /\d{1,4}/, match1to6 = /[+-]?\d{1,6}/, matchUnsigned = /\d+/, matchSigned = /[+-]?\d+/, matchOffset = /Z|[+-]\d\d:?\d\d/gi, matchShortOffset = /Z|[+-]\d\d(?::?\d\d)?/gi, matchTimestamp = /[+-]?\d+(\.\d{1,3})?/, matchWord = /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i, regexes;
+      regexes = {};
+      function addRegexToken(token2, regex, strictRegex) {
+        regexes[token2] = isFunction(regex) ? regex : function(isStrict, localeData2) {
+          return isStrict && strictRegex ? strictRegex : regex;
+        };
+      }
+      function getParseRegexForToken(token2, config) {
+        if (!hasOwnProp(regexes, token2)) {
+          return new RegExp(unescapeFormat(token2));
+        }
+        return regexes[token2](config._strict, config._locale);
+      }
+      function unescapeFormat(s) {
+        return regexEscape(s.replace("\\", "").replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function(matched, p1, p2, p3, p4) {
+          return p1 || p2 || p3 || p4;
+        }));
+      }
+      function regexEscape(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      }
+      var tokens = {};
+      function addParseToken(token2, callback) {
+        var i, func = callback, tokenLen;
+        if (typeof token2 === "string") {
+          token2 = [token2];
+        }
+        if (isNumber(callback)) {
+          func = function(input, array) {
+            array[callback] = toInt(input);
+          };
+        }
+        tokenLen = token2.length;
+        for (i = 0; i < tokenLen; i++) {
+          tokens[token2[i]] = func;
+        }
+      }
+      function addWeekParseToken(token2, callback) {
+        addParseToken(token2, function(input, array, config, token3) {
+          config._w = config._w || {};
+          callback(input, config._w, config, token3);
+        });
+      }
+      function addTimeToArrayFromToken(token2, input, config) {
+        if (input != null && hasOwnProp(tokens, token2)) {
+          tokens[token2](input, config._a, config, token2);
+        }
+      }
+      var YEAR = 0, MONTH = 1, DATE = 2, HOUR = 3, MINUTE = 4, SECOND = 5, MILLISECOND = 6, WEEK = 7, WEEKDAY = 8;
+      function mod(n, x) {
+        return (n % x + x) % x;
+      }
+      var indexOf;
+      if (Array.prototype.indexOf) {
+        indexOf = Array.prototype.indexOf;
+      } else {
+        indexOf = function(o) {
+          var i;
+          for (i = 0; i < this.length; ++i) {
+            if (this[i] === o) {
+              return i;
+            }
+          }
+          return -1;
+        };
+      }
+      function daysInMonth(year, month) {
+        if (isNaN(year) || isNaN(month)) {
+          return NaN;
+        }
+        var modMonth = mod(month, 12);
+        year += (month - modMonth) / 12;
+        return modMonth === 1 ? isLeapYear(year) ? 29 : 28 : 31 - modMonth % 7 % 2;
+      }
+      addFormatToken("M", ["MM", 2], "Mo", function() {
+        return this.month() + 1;
+      });
+      addFormatToken("MMM", 0, 0, function(format2) {
+        return this.localeData().monthsShort(this, format2);
+      });
+      addFormatToken("MMMM", 0, 0, function(format2) {
+        return this.localeData().months(this, format2);
+      });
+      addUnitAlias("month", "M");
+      addUnitPriority("month", 8);
+      addRegexToken("M", match1to2);
+      addRegexToken("MM", match1to2, match2);
+      addRegexToken("MMM", function(isStrict, locale2) {
+        return locale2.monthsShortRegex(isStrict);
+      });
+      addRegexToken("MMMM", function(isStrict, locale2) {
+        return locale2.monthsRegex(isStrict);
+      });
+      addParseToken(["M", "MM"], function(input, array) {
+        array[MONTH] = toInt(input) - 1;
+      });
+      addParseToken(["MMM", "MMMM"], function(input, array, config, token2) {
+        var month = config._locale.monthsParse(input, token2, config._strict);
+        if (month != null) {
+          array[MONTH] = month;
+        } else {
+          getParsingFlags(config).invalidMonth = input;
+        }
+      });
+      var defaultLocaleMonths = "January_February_March_April_May_June_July_August_September_October_November_December".split("_"), defaultLocaleMonthsShort = "Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"), MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/, defaultMonthsShortRegex = matchWord, defaultMonthsRegex = matchWord;
+      function localeMonths(m, format2) {
+        if (!m) {
+          return isArray(this._months) ? this._months : this._months["standalone"];
+        }
+        return isArray(this._months) ? this._months[m.month()] : this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format2) ? "format" : "standalone"][m.month()];
+      }
+      function localeMonthsShort(m, format2) {
+        if (!m) {
+          return isArray(this._monthsShort) ? this._monthsShort : this._monthsShort["standalone"];
+        }
+        return isArray(this._monthsShort) ? this._monthsShort[m.month()] : this._monthsShort[MONTHS_IN_FORMAT.test(format2) ? "format" : "standalone"][m.month()];
+      }
+      function handleStrictParse(monthName, format2, strict) {
+        var i, ii, mom, llc = monthName.toLocaleLowerCase();
+        if (!this._monthsParse) {
+          this._monthsParse = [];
+          this._longMonthsParse = [];
+          this._shortMonthsParse = [];
+          for (i = 0; i < 12; ++i) {
+            mom = createUTC([2e3, i]);
+            this._shortMonthsParse[i] = this.monthsShort(mom, "").toLocaleLowerCase();
+            this._longMonthsParse[i] = this.months(mom, "").toLocaleLowerCase();
+          }
+        }
+        if (strict) {
+          if (format2 === "MMM") {
+            ii = indexOf.call(this._shortMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+          } else {
+            ii = indexOf.call(this._longMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+          }
+        } else {
+          if (format2 === "MMM") {
+            ii = indexOf.call(this._shortMonthsParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._longMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+          } else {
+            ii = indexOf.call(this._longMonthsParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._shortMonthsParse, llc);
+            return ii !== -1 ? ii : null;
+          }
+        }
+      }
+      function localeMonthsParse(monthName, format2, strict) {
+        var i, mom, regex;
+        if (this._monthsParseExact) {
+          return handleStrictParse.call(this, monthName, format2, strict);
+        }
+        if (!this._monthsParse) {
+          this._monthsParse = [];
+          this._longMonthsParse = [];
+          this._shortMonthsParse = [];
+        }
+        for (i = 0; i < 12; i++) {
+          mom = createUTC([2e3, i]);
+          if (strict && !this._longMonthsParse[i]) {
+            this._longMonthsParse[i] = new RegExp("^" + this.months(mom, "").replace(".", "") + "$", "i");
+            this._shortMonthsParse[i] = new RegExp("^" + this.monthsShort(mom, "").replace(".", "") + "$", "i");
+          }
+          if (!strict && !this._monthsParse[i]) {
+            regex = "^" + this.months(mom, "") + "|^" + this.monthsShort(mom, "");
+            this._monthsParse[i] = new RegExp(regex.replace(".", ""), "i");
+          }
+          if (strict && format2 === "MMMM" && this._longMonthsParse[i].test(monthName)) {
+            return i;
+          } else if (strict && format2 === "MMM" && this._shortMonthsParse[i].test(monthName)) {
+            return i;
+          } else if (!strict && this._monthsParse[i].test(monthName)) {
+            return i;
+          }
+        }
+      }
+      function setMonth(mom, value) {
+        var dayOfMonth;
+        if (!mom.isValid()) {
+          return mom;
+        }
+        if (typeof value === "string") {
+          if (/^\d+$/.test(value)) {
+            value = toInt(value);
+          } else {
+            value = mom.localeData().monthsParse(value);
+            if (!isNumber(value)) {
+              return mom;
+            }
+          }
+        }
+        dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
+        mom._d["set" + (mom._isUTC ? "UTC" : "") + "Month"](value, dayOfMonth);
+        return mom;
+      }
+      function getSetMonth(value) {
+        if (value != null) {
+          setMonth(this, value);
+          hooks.updateOffset(this, true);
+          return this;
+        } else {
+          return get(this, "Month");
+        }
+      }
+      function getDaysInMonth() {
+        return daysInMonth(this.year(), this.month());
+      }
+      function monthsShortRegex(isStrict) {
+        if (this._monthsParseExact) {
+          if (!hasOwnProp(this, "_monthsRegex")) {
+            computeMonthsParse.call(this);
+          }
+          if (isStrict) {
+            return this._monthsShortStrictRegex;
+          } else {
+            return this._monthsShortRegex;
+          }
+        } else {
+          if (!hasOwnProp(this, "_monthsShortRegex")) {
+            this._monthsShortRegex = defaultMonthsShortRegex;
+          }
+          return this._monthsShortStrictRegex && isStrict ? this._monthsShortStrictRegex : this._monthsShortRegex;
+        }
+      }
+      function monthsRegex(isStrict) {
+        if (this._monthsParseExact) {
+          if (!hasOwnProp(this, "_monthsRegex")) {
+            computeMonthsParse.call(this);
+          }
+          if (isStrict) {
+            return this._monthsStrictRegex;
+          } else {
+            return this._monthsRegex;
+          }
+        } else {
+          if (!hasOwnProp(this, "_monthsRegex")) {
+            this._monthsRegex = defaultMonthsRegex;
+          }
+          return this._monthsStrictRegex && isStrict ? this._monthsStrictRegex : this._monthsRegex;
+        }
+      }
+      function computeMonthsParse() {
+        function cmpLenRev(a, b) {
+          return b.length - a.length;
+        }
+        var shortPieces = [], longPieces = [], mixedPieces = [], i, mom;
+        for (i = 0; i < 12; i++) {
+          mom = createUTC([2e3, i]);
+          shortPieces.push(this.monthsShort(mom, ""));
+          longPieces.push(this.months(mom, ""));
+          mixedPieces.push(this.months(mom, ""));
+          mixedPieces.push(this.monthsShort(mom, ""));
+        }
+        shortPieces.sort(cmpLenRev);
+        longPieces.sort(cmpLenRev);
+        mixedPieces.sort(cmpLenRev);
+        for (i = 0; i < 12; i++) {
+          shortPieces[i] = regexEscape(shortPieces[i]);
+          longPieces[i] = regexEscape(longPieces[i]);
+        }
+        for (i = 0; i < 24; i++) {
+          mixedPieces[i] = regexEscape(mixedPieces[i]);
+        }
+        this._monthsRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
+        this._monthsShortRegex = this._monthsRegex;
+        this._monthsStrictRegex = new RegExp("^(" + longPieces.join("|") + ")", "i");
+        this._monthsShortStrictRegex = new RegExp("^(" + shortPieces.join("|") + ")", "i");
+      }
+      addFormatToken("Y", 0, 0, function() {
+        var y = this.year();
+        return y <= 9999 ? zeroFill(y, 4) : "+" + y;
+      });
+      addFormatToken(0, ["YY", 2], 0, function() {
+        return this.year() % 100;
+      });
+      addFormatToken(0, ["YYYY", 4], 0, "year");
+      addFormatToken(0, ["YYYYY", 5], 0, "year");
+      addFormatToken(0, ["YYYYYY", 6, true], 0, "year");
+      addUnitAlias("year", "y");
+      addUnitPriority("year", 1);
+      addRegexToken("Y", matchSigned);
+      addRegexToken("YY", match1to2, match2);
+      addRegexToken("YYYY", match1to4, match4);
+      addRegexToken("YYYYY", match1to6, match6);
+      addRegexToken("YYYYYY", match1to6, match6);
+      addParseToken(["YYYYY", "YYYYYY"], YEAR);
+      addParseToken("YYYY", function(input, array) {
+        array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
+      });
+      addParseToken("YY", function(input, array) {
+        array[YEAR] = hooks.parseTwoDigitYear(input);
+      });
+      addParseToken("Y", function(input, array) {
+        array[YEAR] = parseInt(input, 10);
+      });
+      function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+      }
+      hooks.parseTwoDigitYear = function(input) {
+        return toInt(input) + (toInt(input) > 68 ? 1900 : 2e3);
+      };
+      var getSetYear = makeGetSet("FullYear", true);
+      function getIsLeapYear() {
+        return isLeapYear(this.year());
+      }
+      function createDate(y, m, d, h, M, s, ms) {
+        var date;
+        if (y < 100 && y >= 0) {
+          date = new Date(y + 400, m, d, h, M, s, ms);
+          if (isFinite(date.getFullYear())) {
+            date.setFullYear(y);
+          }
+        } else {
+          date = new Date(y, m, d, h, M, s, ms);
+        }
+        return date;
+      }
+      function createUTCDate(y) {
+        var date, args;
+        if (y < 100 && y >= 0) {
+          args = Array.prototype.slice.call(arguments);
+          args[0] = y + 400;
+          date = new Date(Date.UTC.apply(null, args));
+          if (isFinite(date.getUTCFullYear())) {
+            date.setUTCFullYear(y);
+          }
+        } else {
+          date = new Date(Date.UTC.apply(null, arguments));
+        }
+        return date;
+      }
+      function firstWeekOffset(year, dow, doy) {
+        var fwd = 7 + dow - doy, fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
+        return -fwdlw + fwd - 1;
+      }
+      function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
+        var localWeekday = (7 + weekday - dow) % 7, weekOffset = firstWeekOffset(year, dow, doy), dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset, resYear, resDayOfYear;
+        if (dayOfYear <= 0) {
+          resYear = year - 1;
+          resDayOfYear = daysInYear(resYear) + dayOfYear;
+        } else if (dayOfYear > daysInYear(year)) {
+          resYear = year + 1;
+          resDayOfYear = dayOfYear - daysInYear(year);
+        } else {
+          resYear = year;
+          resDayOfYear = dayOfYear;
+        }
+        return {
+          year: resYear,
+          dayOfYear: resDayOfYear
+        };
+      }
+      function weekOfYear(mom, dow, doy) {
+        var weekOffset = firstWeekOffset(mom.year(), dow, doy), week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1, resWeek, resYear;
+        if (week < 1) {
+          resYear = mom.year() - 1;
+          resWeek = week + weeksInYear(resYear, dow, doy);
+        } else if (week > weeksInYear(mom.year(), dow, doy)) {
+          resWeek = week - weeksInYear(mom.year(), dow, doy);
+          resYear = mom.year() + 1;
+        } else {
+          resYear = mom.year();
+          resWeek = week;
+        }
+        return {
+          week: resWeek,
+          year: resYear
+        };
+      }
+      function weeksInYear(year, dow, doy) {
+        var weekOffset = firstWeekOffset(year, dow, doy), weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
+        return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
+      }
+      addFormatToken("w", ["ww", 2], "wo", "week");
+      addFormatToken("W", ["WW", 2], "Wo", "isoWeek");
+      addUnitAlias("week", "w");
+      addUnitAlias("isoWeek", "W");
+      addUnitPriority("week", 5);
+      addUnitPriority("isoWeek", 5);
+      addRegexToken("w", match1to2);
+      addRegexToken("ww", match1to2, match2);
+      addRegexToken("W", match1to2);
+      addRegexToken("WW", match1to2, match2);
+      addWeekParseToken(["w", "ww", "W", "WW"], function(input, week, config, token2) {
+        week[token2.substr(0, 1)] = toInt(input);
+      });
+      function localeWeek(mom) {
+        return weekOfYear(mom, this._week.dow, this._week.doy).week;
+      }
+      var defaultLocaleWeek = {
+        dow: 0,
+        doy: 6
+      };
+      function localeFirstDayOfWeek() {
+        return this._week.dow;
+      }
+      function localeFirstDayOfYear() {
+        return this._week.doy;
+      }
+      function getSetWeek(input) {
+        var week = this.localeData().week(this);
+        return input == null ? week : this.add((input - week) * 7, "d");
+      }
+      function getSetISOWeek(input) {
+        var week = weekOfYear(this, 1, 4).week;
+        return input == null ? week : this.add((input - week) * 7, "d");
+      }
+      addFormatToken("d", 0, "do", "day");
+      addFormatToken("dd", 0, 0, function(format2) {
+        return this.localeData().weekdaysMin(this, format2);
+      });
+      addFormatToken("ddd", 0, 0, function(format2) {
+        return this.localeData().weekdaysShort(this, format2);
+      });
+      addFormatToken("dddd", 0, 0, function(format2) {
+        return this.localeData().weekdays(this, format2);
+      });
+      addFormatToken("e", 0, 0, "weekday");
+      addFormatToken("E", 0, 0, "isoWeekday");
+      addUnitAlias("day", "d");
+      addUnitAlias("weekday", "e");
+      addUnitAlias("isoWeekday", "E");
+      addUnitPriority("day", 11);
+      addUnitPriority("weekday", 11);
+      addUnitPriority("isoWeekday", 11);
+      addRegexToken("d", match1to2);
+      addRegexToken("e", match1to2);
+      addRegexToken("E", match1to2);
+      addRegexToken("dd", function(isStrict, locale2) {
+        return locale2.weekdaysMinRegex(isStrict);
+      });
+      addRegexToken("ddd", function(isStrict, locale2) {
+        return locale2.weekdaysShortRegex(isStrict);
+      });
+      addRegexToken("dddd", function(isStrict, locale2) {
+        return locale2.weekdaysRegex(isStrict);
+      });
+      addWeekParseToken(["dd", "ddd", "dddd"], function(input, week, config, token2) {
+        var weekday = config._locale.weekdaysParse(input, token2, config._strict);
+        if (weekday != null) {
+          week.d = weekday;
+        } else {
+          getParsingFlags(config).invalidWeekday = input;
+        }
+      });
+      addWeekParseToken(["d", "e", "E"], function(input, week, config, token2) {
+        week[token2] = toInt(input);
+      });
+      function parseWeekday(input, locale2) {
+        if (typeof input !== "string") {
+          return input;
+        }
+        if (!isNaN(input)) {
+          return parseInt(input, 10);
+        }
+        input = locale2.weekdaysParse(input);
+        if (typeof input === "number") {
+          return input;
+        }
+        return null;
+      }
+      function parseIsoWeekday(input, locale2) {
+        if (typeof input === "string") {
+          return locale2.weekdaysParse(input) % 7 || 7;
+        }
+        return isNaN(input) ? null : input;
+      }
+      function shiftWeekdays(ws, n) {
+        return ws.slice(n, 7).concat(ws.slice(0, n));
+      }
+      var defaultLocaleWeekdays = "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"), defaultLocaleWeekdaysShort = "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"), defaultLocaleWeekdaysMin = "Su_Mo_Tu_We_Th_Fr_Sa".split("_"), defaultWeekdaysRegex = matchWord, defaultWeekdaysShortRegex = matchWord, defaultWeekdaysMinRegex = matchWord;
+      function localeWeekdays(m, format2) {
+        var weekdays = isArray(this._weekdays) ? this._weekdays : this._weekdays[m && m !== true && this._weekdays.isFormat.test(format2) ? "format" : "standalone"];
+        return m === true ? shiftWeekdays(weekdays, this._week.dow) : m ? weekdays[m.day()] : weekdays;
+      }
+      function localeWeekdaysShort(m) {
+        return m === true ? shiftWeekdays(this._weekdaysShort, this._week.dow) : m ? this._weekdaysShort[m.day()] : this._weekdaysShort;
+      }
+      function localeWeekdaysMin(m) {
+        return m === true ? shiftWeekdays(this._weekdaysMin, this._week.dow) : m ? this._weekdaysMin[m.day()] : this._weekdaysMin;
+      }
+      function handleStrictParse$1(weekdayName, format2, strict) {
+        var i, ii, mom, llc = weekdayName.toLocaleLowerCase();
+        if (!this._weekdaysParse) {
+          this._weekdaysParse = [];
+          this._shortWeekdaysParse = [];
+          this._minWeekdaysParse = [];
+          for (i = 0; i < 7; ++i) {
+            mom = createUTC([2e3, 1]).day(i);
+            this._minWeekdaysParse[i] = this.weekdaysMin(mom, "").toLocaleLowerCase();
+            this._shortWeekdaysParse[i] = this.weekdaysShort(mom, "").toLocaleLowerCase();
+            this._weekdaysParse[i] = this.weekdays(mom, "").toLocaleLowerCase();
+          }
+        }
+        if (strict) {
+          if (format2 === "dddd") {
+            ii = indexOf.call(this._weekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+          } else if (format2 === "ddd") {
+            ii = indexOf.call(this._shortWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+          } else {
+            ii = indexOf.call(this._minWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+          }
+        } else {
+          if (format2 === "dddd") {
+            ii = indexOf.call(this._weekdaysParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._shortWeekdaysParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._minWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+          } else if (format2 === "ddd") {
+            ii = indexOf.call(this._shortWeekdaysParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._weekdaysParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._minWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+          } else {
+            ii = indexOf.call(this._minWeekdaysParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._weekdaysParse, llc);
+            if (ii !== -1) {
+              return ii;
+            }
+            ii = indexOf.call(this._shortWeekdaysParse, llc);
+            return ii !== -1 ? ii : null;
+          }
+        }
+      }
+      function localeWeekdaysParse(weekdayName, format2, strict) {
+        var i, mom, regex;
+        if (this._weekdaysParseExact) {
+          return handleStrictParse$1.call(this, weekdayName, format2, strict);
+        }
+        if (!this._weekdaysParse) {
+          this._weekdaysParse = [];
+          this._minWeekdaysParse = [];
+          this._shortWeekdaysParse = [];
+          this._fullWeekdaysParse = [];
+        }
+        for (i = 0; i < 7; i++) {
+          mom = createUTC([2e3, 1]).day(i);
+          if (strict && !this._fullWeekdaysParse[i]) {
+            this._fullWeekdaysParse[i] = new RegExp("^" + this.weekdays(mom, "").replace(".", "\\.?") + "$", "i");
+            this._shortWeekdaysParse[i] = new RegExp("^" + this.weekdaysShort(mom, "").replace(".", "\\.?") + "$", "i");
+            this._minWeekdaysParse[i] = new RegExp("^" + this.weekdaysMin(mom, "").replace(".", "\\.?") + "$", "i");
+          }
+          if (!this._weekdaysParse[i]) {
+            regex = "^" + this.weekdays(mom, "") + "|^" + this.weekdaysShort(mom, "") + "|^" + this.weekdaysMin(mom, "");
+            this._weekdaysParse[i] = new RegExp(regex.replace(".", ""), "i");
+          }
+          if (strict && format2 === "dddd" && this._fullWeekdaysParse[i].test(weekdayName)) {
+            return i;
+          } else if (strict && format2 === "ddd" && this._shortWeekdaysParse[i].test(weekdayName)) {
+            return i;
+          } else if (strict && format2 === "dd" && this._minWeekdaysParse[i].test(weekdayName)) {
+            return i;
+          } else if (!strict && this._weekdaysParse[i].test(weekdayName)) {
+            return i;
+          }
+        }
+      }
+      function getSetDayOfWeek(input) {
+        if (!this.isValid()) {
+          return input != null ? this : NaN;
+        }
+        var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+        if (input != null) {
+          input = parseWeekday(input, this.localeData());
+          return this.add(input - day, "d");
+        } else {
+          return day;
+        }
+      }
+      function getSetLocaleDayOfWeek(input) {
+        if (!this.isValid()) {
+          return input != null ? this : NaN;
+        }
+        var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
+        return input == null ? weekday : this.add(input - weekday, "d");
+      }
+      function getSetISODayOfWeek(input) {
+        if (!this.isValid()) {
+          return input != null ? this : NaN;
+        }
+        if (input != null) {
+          var weekday = parseIsoWeekday(input, this.localeData());
+          return this.day(this.day() % 7 ? weekday : weekday - 7);
+        } else {
+          return this.day() || 7;
+        }
+      }
+      function weekdaysRegex(isStrict) {
+        if (this._weekdaysParseExact) {
+          if (!hasOwnProp(this, "_weekdaysRegex")) {
+            computeWeekdaysParse.call(this);
+          }
+          if (isStrict) {
+            return this._weekdaysStrictRegex;
+          } else {
+            return this._weekdaysRegex;
+          }
+        } else {
+          if (!hasOwnProp(this, "_weekdaysRegex")) {
+            this._weekdaysRegex = defaultWeekdaysRegex;
+          }
+          return this._weekdaysStrictRegex && isStrict ? this._weekdaysStrictRegex : this._weekdaysRegex;
+        }
+      }
+      function weekdaysShortRegex(isStrict) {
+        if (this._weekdaysParseExact) {
+          if (!hasOwnProp(this, "_weekdaysRegex")) {
+            computeWeekdaysParse.call(this);
+          }
+          if (isStrict) {
+            return this._weekdaysShortStrictRegex;
+          } else {
+            return this._weekdaysShortRegex;
+          }
+        } else {
+          if (!hasOwnProp(this, "_weekdaysShortRegex")) {
+            this._weekdaysShortRegex = defaultWeekdaysShortRegex;
+          }
+          return this._weekdaysShortStrictRegex && isStrict ? this._weekdaysShortStrictRegex : this._weekdaysShortRegex;
+        }
+      }
+      function weekdaysMinRegex(isStrict) {
+        if (this._weekdaysParseExact) {
+          if (!hasOwnProp(this, "_weekdaysRegex")) {
+            computeWeekdaysParse.call(this);
+          }
+          if (isStrict) {
+            return this._weekdaysMinStrictRegex;
+          } else {
+            return this._weekdaysMinRegex;
+          }
+        } else {
+          if (!hasOwnProp(this, "_weekdaysMinRegex")) {
+            this._weekdaysMinRegex = defaultWeekdaysMinRegex;
+          }
+          return this._weekdaysMinStrictRegex && isStrict ? this._weekdaysMinStrictRegex : this._weekdaysMinRegex;
+        }
+      }
+      function computeWeekdaysParse() {
+        function cmpLenRev(a, b) {
+          return b.length - a.length;
+        }
+        var minPieces = [], shortPieces = [], longPieces = [], mixedPieces = [], i, mom, minp, shortp, longp;
+        for (i = 0; i < 7; i++) {
+          mom = createUTC([2e3, 1]).day(i);
+          minp = regexEscape(this.weekdaysMin(mom, ""));
+          shortp = regexEscape(this.weekdaysShort(mom, ""));
+          longp = regexEscape(this.weekdays(mom, ""));
+          minPieces.push(minp);
+          shortPieces.push(shortp);
+          longPieces.push(longp);
+          mixedPieces.push(minp);
+          mixedPieces.push(shortp);
+          mixedPieces.push(longp);
+        }
+        minPieces.sort(cmpLenRev);
+        shortPieces.sort(cmpLenRev);
+        longPieces.sort(cmpLenRev);
+        mixedPieces.sort(cmpLenRev);
+        this._weekdaysRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
+        this._weekdaysShortRegex = this._weekdaysRegex;
+        this._weekdaysMinRegex = this._weekdaysRegex;
+        this._weekdaysStrictRegex = new RegExp("^(" + longPieces.join("|") + ")", "i");
+        this._weekdaysShortStrictRegex = new RegExp("^(" + shortPieces.join("|") + ")", "i");
+        this._weekdaysMinStrictRegex = new RegExp("^(" + minPieces.join("|") + ")", "i");
+      }
+      function hFormat() {
+        return this.hours() % 12 || 12;
+      }
+      function kFormat() {
+        return this.hours() || 24;
+      }
+      addFormatToken("H", ["HH", 2], 0, "hour");
+      addFormatToken("h", ["hh", 2], 0, hFormat);
+      addFormatToken("k", ["kk", 2], 0, kFormat);
+      addFormatToken("hmm", 0, 0, function() {
+        return "" + hFormat.apply(this) + zeroFill(this.minutes(), 2);
+      });
+      addFormatToken("hmmss", 0, 0, function() {
+        return "" + hFormat.apply(this) + zeroFill(this.minutes(), 2) + zeroFill(this.seconds(), 2);
+      });
+      addFormatToken("Hmm", 0, 0, function() {
+        return "" + this.hours() + zeroFill(this.minutes(), 2);
+      });
+      addFormatToken("Hmmss", 0, 0, function() {
+        return "" + this.hours() + zeroFill(this.minutes(), 2) + zeroFill(this.seconds(), 2);
+      });
+      function meridiem(token2, lowercase) {
+        addFormatToken(token2, 0, 0, function() {
+          return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
+        });
+      }
+      meridiem("a", true);
+      meridiem("A", false);
+      addUnitAlias("hour", "h");
+      addUnitPriority("hour", 13);
+      function matchMeridiem(isStrict, locale2) {
+        return locale2._meridiemParse;
+      }
+      addRegexToken("a", matchMeridiem);
+      addRegexToken("A", matchMeridiem);
+      addRegexToken("H", match1to2);
+      addRegexToken("h", match1to2);
+      addRegexToken("k", match1to2);
+      addRegexToken("HH", match1to2, match2);
+      addRegexToken("hh", match1to2, match2);
+      addRegexToken("kk", match1to2, match2);
+      addRegexToken("hmm", match3to4);
+      addRegexToken("hmmss", match5to6);
+      addRegexToken("Hmm", match3to4);
+      addRegexToken("Hmmss", match5to6);
+      addParseToken(["H", "HH"], HOUR);
+      addParseToken(["k", "kk"], function(input, array, config) {
+        var kInput = toInt(input);
+        array[HOUR] = kInput === 24 ? 0 : kInput;
+      });
+      addParseToken(["a", "A"], function(input, array, config) {
+        config._isPm = config._locale.isPM(input);
+        config._meridiem = input;
+      });
+      addParseToken(["h", "hh"], function(input, array, config) {
+        array[HOUR] = toInt(input);
+        getParsingFlags(config).bigHour = true;
+      });
+      addParseToken("hmm", function(input, array, config) {
+        var pos = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos));
+        array[MINUTE] = toInt(input.substr(pos));
+        getParsingFlags(config).bigHour = true;
+      });
+      addParseToken("hmmss", function(input, array, config) {
+        var pos1 = input.length - 4, pos2 = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos1));
+        array[MINUTE] = toInt(input.substr(pos1, 2));
+        array[SECOND] = toInt(input.substr(pos2));
+        getParsingFlags(config).bigHour = true;
+      });
+      addParseToken("Hmm", function(input, array, config) {
+        var pos = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos));
+        array[MINUTE] = toInt(input.substr(pos));
+      });
+      addParseToken("Hmmss", function(input, array, config) {
+        var pos1 = input.length - 4, pos2 = input.length - 2;
+        array[HOUR] = toInt(input.substr(0, pos1));
+        array[MINUTE] = toInt(input.substr(pos1, 2));
+        array[SECOND] = toInt(input.substr(pos2));
+      });
+      function localeIsPM(input) {
+        return (input + "").toLowerCase().charAt(0) === "p";
+      }
+      var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i, getSetHour = makeGetSet("Hours", true);
+      function localeMeridiem(hours2, minutes2, isLower) {
+        if (hours2 > 11) {
+          return isLower ? "pm" : "PM";
+        } else {
+          return isLower ? "am" : "AM";
+        }
+      }
+      var baseConfig = {
+        calendar: defaultCalendar,
+        longDateFormat: defaultLongDateFormat,
+        invalidDate: defaultInvalidDate,
+        ordinal: defaultOrdinal,
+        dayOfMonthOrdinalParse: defaultDayOfMonthOrdinalParse,
+        relativeTime: defaultRelativeTime,
+        months: defaultLocaleMonths,
+        monthsShort: defaultLocaleMonthsShort,
+        week: defaultLocaleWeek,
+        weekdays: defaultLocaleWeekdays,
+        weekdaysMin: defaultLocaleWeekdaysMin,
+        weekdaysShort: defaultLocaleWeekdaysShort,
+        meridiemParse: defaultLocaleMeridiemParse
+      };
+      var locales = {}, localeFamilies = {}, globalLocale;
+      function commonPrefix(arr1, arr2) {
+        var i, minl = Math.min(arr1.length, arr2.length);
+        for (i = 0; i < minl; i += 1) {
+          if (arr1[i] !== arr2[i]) {
+            return i;
+          }
+        }
+        return minl;
+      }
+      function normalizeLocale(key2) {
+        return key2 ? key2.toLowerCase().replace("_", "-") : key2;
+      }
+      function chooseLocale(names) {
+        var i = 0, j, next, locale2, split;
+        while (i < names.length) {
+          split = normalizeLocale(names[i]).split("-");
+          j = split.length;
+          next = normalizeLocale(names[i + 1]);
+          next = next ? next.split("-") : null;
+          while (j > 0) {
+            locale2 = loadLocale(split.slice(0, j).join("-"));
+            if (locale2) {
+              return locale2;
+            }
+            if (next && next.length >= j && commonPrefix(split, next) >= j - 1) {
+              break;
+            }
+            j--;
+          }
+          i++;
+        }
+        return globalLocale;
+      }
+      function isLocaleNameSane(name) {
+        return name.match("^[^/\\\\]*$") != null;
+      }
+      function loadLocale(name) {
+        var oldLocale = null, aliasedRequire;
+        if (locales[name] === void 0 && typeof module2 !== "undefined" && module2 && module2.exports && isLocaleNameSane(name)) {
+          try {
+            oldLocale = globalLocale._abbr;
+            aliasedRequire = require;
+            aliasedRequire("./locale/" + name);
+            getSetGlobalLocale(oldLocale);
+          } catch (e) {
+            locales[name] = null;
+          }
+        }
+        return locales[name];
+      }
+      function getSetGlobalLocale(key2, values) {
+        var data;
+        if (key2) {
+          if (isUndefined(values)) {
+            data = getLocale(key2);
+          } else {
+            data = defineLocale(key2, values);
+          }
+          if (data) {
+            globalLocale = data;
+          } else {
+            if (typeof console !== "undefined" && console.warn) {
+              console.warn("Locale " + key2 + " not found. Did you forget to load it?");
+            }
+          }
+        }
+        return globalLocale._abbr;
+      }
+      function defineLocale(name, config) {
+        if (config !== null) {
+          var locale2, parentConfig = baseConfig;
+          config.abbr = name;
+          if (locales[name] != null) {
+            deprecateSimple("defineLocaleOverride", "use moment.updateLocale(localeName, config) to change an existing locale. moment.defineLocale(localeName, config) should only be used for creating a new locale See http://momentjs.com/guides/#/warnings/define-locale/ for more info.");
+            parentConfig = locales[name]._config;
+          } else if (config.parentLocale != null) {
+            if (locales[config.parentLocale] != null) {
+              parentConfig = locales[config.parentLocale]._config;
+            } else {
+              locale2 = loadLocale(config.parentLocale);
+              if (locale2 != null) {
+                parentConfig = locale2._config;
+              } else {
+                if (!localeFamilies[config.parentLocale]) {
+                  localeFamilies[config.parentLocale] = [];
+                }
+                localeFamilies[config.parentLocale].push({
+                  name,
+                  config
+                });
+                return null;
+              }
+            }
+          }
+          locales[name] = new Locale(mergeConfigs(parentConfig, config));
+          if (localeFamilies[name]) {
+            localeFamilies[name].forEach(function(x) {
+              defineLocale(x.name, x.config);
+            });
+          }
+          getSetGlobalLocale(name);
+          return locales[name];
+        } else {
+          delete locales[name];
+          return null;
+        }
+      }
+      function updateLocale(name, config) {
+        if (config != null) {
+          var locale2, tmpLocale, parentConfig = baseConfig;
+          if (locales[name] != null && locales[name].parentLocale != null) {
+            locales[name].set(mergeConfigs(locales[name]._config, config));
+          } else {
+            tmpLocale = loadLocale(name);
+            if (tmpLocale != null) {
+              parentConfig = tmpLocale._config;
+            }
+            config = mergeConfigs(parentConfig, config);
+            if (tmpLocale == null) {
+              config.abbr = name;
+            }
+            locale2 = new Locale(config);
+            locale2.parentLocale = locales[name];
+            locales[name] = locale2;
+          }
+          getSetGlobalLocale(name);
+        } else {
+          if (locales[name] != null) {
+            if (locales[name].parentLocale != null) {
+              locales[name] = locales[name].parentLocale;
+              if (name === getSetGlobalLocale()) {
+                getSetGlobalLocale(name);
+              }
+            } else if (locales[name] != null) {
+              delete locales[name];
+            }
+          }
+        }
+        return locales[name];
+      }
+      function getLocale(key2) {
+        var locale2;
+        if (key2 && key2._locale && key2._locale._abbr) {
+          key2 = key2._locale._abbr;
+        }
+        if (!key2) {
+          return globalLocale;
+        }
+        if (!isArray(key2)) {
+          locale2 = loadLocale(key2);
+          if (locale2) {
+            return locale2;
+          }
+          key2 = [key2];
+        }
+        return chooseLocale(key2);
+      }
+      function listLocales() {
+        return keys(locales);
+      }
+      function checkOverflow(m) {
+        var overflow, a = m._a;
+        if (a && getParsingFlags(m).overflow === -2) {
+          overflow = a[MONTH] < 0 || a[MONTH] > 11 ? MONTH : a[DATE] < 1 || a[DATE] > daysInMonth(a[YEAR], a[MONTH]) ? DATE : a[HOUR] < 0 || a[HOUR] > 24 || a[HOUR] === 24 && (a[MINUTE] !== 0 || a[SECOND] !== 0 || a[MILLISECOND] !== 0) ? HOUR : a[MINUTE] < 0 || a[MINUTE] > 59 ? MINUTE : a[SECOND] < 0 || a[SECOND] > 59 ? SECOND : a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND : -1;
+          if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+            overflow = DATE;
+          }
+          if (getParsingFlags(m)._overflowWeeks && overflow === -1) {
+            overflow = WEEK;
+          }
+          if (getParsingFlags(m)._overflowWeekday && overflow === -1) {
+            overflow = WEEKDAY;
+          }
+          getParsingFlags(m).overflow = overflow;
+        }
+        return m;
+      }
+      var extendedIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/, basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/, tzRegex = /Z|[+-]\d\d(?::?\d\d)?/, isoDates = [
+        ["YYYYYY-MM-DD", /[+-]\d{6}-\d\d-\d\d/],
+        ["YYYY-MM-DD", /\d{4}-\d\d-\d\d/],
+        ["GGGG-[W]WW-E", /\d{4}-W\d\d-\d/],
+        ["GGGG-[W]WW", /\d{4}-W\d\d/, false],
+        ["YYYY-DDD", /\d{4}-\d{3}/],
+        ["YYYY-MM", /\d{4}-\d\d/, false],
+        ["YYYYYYMMDD", /[+-]\d{10}/],
+        ["YYYYMMDD", /\d{8}/],
+        ["GGGG[W]WWE", /\d{4}W\d{3}/],
+        ["GGGG[W]WW", /\d{4}W\d{2}/, false],
+        ["YYYYDDD", /\d{7}/],
+        ["YYYYMM", /\d{6}/, false],
+        ["YYYY", /\d{4}/, false]
+      ], isoTimes = [
+        ["HH:mm:ss.SSSS", /\d\d:\d\d:\d\d\.\d+/],
+        ["HH:mm:ss,SSSS", /\d\d:\d\d:\d\d,\d+/],
+        ["HH:mm:ss", /\d\d:\d\d:\d\d/],
+        ["HH:mm", /\d\d:\d\d/],
+        ["HHmmss.SSSS", /\d\d\d\d\d\d\.\d+/],
+        ["HHmmss,SSSS", /\d\d\d\d\d\d,\d+/],
+        ["HHmmss", /\d\d\d\d\d\d/],
+        ["HHmm", /\d\d\d\d/],
+        ["HH", /\d\d/]
+      ], aspNetJsonRegex = /^\/?Date\((-?\d+)/i, rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|([+-]\d{4}))$/, obsOffsets = {
+        UT: 0,
+        GMT: 0,
+        EDT: -4 * 60,
+        EST: -5 * 60,
+        CDT: -5 * 60,
+        CST: -6 * 60,
+        MDT: -6 * 60,
+        MST: -7 * 60,
+        PDT: -7 * 60,
+        PST: -8 * 60
+      };
+      function configFromISO(config) {
+        var i, l, string = config._i, match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string), allowTime, dateFormat, timeFormat, tzFormat, isoDatesLen = isoDates.length, isoTimesLen = isoTimes.length;
+        if (match) {
+          getParsingFlags(config).iso = true;
+          for (i = 0, l = isoDatesLen; i < l; i++) {
+            if (isoDates[i][1].exec(match[1])) {
+              dateFormat = isoDates[i][0];
+              allowTime = isoDates[i][2] !== false;
+              break;
+            }
+          }
+          if (dateFormat == null) {
+            config._isValid = false;
+            return;
+          }
+          if (match[3]) {
+            for (i = 0, l = isoTimesLen; i < l; i++) {
+              if (isoTimes[i][1].exec(match[3])) {
+                timeFormat = (match[2] || " ") + isoTimes[i][0];
+                break;
+              }
+            }
+            if (timeFormat == null) {
+              config._isValid = false;
+              return;
+            }
+          }
+          if (!allowTime && timeFormat != null) {
+            config._isValid = false;
+            return;
+          }
+          if (match[4]) {
+            if (tzRegex.exec(match[4])) {
+              tzFormat = "Z";
+            } else {
+              config._isValid = false;
+              return;
+            }
+          }
+          config._f = dateFormat + (timeFormat || "") + (tzFormat || "");
+          configFromStringAndFormat(config);
+        } else {
+          config._isValid = false;
+        }
+      }
+      function extractFromRFC2822Strings(yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
+        var result = [
+          untruncateYear(yearStr),
+          defaultLocaleMonthsShort.indexOf(monthStr),
+          parseInt(dayStr, 10),
+          parseInt(hourStr, 10),
+          parseInt(minuteStr, 10)
+        ];
+        if (secondStr) {
+          result.push(parseInt(secondStr, 10));
+        }
+        return result;
+      }
+      function untruncateYear(yearStr) {
+        var year = parseInt(yearStr, 10);
+        if (year <= 49) {
+          return 2e3 + year;
+        } else if (year <= 999) {
+          return 1900 + year;
+        }
+        return year;
+      }
+      function preprocessRFC2822(s) {
+        return s.replace(/\([^()]*\)|[\n\t]/g, " ").replace(/(\s\s+)/g, " ").replace(/^\s\s*/, "").replace(/\s\s*$/, "");
+      }
+      function checkWeekday(weekdayStr, parsedInput, config) {
+        if (weekdayStr) {
+          var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr), weekdayActual = new Date(parsedInput[0], parsedInput[1], parsedInput[2]).getDay();
+          if (weekdayProvided !== weekdayActual) {
+            getParsingFlags(config).weekdayMismatch = true;
+            config._isValid = false;
+            return false;
+          }
+        }
+        return true;
+      }
+      function calculateOffset(obsOffset, militaryOffset, numOffset) {
+        if (obsOffset) {
+          return obsOffsets[obsOffset];
+        } else if (militaryOffset) {
+          return 0;
+        } else {
+          var hm = parseInt(numOffset, 10), m = hm % 100, h = (hm - m) / 100;
+          return h * 60 + m;
+        }
+      }
+      function configFromRFC2822(config) {
+        var match = rfc2822.exec(preprocessRFC2822(config._i)), parsedArray;
+        if (match) {
+          parsedArray = extractFromRFC2822Strings(match[4], match[3], match[2], match[5], match[6], match[7]);
+          if (!checkWeekday(match[1], parsedArray, config)) {
+            return;
+          }
+          config._a = parsedArray;
+          config._tzm = calculateOffset(match[8], match[9], match[10]);
+          config._d = createUTCDate.apply(null, config._a);
+          config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+          getParsingFlags(config).rfc2822 = true;
+        } else {
+          config._isValid = false;
+        }
+      }
+      function configFromString(config) {
+        var matched = aspNetJsonRegex.exec(config._i);
+        if (matched !== null) {
+          config._d = new Date(+matched[1]);
+          return;
+        }
+        configFromISO(config);
+        if (config._isValid === false) {
+          delete config._isValid;
+        } else {
+          return;
+        }
+        configFromRFC2822(config);
+        if (config._isValid === false) {
+          delete config._isValid;
+        } else {
+          return;
+        }
+        if (config._strict) {
+          config._isValid = false;
+        } else {
+          hooks.createFromInputFallback(config);
+        }
+      }
+      hooks.createFromInputFallback = deprecate("value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are discouraged. Please refer to http://momentjs.com/guides/#/warnings/js-date/ for more info.", function(config) {
+        config._d = new Date(config._i + (config._useUTC ? " UTC" : ""));
+      });
+      function defaults(a, b, c) {
+        if (a != null) {
+          return a;
+        }
+        if (b != null) {
+          return b;
+        }
+        return c;
+      }
+      function currentDateArray(config) {
+        var nowValue = new Date(hooks.now());
+        if (config._useUTC) {
+          return [
+            nowValue.getUTCFullYear(),
+            nowValue.getUTCMonth(),
+            nowValue.getUTCDate()
+          ];
+        }
+        return [nowValue.getFullYear(), nowValue.getMonth(), nowValue.getDate()];
+      }
+      function configFromArray(config) {
+        var i, date, input = [], currentDate, expectedWeekday, yearToUse;
+        if (config._d) {
+          return;
+        }
+        currentDate = currentDateArray(config);
+        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+          dayOfYearFromWeekInfo(config);
+        }
+        if (config._dayOfYear != null) {
+          yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
+          if (config._dayOfYear > daysInYear(yearToUse) || config._dayOfYear === 0) {
+            getParsingFlags(config)._overflowDayOfYear = true;
+          }
+          date = createUTCDate(yearToUse, 0, config._dayOfYear);
+          config._a[MONTH] = date.getUTCMonth();
+          config._a[DATE] = date.getUTCDate();
+        }
+        for (i = 0; i < 3 && config._a[i] == null; ++i) {
+          config._a[i] = input[i] = currentDate[i];
+        }
+        for (; i < 7; i++) {
+          config._a[i] = input[i] = config._a[i] == null ? i === 2 ? 1 : 0 : config._a[i];
+        }
+        if (config._a[HOUR] === 24 && config._a[MINUTE] === 0 && config._a[SECOND] === 0 && config._a[MILLISECOND] === 0) {
+          config._nextDay = true;
+          config._a[HOUR] = 0;
+        }
+        config._d = (config._useUTC ? createUTCDate : createDate).apply(null, input);
+        expectedWeekday = config._useUTC ? config._d.getUTCDay() : config._d.getDay();
+        if (config._tzm != null) {
+          config._d.setUTCMinutes(config._d.getUTCMinutes() - config._tzm);
+        }
+        if (config._nextDay) {
+          config._a[HOUR] = 24;
+        }
+        if (config._w && typeof config._w.d !== "undefined" && config._w.d !== expectedWeekday) {
+          getParsingFlags(config).weekdayMismatch = true;
+        }
+      }
+      function dayOfYearFromWeekInfo(config) {
+        var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
+        w = config._w;
+        if (w.GG != null || w.W != null || w.E != null) {
+          dow = 1;
+          doy = 4;
+          weekYear = defaults(w.GG, config._a[YEAR], weekOfYear(createLocal(), 1, 4).year);
+          week = defaults(w.W, 1);
+          weekday = defaults(w.E, 1);
+          if (weekday < 1 || weekday > 7) {
+            weekdayOverflow = true;
+          }
+        } else {
+          dow = config._locale._week.dow;
+          doy = config._locale._week.doy;
+          curWeek = weekOfYear(createLocal(), dow, doy);
+          weekYear = defaults(w.gg, config._a[YEAR], curWeek.year);
+          week = defaults(w.w, curWeek.week);
+          if (w.d != null) {
+            weekday = w.d;
+            if (weekday < 0 || weekday > 6) {
+              weekdayOverflow = true;
+            }
+          } else if (w.e != null) {
+            weekday = w.e + dow;
+            if (w.e < 0 || w.e > 6) {
+              weekdayOverflow = true;
+            }
+          } else {
+            weekday = dow;
+          }
+        }
+        if (week < 1 || week > weeksInYear(weekYear, dow, doy)) {
+          getParsingFlags(config)._overflowWeeks = true;
+        } else if (weekdayOverflow != null) {
+          getParsingFlags(config)._overflowWeekday = true;
+        } else {
+          temp = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy);
+          config._a[YEAR] = temp.year;
+          config._dayOfYear = temp.dayOfYear;
+        }
+      }
+      hooks.ISO_8601 = function() {
+      };
+      hooks.RFC_2822 = function() {
+      };
+      function configFromStringAndFormat(config) {
+        if (config._f === hooks.ISO_8601) {
+          configFromISO(config);
+          return;
+        }
+        if (config._f === hooks.RFC_2822) {
+          configFromRFC2822(config);
+          return;
+        }
+        config._a = [];
+        getParsingFlags(config).empty = true;
+        var string = "" + config._i, i, parsedInput, tokens2, token2, skipped, stringLength = string.length, totalParsedInputLength = 0, era, tokenLen;
+        tokens2 = expandFormat(config._f, config._locale).match(formattingTokens) || [];
+        tokenLen = tokens2.length;
+        for (i = 0; i < tokenLen; i++) {
+          token2 = tokens2[i];
+          parsedInput = (string.match(getParseRegexForToken(token2, config)) || [])[0];
+          if (parsedInput) {
+            skipped = string.substr(0, string.indexOf(parsedInput));
+            if (skipped.length > 0) {
+              getParsingFlags(config).unusedInput.push(skipped);
+            }
+            string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+            totalParsedInputLength += parsedInput.length;
+          }
+          if (formatTokenFunctions[token2]) {
+            if (parsedInput) {
+              getParsingFlags(config).empty = false;
+            } else {
+              getParsingFlags(config).unusedTokens.push(token2);
+            }
+            addTimeToArrayFromToken(token2, parsedInput, config);
+          } else if (config._strict && !parsedInput) {
+            getParsingFlags(config).unusedTokens.push(token2);
+          }
+        }
+        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
+        if (string.length > 0) {
+          getParsingFlags(config).unusedInput.push(string);
+        }
+        if (config._a[HOUR] <= 12 && getParsingFlags(config).bigHour === true && config._a[HOUR] > 0) {
+          getParsingFlags(config).bigHour = void 0;
+        }
+        getParsingFlags(config).parsedDateParts = config._a.slice(0);
+        getParsingFlags(config).meridiem = config._meridiem;
+        config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
+        era = getParsingFlags(config).era;
+        if (era !== null) {
+          config._a[YEAR] = config._locale.erasConvertYear(era, config._a[YEAR]);
+        }
+        configFromArray(config);
+        checkOverflow(config);
+      }
+      function meridiemFixWrap(locale2, hour, meridiem2) {
+        var isPm;
+        if (meridiem2 == null) {
+          return hour;
+        }
+        if (locale2.meridiemHour != null) {
+          return locale2.meridiemHour(hour, meridiem2);
+        } else if (locale2.isPM != null) {
+          isPm = locale2.isPM(meridiem2);
+          if (isPm && hour < 12) {
+            hour += 12;
+          }
+          if (!isPm && hour === 12) {
+            hour = 0;
+          }
+          return hour;
+        } else {
+          return hour;
+        }
+      }
+      function configFromStringAndArray(config) {
+        var tempConfig, bestMoment, scoreToBeat, i, currentScore, validFormatFound, bestFormatIsValid = false, configfLen = config._f.length;
+        if (configfLen === 0) {
+          getParsingFlags(config).invalidFormat = true;
+          config._d = new Date(NaN);
+          return;
+        }
+        for (i = 0; i < configfLen; i++) {
+          currentScore = 0;
+          validFormatFound = false;
+          tempConfig = copyConfig({}, config);
+          if (config._useUTC != null) {
+            tempConfig._useUTC = config._useUTC;
+          }
+          tempConfig._f = config._f[i];
+          configFromStringAndFormat(tempConfig);
+          if (isValid(tempConfig)) {
+            validFormatFound = true;
+          }
+          currentScore += getParsingFlags(tempConfig).charsLeftOver;
+          currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
+          getParsingFlags(tempConfig).score = currentScore;
+          if (!bestFormatIsValid) {
+            if (scoreToBeat == null || currentScore < scoreToBeat || validFormatFound) {
+              scoreToBeat = currentScore;
+              bestMoment = tempConfig;
+              if (validFormatFound) {
+                bestFormatIsValid = true;
+              }
+            }
+          } else {
+            if (currentScore < scoreToBeat) {
+              scoreToBeat = currentScore;
+              bestMoment = tempConfig;
+            }
+          }
+        }
+        extend2(config, bestMoment || tempConfig);
+      }
+      function configFromObject(config) {
+        if (config._d) {
+          return;
+        }
+        var i = normalizeObjectUnits(config._i), dayOrDate = i.day === void 0 ? i.date : i.day;
+        config._a = map([i.year, i.month, dayOrDate, i.hour, i.minute, i.second, i.millisecond], function(obj) {
+          return obj && parseInt(obj, 10);
+        });
+        configFromArray(config);
+      }
+      function createFromConfig(config) {
+        var res = new Moment2(checkOverflow(prepareConfig(config)));
+        if (res._nextDay) {
+          res.add(1, "d");
+          res._nextDay = void 0;
+        }
+        return res;
+      }
+      function prepareConfig(config) {
+        var input = config._i, format2 = config._f;
+        config._locale = config._locale || getLocale(config._l);
+        if (input === null || format2 === void 0 && input === "") {
+          return createInvalid({ nullInput: true });
+        }
+        if (typeof input === "string") {
+          config._i = input = config._locale.preparse(input);
+        }
+        if (isMoment(input)) {
+          return new Moment2(checkOverflow(input));
+        } else if (isDate(input)) {
+          config._d = input;
+        } else if (isArray(format2)) {
+          configFromStringAndArray(config);
+        } else if (format2) {
+          configFromStringAndFormat(config);
+        } else {
+          configFromInput(config);
+        }
+        if (!isValid(config)) {
+          config._d = null;
+        }
+        return config;
+      }
+      function configFromInput(config) {
+        var input = config._i;
+        if (isUndefined(input)) {
+          config._d = new Date(hooks.now());
+        } else if (isDate(input)) {
+          config._d = new Date(input.valueOf());
+        } else if (typeof input === "string") {
+          configFromString(config);
+        } else if (isArray(input)) {
+          config._a = map(input.slice(0), function(obj) {
+            return parseInt(obj, 10);
+          });
+          configFromArray(config);
+        } else if (isObject(input)) {
+          configFromObject(config);
+        } else if (isNumber(input)) {
+          config._d = new Date(input);
+        } else {
+          hooks.createFromInputFallback(config);
+        }
+      }
+      function createLocalOrUTC(input, format2, locale2, strict, isUTC) {
+        var c = {};
+        if (format2 === true || format2 === false) {
+          strict = format2;
+          format2 = void 0;
+        }
+        if (locale2 === true || locale2 === false) {
+          strict = locale2;
+          locale2 = void 0;
+        }
+        if (isObject(input) && isObjectEmpty(input) || isArray(input) && input.length === 0) {
+          input = void 0;
+        }
+        c._isAMomentObject = true;
+        c._useUTC = c._isUTC = isUTC;
+        c._l = locale2;
+        c._i = input;
+        c._f = format2;
+        c._strict = strict;
+        return createFromConfig(c);
+      }
+      function createLocal(input, format2, locale2, strict) {
+        return createLocalOrUTC(input, format2, locale2, strict, false);
+      }
+      var prototypeMin = deprecate("moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/", function() {
+        var other = createLocal.apply(null, arguments);
+        if (this.isValid() && other.isValid()) {
+          return other < this ? this : other;
+        } else {
+          return createInvalid();
+        }
+      }), prototypeMax = deprecate("moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/", function() {
+        var other = createLocal.apply(null, arguments);
+        if (this.isValid() && other.isValid()) {
+          return other > this ? this : other;
+        } else {
+          return createInvalid();
+        }
+      });
+      function pickBy(fn, moments) {
+        var res, i;
+        if (moments.length === 1 && isArray(moments[0])) {
+          moments = moments[0];
+        }
+        if (!moments.length) {
+          return createLocal();
+        }
+        res = moments[0];
+        for (i = 1; i < moments.length; ++i) {
+          if (!moments[i].isValid() || moments[i][fn](res)) {
+            res = moments[i];
+          }
+        }
+        return res;
+      }
+      function min() {
+        var args = [].slice.call(arguments, 0);
+        return pickBy("isBefore", args);
+      }
+      function max() {
+        var args = [].slice.call(arguments, 0);
+        return pickBy("isAfter", args);
+      }
+      var now = function() {
+        return Date.now ? Date.now() : +new Date();
+      };
+      var ordering = [
+        "year",
+        "quarter",
+        "month",
+        "week",
+        "day",
+        "hour",
+        "minute",
+        "second",
+        "millisecond"
+      ];
+      function isDurationValid(m) {
+        var key2, unitHasDecimal = false, i, orderLen = ordering.length;
+        for (key2 in m) {
+          if (hasOwnProp(m, key2) && !(indexOf.call(ordering, key2) !== -1 && (m[key2] == null || !isNaN(m[key2])))) {
+            return false;
+          }
+        }
+        for (i = 0; i < orderLen; ++i) {
+          if (m[ordering[i]]) {
+            if (unitHasDecimal) {
+              return false;
+            }
+            if (parseFloat(m[ordering[i]]) !== toInt(m[ordering[i]])) {
+              unitHasDecimal = true;
+            }
+          }
+        }
+        return true;
+      }
+      function isValid$1() {
+        return this._isValid;
+      }
+      function createInvalid$1() {
+        return createDuration(NaN);
+      }
+      function Duration(duration) {
+        var normalizedInput = normalizeObjectUnits(duration), years2 = normalizedInput.year || 0, quarters = normalizedInput.quarter || 0, months2 = normalizedInput.month || 0, weeks2 = normalizedInput.week || normalizedInput.isoWeek || 0, days2 = normalizedInput.day || 0, hours2 = normalizedInput.hour || 0, minutes2 = normalizedInput.minute || 0, seconds2 = normalizedInput.second || 0, milliseconds2 = normalizedInput.millisecond || 0;
+        this._isValid = isDurationValid(normalizedInput);
+        this._milliseconds = +milliseconds2 + seconds2 * 1e3 + minutes2 * 6e4 + hours2 * 1e3 * 60 * 60;
+        this._days = +days2 + weeks2 * 7;
+        this._months = +months2 + quarters * 3 + years2 * 12;
+        this._data = {};
+        this._locale = getLocale();
+        this._bubble();
+      }
+      function isDuration(obj) {
+        return obj instanceof Duration;
+      }
+      function absRound(number) {
+        if (number < 0) {
+          return Math.round(-1 * number) * -1;
+        } else {
+          return Math.round(number);
+        }
+      }
+      function compareArrays(array1, array2, dontConvert) {
+        var len = Math.min(array1.length, array2.length), lengthDiff = Math.abs(array1.length - array2.length), diffs = 0, i;
+        for (i = 0; i < len; i++) {
+          if (dontConvert && array1[i] !== array2[i] || !dontConvert && toInt(array1[i]) !== toInt(array2[i])) {
+            diffs++;
+          }
+        }
+        return diffs + lengthDiff;
+      }
+      function offset(token2, separator) {
+        addFormatToken(token2, 0, 0, function() {
+          var offset2 = this.utcOffset(), sign2 = "+";
+          if (offset2 < 0) {
+            offset2 = -offset2;
+            sign2 = "-";
+          }
+          return sign2 + zeroFill(~~(offset2 / 60), 2) + separator + zeroFill(~~offset2 % 60, 2);
+        });
+      }
+      offset("Z", ":");
+      offset("ZZ", "");
+      addRegexToken("Z", matchShortOffset);
+      addRegexToken("ZZ", matchShortOffset);
+      addParseToken(["Z", "ZZ"], function(input, array, config) {
+        config._useUTC = true;
+        config._tzm = offsetFromString(matchShortOffset, input);
+      });
+      var chunkOffset = /([\+\-]|\d\d)/gi;
+      function offsetFromString(matcher, string) {
+        var matches = (string || "").match(matcher), chunk, parts, minutes2;
+        if (matches === null) {
+          return null;
+        }
+        chunk = matches[matches.length - 1] || [];
+        parts = (chunk + "").match(chunkOffset) || ["-", 0, 0];
+        minutes2 = +(parts[1] * 60) + toInt(parts[2]);
+        return minutes2 === 0 ? 0 : parts[0] === "+" ? minutes2 : -minutes2;
+      }
+      function cloneWithOffset(input, model) {
+        var res, diff2;
+        if (model._isUTC) {
+          res = model.clone();
+          diff2 = (isMoment(input) || isDate(input) ? input.valueOf() : createLocal(input).valueOf()) - res.valueOf();
+          res._d.setTime(res._d.valueOf() + diff2);
+          hooks.updateOffset(res, false);
+          return res;
+        } else {
+          return createLocal(input).local();
+        }
+      }
+      function getDateOffset(m) {
+        return -Math.round(m._d.getTimezoneOffset());
+      }
+      hooks.updateOffset = function() {
+      };
+      function getSetOffset(input, keepLocalTime, keepMinutes) {
+        var offset2 = this._offset || 0, localAdjust;
+        if (!this.isValid()) {
+          return input != null ? this : NaN;
+        }
+        if (input != null) {
+          if (typeof input === "string") {
+            input = offsetFromString(matchShortOffset, input);
+            if (input === null) {
+              return this;
+            }
+          } else if (Math.abs(input) < 16 && !keepMinutes) {
+            input = input * 60;
+          }
+          if (!this._isUTC && keepLocalTime) {
+            localAdjust = getDateOffset(this);
+          }
+          this._offset = input;
+          this._isUTC = true;
+          if (localAdjust != null) {
+            this.add(localAdjust, "m");
+          }
+          if (offset2 !== input) {
+            if (!keepLocalTime || this._changeInProgress) {
+              addSubtract(this, createDuration(input - offset2, "m"), 1, false);
+            } else if (!this._changeInProgress) {
+              this._changeInProgress = true;
+              hooks.updateOffset(this, true);
+              this._changeInProgress = null;
+            }
+          }
+          return this;
+        } else {
+          return this._isUTC ? offset2 : getDateOffset(this);
+        }
+      }
+      function getSetZone(input, keepLocalTime) {
+        if (input != null) {
+          if (typeof input !== "string") {
+            input = -input;
+          }
+          this.utcOffset(input, keepLocalTime);
+          return this;
+        } else {
+          return -this.utcOffset();
+        }
+      }
+      function setOffsetToUTC(keepLocalTime) {
+        return this.utcOffset(0, keepLocalTime);
+      }
+      function setOffsetToLocal(keepLocalTime) {
+        if (this._isUTC) {
+          this.utcOffset(0, keepLocalTime);
+          this._isUTC = false;
+          if (keepLocalTime) {
+            this.subtract(getDateOffset(this), "m");
+          }
+        }
+        return this;
+      }
+      function setOffsetToParsedOffset() {
+        if (this._tzm != null) {
+          this.utcOffset(this._tzm, false, true);
+        } else if (typeof this._i === "string") {
+          var tZone = offsetFromString(matchOffset, this._i);
+          if (tZone != null) {
+            this.utcOffset(tZone);
+          } else {
+            this.utcOffset(0, true);
+          }
+        }
+        return this;
+      }
+      function hasAlignedHourOffset(input) {
+        if (!this.isValid()) {
+          return false;
+        }
+        input = input ? createLocal(input).utcOffset() : 0;
+        return (this.utcOffset() - input) % 60 === 0;
+      }
+      function isDaylightSavingTime() {
+        return this.utcOffset() > this.clone().month(0).utcOffset() || this.utcOffset() > this.clone().month(5).utcOffset();
+      }
+      function isDaylightSavingTimeShifted() {
+        if (!isUndefined(this._isDSTShifted)) {
+          return this._isDSTShifted;
+        }
+        var c = {}, other;
+        copyConfig(c, this);
+        c = prepareConfig(c);
+        if (c._a) {
+          other = c._isUTC ? createUTC(c._a) : createLocal(c._a);
+          this._isDSTShifted = this.isValid() && compareArrays(c._a, other.toArray()) > 0;
+        } else {
+          this._isDSTShifted = false;
+        }
+        return this._isDSTShifted;
+      }
+      function isLocal() {
+        return this.isValid() ? !this._isUTC : false;
+      }
+      function isUtcOffset() {
+        return this.isValid() ? this._isUTC : false;
+      }
+      function isUtc() {
+        return this.isValid() ? this._isUTC && this._offset === 0 : false;
+      }
+      var aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/, isoRegex = /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
+      function createDuration(input, key2) {
+        var duration = input, match = null, sign2, ret, diffRes;
+        if (isDuration(input)) {
+          duration = {
+            ms: input._milliseconds,
+            d: input._days,
+            M: input._months
+          };
+        } else if (isNumber(input) || !isNaN(+input)) {
+          duration = {};
+          if (key2) {
+            duration[key2] = +input;
+          } else {
+            duration.milliseconds = +input;
+          }
+        } else if (match = aspNetRegex.exec(input)) {
+          sign2 = match[1] === "-" ? -1 : 1;
+          duration = {
+            y: 0,
+            d: toInt(match[DATE]) * sign2,
+            h: toInt(match[HOUR]) * sign2,
+            m: toInt(match[MINUTE]) * sign2,
+            s: toInt(match[SECOND]) * sign2,
+            ms: toInt(absRound(match[MILLISECOND] * 1e3)) * sign2
+          };
+        } else if (match = isoRegex.exec(input)) {
+          sign2 = match[1] === "-" ? -1 : 1;
+          duration = {
+            y: parseIso(match[2], sign2),
+            M: parseIso(match[3], sign2),
+            w: parseIso(match[4], sign2),
+            d: parseIso(match[5], sign2),
+            h: parseIso(match[6], sign2),
+            m: parseIso(match[7], sign2),
+            s: parseIso(match[8], sign2)
+          };
+        } else if (duration == null) {
+          duration = {};
+        } else if (typeof duration === "object" && ("from" in duration || "to" in duration)) {
+          diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
+          duration = {};
+          duration.ms = diffRes.milliseconds;
+          duration.M = diffRes.months;
+        }
+        ret = new Duration(duration);
+        if (isDuration(input) && hasOwnProp(input, "_locale")) {
+          ret._locale = input._locale;
+        }
+        if (isDuration(input) && hasOwnProp(input, "_isValid")) {
+          ret._isValid = input._isValid;
+        }
+        return ret;
+      }
+      createDuration.fn = Duration.prototype;
+      createDuration.invalid = createInvalid$1;
+      function parseIso(inp, sign2) {
+        var res = inp && parseFloat(inp.replace(",", "."));
+        return (isNaN(res) ? 0 : res) * sign2;
+      }
+      function positiveMomentsDifference(base, other) {
+        var res = {};
+        res.months = other.month() - base.month() + (other.year() - base.year()) * 12;
+        if (base.clone().add(res.months, "M").isAfter(other)) {
+          --res.months;
+        }
+        res.milliseconds = +other - +base.clone().add(res.months, "M");
+        return res;
+      }
+      function momentsDifference(base, other) {
+        var res;
+        if (!(base.isValid() && other.isValid())) {
+          return { milliseconds: 0, months: 0 };
+        }
+        other = cloneWithOffset(other, base);
+        if (base.isBefore(other)) {
+          res = positiveMomentsDifference(base, other);
+        } else {
+          res = positiveMomentsDifference(other, base);
+          res.milliseconds = -res.milliseconds;
+          res.months = -res.months;
+        }
+        return res;
+      }
+      function createAdder(direction, name) {
+        return function(val, period) {
+          var dur, tmp;
+          if (period !== null && !isNaN(+period)) {
+            deprecateSimple(name, "moment()." + name + "(period, number) is deprecated. Please use moment()." + name + "(number, period). See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.");
+            tmp = val;
+            val = period;
+            period = tmp;
+          }
+          dur = createDuration(val, period);
+          addSubtract(this, dur, direction);
+          return this;
+        };
+      }
+      function addSubtract(mom, duration, isAdding, updateOffset) {
+        var milliseconds2 = duration._milliseconds, days2 = absRound(duration._days), months2 = absRound(duration._months);
+        if (!mom.isValid()) {
+          return;
+        }
+        updateOffset = updateOffset == null ? true : updateOffset;
+        if (months2) {
+          setMonth(mom, get(mom, "Month") + months2 * isAdding);
+        }
+        if (days2) {
+          set$1(mom, "Date", get(mom, "Date") + days2 * isAdding);
+        }
+        if (milliseconds2) {
+          mom._d.setTime(mom._d.valueOf() + milliseconds2 * isAdding);
+        }
+        if (updateOffset) {
+          hooks.updateOffset(mom, days2 || months2);
+        }
+      }
+      var add = createAdder(1, "add"), subtract = createAdder(-1, "subtract");
+      function isString(input) {
+        return typeof input === "string" || input instanceof String;
+      }
+      function isMomentInput(input) {
+        return isMoment(input) || isDate(input) || isString(input) || isNumber(input) || isNumberOrStringArray(input) || isMomentInputObject(input) || input === null || input === void 0;
+      }
+      function isMomentInputObject(input) {
+        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [
+          "years",
+          "year",
+          "y",
+          "months",
+          "month",
+          "M",
+          "days",
+          "day",
+          "d",
+          "dates",
+          "date",
+          "D",
+          "hours",
+          "hour",
+          "h",
+          "minutes",
+          "minute",
+          "m",
+          "seconds",
+          "second",
+          "s",
+          "milliseconds",
+          "millisecond",
+          "ms"
+        ], i, property, propertyLen = properties.length;
+        for (i = 0; i < propertyLen; i += 1) {
+          property = properties[i];
+          propertyTest = propertyTest || hasOwnProp(input, property);
+        }
+        return objectTest && propertyTest;
+      }
+      function isNumberOrStringArray(input) {
+        var arrayTest = isArray(input), dataTypeTest = false;
+        if (arrayTest) {
+          dataTypeTest = input.filter(function(item) {
+            return !isNumber(item) && isString(input);
+          }).length === 0;
+        }
+        return arrayTest && dataTypeTest;
+      }
+      function isCalendarSpec(input) {
+        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [
+          "sameDay",
+          "nextDay",
+          "lastDay",
+          "nextWeek",
+          "lastWeek",
+          "sameElse"
+        ], i, property;
+        for (i = 0; i < properties.length; i += 1) {
+          property = properties[i];
+          propertyTest = propertyTest || hasOwnProp(input, property);
+        }
+        return objectTest && propertyTest;
+      }
+      function getCalendarFormat(myMoment, now2) {
+        var diff2 = myMoment.diff(now2, "days", true);
+        return diff2 < -6 ? "sameElse" : diff2 < -1 ? "lastWeek" : diff2 < 0 ? "lastDay" : diff2 < 1 ? "sameDay" : diff2 < 2 ? "nextDay" : diff2 < 7 ? "nextWeek" : "sameElse";
+      }
+      function calendar$1(time, formats) {
+        if (arguments.length === 1) {
+          if (!arguments[0]) {
+            time = void 0;
+            formats = void 0;
+          } else if (isMomentInput(arguments[0])) {
+            time = arguments[0];
+            formats = void 0;
+          } else if (isCalendarSpec(arguments[0])) {
+            formats = arguments[0];
+            time = void 0;
+          }
+        }
+        var now2 = time || createLocal(), sod = cloneWithOffset(now2, this).startOf("day"), format2 = hooks.calendarFormat(this, sod) || "sameElse", output = formats && (isFunction(formats[format2]) ? formats[format2].call(this, now2) : formats[format2]);
+        return this.format(output || this.localeData().calendar(format2, this, createLocal(now2)));
+      }
+      function clone() {
+        return new Moment2(this);
+      }
+      function isAfter(input, units) {
+        var localInput = isMoment(input) ? input : createLocal(input);
+        if (!(this.isValid() && localInput.isValid())) {
+          return false;
+        }
+        units = normalizeUnits(units) || "millisecond";
+        if (units === "millisecond") {
+          return this.valueOf() > localInput.valueOf();
+        } else {
+          return localInput.valueOf() < this.clone().startOf(units).valueOf();
+        }
+      }
+      function isBefore(input, units) {
+        var localInput = isMoment(input) ? input : createLocal(input);
+        if (!(this.isValid() && localInput.isValid())) {
+          return false;
+        }
+        units = normalizeUnits(units) || "millisecond";
+        if (units === "millisecond") {
+          return this.valueOf() < localInput.valueOf();
+        } else {
+          return this.clone().endOf(units).valueOf() < localInput.valueOf();
+        }
+      }
+      function isBetween(from2, to2, units, inclusivity) {
+        var localFrom = isMoment(from2) ? from2 : createLocal(from2), localTo = isMoment(to2) ? to2 : createLocal(to2);
+        if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
+          return false;
+        }
+        inclusivity = inclusivity || "()";
+        return (inclusivity[0] === "(" ? this.isAfter(localFrom, units) : !this.isBefore(localFrom, units)) && (inclusivity[1] === ")" ? this.isBefore(localTo, units) : !this.isAfter(localTo, units));
+      }
+      function isSame(input, units) {
+        var localInput = isMoment(input) ? input : createLocal(input), inputMs;
+        if (!(this.isValid() && localInput.isValid())) {
+          return false;
+        }
+        units = normalizeUnits(units) || "millisecond";
+        if (units === "millisecond") {
+          return this.valueOf() === localInput.valueOf();
+        } else {
+          inputMs = localInput.valueOf();
+          return this.clone().startOf(units).valueOf() <= inputMs && inputMs <= this.clone().endOf(units).valueOf();
+        }
+      }
+      function isSameOrAfter(input, units) {
+        return this.isSame(input, units) || this.isAfter(input, units);
+      }
+      function isSameOrBefore(input, units) {
+        return this.isSame(input, units) || this.isBefore(input, units);
+      }
+      function diff(input, units, asFloat) {
+        var that, zoneDelta, output;
+        if (!this.isValid()) {
+          return NaN;
+        }
+        that = cloneWithOffset(input, this);
+        if (!that.isValid()) {
+          return NaN;
+        }
+        zoneDelta = (that.utcOffset() - this.utcOffset()) * 6e4;
+        units = normalizeUnits(units);
+        switch (units) {
+          case "year":
+            output = monthDiff(this, that) / 12;
+            break;
+          case "month":
+            output = monthDiff(this, that);
+            break;
+          case "quarter":
+            output = monthDiff(this, that) / 3;
+            break;
+          case "second":
+            output = (this - that) / 1e3;
+            break;
+          case "minute":
+            output = (this - that) / 6e4;
+            break;
+          case "hour":
+            output = (this - that) / 36e5;
+            break;
+          case "day":
+            output = (this - that - zoneDelta) / 864e5;
+            break;
+          case "week":
+            output = (this - that - zoneDelta) / 6048e5;
+            break;
+          default:
+            output = this - that;
+        }
+        return asFloat ? output : absFloor(output);
+      }
+      function monthDiff(a, b) {
+        if (a.date() < b.date()) {
+          return -monthDiff(b, a);
+        }
+        var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()), anchor = a.clone().add(wholeMonthDiff, "months"), anchor2, adjust;
+        if (b - anchor < 0) {
+          anchor2 = a.clone().add(wholeMonthDiff - 1, "months");
+          adjust = (b - anchor) / (anchor - anchor2);
+        } else {
+          anchor2 = a.clone().add(wholeMonthDiff + 1, "months");
+          adjust = (b - anchor) / (anchor2 - anchor);
+        }
+        return -(wholeMonthDiff + adjust) || 0;
+      }
+      hooks.defaultFormat = "YYYY-MM-DDTHH:mm:ssZ";
+      hooks.defaultFormatUtc = "YYYY-MM-DDTHH:mm:ss[Z]";
+      function toString() {
+        return this.clone().locale("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+      }
+      function toISOString(keepOffset) {
+        if (!this.isValid()) {
+          return null;
+        }
+        var utc = keepOffset !== true, m = utc ? this.clone().utc() : this;
+        if (m.year() < 0 || m.year() > 9999) {
+          return formatMoment(m, utc ? "YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYYYY-MM-DD[T]HH:mm:ss.SSSZ");
+        }
+        if (isFunction(Date.prototype.toISOString)) {
+          if (utc) {
+            return this.toDate().toISOString();
+          } else {
+            return new Date(this.valueOf() + this.utcOffset() * 60 * 1e3).toISOString().replace("Z", formatMoment(m, "Z"));
+          }
+        }
+        return formatMoment(m, utc ? "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]" : "YYYY-MM-DD[T]HH:mm:ss.SSSZ");
+      }
+      function inspect() {
+        if (!this.isValid()) {
+          return "moment.invalid(/* " + this._i + " */)";
+        }
+        var func = "moment", zone = "", prefix, year, datetime, suffix;
+        if (!this.isLocal()) {
+          func = this.utcOffset() === 0 ? "moment.utc" : "moment.parseZone";
+          zone = "Z";
+        }
+        prefix = "[" + func + '("]';
+        year = 0 <= this.year() && this.year() <= 9999 ? "YYYY" : "YYYYYY";
+        datetime = "-MM-DD[T]HH:mm:ss.SSS";
+        suffix = zone + '[")]';
+        return this.format(prefix + year + datetime + suffix);
+      }
+      function format(inputString) {
+        if (!inputString) {
+          inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
+        }
+        var output = formatMoment(this, inputString);
+        return this.localeData().postformat(output);
+      }
+      function from(time, withoutSuffix) {
+        if (this.isValid() && (isMoment(time) && time.isValid() || createLocal(time).isValid())) {
+          return createDuration({ to: this, from: time }).locale(this.locale()).humanize(!withoutSuffix);
+        } else {
+          return this.localeData().invalidDate();
+        }
+      }
+      function fromNow(withoutSuffix) {
+        return this.from(createLocal(), withoutSuffix);
+      }
+      function to(time, withoutSuffix) {
+        if (this.isValid() && (isMoment(time) && time.isValid() || createLocal(time).isValid())) {
+          return createDuration({ from: this, to: time }).locale(this.locale()).humanize(!withoutSuffix);
+        } else {
+          return this.localeData().invalidDate();
+        }
+      }
+      function toNow(withoutSuffix) {
+        return this.to(createLocal(), withoutSuffix);
+      }
+      function locale(key2) {
+        var newLocaleData;
+        if (key2 === void 0) {
+          return this._locale._abbr;
+        } else {
+          newLocaleData = getLocale(key2);
+          if (newLocaleData != null) {
+            this._locale = newLocaleData;
+          }
+          return this;
+        }
+      }
+      var lang = deprecate("moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.", function(key2) {
+        if (key2 === void 0) {
+          return this.localeData();
+        } else {
+          return this.locale(key2);
+        }
+      });
+      function localeData() {
+        return this._locale;
+      }
+      var MS_PER_SECOND = 1e3, MS_PER_MINUTE = 60 * MS_PER_SECOND, MS_PER_HOUR = 60 * MS_PER_MINUTE, MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
+      function mod$1(dividend, divisor) {
+        return (dividend % divisor + divisor) % divisor;
+      }
+      function localStartOfDate(y, m, d) {
+        if (y < 100 && y >= 0) {
+          return new Date(y + 400, m, d) - MS_PER_400_YEARS;
+        } else {
+          return new Date(y, m, d).valueOf();
+        }
+      }
+      function utcStartOfDate(y, m, d) {
+        if (y < 100 && y >= 0) {
+          return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
+        } else {
+          return Date.UTC(y, m, d);
+        }
+      }
+      function startOf(units) {
+        var time, startOfDate;
+        units = normalizeUnits(units);
+        if (units === void 0 || units === "millisecond" || !this.isValid()) {
+          return this;
+        }
+        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+        switch (units) {
+          case "year":
+            time = startOfDate(this.year(), 0, 1);
+            break;
+          case "quarter":
+            time = startOfDate(this.year(), this.month() - this.month() % 3, 1);
+            break;
+          case "month":
+            time = startOfDate(this.year(), this.month(), 1);
+            break;
+          case "week":
+            time = startOfDate(this.year(), this.month(), this.date() - this.weekday());
+            break;
+          case "isoWeek":
+            time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1));
+            break;
+          case "day":
+          case "date":
+            time = startOfDate(this.year(), this.month(), this.date());
+            break;
+          case "hour":
+            time = this._d.valueOf();
+            time -= mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
+            break;
+          case "minute":
+            time = this._d.valueOf();
+            time -= mod$1(time, MS_PER_MINUTE);
+            break;
+          case "second":
+            time = this._d.valueOf();
+            time -= mod$1(time, MS_PER_SECOND);
+            break;
+        }
+        this._d.setTime(time);
+        hooks.updateOffset(this, true);
+        return this;
+      }
+      function endOf(units) {
+        var time, startOfDate;
+        units = normalizeUnits(units);
+        if (units === void 0 || units === "millisecond" || !this.isValid()) {
+          return this;
+        }
+        startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
+        switch (units) {
+          case "year":
+            time = startOfDate(this.year() + 1, 0, 1) - 1;
+            break;
+          case "quarter":
+            time = startOfDate(this.year(), this.month() - this.month() % 3 + 3, 1) - 1;
+            break;
+          case "month":
+            time = startOfDate(this.year(), this.month() + 1, 1) - 1;
+            break;
+          case "week":
+            time = startOfDate(this.year(), this.month(), this.date() - this.weekday() + 7) - 1;
+            break;
+          case "isoWeek":
+            time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1) + 7) - 1;
+            break;
+          case "day":
+          case "date":
+            time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
+            break;
+          case "hour":
+            time = this._d.valueOf();
+            time += MS_PER_HOUR - mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
+            break;
+          case "minute":
+            time = this._d.valueOf();
+            time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
+            break;
+          case "second":
+            time = this._d.valueOf();
+            time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
+            break;
+        }
+        this._d.setTime(time);
+        hooks.updateOffset(this, true);
+        return this;
+      }
+      function valueOf() {
+        return this._d.valueOf() - (this._offset || 0) * 6e4;
+      }
+      function unix() {
+        return Math.floor(this.valueOf() / 1e3);
+      }
+      function toDate() {
+        return new Date(this.valueOf());
+      }
+      function toArray() {
+        var m = this;
+        return [
+          m.year(),
+          m.month(),
+          m.date(),
+          m.hour(),
+          m.minute(),
+          m.second(),
+          m.millisecond()
+        ];
+      }
+      function toObject() {
+        var m = this;
+        return {
+          years: m.year(),
+          months: m.month(),
+          date: m.date(),
+          hours: m.hours(),
+          minutes: m.minutes(),
+          seconds: m.seconds(),
+          milliseconds: m.milliseconds()
+        };
+      }
+      function toJSON() {
+        return this.isValid() ? this.toISOString() : null;
+      }
+      function isValid$2() {
+        return isValid(this);
+      }
+      function parsingFlags() {
+        return extend2({}, getParsingFlags(this));
+      }
+      function invalidAt() {
+        return getParsingFlags(this).overflow;
+      }
+      function creationData() {
+        return {
+          input: this._i,
+          format: this._f,
+          locale: this._locale,
+          isUTC: this._isUTC,
+          strict: this._strict
+        };
+      }
+      addFormatToken("N", 0, 0, "eraAbbr");
+      addFormatToken("NN", 0, 0, "eraAbbr");
+      addFormatToken("NNN", 0, 0, "eraAbbr");
+      addFormatToken("NNNN", 0, 0, "eraName");
+      addFormatToken("NNNNN", 0, 0, "eraNarrow");
+      addFormatToken("y", ["y", 1], "yo", "eraYear");
+      addFormatToken("y", ["yy", 2], 0, "eraYear");
+      addFormatToken("y", ["yyy", 3], 0, "eraYear");
+      addFormatToken("y", ["yyyy", 4], 0, "eraYear");
+      addRegexToken("N", matchEraAbbr);
+      addRegexToken("NN", matchEraAbbr);
+      addRegexToken("NNN", matchEraAbbr);
+      addRegexToken("NNNN", matchEraName);
+      addRegexToken("NNNNN", matchEraNarrow);
+      addParseToken(["N", "NN", "NNN", "NNNN", "NNNNN"], function(input, array, config, token2) {
+        var era = config._locale.erasParse(input, token2, config._strict);
+        if (era) {
+          getParsingFlags(config).era = era;
+        } else {
+          getParsingFlags(config).invalidEra = input;
+        }
+      });
+      addRegexToken("y", matchUnsigned);
+      addRegexToken("yy", matchUnsigned);
+      addRegexToken("yyy", matchUnsigned);
+      addRegexToken("yyyy", matchUnsigned);
+      addRegexToken("yo", matchEraYearOrdinal);
+      addParseToken(["y", "yy", "yyy", "yyyy"], YEAR);
+      addParseToken(["yo"], function(input, array, config, token2) {
+        var match;
+        if (config._locale._eraYearOrdinalRegex) {
+          match = input.match(config._locale._eraYearOrdinalRegex);
+        }
+        if (config._locale.eraYearOrdinalParse) {
+          array[YEAR] = config._locale.eraYearOrdinalParse(input, match);
+        } else {
+          array[YEAR] = parseInt(input, 10);
+        }
+      });
+      function localeEras(m, format2) {
+        var i, l, date, eras = this._eras || getLocale("en")._eras;
+        for (i = 0, l = eras.length; i < l; ++i) {
+          switch (typeof eras[i].since) {
+            case "string":
+              date = hooks(eras[i].since).startOf("day");
+              eras[i].since = date.valueOf();
+              break;
+          }
+          switch (typeof eras[i].until) {
+            case "undefined":
+              eras[i].until = Infinity;
+              break;
+            case "string":
+              date = hooks(eras[i].until).startOf("day").valueOf();
+              eras[i].until = date.valueOf();
+              break;
+          }
+        }
+        return eras;
+      }
+      function localeErasParse(eraName, format2, strict) {
+        var i, l, eras = this.eras(), name, abbr, narrow;
+        eraName = eraName.toUpperCase();
+        for (i = 0, l = eras.length; i < l; ++i) {
+          name = eras[i].name.toUpperCase();
+          abbr = eras[i].abbr.toUpperCase();
+          narrow = eras[i].narrow.toUpperCase();
+          if (strict) {
+            switch (format2) {
+              case "N":
+              case "NN":
+              case "NNN":
+                if (abbr === eraName) {
+                  return eras[i];
+                }
+                break;
+              case "NNNN":
+                if (name === eraName) {
+                  return eras[i];
+                }
+                break;
+              case "NNNNN":
+                if (narrow === eraName) {
+                  return eras[i];
+                }
+                break;
+            }
+          } else if ([name, abbr, narrow].indexOf(eraName) >= 0) {
+            return eras[i];
+          }
+        }
+      }
+      function localeErasConvertYear(era, year) {
+        var dir = era.since <= era.until ? 1 : -1;
+        if (year === void 0) {
+          return hooks(era.since).year();
+        } else {
+          return hooks(era.since).year() + (year - era.offset) * dir;
+        }
+      }
+      function getEraName() {
+        var i, l, val, eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+          val = this.clone().startOf("day").valueOf();
+          if (eras[i].since <= val && val <= eras[i].until) {
+            return eras[i].name;
+          }
+          if (eras[i].until <= val && val <= eras[i].since) {
+            return eras[i].name;
+          }
+        }
+        return "";
+      }
+      function getEraNarrow() {
+        var i, l, val, eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+          val = this.clone().startOf("day").valueOf();
+          if (eras[i].since <= val && val <= eras[i].until) {
+            return eras[i].narrow;
+          }
+          if (eras[i].until <= val && val <= eras[i].since) {
+            return eras[i].narrow;
+          }
+        }
+        return "";
+      }
+      function getEraAbbr() {
+        var i, l, val, eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+          val = this.clone().startOf("day").valueOf();
+          if (eras[i].since <= val && val <= eras[i].until) {
+            return eras[i].abbr;
+          }
+          if (eras[i].until <= val && val <= eras[i].since) {
+            return eras[i].abbr;
+          }
+        }
+        return "";
+      }
+      function getEraYear() {
+        var i, l, dir, val, eras = this.localeData().eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+          dir = eras[i].since <= eras[i].until ? 1 : -1;
+          val = this.clone().startOf("day").valueOf();
+          if (eras[i].since <= val && val <= eras[i].until || eras[i].until <= val && val <= eras[i].since) {
+            return (this.year() - hooks(eras[i].since).year()) * dir + eras[i].offset;
+          }
+        }
+        return this.year();
+      }
+      function erasNameRegex(isStrict) {
+        if (!hasOwnProp(this, "_erasNameRegex")) {
+          computeErasParse.call(this);
+        }
+        return isStrict ? this._erasNameRegex : this._erasRegex;
+      }
+      function erasAbbrRegex(isStrict) {
+        if (!hasOwnProp(this, "_erasAbbrRegex")) {
+          computeErasParse.call(this);
+        }
+        return isStrict ? this._erasAbbrRegex : this._erasRegex;
+      }
+      function erasNarrowRegex(isStrict) {
+        if (!hasOwnProp(this, "_erasNarrowRegex")) {
+          computeErasParse.call(this);
+        }
+        return isStrict ? this._erasNarrowRegex : this._erasRegex;
+      }
+      function matchEraAbbr(isStrict, locale2) {
+        return locale2.erasAbbrRegex(isStrict);
+      }
+      function matchEraName(isStrict, locale2) {
+        return locale2.erasNameRegex(isStrict);
+      }
+      function matchEraNarrow(isStrict, locale2) {
+        return locale2.erasNarrowRegex(isStrict);
+      }
+      function matchEraYearOrdinal(isStrict, locale2) {
+        return locale2._eraYearOrdinalRegex || matchUnsigned;
+      }
+      function computeErasParse() {
+        var abbrPieces = [], namePieces = [], narrowPieces = [], mixedPieces = [], i, l, eras = this.eras();
+        for (i = 0, l = eras.length; i < l; ++i) {
+          namePieces.push(regexEscape(eras[i].name));
+          abbrPieces.push(regexEscape(eras[i].abbr));
+          narrowPieces.push(regexEscape(eras[i].narrow));
+          mixedPieces.push(regexEscape(eras[i].name));
+          mixedPieces.push(regexEscape(eras[i].abbr));
+          mixedPieces.push(regexEscape(eras[i].narrow));
+        }
+        this._erasRegex = new RegExp("^(" + mixedPieces.join("|") + ")", "i");
+        this._erasNameRegex = new RegExp("^(" + namePieces.join("|") + ")", "i");
+        this._erasAbbrRegex = new RegExp("^(" + abbrPieces.join("|") + ")", "i");
+        this._erasNarrowRegex = new RegExp("^(" + narrowPieces.join("|") + ")", "i");
+      }
+      addFormatToken(0, ["gg", 2], 0, function() {
+        return this.weekYear() % 100;
+      });
+      addFormatToken(0, ["GG", 2], 0, function() {
+        return this.isoWeekYear() % 100;
+      });
+      function addWeekYearFormatToken(token2, getter) {
+        addFormatToken(0, [token2, token2.length], 0, getter);
+      }
+      addWeekYearFormatToken("gggg", "weekYear");
+      addWeekYearFormatToken("ggggg", "weekYear");
+      addWeekYearFormatToken("GGGG", "isoWeekYear");
+      addWeekYearFormatToken("GGGGG", "isoWeekYear");
+      addUnitAlias("weekYear", "gg");
+      addUnitAlias("isoWeekYear", "GG");
+      addUnitPriority("weekYear", 1);
+      addUnitPriority("isoWeekYear", 1);
+      addRegexToken("G", matchSigned);
+      addRegexToken("g", matchSigned);
+      addRegexToken("GG", match1to2, match2);
+      addRegexToken("gg", match1to2, match2);
+      addRegexToken("GGGG", match1to4, match4);
+      addRegexToken("gggg", match1to4, match4);
+      addRegexToken("GGGGG", match1to6, match6);
+      addRegexToken("ggggg", match1to6, match6);
+      addWeekParseToken(["gggg", "ggggg", "GGGG", "GGGGG"], function(input, week, config, token2) {
+        week[token2.substr(0, 2)] = toInt(input);
+      });
+      addWeekParseToken(["gg", "GG"], function(input, week, config, token2) {
+        week[token2] = hooks.parseTwoDigitYear(input);
+      });
+      function getSetWeekYear(input) {
+        return getSetWeekYearHelper.call(this, input, this.week(), this.weekday(), this.localeData()._week.dow, this.localeData()._week.doy);
+      }
+      function getSetISOWeekYear(input) {
+        return getSetWeekYearHelper.call(this, input, this.isoWeek(), this.isoWeekday(), 1, 4);
+      }
+      function getISOWeeksInYear() {
+        return weeksInYear(this.year(), 1, 4);
+      }
+      function getISOWeeksInISOWeekYear() {
+        return weeksInYear(this.isoWeekYear(), 1, 4);
+      }
+      function getWeeksInYear() {
+        var weekInfo = this.localeData()._week;
+        return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
+      }
+      function getWeeksInWeekYear() {
+        var weekInfo = this.localeData()._week;
+        return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
+      }
+      function getSetWeekYearHelper(input, week, weekday, dow, doy) {
+        var weeksTarget;
+        if (input == null) {
+          return weekOfYear(this, dow, doy).year;
+        } else {
+          weeksTarget = weeksInYear(input, dow, doy);
+          if (week > weeksTarget) {
+            week = weeksTarget;
+          }
+          return setWeekAll.call(this, input, week, weekday, dow, doy);
+        }
+      }
+      function setWeekAll(weekYear, week, weekday, dow, doy) {
+        var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy), date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
+        this.year(date.getUTCFullYear());
+        this.month(date.getUTCMonth());
+        this.date(date.getUTCDate());
+        return this;
+      }
+      addFormatToken("Q", 0, "Qo", "quarter");
+      addUnitAlias("quarter", "Q");
+      addUnitPriority("quarter", 7);
+      addRegexToken("Q", match1);
+      addParseToken("Q", function(input, array) {
+        array[MONTH] = (toInt(input) - 1) * 3;
+      });
+      function getSetQuarter(input) {
+        return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
+      }
+      addFormatToken("D", ["DD", 2], "Do", "date");
+      addUnitAlias("date", "D");
+      addUnitPriority("date", 9);
+      addRegexToken("D", match1to2);
+      addRegexToken("DD", match1to2, match2);
+      addRegexToken("Do", function(isStrict, locale2) {
+        return isStrict ? locale2._dayOfMonthOrdinalParse || locale2._ordinalParse : locale2._dayOfMonthOrdinalParseLenient;
+      });
+      addParseToken(["D", "DD"], DATE);
+      addParseToken("Do", function(input, array) {
+        array[DATE] = toInt(input.match(match1to2)[0]);
+      });
+      var getSetDayOfMonth = makeGetSet("Date", true);
+      addFormatToken("DDD", ["DDDD", 3], "DDDo", "dayOfYear");
+      addUnitAlias("dayOfYear", "DDD");
+      addUnitPriority("dayOfYear", 4);
+      addRegexToken("DDD", match1to3);
+      addRegexToken("DDDD", match3);
+      addParseToken(["DDD", "DDDD"], function(input, array, config) {
+        config._dayOfYear = toInt(input);
+      });
+      function getSetDayOfYear(input) {
+        var dayOfYear = Math.round((this.clone().startOf("day") - this.clone().startOf("year")) / 864e5) + 1;
+        return input == null ? dayOfYear : this.add(input - dayOfYear, "d");
+      }
+      addFormatToken("m", ["mm", 2], 0, "minute");
+      addUnitAlias("minute", "m");
+      addUnitPriority("minute", 14);
+      addRegexToken("m", match1to2);
+      addRegexToken("mm", match1to2, match2);
+      addParseToken(["m", "mm"], MINUTE);
+      var getSetMinute = makeGetSet("Minutes", false);
+      addFormatToken("s", ["ss", 2], 0, "second");
+      addUnitAlias("second", "s");
+      addUnitPriority("second", 15);
+      addRegexToken("s", match1to2);
+      addRegexToken("ss", match1to2, match2);
+      addParseToken(["s", "ss"], SECOND);
+      var getSetSecond = makeGetSet("Seconds", false);
+      addFormatToken("S", 0, 0, function() {
+        return ~~(this.millisecond() / 100);
+      });
+      addFormatToken(0, ["SS", 2], 0, function() {
+        return ~~(this.millisecond() / 10);
+      });
+      addFormatToken(0, ["SSS", 3], 0, "millisecond");
+      addFormatToken(0, ["SSSS", 4], 0, function() {
+        return this.millisecond() * 10;
+      });
+      addFormatToken(0, ["SSSSS", 5], 0, function() {
+        return this.millisecond() * 100;
+      });
+      addFormatToken(0, ["SSSSSS", 6], 0, function() {
+        return this.millisecond() * 1e3;
+      });
+      addFormatToken(0, ["SSSSSSS", 7], 0, function() {
+        return this.millisecond() * 1e4;
+      });
+      addFormatToken(0, ["SSSSSSSS", 8], 0, function() {
+        return this.millisecond() * 1e5;
+      });
+      addFormatToken(0, ["SSSSSSSSS", 9], 0, function() {
+        return this.millisecond() * 1e6;
+      });
+      addUnitAlias("millisecond", "ms");
+      addUnitPriority("millisecond", 16);
+      addRegexToken("S", match1to3, match1);
+      addRegexToken("SS", match1to3, match2);
+      addRegexToken("SSS", match1to3, match3);
+      var token, getSetMillisecond;
+      for (token = "SSSS"; token.length <= 9; token += "S") {
+        addRegexToken(token, matchUnsigned);
+      }
+      function parseMs(input, array) {
+        array[MILLISECOND] = toInt(("0." + input) * 1e3);
+      }
+      for (token = "S"; token.length <= 9; token += "S") {
+        addParseToken(token, parseMs);
+      }
+      getSetMillisecond = makeGetSet("Milliseconds", false);
+      addFormatToken("z", 0, 0, "zoneAbbr");
+      addFormatToken("zz", 0, 0, "zoneName");
+      function getZoneAbbr() {
+        return this._isUTC ? "UTC" : "";
+      }
+      function getZoneName() {
+        return this._isUTC ? "Coordinated Universal Time" : "";
+      }
+      var proto = Moment2.prototype;
+      proto.add = add;
+      proto.calendar = calendar$1;
+      proto.clone = clone;
+      proto.diff = diff;
+      proto.endOf = endOf;
+      proto.format = format;
+      proto.from = from;
+      proto.fromNow = fromNow;
+      proto.to = to;
+      proto.toNow = toNow;
+      proto.get = stringGet;
+      proto.invalidAt = invalidAt;
+      proto.isAfter = isAfter;
+      proto.isBefore = isBefore;
+      proto.isBetween = isBetween;
+      proto.isSame = isSame;
+      proto.isSameOrAfter = isSameOrAfter;
+      proto.isSameOrBefore = isSameOrBefore;
+      proto.isValid = isValid$2;
+      proto.lang = lang;
+      proto.locale = locale;
+      proto.localeData = localeData;
+      proto.max = prototypeMax;
+      proto.min = prototypeMin;
+      proto.parsingFlags = parsingFlags;
+      proto.set = stringSet;
+      proto.startOf = startOf;
+      proto.subtract = subtract;
+      proto.toArray = toArray;
+      proto.toObject = toObject;
+      proto.toDate = toDate;
+      proto.toISOString = toISOString;
+      proto.inspect = inspect;
+      if (typeof Symbol !== "undefined" && Symbol.for != null) {
+        proto[Symbol.for("nodejs.util.inspect.custom")] = function() {
+          return "Moment<" + this.format() + ">";
+        };
+      }
+      proto.toJSON = toJSON;
+      proto.toString = toString;
+      proto.unix = unix;
+      proto.valueOf = valueOf;
+      proto.creationData = creationData;
+      proto.eraName = getEraName;
+      proto.eraNarrow = getEraNarrow;
+      proto.eraAbbr = getEraAbbr;
+      proto.eraYear = getEraYear;
+      proto.year = getSetYear;
+      proto.isLeapYear = getIsLeapYear;
+      proto.weekYear = getSetWeekYear;
+      proto.isoWeekYear = getSetISOWeekYear;
+      proto.quarter = proto.quarters = getSetQuarter;
+      proto.month = getSetMonth;
+      proto.daysInMonth = getDaysInMonth;
+      proto.week = proto.weeks = getSetWeek;
+      proto.isoWeek = proto.isoWeeks = getSetISOWeek;
+      proto.weeksInYear = getWeeksInYear;
+      proto.weeksInWeekYear = getWeeksInWeekYear;
+      proto.isoWeeksInYear = getISOWeeksInYear;
+      proto.isoWeeksInISOWeekYear = getISOWeeksInISOWeekYear;
+      proto.date = getSetDayOfMonth;
+      proto.day = proto.days = getSetDayOfWeek;
+      proto.weekday = getSetLocaleDayOfWeek;
+      proto.isoWeekday = getSetISODayOfWeek;
+      proto.dayOfYear = getSetDayOfYear;
+      proto.hour = proto.hours = getSetHour;
+      proto.minute = proto.minutes = getSetMinute;
+      proto.second = proto.seconds = getSetSecond;
+      proto.millisecond = proto.milliseconds = getSetMillisecond;
+      proto.utcOffset = getSetOffset;
+      proto.utc = setOffsetToUTC;
+      proto.local = setOffsetToLocal;
+      proto.parseZone = setOffsetToParsedOffset;
+      proto.hasAlignedHourOffset = hasAlignedHourOffset;
+      proto.isDST = isDaylightSavingTime;
+      proto.isLocal = isLocal;
+      proto.isUtcOffset = isUtcOffset;
+      proto.isUtc = isUtc;
+      proto.isUTC = isUtc;
+      proto.zoneAbbr = getZoneAbbr;
+      proto.zoneName = getZoneName;
+      proto.dates = deprecate("dates accessor is deprecated. Use date instead.", getSetDayOfMonth);
+      proto.months = deprecate("months accessor is deprecated. Use month instead", getSetMonth);
+      proto.years = deprecate("years accessor is deprecated. Use year instead", getSetYear);
+      proto.zone = deprecate("moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/", getSetZone);
+      proto.isDSTShifted = deprecate("isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information", isDaylightSavingTimeShifted);
+      function createUnix(input) {
+        return createLocal(input * 1e3);
+      }
+      function createInZone() {
+        return createLocal.apply(null, arguments).parseZone();
+      }
+      function preParsePostFormat(string) {
+        return string;
+      }
+      var proto$1 = Locale.prototype;
+      proto$1.calendar = calendar;
+      proto$1.longDateFormat = longDateFormat;
+      proto$1.invalidDate = invalidDate;
+      proto$1.ordinal = ordinal;
+      proto$1.preparse = preParsePostFormat;
+      proto$1.postformat = preParsePostFormat;
+      proto$1.relativeTime = relativeTime;
+      proto$1.pastFuture = pastFuture;
+      proto$1.set = set;
+      proto$1.eras = localeEras;
+      proto$1.erasParse = localeErasParse;
+      proto$1.erasConvertYear = localeErasConvertYear;
+      proto$1.erasAbbrRegex = erasAbbrRegex;
+      proto$1.erasNameRegex = erasNameRegex;
+      proto$1.erasNarrowRegex = erasNarrowRegex;
+      proto$1.months = localeMonths;
+      proto$1.monthsShort = localeMonthsShort;
+      proto$1.monthsParse = localeMonthsParse;
+      proto$1.monthsRegex = monthsRegex;
+      proto$1.monthsShortRegex = monthsShortRegex;
+      proto$1.week = localeWeek;
+      proto$1.firstDayOfYear = localeFirstDayOfYear;
+      proto$1.firstDayOfWeek = localeFirstDayOfWeek;
+      proto$1.weekdays = localeWeekdays;
+      proto$1.weekdaysMin = localeWeekdaysMin;
+      proto$1.weekdaysShort = localeWeekdaysShort;
+      proto$1.weekdaysParse = localeWeekdaysParse;
+      proto$1.weekdaysRegex = weekdaysRegex;
+      proto$1.weekdaysShortRegex = weekdaysShortRegex;
+      proto$1.weekdaysMinRegex = weekdaysMinRegex;
+      proto$1.isPM = localeIsPM;
+      proto$1.meridiem = localeMeridiem;
+      function get$1(format2, index, field, setter) {
+        var locale2 = getLocale(), utc = createUTC().set(setter, index);
+        return locale2[field](utc, format2);
+      }
+      function listMonthsImpl(format2, index, field) {
+        if (isNumber(format2)) {
+          index = format2;
+          format2 = void 0;
+        }
+        format2 = format2 || "";
+        if (index != null) {
+          return get$1(format2, index, field, "month");
+        }
+        var i, out = [];
+        for (i = 0; i < 12; i++) {
+          out[i] = get$1(format2, i, field, "month");
+        }
+        return out;
+      }
+      function listWeekdaysImpl(localeSorted, format2, index, field) {
+        if (typeof localeSorted === "boolean") {
+          if (isNumber(format2)) {
+            index = format2;
+            format2 = void 0;
+          }
+          format2 = format2 || "";
+        } else {
+          format2 = localeSorted;
+          index = format2;
+          localeSorted = false;
+          if (isNumber(format2)) {
+            index = format2;
+            format2 = void 0;
+          }
+          format2 = format2 || "";
+        }
+        var locale2 = getLocale(), shift = localeSorted ? locale2._week.dow : 0, i, out = [];
+        if (index != null) {
+          return get$1(format2, (index + shift) % 7, field, "day");
+        }
+        for (i = 0; i < 7; i++) {
+          out[i] = get$1(format2, (i + shift) % 7, field, "day");
+        }
+        return out;
+      }
+      function listMonths(format2, index) {
+        return listMonthsImpl(format2, index, "months");
+      }
+      function listMonthsShort(format2, index) {
+        return listMonthsImpl(format2, index, "monthsShort");
+      }
+      function listWeekdays(localeSorted, format2, index) {
+        return listWeekdaysImpl(localeSorted, format2, index, "weekdays");
+      }
+      function listWeekdaysShort(localeSorted, format2, index) {
+        return listWeekdaysImpl(localeSorted, format2, index, "weekdaysShort");
+      }
+      function listWeekdaysMin(localeSorted, format2, index) {
+        return listWeekdaysImpl(localeSorted, format2, index, "weekdaysMin");
+      }
+      getSetGlobalLocale("en", {
+        eras: [
+          {
+            since: "0001-01-01",
+            until: Infinity,
+            offset: 1,
+            name: "Anno Domini",
+            narrow: "AD",
+            abbr: "AD"
+          },
+          {
+            since: "0000-12-31",
+            until: -Infinity,
+            offset: 1,
+            name: "Before Christ",
+            narrow: "BC",
+            abbr: "BC"
+          }
+        ],
+        dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
+        ordinal: function(number) {
+          var b = number % 10, output = toInt(number % 100 / 10) === 1 ? "th" : b === 1 ? "st" : b === 2 ? "nd" : b === 3 ? "rd" : "th";
+          return number + output;
+        }
+      });
+      hooks.lang = deprecate("moment.lang is deprecated. Use moment.locale instead.", getSetGlobalLocale);
+      hooks.langData = deprecate("moment.langData is deprecated. Use moment.localeData instead.", getLocale);
+      var mathAbs = Math.abs;
+      function abs() {
+        var data = this._data;
+        this._milliseconds = mathAbs(this._milliseconds);
+        this._days = mathAbs(this._days);
+        this._months = mathAbs(this._months);
+        data.milliseconds = mathAbs(data.milliseconds);
+        data.seconds = mathAbs(data.seconds);
+        data.minutes = mathAbs(data.minutes);
+        data.hours = mathAbs(data.hours);
+        data.months = mathAbs(data.months);
+        data.years = mathAbs(data.years);
+        return this;
+      }
+      function addSubtract$1(duration, input, value, direction) {
+        var other = createDuration(input, value);
+        duration._milliseconds += direction * other._milliseconds;
+        duration._days += direction * other._days;
+        duration._months += direction * other._months;
+        return duration._bubble();
+      }
+      function add$1(input, value) {
+        return addSubtract$1(this, input, value, 1);
+      }
+      function subtract$1(input, value) {
+        return addSubtract$1(this, input, value, -1);
+      }
+      function absCeil(number) {
+        if (number < 0) {
+          return Math.floor(number);
+        } else {
+          return Math.ceil(number);
+        }
+      }
+      function bubble() {
+        var milliseconds2 = this._milliseconds, days2 = this._days, months2 = this._months, data = this._data, seconds2, minutes2, hours2, years2, monthsFromDays;
+        if (!(milliseconds2 >= 0 && days2 >= 0 && months2 >= 0 || milliseconds2 <= 0 && days2 <= 0 && months2 <= 0)) {
+          milliseconds2 += absCeil(monthsToDays(months2) + days2) * 864e5;
+          days2 = 0;
+          months2 = 0;
+        }
+        data.milliseconds = milliseconds2 % 1e3;
+        seconds2 = absFloor(milliseconds2 / 1e3);
+        data.seconds = seconds2 % 60;
+        minutes2 = absFloor(seconds2 / 60);
+        data.minutes = minutes2 % 60;
+        hours2 = absFloor(minutes2 / 60);
+        data.hours = hours2 % 24;
+        days2 += absFloor(hours2 / 24);
+        monthsFromDays = absFloor(daysToMonths(days2));
+        months2 += monthsFromDays;
+        days2 -= absCeil(monthsToDays(monthsFromDays));
+        years2 = absFloor(months2 / 12);
+        months2 %= 12;
+        data.days = days2;
+        data.months = months2;
+        data.years = years2;
+        return this;
+      }
+      function daysToMonths(days2) {
+        return days2 * 4800 / 146097;
+      }
+      function monthsToDays(months2) {
+        return months2 * 146097 / 4800;
+      }
+      function as(units) {
+        if (!this.isValid()) {
+          return NaN;
+        }
+        var days2, months2, milliseconds2 = this._milliseconds;
+        units = normalizeUnits(units);
+        if (units === "month" || units === "quarter" || units === "year") {
+          days2 = this._days + milliseconds2 / 864e5;
+          months2 = this._months + daysToMonths(days2);
+          switch (units) {
+            case "month":
+              return months2;
+            case "quarter":
+              return months2 / 3;
+            case "year":
+              return months2 / 12;
+          }
+        } else {
+          days2 = this._days + Math.round(monthsToDays(this._months));
+          switch (units) {
+            case "week":
+              return days2 / 7 + milliseconds2 / 6048e5;
+            case "day":
+              return days2 + milliseconds2 / 864e5;
+            case "hour":
+              return days2 * 24 + milliseconds2 / 36e5;
+            case "minute":
+              return days2 * 1440 + milliseconds2 / 6e4;
+            case "second":
+              return days2 * 86400 + milliseconds2 / 1e3;
+            case "millisecond":
+              return Math.floor(days2 * 864e5) + milliseconds2;
+            default:
+              throw new Error("Unknown unit " + units);
+          }
+        }
+      }
+      function valueOf$1() {
+        if (!this.isValid()) {
+          return NaN;
+        }
+        return this._milliseconds + this._days * 864e5 + this._months % 12 * 2592e6 + toInt(this._months / 12) * 31536e6;
+      }
+      function makeAs(alias) {
+        return function() {
+          return this.as(alias);
+        };
+      }
+      var asMilliseconds = makeAs("ms"), asSeconds = makeAs("s"), asMinutes = makeAs("m"), asHours = makeAs("h"), asDays = makeAs("d"), asWeeks = makeAs("w"), asMonths = makeAs("M"), asQuarters = makeAs("Q"), asYears = makeAs("y");
+      function clone$1() {
+        return createDuration(this);
+      }
+      function get$2(units) {
+        units = normalizeUnits(units);
+        return this.isValid() ? this[units + "s"]() : NaN;
+      }
+      function makeGetter(name) {
+        return function() {
+          return this.isValid() ? this._data[name] : NaN;
+        };
+      }
+      var milliseconds = makeGetter("milliseconds"), seconds = makeGetter("seconds"), minutes = makeGetter("minutes"), hours = makeGetter("hours"), days = makeGetter("days"), months = makeGetter("months"), years = makeGetter("years");
+      function weeks() {
+        return absFloor(this.days() / 7);
+      }
+      var round = Math.round, thresholds = {
+        ss: 44,
+        s: 45,
+        m: 45,
+        h: 22,
+        d: 26,
+        w: null,
+        M: 11
+      };
+      function substituteTimeAgo(string, number, withoutSuffix, isFuture, locale2) {
+        return locale2.relativeTime(number || 1, !!withoutSuffix, string, isFuture);
+      }
+      function relativeTime$1(posNegDuration, withoutSuffix, thresholds2, locale2) {
+        var duration = createDuration(posNegDuration).abs(), seconds2 = round(duration.as("s")), minutes2 = round(duration.as("m")), hours2 = round(duration.as("h")), days2 = round(duration.as("d")), months2 = round(duration.as("M")), weeks2 = round(duration.as("w")), years2 = round(duration.as("y")), a = seconds2 <= thresholds2.ss && ["s", seconds2] || seconds2 < thresholds2.s && ["ss", seconds2] || minutes2 <= 1 && ["m"] || minutes2 < thresholds2.m && ["mm", minutes2] || hours2 <= 1 && ["h"] || hours2 < thresholds2.h && ["hh", hours2] || days2 <= 1 && ["d"] || days2 < thresholds2.d && ["dd", days2];
+        if (thresholds2.w != null) {
+          a = a || weeks2 <= 1 && ["w"] || weeks2 < thresholds2.w && ["ww", weeks2];
+        }
+        a = a || months2 <= 1 && ["M"] || months2 < thresholds2.M && ["MM", months2] || years2 <= 1 && ["y"] || ["yy", years2];
+        a[2] = withoutSuffix;
+        a[3] = +posNegDuration > 0;
+        a[4] = locale2;
+        return substituteTimeAgo.apply(null, a);
+      }
+      function getSetRelativeTimeRounding(roundingFunction) {
+        if (roundingFunction === void 0) {
+          return round;
+        }
+        if (typeof roundingFunction === "function") {
+          round = roundingFunction;
+          return true;
+        }
+        return false;
+      }
+      function getSetRelativeTimeThreshold(threshold, limit) {
+        if (thresholds[threshold] === void 0) {
+          return false;
+        }
+        if (limit === void 0) {
+          return thresholds[threshold];
+        }
+        thresholds[threshold] = limit;
+        if (threshold === "s") {
+          thresholds.ss = limit - 1;
+        }
+        return true;
+      }
+      function humanize(argWithSuffix, argThresholds) {
+        if (!this.isValid()) {
+          return this.localeData().invalidDate();
+        }
+        var withSuffix = false, th = thresholds, locale2, output;
+        if (typeof argWithSuffix === "object") {
+          argThresholds = argWithSuffix;
+          argWithSuffix = false;
+        }
+        if (typeof argWithSuffix === "boolean") {
+          withSuffix = argWithSuffix;
+        }
+        if (typeof argThresholds === "object") {
+          th = Object.assign({}, thresholds, argThresholds);
+          if (argThresholds.s != null && argThresholds.ss == null) {
+            th.ss = argThresholds.s - 1;
+          }
+        }
+        locale2 = this.localeData();
+        output = relativeTime$1(this, !withSuffix, th, locale2);
+        if (withSuffix) {
+          output = locale2.pastFuture(+this, output);
+        }
+        return locale2.postformat(output);
+      }
+      var abs$1 = Math.abs;
+      function sign(x) {
+        return (x > 0) - (x < 0) || +x;
+      }
+      function toISOString$1() {
+        if (!this.isValid()) {
+          return this.localeData().invalidDate();
+        }
+        var seconds2 = abs$1(this._milliseconds) / 1e3, days2 = abs$1(this._days), months2 = abs$1(this._months), minutes2, hours2, years2, s, total = this.asSeconds(), totalSign, ymSign, daysSign, hmsSign;
+        if (!total) {
+          return "P0D";
+        }
+        minutes2 = absFloor(seconds2 / 60);
+        hours2 = absFloor(minutes2 / 60);
+        seconds2 %= 60;
+        minutes2 %= 60;
+        years2 = absFloor(months2 / 12);
+        months2 %= 12;
+        s = seconds2 ? seconds2.toFixed(3).replace(/\.?0+$/, "") : "";
+        totalSign = total < 0 ? "-" : "";
+        ymSign = sign(this._months) !== sign(total) ? "-" : "";
+        daysSign = sign(this._days) !== sign(total) ? "-" : "";
+        hmsSign = sign(this._milliseconds) !== sign(total) ? "-" : "";
+        return totalSign + "P" + (years2 ? ymSign + years2 + "Y" : "") + (months2 ? ymSign + months2 + "M" : "") + (days2 ? daysSign + days2 + "D" : "") + (hours2 || minutes2 || seconds2 ? "T" : "") + (hours2 ? hmsSign + hours2 + "H" : "") + (minutes2 ? hmsSign + minutes2 + "M" : "") + (seconds2 ? hmsSign + s + "S" : "");
+      }
+      var proto$2 = Duration.prototype;
+      proto$2.isValid = isValid$1;
+      proto$2.abs = abs;
+      proto$2.add = add$1;
+      proto$2.subtract = subtract$1;
+      proto$2.as = as;
+      proto$2.asMilliseconds = asMilliseconds;
+      proto$2.asSeconds = asSeconds;
+      proto$2.asMinutes = asMinutes;
+      proto$2.asHours = asHours;
+      proto$2.asDays = asDays;
+      proto$2.asWeeks = asWeeks;
+      proto$2.asMonths = asMonths;
+      proto$2.asQuarters = asQuarters;
+      proto$2.asYears = asYears;
+      proto$2.valueOf = valueOf$1;
+      proto$2._bubble = bubble;
+      proto$2.clone = clone$1;
+      proto$2.get = get$2;
+      proto$2.milliseconds = milliseconds;
+      proto$2.seconds = seconds;
+      proto$2.minutes = minutes;
+      proto$2.hours = hours;
+      proto$2.days = days;
+      proto$2.weeks = weeks;
+      proto$2.months = months;
+      proto$2.years = years;
+      proto$2.humanize = humanize;
+      proto$2.toISOString = toISOString$1;
+      proto$2.toString = toISOString$1;
+      proto$2.toJSON = toISOString$1;
+      proto$2.locale = locale;
+      proto$2.localeData = localeData;
+      proto$2.toIsoString = deprecate("toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)", toISOString$1);
+      proto$2.lang = lang;
+      addFormatToken("X", 0, 0, "unix");
+      addFormatToken("x", 0, 0, "valueOf");
+      addRegexToken("x", matchSigned);
+      addRegexToken("X", matchTimestamp);
+      addParseToken("X", function(input, array, config) {
+        config._d = new Date(parseFloat(input) * 1e3);
+      });
+      addParseToken("x", function(input, array, config) {
+        config._d = new Date(toInt(input));
+      });
+      hooks.version = "2.29.4";
+      setHookCallback(createLocal);
+      hooks.fn = proto;
+      hooks.min = min;
+      hooks.max = max;
+      hooks.now = now;
+      hooks.utc = createUTC;
+      hooks.unix = createUnix;
+      hooks.months = listMonths;
+      hooks.isDate = isDate;
+      hooks.locale = getSetGlobalLocale;
+      hooks.invalid = createInvalid;
+      hooks.duration = createDuration;
+      hooks.isMoment = isMoment;
+      hooks.weekdays = listWeekdays;
+      hooks.parseZone = createInZone;
+      hooks.localeData = getLocale;
+      hooks.isDuration = isDuration;
+      hooks.monthsShort = listMonthsShort;
+      hooks.weekdaysMin = listWeekdaysMin;
+      hooks.defineLocale = defineLocale;
+      hooks.updateLocale = updateLocale;
+      hooks.locales = listLocales;
+      hooks.weekdaysShort = listWeekdaysShort;
+      hooks.normalizeUnits = normalizeUnits;
+      hooks.relativeTimeRounding = getSetRelativeTimeRounding;
+      hooks.relativeTimeThreshold = getSetRelativeTimeThreshold;
+      hooks.calendarFormat = getCalendarFormat;
+      hooks.prototype = proto;
+      hooks.HTML5_FMT = {
+        DATETIME_LOCAL: "YYYY-MM-DDTHH:mm",
+        DATETIME_LOCAL_SECONDS: "YYYY-MM-DDTHH:mm:ss",
+        DATETIME_LOCAL_MS: "YYYY-MM-DDTHH:mm:ss.SSS",
+        DATE: "YYYY-MM-DD",
+        TIME: "HH:mm",
+        TIME_SECONDS: "HH:mm:ss",
+        TIME_MS: "HH:mm:ss.SSS",
+        WEEK: "GGGG-[W]WW",
+        MONTH: "YYYY-MM"
+      };
+      return hooks;
+    });
+  }
+});
+
 // src/index.ts
 __export(exports, {
   BarChart: () => BarChart,
@@ -9973,6 +15442,8 @@ __export(exports, {
   Component: () => Component,
   Container: () => Container,
   Control: () => Control,
+  DataGrid: () => DataGrid,
+  DataSchemaValidator: () => DataSchemaValidator,
   Datepicker: () => Datepicker,
   EventBus: () => EventBus,
   GridLayout: () => GridLayout,
@@ -10015,6 +15486,7 @@ __export(exports, {
   TreeView: () => TreeView,
   Unobserve: () => Unobserve,
   Upload: () => Upload,
+  UploadModal: () => UploadModal,
   VStack: () => VStack,
   Video: () => Video,
   application: () => application,
@@ -10022,7 +15494,8 @@ __export(exports, {
   customModule: () => customModule,
   isObservable: () => isObservable,
   moment: () => moment,
-  observable: () => observable
+  observable: () => observable,
+  renderUI: () => renderUI
 });
 
 // packages/style/src/index.ts
@@ -11798,14 +17271,14 @@ var Component = class extends HTMLElement {
       parentElm.appendChild(result);
     return result;
   }
-  getValue(target, paths, idx) {
+  getAttributeValue(target, paths, idx) {
     idx = idx || 0;
     let path = paths[idx];
     let value = target[path];
     idx++;
     if (paths.length > idx)
       try {
-        return this.getValue(value, paths, idx);
+        return this.getAttributeValue(value, paths, idx);
       } catch (error) {
         return value;
       }
@@ -11819,7 +17292,7 @@ var Component = class extends HTMLElement {
       if (removeAfter)
         this.removeAttribute(name);
       if (this.attrs[name].__target)
-        return this.getValue(this.attrs[name].__target, this.attrs[name].__path);
+        return this.getAttributeValue(this.attrs[name].__target, this.attrs[name].__path);
       else
         return this.attrs[name];
     } else {
@@ -12615,7 +18088,8 @@ var Border = class {
     if (options) {
       if (options.width || options.style || options.color || options.radius) {
         this.updateAllSidesProps(options);
-      } else if (options.top || options.right || options.bottom || options.left) {
+      }
+      if (options.top || options.right || options.bottom || options.left) {
         if (options.top)
           this._top = options.top;
         if (options.right)
@@ -12885,6 +18359,9 @@ var Control = class extends Component {
     const top = toNumberValue(computedStyle.paddingTop);
     return { top, right, bottom, left };
   }
+  xssSanitize(value) {
+    return DOMPurify.sanitize(value);
+  }
   get margin() {
     return this._margin;
   }
@@ -13119,6 +18596,84 @@ var Control = class extends Component {
     } else
       return true;
   }
+  _handleFocus(event, stopPropagation) {
+    if (this._onFocus) {
+      this._onFocus(this, event);
+      return true;
+    } else if (!stopPropagation) {
+      let parent = getParentControl(this);
+      if (!parent)
+        return false;
+      parent._handleFocus = parent._handleFocus.bind(parent);
+      return parent._handleFocus(event);
+    } else
+      return true;
+  }
+  _handleKeyDown(event, stopPropagation) {
+    if (this._onKeyDown) {
+      this._onKeyDown(this, event);
+      return true;
+    } else if (!stopPropagation) {
+      let parent = getParentControl(this);
+      if (!parent)
+        return false;
+      parent._handleKeyDown = parent._handleKeyDown.bind(parent);
+      return parent._handleKeyDown(event);
+    } else
+      return true;
+  }
+  _handleKeyUp(event, stopPropagation) {
+    if (this._onKeyUp) {
+      this._onKeyUp(this, event);
+      return true;
+    } else if (!stopPropagation) {
+      let parent = getParentControl(this);
+      if (!parent)
+        return false;
+      parent._handleKeyUp = parent._handleKeyUp.bind(parent);
+      return parent._handleKeyUp(event);
+    } else
+      return true;
+  }
+  _handleMouseDown(event, stopPropagation) {
+    if (this._onMouseDown) {
+      this._onMouseDown(this, event);
+      return true;
+    } else if (!stopPropagation) {
+      let parent = getParentControl(this);
+      if (!parent)
+        return false;
+      parent._handleMouseDown = parent._handleMouseDown.bind(parent);
+      return parent._handleMouseDown(event);
+    } else
+      return true;
+  }
+  _handleMouseMove(event, stopPropagation) {
+    if (this._onMouseMove) {
+      this._onMouseMove(this, event);
+      return true;
+    } else if (!stopPropagation) {
+      let parent = getParentControl(this);
+      if (!parent)
+        return false;
+      parent._handleMouseMove = parent._handleMouseMove.bind(parent);
+      return parent._handleMouseMove(event);
+    } else
+      return true;
+  }
+  _handleMouseUp(event, stopPropagation) {
+    if (this._onMouseUp) {
+      this._onMouseUp(this, event);
+      return true;
+    } else if (!stopPropagation) {
+      let parent = getParentControl(this);
+      if (!parent)
+        return false;
+      parent._handleMouseUp = parent._handleMouseUp.bind(parent);
+      return parent._handleMouseUp(event);
+    } else
+      return true;
+  }
   get maxWidth() {
     return this.style.maxWidth;
   }
@@ -13178,7 +18733,7 @@ var Control = class extends Component {
         }
         case "left": {
           let top = this.getParentOccupiedTop();
-          this.top = top + this.marginStyle("top");
+          this.top = top;
           this.left = this.getParentOccupiedLeft();
           this.height = this.getParentHeight() - top - this.getParentOccupiedBottom() - this.marginStyle("top") - this.marginStyle("bottom");
           break;
@@ -13278,7 +18833,7 @@ var Control = class extends Component {
     font && (this.font = font);
     let border = this.getAttribute("border", true);
     if (border) {
-      this._border = new Border(this, border);
+      this.border = new Border(this, border);
     }
     this.setAttributeToProperty("overflow");
     this.setAttributeToProperty("display");
@@ -13300,12 +18855,19 @@ var Control = class extends Component {
       this["_" + prop] = value;
       this.style[prop] = value;
     }
+    ;
   }
   get height() {
     return !isNaN(this._height) ? this._height : this.offsetHeight;
   }
   set height(value) {
     this.setPosition("height", value);
+  }
+  get heightValue() {
+    if (typeof this._height == "string")
+      return parseInt(this._height, 10);
+    else
+      return this._height;
   }
   get left() {
     return !isNaN(this._left) ? this._left : this.offsetLeft;
@@ -13344,6 +18906,12 @@ var Control = class extends Component {
   }
   set width(value) {
     this.setPosition("width", value);
+  }
+  get widthValue() {
+    if (typeof this._width == "string")
+      return parseInt(this._width, 10);
+    else
+      return this._width;
   }
   get stack() {
     return this._stack;
@@ -13659,7 +19227,10 @@ var RequireJS = {
 };
 function customElements2(name, options) {
   return (constructor) => {
-    window.customElements.define(name, constructor, options);
+    try {
+      window.customElements.define(name, constructor, options);
+    } catch (err) {
+    }
   };
 }
 function customModule(target) {
@@ -13919,6 +19490,9 @@ var GlobalEvents = class {
   constructor() {
     this.bindEvents();
   }
+  abortEvent(event) {
+    event.stopPropagation();
+  }
   _handleClick(event) {
     let control = getControl(event.target);
     if (control && !(control instanceof Checkbox)) {
@@ -13926,14 +19500,38 @@ var GlobalEvents = class {
         if (control._handleClick(event)) {
           event.stopPropagation();
         }
+        ;
+      }
+      ;
+    }
+    ;
+  }
+  _handleMouseDown(event) {
+    let control = getControl(event.target);
+    if (control == null ? void 0 : control.enabled) {
+      if (control._handleMouseDown(event)) {
+        event.preventDefault();
+        event.stopPropagation();
       }
     }
   }
-  _handleMouseDown(event) {
-  }
   _handleMouseMove(event) {
+    let control = getControl(event.target);
+    if (control == null ? void 0 : control.enabled) {
+      if (control._handleMouseMove(event)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
   }
   _handleMouseUp(event) {
+    let control = getControl(event.target);
+    if (control == null ? void 0 : control.enabled) {
+      if (control._handleMouseUp(event)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
   }
   _handleDblClick(event) {
     let control = getControl(event.target);
@@ -13947,8 +19545,26 @@ var GlobalEvents = class {
     }
   }
   _handleKeyDown(event) {
+    let control = getControl(event.target);
+    if (control) {
+      if (control.enabled) {
+        if (control._handleKeyDown(event)) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }
+    }
   }
   _handleKeyUp(event) {
+    let control = getControl(event.target);
+    if (control) {
+      if (control.enabled) {
+        if (control._handleKeyUp(event)) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }
+    }
   }
   _handleContextMenu(event) {
     let control = getControl(event.target);
@@ -13968,10 +19584,28 @@ var GlobalEvents = class {
   _handleChange(event) {
   }
   _handleMouseWheel(event) {
+    let control = getControl(event.target);
+    if (control) {
+      event.stopPropagation();
+      if (control.enabled && control._handleMouseWheel)
+        control._handleMouseWheel(event);
+    }
   }
   _handleFocus(event) {
+    let control = getControl(event.target);
+    if (control) {
+      event.stopPropagation();
+      if (control.enabled && control._handleFocus)
+        control._handleFocus(event);
+    }
   }
   _handleBlur(event) {
+    let control = getControl(event.target);
+    if (control) {
+      event.stopPropagation();
+      if (control.enabled && control._handleBlur)
+        control._handleBlur(event);
+    }
   }
   bindEvents() {
     window.addEventListener("mousedown", this._handleMouseDown.bind(this));
@@ -13986,7 +19620,7 @@ var GlobalEvents = class {
     window.addEventListener("touchend", this._handleTouchEnd);
     window.addEventListener("touchmove", this._handleTouchMove);
     window.addEventListener("change", this._handleChange);
-    window.addEventListener("wheel", this._handleMouseWheel, false);
+    window.addEventListener("wheel", this._handleMouseWheel, { passive: false });
     window.addEventListener("focus", this._handleFocus, true);
     window.addEventListener("blur", this._handleBlur, true);
   }
@@ -14003,288 +19637,136 @@ var applicationStyle = style({
   }
 });
 
-// packages/application/src/index.ts
-var IpfsDataType;
-(function(IpfsDataType2) {
-  IpfsDataType2[IpfsDataType2["Raw"] = 0] = "Raw";
-  IpfsDataType2[IpfsDataType2["Directory"] = 1] = "Directory";
-  IpfsDataType2[IpfsDataType2["File"] = 2] = "File";
-  IpfsDataType2[IpfsDataType2["Metadata"] = 3] = "Metadata";
-  IpfsDataType2[IpfsDataType2["Symlink"] = 4] = "Symlink";
-  IpfsDataType2[IpfsDataType2["HAMTShard"] = 5] = "HAMTShard";
-})(IpfsDataType || (IpfsDataType = {}));
-var Application = class {
-  constructor() {
-    this.modules = {};
-    this.modulesId = {};
-    this.scripts = {};
-    this.id = 0;
-    this.LibHost = "";
-    this.packages = {};
-    this.globalEvents = new GlobalEvents();
-  }
-  get EventBus() {
-    return EventBus.getInstance();
-  }
-  static get Instance() {
-    return this._instance || (this._instance = new this());
-  }
-  assets(name) {
-    if (this._assets) {
-      let items = name.split("/");
-      let value = this._assets;
-      let item = items.shift();
-      ;
-      while (value && item) {
-        value = value[item];
-        item = items.shift();
-      }
-      ;
-      return value;
-    }
-    ;
-  }
-  async verifyScript(modulePath, script) {
-    return true;
-  }
-  async getScript(modulePath) {
-    if (this.scripts[modulePath])
-      return this.scripts[modulePath];
-    try {
-      let result = await (await fetch(modulePath)).text();
-      if (typeof result == "string") {
-        if (await this.verifyScript(modulePath, result)) {
-          this.scripts[modulePath] = result;
-          return result;
-        }
-        ;
-      }
-      ;
-    } catch (err) {
-    }
-    ;
-    return "";
-  }
-  async loadScript(modulePath, script) {
-    try {
-      if (this.scripts[modulePath])
-        return true;
-      if (await this.verifyScript(modulePath, script)) {
-        this.scripts[modulePath] = script;
-        return true;
-      }
-      ;
-    } catch (err) {
-    }
-    ;
-    return false;
-  }
-  async getContent(modulePath) {
-    try {
-      return await (await fetch(modulePath)).text();
-    } catch (err) {
-    }
-    return "";
-  }
-  async fetchDirectoryInfoByCID(ipfsCid) {
-    let directoryInfo = [];
-    try {
-      const IPFS_API = `https://ipfs.scom.dev/ipfs/${ipfsCid}`;
-      let result = await fetch(IPFS_API);
-      let jsonContent = await result.json();
-      if (jsonContent.links) {
-        directoryInfo = jsonContent.links;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    return directoryInfo;
-  }
-  async getModule(modulePath, options) {
-    if (this.modules[modulePath])
-      return this.modules[modulePath];
-    let result = await this.newModule(modulePath, options);
-    if (result)
-      this.modules[modulePath] = result;
-    return result;
-  }
-  async loadPackage(packageName, modulePath, options) {
-    var _a, _b, _c;
-    options = options || this._initOptions;
-    if (options && options.modules && options.modules[packageName]) {
-      let pack = options.modules[packageName];
-      for (let i = 0; i < ((_a = pack.dependencies) == null ? void 0 : _a.length); i++) {
-        let n = pack.dependencies[i];
-        if (!RequireJS.defined(n))
-          await this.loadPackage(n);
-      }
-      ;
-    }
-    ;
-    if (!modulePath) {
-      if ((_b = options == null ? void 0 : options.modules) == null ? void 0 : _b[packageName])
-        modulePath = ((options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : "") + "modules/" + ((_c = options == null ? void 0 : options.modules) == null ? void 0 : _c[packageName].path) + "/index.js";
-      else
-        return null;
-    } else if (modulePath == "*") {
-      modulePath = ((options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : "") + "libs/" + packageName + "/index.js";
-    } else if (modulePath.startsWith("{LIB}/")) {
-      let libPath = LibPath || "";
-      if (LibPath && !LibPath.endsWith("/"))
-        libPath = libPath + "/";
-      modulePath = modulePath.replace("{LIB}/", libPath);
-    }
-    if (this.packages[modulePath])
-      return this.packages[modulePath];
-    let script = await this.getScript(modulePath);
-    if (script) {
-      _currentDefineModule = null;
-      this.currentModulePath = modulePath;
-      if (modulePath.indexOf("://") > 0)
-        this.currentModuleDir = modulePath.split("/").slice(0, -1).join("/");
-      else
-        this.currentModuleDir = application.LibHost + modulePath.split("/").slice(0, -1).join("/");
-      await import(`data:text/javascript,${encodeURIComponent(script)}`);
-      this.currentModulePath = "";
-      this.currentModuleDir = "";
-      let m = window["require"](packageName);
-      if (m) {
-        this.packages[modulePath] = m.default || m;
-        return m.default || m;
-      }
-    }
-    ;
-    return null;
-  }
-  async loadModule(modulePath, options, forceInit) {
-    let module2 = await this.newModule(modulePath, options, forceInit);
-    if (module2)
-      document.body.append(module2);
-    return module2;
-  }
-  getModulePath(module2) {
-    let options = this._initOptions;
-    let modulePath = module2;
-    if (options && options.modules && options.modules[module2] && options.modules[module2].path) {
-      modulePath = "";
-      if (options.rootDir)
-        modulePath += options.rootDir + "/";
-      if (options.moduleDir)
-        modulePath += options.moduleDir + "/";
-      modulePath += options.modules[module2].path;
-      if (!modulePath.endsWith(".js"))
-        modulePath += "/index.js";
-    } else if (options.dependencies && options.dependencies[module2])
-      modulePath = `${(options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : ""}libs/${module2}/index.js`;
-    return modulePath;
-  }
-  async newModule(module2, options, forceInit) {
-    const _initOptions = this._initOptions;
-    if ((!this._initOptions || forceInit) && options) {
-      this._initOptions = options;
-      if (!this._assets && this._initOptions.assets)
-        this._assets = await this.loadPackage(this._initOptions.assets) || {};
-      if (this._initOptions.dependencies) {
-        for (let p in this._initOptions.dependencies) {
-          if (p != this._initOptions.main)
-            await this.loadPackage(p, this._initOptions.dependencies[p]);
-        }
-        ;
-      }
-      ;
-    }
-    ;
-    let modulePath = module2;
-    if (this._initOptions)
-      modulePath = this.getModulePath(module2);
-    let elmId = this.modulesId[modulePath];
-    if (elmId && modulePath) {
-      if (forceInit && _initOptions)
-        this._initOptions = _initOptions;
-      return document.createElement(elmId);
-    }
-    let script;
-    if (options && options.script)
-      script = options.script;
-    else {
-      if (this._initOptions && this._initOptions.modules && this._initOptions.modules[module2] && this._initOptions.modules[module2].dependencies) {
-        let dependencies = this._initOptions.modules[module2].dependencies;
-        for (let i = 0; i < dependencies.length; i++) {
-          let dep = dependencies[i];
-          let path = this.getModulePath(dep);
-          if (!this.packages[path]) {
-            await this.loadPackage(dep, path);
+// packages/ipfs/src/index.ts
+var src_exports2 = {};
+__export(src_exports2, {
+  hashContent: () => hashContent,
+  hashFile: () => hashFile,
+  hashFiles: () => hashFiles,
+  hashItems: () => hashItems,
+  parse: () => parse
+});
+var import_ipfs_utils = __toModule(require("@ijstech/ipfs-utils"));
+function parse(cid) {
+  return import_ipfs_utils.default.parse(cid);
+}
+async function hashItems(items, version) {
+  let result = await import_ipfs_utils.default.hashItems(items || [], version);
+  result.type = "dir";
+  result.links = items;
+  return result;
+}
+async function hashContent(content, version) {
+  if (version == void 0)
+    version = 1;
+  if (content.length == 0)
+    return await import_ipfs_utils.default.hashContent("", version);
+  let result;
+  if (version == 1) {
+    result = await import_ipfs_utils.default.hashFile(content, version, {
+      rawLeaves: true,
+      maxChunkSize: 1048576,
+      maxChildrenPerNode: 1024
+    });
+  } else
+    result = await import_ipfs_utils.default.hashFile(content, version);
+  result.type = "file";
+  return result;
+}
+async function hashFile(file, version) {
+  if (version == void 0)
+    version = 1;
+  if (file.size == 0)
+    return await import_ipfs_utils.default.hashContent("", version);
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.addEventListener("error", (event) => {
+      reject("Error occurred reading file");
+    });
+    reader.addEventListener("load", async (event) => {
+      const data = new Uint8Array(event.target.result);
+      let result = await import_ipfs_utils.default.hashFile(data, version, {
+        rawLeaves: true,
+        maxChunkSize: 1048576,
+        maxChildrenPerNode: 1024
+      });
+      resolve(result);
+    });
+  });
+}
+function convertToTree(items) {
+  const root = {
+    $idx: {},
+    links: []
+  };
+  for (const item of items) {
+    if (item.path && item.cid) {
+      const paths = item.path.split("/");
+      let node = root;
+      for (const path of paths) {
+        if (path) {
+          if (!node.$idx[path]) {
+            let item2 = {
+              $idx: {},
+              links: [],
+              name: path,
+              type: "dir"
+            };
+            node.$idx[path] = item2;
+            node.links.push(item2);
           }
           ;
+          node = node.$idx[path];
         }
         ;
       }
       ;
-      script = await this.getScript(modulePath);
+      delete node.links;
+      delete node.$idx;
+      node.type = "file";
+      node.size = item.cid.size;
+      node.cid = item.cid.cid;
     }
     ;
-    if (script) {
-      _currentDefineModule = null;
-      this.currentModulePath = modulePath;
-      if (modulePath.indexOf("://") > 0)
-        this.currentModuleDir = modulePath.split("/").slice(0, -1).join("/");
-      else
-        this.currentModuleDir = application.LibHost + modulePath.split("/").slice(0, -1).join("/");
-      await import(`data:text/javascript,${encodeURIComponent(script)}`);
-      document.getElementsByTagName("html")[0].classList.add(applicationStyle);
-      this.currentModulePath = "";
-      this.currentModuleDir = "";
-      if (!_currentDefineModule && this.packages[modulePath]) {
-        _currentDefineModule = this.packages[modulePath];
-      }
-      if (_currentDefineModule) {
-        let module3 = _currentDefineModule.default || _currentDefineModule;
-        if (module3) {
-          this.id++;
-          elmId = `i-module--${this.id}`;
-          this.modulesId[modulePath] = elmId;
-          let Module2 = class extends module3 {
-          };
-          customElements.define(elmId, Module2);
-          let result = new Module2(null, options);
-          if (forceInit && _initOptions)
-            this._initOptions = _initOptions;
-          return result;
-        }
-        ;
-      }
-    }
-    if (forceInit && _initOptions)
-      this._initOptions = _initOptions;
-    return null;
   }
-  async copyToClipboard(value) {
-    if (!value)
-      return false;
+  ;
+  return root;
+}
+async function hashTree(tree) {
+  delete tree.$idx;
+  let items = tree.links;
+  if (items) {
+    for (const item of items) {
+      delete item.$idx;
+      if (item.type == "dir") {
+        await hashTree(item);
+      }
+      ;
+    }
+    ;
+    let cid = await hashItems(items);
+    tree.type = "dir";
+    tree.cid = cid.cid;
+    tree.size = cid.size;
+  }
+  ;
+  return tree;
+}
+async function hashFiles(files, version) {
+  if (version == void 0)
+    version = 1;
+  return new Promise(async (resolve, reject) => {
     try {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(value);
-        return true;
-      } else {
-        const input = document.createElement("input");
-        input.value = value;
-        input.style.position = "fixed";
-        input.style.opacity = "0";
-        document.body.appendChild(input);
-        input.focus();
-        input.select();
-        const result = document.execCommand("copy");
-        document.body.removeChild(input);
-        return result;
-      }
+      let tree = convertToTree(files);
+      let cid = await hashTree(tree);
+      resolve(cid);
     } catch (err) {
-      console.log("debug: copy", err);
-      return false;
+      reject(err);
     }
-  }
-};
-window["application"] = Application.Instance;
-var application = Application.Instance;
+    ;
+  });
+}
 
 // packages/image/src/style/image.css.ts
 var Theme4 = theme_exports.ThemeVars;
@@ -14714,2989 +20196,600 @@ Button = __decorateClass([
   customElements2("i-button")
 ], Button);
 
-// packages/code-editor/src/monaco.ts
-async function addFile(fileName, content) {
-  let monaco = await initMonaco();
-  if (monaco) {
-    let model = await getFileModel(fileName);
-    if (!model) {
-      if ((fileName == null ? void 0 : fileName.endsWith(".tsx")) || (fileName == null ? void 0 : fileName.endsWith(".ts")))
-        model = monaco.editor.createModel(content || "", "typescript", monaco.Uri.file(fileName));
-      else
-        model = monaco.editor.createModel(content || "");
-    }
-    return model;
-  }
-  ;
-  return null;
-}
-async function updateFile(fileName, content) {
-  let monaco = await initMonaco();
-  if (monaco) {
-    let model = await getFileModel(fileName);
-    if (model) {
-      model.setValue(content);
-    }
-    return model;
-  }
-  ;
-  return null;
-}
-async function getFileModel(fileName) {
-  let monaco = await initMonaco();
-  if (monaco) {
-    let models = monaco.editor.getModels();
-    for (let i = 0; i < models.length; i++) {
-      let model = models[i];
-      if (model.uri.path == fileName || model.uri.path == "/" + fileName)
-        return model;
-    }
-    ;
-  }
-  ;
-  return null;
-}
-async function addLib(lib, dts) {
-  let monaco = await initMonaco();
-  monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, lib);
-}
-async function initMonaco() {
-  if (window.monaco)
-    return window.monaco;
-  return new Promise((resolve) => {
-    window.MonacoEnvironment = {};
-    RequireJS.config({ paths: { "vs": `${LibPath}lib/monaco-editor/0.32.1/min/vs` } });
-    RequireJS.require([`vs/editor/editor.main`], (monaco) => {
-      resolve(monaco);
-      if (monaco.$loaded)
-        return;
-      monaco.$loaded = true;
-      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-        experimentalDecorators: true,
-        allowSyntheticDefaultImports: true,
-        jsx: monaco.languages.typescript.JsxEmit.Preserve,
-        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-        allowNonTsExtensions: true,
-        target: monaco.languages.typescript.ScriptTarget.ES2020
-      });
-      monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
-      monaco.languages.registerCompletionItemProvider("typescript", {
-        triggerCharacters: [">"],
-        provideCompletionItems: (model, position) => {
-          const code = model.getValueInRange({
-            startLineNumber: position.lineNumber,
-            startColumn: 1,
-            endLineNumber: position.lineNumber,
-            endColumn: position.column
-          });
-          const tag = code.slice(code.lastIndexOf("<") + 1, code.length);
-          if (!tag || !tag.endsWith(">") || tag.startsWith("/") || tag.indexOf(" ") > 0)
-            return;
-          const word = model.getWordUntilPosition(position);
-          return {
-            suggestions: [
-              {
-                label: `</${tag}`,
-                kind: monaco.languages.CompletionItemKind.EnumMember,
-                insertText: `$1</${tag}`,
-                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
-                range: {
-                  startLineNumber: position.lineNumber,
-                  endLineNumber: position.lineNumber,
-                  startColumn: word.startColumn,
-                  endColumn: word.endColumn
-                }
-              }
-            ]
-          };
-        }
-      });
-    });
-  });
-}
-
-// packages/code-editor/src/style/code-editor.css.ts
-cssRule("i-code-editor", {
+// packages/upload/src/style/upload.css.ts
+var Theme6 = theme_exports.ThemeVars;
+cssRule("i-upload", {
+  margin: "1rem 0",
+  listStyle: "none",
+  minHeight: 200,
+  minWidth: 200,
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexWrap: "wrap",
   $nest: {
-    "*": {
-      boxSizing: "border-box"
-    },
-    ".full-height": {
-      height: "100vh"
-    },
-    ".half-width": {
-      width: "50%"
-    },
-    ".column": {
+    ".i-upload-wrapper": {
+      position: "relative",
+      border: `2px dashed ${Theme6.divider}`,
+      width: "100%",
       display: "flex",
       flexDirection: "column",
-      alignItems: "stretch"
-    },
-    ".row": {
-      display: "flex",
-      flexDirection: "row"
-    },
-    ".align-right": {
-      marginLeft: "auto",
-      alignSelf: "stretch"
-    },
-    "#flex-wrapper": {
-      display: "flex",
-      alignItems: "stretch"
-    },
-    "#operation-editor": {
-      height: "60vh",
-      minHeight: "260px"
-    },
-    "#variables-editor": {
-      height: "30vh",
-      alignItems: "stretch"
-    },
-    "#results-editor": {
-      height: "90vh",
-      alignItems: "stretch"
-    },
-    "#toolbar": {
-      minHeight: "40px",
-      backgroundColor: "#1e1e1e",
-      display: "inline-flex",
-      alignItems: "stretch"
-    },
-    "#toolbar > button, #toolbar > select, #toolbar > span, button#execute-op": {
-      margin: "4px",
-      padding: "4px"
-    },
-    "#toolbar button, #toolbar select": {
-      backgroundColor: "#1e1e1e",
-      color: "#eee",
-      border: "1px solid #eee",
-      borderRadius: "4px"
-    },
-    "#toolbar button:hover, select:hover, button:focus, select:focus": {
-      backgroundColor: "darkslategrey"
-    },
-    "#execution-tray": {
-      display: "inline-flex",
-      alignItems: "baseline"
-    },
-    "#schema-status": {
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      color: "#eee"
-    },
-    "#toolbar button.reload-button": {
-      border: "0 none",
-      padding: "4px",
-      width: "30px",
-      textAlign: "center"
-    }
-  }
-});
-
-// packages/code-editor/src/code-editor.ts
-var CodeEditor = class extends Control {
-  get monaco() {
-    return window.monaco;
-  }
-  init() {
-    if (!this.editor) {
-      super.init();
-      this.language = this.getAttribute("language", true);
-      this.style.display = "inline-block";
-      if (this.language)
-        this.loadContent(void 0, this.language);
-    }
-    ;
-  }
-  get editor() {
-    return this._editor;
-  }
-  get language() {
-    return this._language;
-  }
-  set language(value) {
-    this._language = value;
-    if (!this.editor) {
-      this.loadContent();
-    } else {
-      let monaco = this.monaco;
-      let model = this.editor.getModel();
-      if (model) {
-        monaco.editor.setModelLanguage(model, value);
-      }
-    }
-  }
-  async loadContent(content, language, fileName) {
-    let monaco = await initMonaco();
-    if (content == void 0)
-      content = content || this._value || "";
-    this._value = content;
-    language = language || this._language || "typescript";
-    this._language = language;
-    if (!this._editor) {
-      let captionDiv = this.createElement("div", this);
-      captionDiv.style.display = "inline-block";
-      captionDiv.style.height = "100%";
-      captionDiv.style.width = "100%";
-      const customOptions = this._options || {};
-      let options = {
-        theme: "vs-dark",
-        tabSize: 2,
-        formatOnPaste: true,
-        formatOnType: true,
-        renderWhitespace: "none",
-        automaticLayout: true,
-        minimap: {
-          enabled: false
-        },
-        ...customOptions
-      };
-      this._editor = monaco.editor.create(captionDiv, options);
-      this._editor.onDidChangeModelContent((event) => {
-        if (typeof this.onChange === "function")
-          this.onChange(this, event);
-      });
-      if (fileName) {
-        let model = await getFileModel(fileName);
-        if (model) {
-          this._editor.setModel(model);
-          model.setValue(content);
-          return;
-        }
-      }
-      ;
-      if (language == "typescript" || (fileName == null ? void 0 : fileName.endsWith(".tsx")) || (fileName == null ? void 0 : fileName.endsWith(".ts"))) {
-        let model = monaco.editor.createModel(content || this._value || "", "typescript", fileName ? monaco.Uri.file(fileName) : void 0);
-        this._editor.setModel(model);
-      } else {
-        let model = monaco.editor.createModel(content || this._value || "", language || this._language, fileName ? monaco.Uri.file(fileName) : void 0);
-        this._editor.setModel(model);
-      }
-      ;
-    } else {
-      let model = this._editor.getModel();
-      if (language == "typescript" && model && fileName && this._fileName != fileName) {
-        if (!this._fileName)
-          model.dispose();
-        model = await getFileModel(fileName);
-        if (!model)
-          model = monaco.editor.createModel(content || this._value || "", "typescript", monaco.Uri.file(fileName));
-        this._editor.setModel(model);
-      } else {
-        this._editor.setValue(content);
-        if (language && model)
-          monaco.editor.setModelLanguage(model, language);
-      }
-      ;
-    }
-    ;
-    this._fileName = fileName || "";
-    this._editor.setScrollTop(0);
-  }
-  async loadFile(fileName) {
-    var _a;
-    let model = await getFileModel(fileName);
-    if (model) {
-      if (!this._fileName)
-        (_a = this._editor.getModel()) == null ? void 0 : _a.dispose();
-      this._fileName = fileName;
-      this._editor.setModel(model);
-    }
-    ;
-  }
-  updateOptions(options) {
-    this._options = options;
-    if (this._editor)
-      this._editor.updateOptions(options);
-  }
-  get value() {
-    if (this._editor)
-      return this._editor.getValue();
-    else
-      return this._value;
-  }
-  set value(value) {
-    this._value = value;
-    if (this._editor) {
-      this._editor.setValue(value);
-      this._editor.setScrollTop(0);
-    } else
-      this.loadContent();
-  }
-};
-CodeEditor.addLib = addLib;
-CodeEditor.addFile = addFile;
-CodeEditor.getFileModel = getFileModel;
-CodeEditor.updateFile = updateFile;
-CodeEditor = __decorateClass([
-  customElements2("i-code-editor")
-], CodeEditor);
-
-// packages/code-editor/src/diff-editor.ts
-var EditorType;
-(function(EditorType2) {
-  EditorType2[EditorType2["modified"] = 0] = "modified";
-  EditorType2[EditorType2["original"] = 1] = "original";
-})(EditorType || (EditorType = {}));
-var CodeDiffEditor = class extends Control {
-  init() {
-    if (!this.editor) {
-      super.init();
-      this.language = this.getAttribute("language", true);
-      this.style.display = "inline-block";
-    }
-    ;
-  }
-  get editor() {
-    return this._editor;
-  }
-  get language() {
-    return this._language;
-  }
-  set language(value) {
-    this._language = value;
-    if (!this.editor) {
-      if (this.language) {
-        this.loadContent(1, "", this.language);
-        this.loadContent(0, "", this.language);
-      }
-    } else {
-      this.setModelLanguage(value, "getOriginalEditor");
-      this.setModelLanguage(value, "getModifiedEditor");
-    }
-  }
-  setModelLanguage(value, functionName) {
-    let monaco = window.monaco;
-    let model = this.editor[functionName]().getModel();
-    if (model) {
-      monaco.editor.setModelLanguage(model, value);
-    }
-  }
-  getEditor(type) {
-    if (type === 1)
-      return this.editor.getOriginalEditor();
-    else
-      return this.editor.getModifiedEditor();
-  }
-  getModel(type) {
-    return this.getEditor(type).getModel();
-  }
-  async loadContent(type, content, language, fileName) {
-    let monaco = await initMonaco();
-    const value = type === 0 ? this._modifiedValue : this._originalValue;
-    if (content == void 0)
-      content = content || value || "";
-    type === 0 ? this._modifiedValue = content : this._originalValue = content;
-    language = language || this._language || "typescript";
-    this._language = language;
-    if (!this._editor) {
-      let captionDiv = this.createElement("div", this);
-      captionDiv.style.display = "inline-block";
-      captionDiv.style.height = "100%";
-      captionDiv.style.width = "100%";
-      let options = {
-        theme: "vs-dark",
-        originalEditable: false,
-        automaticLayout: true
-      };
-      this._editor = monaco.editor.createDiffEditor(captionDiv, options);
-      this._editor.onDidUpdateDiff(() => {
-        if (typeof this.onChange === "function")
-          this.onChange(this);
-      });
-    }
-    if (!this._modifiedModel || !this._originalModel) {
-      let model;
-      if (fileName == null ? void 0 : fileName.endsWith(".tsx")) {
-        model = monaco.editor.createModel(content || value || "", "typescript");
-      } else
-        model = monaco.editor.createModel(content || value || "", language || this._language || "typescript");
-      type === 0 ? this._modifiedModel = model : this._originalModel = model;
-      if (this._originalModel && this._modifiedModel) {
-        this._editor.setModel({
-          original: this._originalModel,
-          modified: this._modifiedModel
-        });
-      }
-    } else {
-      let model = this.getModel(type);
-      if (model)
-        monaco.editor.setModelLanguage(model, language);
-      this.getEditor(type).setValue(content);
-    }
-  }
-  updateOptions(options) {
-    this.editor.updateOptions(options);
-  }
-  get originalValue() {
-    if (this.editor)
-      return this.editor.getOriginalEditor().getValue();
-    else
-      return this._originalValue;
-  }
-  set originalValue(value) {
-    this._originalValue = value;
-    if (this.editor) {
-      this.editor.getOriginalEditor().setValue(value);
-    } else
-      this.loadContent(1);
-  }
-  get modifiedValue() {
-    if (this.editor)
-      return this.editor.getModifiedEditor().getValue();
-    else
-      return this._modifiedValue;
-  }
-  set modifiedValue(value) {
-    this._modifiedValue = value;
-    if (this.editor) {
-      this.editor.getModifiedEditor().setValue(value);
-    } else {
-      this.loadContent(0);
-    }
-  }
-};
-CodeDiffEditor.addLib = addLib;
-CodeDiffEditor.addFile = addFile;
-CodeDiffEditor.getFileModel = getFileModel;
-CodeDiffEditor.updateFile = updateFile;
-CodeDiffEditor = __decorateClass([
-  customElements2("i-code-diff-editor")
-], CodeDiffEditor);
-
-// packages/combo-box/src/style/combo-box.css.ts
-var Theme6 = theme_exports.ThemeVars;
-var ItemListStyle = style({
-  display: "none",
-  position: "absolute",
-  margin: "0.05rem 0 0",
-  backgroundColor: "#fff",
-  border: "1px solid rgba(0,0,0,.15)",
-  borderRadius: "0.25rem",
-  zIndex: "99999",
-  $nest: {
-    "> ul": {
-      maxHeight: "100px",
-      overflowY: "scroll",
-      overflowX: "hidden",
-      listStyle: "none",
-      margin: 0,
-      padding: 0,
-      borderRadius: "inherit"
-    },
-    "> ul > li": {
-      display: "block",
-      width: "100%",
-      padding: "0.25rem 0.5rem",
-      backgroundColor: "transparent",
-      whiteSpace: "nowrap",
-      textOverflow: "ellipsis",
-      cursor: "pointer",
-      borderRadius: "inherit"
-    },
-    "> ul > li .highlight": {
-      backgroundColor: Theme6.colors.warning.light
-    },
-    "> ul > li.matched": {
-      backgroundColor: Theme6.colors.primary.light
-    },
-    "> ul > li:hover": {
-      backgroundColor: Theme6.colors.primary.light
-    }
-  }
-});
-cssRule("i-combo-box", {
-  position: "relative",
-  display: "flex",
-  fontFamily: Theme6.typography.fontFamily,
-  fontSize: Theme6.typography.fontSize,
-  color: Theme6.text.primary,
-  alignItems: "center",
-  $nest: {
-    "&.i-combo-box-multi": {
-      height: "auto !important"
-    },
-    "> .icon-btn": {
-      display: "inline-flex",
-      flexWrap: "nowrap",
-      whiteSpace: "nowrap",
-      background: "inherit",
-      padding: "8px",
-      marginLeft: "-1px",
-      borderRadius: "0 3px 3px 0",
-      cursor: "pointer",
-      height: "100%",
-      alignItems: "center",
-      position: "absolute",
-      right: 0,
-      border: `1px solid ${Theme6.divider}`,
-      borderLeft: "none"
-    },
-    "> .icon-btn:hover": {
-      backgroundColor: Theme6.action.hover
-    },
-    "> .icon-btn i-icon": {
-      display: "inline-block",
-      width: "12px",
-      height: "12px"
-    },
-    ".selection": {
-      display: "inline-flex",
-      alignItems: "center",
-      flexWrap: "wrap",
-      maxWidth: "calc(100% - 32px)",
-      height: "100%",
-      border: "inherit",
-      background: Theme6.combobox.background,
-      borderRadius: "inherit",
-      padding: "2px 4px",
-      transition: "all .3s cubic-bezier(.645,.045,.355,1)",
-      gap: 5,
-      flexGrow: 1,
-      $nest: {
-        ".selection-item": {
-          border: `1px solid ${Theme6.divider}`,
-          backgroundColor: "rgba(0, 0, 0, 0.12)",
-          color: "#000",
-          borderRadius: 3,
-          display: "inline-flex",
-          alignItems: "center",
-          padding: "3px 5px",
-          gap: 4,
-          maxWidth: "clamp(100px, 50%, 200px)",
-          userSelect: "none",
-          $nest: {
-            ".close-icon": {
-              cursor: "pointer",
-              opacity: "0.5"
-            },
-            ".close-icon:hover": {
-              opacity: 1
-            },
-            "> span:first-child": {
-              display: "inline-block",
-              overflow: "hidden",
-              whiteSpace: "pre",
-              textOverflow: "ellipsis"
-            }
-          }
-        },
-        "input": {
-          padding: "1px 0.5rem",
-          border: "none",
-          boxShadow: "none",
-          outline: "none",
-          width: "auto !important",
-          maxWidth: "100%",
-          flex: 1,
-          background: Theme6.combobox.background,
-          color: Theme6.combobox.fontColor,
-          fontSize: "inherit"
-        }
-      }
-    }
-  }
-});
-
-// packages/combo-box/src/combo-box.ts
-var defaultIcon2 = {
-  width: 16,
-  height: 16,
-  fill: theme_exports.ThemeVars.text.primary
-};
-var ComboBox = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      mode: "single"
-    });
-    this.newItem = null;
-    this.isListShown = false;
-  }
-  get value() {
-    return this.selectedItem;
-  }
-  set value(value) {
-  }
-  get selectedItem() {
-    return this._selectedItem;
-  }
-  set selectedItem(value) {
-    let isValueValid = false;
-    let validValue;
-    if (this.isMulti) {
-      const formattedValue = Array.isArray(value) ? value : [value];
-      validValue = formattedValue.filter((item) => this.isValueValid(item));
-      isValueValid = !!validValue.length;
-    } else {
-      validValue = value;
-      isValueValid = this.isValueValid(value);
-    }
-    if (isValueValid) {
-      this._selectedItem = validValue;
-      if (Array.isArray(this._selectedItem)) {
-        this.inputElm.value = "";
-        const selectionItems = Array.from(this.inputWrapElm.querySelectorAll(".selection-item"));
-        selectionItems.forEach((elm) => this.inputWrapElm.removeChild(elm));
-        this._selectedItem.forEach((item) => {
-          const itemElm = this.createElement("div");
-          itemElm.classList.add("selection-item");
-          const content = this.createElement("span", itemElm);
-          content.textContent = item.label;
-          itemElm.appendChild(content);
-          const closeButton = this.createElement("span", itemElm);
-          closeButton.classList.add("close-icon");
-          closeButton.innerHTML = "&times;";
-          closeButton.addEventListener("click", (event) => this.handleRemove(event, item));
-          this.inputWrapElm.appendChild(itemElm);
-          this.inputWrapElm.insertBefore(itemElm, this.inputElm);
-        });
-      } else {
-        this.inputElm.value = this._selectedItem.label;
-      }
-      if (this.callback)
-        this.callback(value);
-    } else if (this.isMulti) {
-      this._selectedItem = validValue;
-      this.inputElm.value = "";
-      const selectionItems = Array.from(this.inputWrapElm.querySelectorAll(".selection-item"));
-      selectionItems.forEach((elm) => this.inputWrapElm.removeChild(elm));
-    }
-  }
-  get caption() {
-    return this._caption;
-  }
-  set caption(value) {
-    this._caption = value;
-    this.labelElm.innerHTML = this._caption || "";
-    if (!value)
-      this.labelElm.style.display = "none";
-    else
-      this.labelElm.style.display = "";
-  }
-  get captionWidth() {
-    return this._captionWidth;
-  }
-  set captionWidth(value) {
-    this._captionWidth = value;
-    this.setElementPosition(this.labelElm, "width", value);
-  }
-  get items() {
-    return this._items;
-  }
-  set items(items) {
-    this._items = items;
-  }
-  get icon() {
-    if (!this._icon) {
-      this._icon = new Icon(void 0, defaultIcon2);
-      if (this.iconElm)
-        this.iconElm.appendChild(this._icon);
-    }
-    return this._icon;
-  }
-  set icon(value) {
-    if (this.iconElm) {
-      if (this._icon && this.iconElm.contains(this._icon))
-        this.iconElm.removeChild(this._icon);
-      this._icon = value;
-      if (this._icon)
-        this.iconElm.appendChild(this._icon);
-    }
-  }
-  get searchStr() {
-    return this._searchStr;
-  }
-  set searchStr(str) {
-    if (str === null)
-      str = "";
-    this._searchStr = str;
-  }
-  get placeholder() {
-    return this.inputElm.placeholder;
-  }
-  set placeholder(value) {
-    this.inputElm.placeholder = value;
-  }
-  get mode() {
-    return this._mode;
-  }
-  set mode(value) {
-    this._mode = value;
-    if (this.isMulti)
-      this.classList.add("i-combo-box-multi");
-    else
-      this.classList.remove("i-combo-box-multi");
-  }
-  get isMulti() {
-    return this.mode === "tags" || this.mode === "multiple";
-  }
-  isValueValid(value) {
-    if (!value)
-      return false;
-    const index = this.getItemIndex(this.items, value);
-    return index >= 0;
-  }
-  getItemIndex(items, item) {
-    const value = item == null ? void 0 : item.value.toString();
-    if (!value)
-      return -1;
-    const index = items.findIndex((_item) => {
-      return _item.value.toString().toLowerCase() === value.toLowerCase();
-    });
-    return index;
-  }
-  openList() {
-    this.isListShown = true;
-    window.document.body.append(this.listElm);
-    this.listElm.classList.add("show");
-    this.listElm.style.display = "block";
-    this.calculatePositon();
-    if (!this.searchStr)
-      this.renderItems();
-  }
-  calculatePositon() {
-    let parentElement = this.linkTo || this;
-    let rect = parentElement.getBoundingClientRect();
-    const scrollTop = document.documentElement.scrollTop || window.pageYOffset;
-    const scrollLeft = document.documentElement.scrollLeft || window.pageXOffset;
-    const top = rect.top + scrollTop + rect.height;
-    const left = rect.left + scrollLeft;
-    const width = rect.right - rect.left;
-    this.listElm.style.top = top + "px";
-    this.listElm.style.left = left + "px";
-    this.listElm.style.width = width + "px";
-  }
-  closeList() {
-    var _a;
-    this.isListShown = false;
-    this.listElm.remove();
-    this.listElm.style.display = "none";
-    this.listElm.classList.remove("show");
-    this.searchStr = "";
-    if (this.isMulti || Array.isArray(this.selectedItem))
-      return;
-    const label = (_a = this.selectedItem) == null ? void 0 : _a.label;
-    if (label && this.inputElm)
-      this.inputElm.value = label;
-  }
-  toggleList() {
-    this.isListShown ? this.closeList() : this.openList();
-  }
-  escapeRegExp(text) {
-    return text ? text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") : text;
-  }
-  renderItems() {
-    if (this.mode === "tags" && this.newItem) {
-      if (this.searchStr)
-        this.newItem.label = this.searchStr;
-      const liElm = this.listElm.querySelector(`li[data-key="${this.newItem.value}"]`);
-      if (liElm) {
-        if (this.searchStr) {
-          liElm.textContent = this.searchStr;
-          liElm.classList.add("matched");
-          liElm.innerHTML = `<span class="highlight">${this.searchStr}</span>`;
-        } else {
-          liElm.remove();
-          this.newItem = null;
-        }
-      } else {
-        const ul = this.listElm.querySelector("ul");
-        ul && this.add(this.newItem, ul);
-      }
-    }
-    const regExp = new RegExp(this.escapeRegExp(this.searchStr), "g");
-    this.listElm.innerHTML = "";
-    if (this.searchStr)
-      this.openList();
-    const ulElm = this.createElement("ul", this.listElm);
-    let creatingNew = false;
-    for (let item of this.items) {
-      const label = item.label || "";
-      const isMatchedPart = this.searchStr && label.toLowerCase().includes(this.searchStr.toLowerCase());
-      const isMatchedDone = this.searchStr && label.toLowerCase() === this.searchStr.toLowerCase();
-      if (item.isNew && isMatchedPart && !isMatchedDone)
-        creatingNew = true;
-      if (!this.searchStr || isMatchedDone || isMatchedPart) {
-        const liElm = this.createElement("li", ulElm);
-        liElm.setAttribute("data-key", item.value);
-        liElm.addEventListener("click", (event) => {
-          event.stopPropagation();
-          this.onItemClick(event, liElm, item);
-        });
-        if (Array.isArray(this.selectedItem)) {
-          const index = this.getItemIndex(this.selectedItem, item);
-          if (index >= 0)
-            liElm.classList.add("matched");
-        } else if (item === this.selectedItem) {
-          liElm.classList.add("matched");
-        }
-        const displayItem = this.searchStr ? label.replace(regExp, `<span class="highlight">${this.searchStr}</span>`) : label;
-        liElm.innerHTML = displayItem;
-      }
-    }
-    if (!ulElm.innerHTML || creatingNew) {
-      if (this.mode === "tags") {
-        if (!this.newItem)
-          this.newItem = {
-            value: new Date().getTime().toString(),
-            label: this.searchStr
-          };
-        const liElm = this.listElm.querySelector(`li[data-key="${this.newItem.label}"]`);
-        if (!liElm)
-          this.add(this.newItem, ulElm);
-      } else if (!ulElm.innerHTML)
-        ulElm.innerHTML = '<li style="text-align:center;">No data</li>';
-    }
-  }
-  add(item, parent) {
-    const liElm = this.createElement("li");
-    liElm.setAttribute("data-key", item.value);
-    liElm.addEventListener("click", (event) => {
-      event.stopPropagation();
-      this.onItemClick(event, liElm, item);
-    });
-    liElm.classList.add("matched");
-    liElm.innerHTML = `<span class="highlight">${this.searchStr}</span>`;
-    parent.prepend(liElm);
-  }
-  handleRemove(event, item) {
-    event.stopPropagation();
-    if (!this.enabled)
-      return;
-    const liElm = this.listElm.querySelector(`li[data-key="${item.value}"]`);
-    if (liElm) {
-      liElm.classList.remove("matched");
-      if (this.mode === "tags" && item.isNew) {
-        liElm.remove();
-        this.items = this.items.filter((data) => data.value !== item.value);
-      }
-    }
-    const selectedItem = this.selectedItem;
-    const selectedIndex = this.getItemIndex(selectedItem, item);
-    if (selectedIndex >= 0)
-      selectedItem.splice(selectedIndex, 1);
-    this.selectedItem = selectedItem;
-    if (this.onChanged)
-      this.onChanged(this, event);
-  }
-  onItemClick(event, liElm, item) {
-    var _a;
-    if (((_a = this.newItem) == null ? void 0 : _a.value) === item.value) {
-      item = { ...this.newItem, value: this.newItem.label, isNew: true };
-      this.items.push(item);
-    }
-    this.newItem = null;
-    if (Array.isArray(this.selectedItem)) {
-      const index = this.getItemIndex(this.selectedItem, item);
-      const selectedItem = this.selectedItem;
-      if (index >= 0) {
-        selectedItem.splice(index, 1);
-      } else {
-        selectedItem.push(item);
-      }
-      this.selectedItem = selectedItem;
-      liElm.classList.toggle("matched");
-      this.closeList();
-    } else {
-      this.selectedItem = item;
-      this.closeList();
-    }
-    if (this.onChanged)
-      this.onChanged(this, event);
-  }
-  clear() {
-    if (this.isMulti) {
-      this._selectedItem = [];
-    } else {
-      this._selectedItem = void 0;
-    }
-    this.inputElm.value = "";
-  }
-  init() {
-    if (!this.inputElm) {
-      this.callback = this.getAttribute("parentCallback", true);
-      const placeholder = this.getAttribute("placeholder", true);
-      this.mode = this.getAttribute("mode", true);
-      this.items = this.getAttribute("items", true, []);
-      this.captionSpanElm = this.createElement("span", this);
-      this.labelElm = this.createElement("label", this.captionSpanElm);
-      this.inputWrapElm = this.createElement("div", this);
-      this.inputWrapElm.classList.add("selection");
-      this.inputElm = this.createElement("input", this.inputWrapElm);
-      const disabled = this.getAttribute("enabled") === false;
-      this.inputElm.disabled = disabled;
-      this.inputElm.addEventListener("click", (e) => {
-        this.openList();
-        if (this.onClick)
-          this.onClick(this, e);
-      });
-      this.inputElm.addEventListener("keyup", () => {
-        this.searchStr = this.inputElm.value;
-        this.renderItems();
-      });
-      this.inputWrapElm.appendChild(this.inputElm);
-      placeholder && (this.placeholder = placeholder);
-      this.iconElm = this.createElement("span", this);
-      this.iconElm.classList.add("icon-btn");
-      this.iconElm.addEventListener("click", () => {
-        if (!this._enabled)
-          return false;
-        this.toggleList();
-      });
-      let iconAttr = this.getAttribute("icon", true);
-      if (iconAttr) {
-        iconAttr = { ...defaultIcon2, ...iconAttr };
-        const icon = new Icon(void 0, iconAttr);
-        this.icon = icon;
-      }
-      this.selectedItem = this.getAttribute("selectedItem", true);
-      this.listElm = this.createElement("div");
-      this.listElm.classList.add(ItemListStyle);
-      this.listElm.classList.add("item-list");
-      this.renderItems();
-      document.addEventListener("click", (e) => {
-        if (!this._enabled)
-          return false;
-        if (!this.contains(e.target))
-          this.closeList();
-      });
-      super.init();
-      window.addEventListener("resize", this.calculatePositon.bind(this));
-    }
-  }
-  disconnectCallback() {
-    window.removeEventListener("resize", this.calculatePositon.bind(this));
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-ComboBox = __decorateClass([
-  customElements2("i-combo-box")
-], ComboBox);
-
-// packages/datepicker/src/style/datepicker.css.ts
-var Theme7 = theme_exports.ThemeVars;
-cssRule("i-datepicker", {
-  display: "inline-block",
-  fontFamily: Theme7.typography.fontFamily,
-  fontSize: Theme7.typography.fontSize,
-  "$nest": {
-    "*": {
-      boxSizing: "border-box"
-    },
-    "> span": {
-      overflow: "hidden"
-    },
-    "> span > label": {
-      boxSizing: "border-box",
-      color: Theme7.text.primary,
-      display: "inline-block",
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      verticalAlign: "middle",
-      textAlign: "right",
-      paddingRight: 4,
-      height: "100%"
-    },
-    "> input": {
-      padding: "1px 0.5rem",
-      border: `0.5px solid ${Theme7.divider}`,
-      boxSizing: "border-box",
-      outline: "none"
-    },
-    "> input[type=text]:focus": {
-      borderColor: Theme7.colors.info.main
-    },
-    "i-icon": {
-      fill: Theme7.colors.primary.contrastText
-    },
-    ".datepicker-toggle": {
-      display: "inline-block",
-      position: "relative",
-      verticalAlign: "middle",
-      backgroundColor: "#6c757d",
-      padding: "7px",
-      marginLeft: "-1px",
-      marginTop: "-1px",
-      borderRadius: "0 3px 3px 0",
-      cursor: "pointer"
-    },
-    "> .datepicker-toggle:hover": {
-      backgroundColor: "#545b62"
-    },
-    ".datepicker": {
-      position: "absolute",
-      left: 0,
-      top: 0,
-      width: "100%",
-      height: "100%",
-      border: 0,
-      padding: 0,
-      opacity: 0,
-      cursor: "pointer"
-    },
-    ".datepicker::-webkit-calendar-picker-indicator": {
-      position: "absolute",
-      left: 0,
-      top: 0,
-      width: "100%",
-      height: "100%",
-      margin: 0,
-      padding: 0,
-      cursor: "pointer"
-    }
-  }
-});
-
-// packages/datepicker/src/datepicker.ts
-var defaultCaptionWidth = 40;
-var Datepicker = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      captionWidth: defaultCaptionWidth,
-      height: 25,
-      width: 100
-    });
-    this._onDatePickerChange = (event) => {
-      const pickerValue = this.datepickerElm.value;
-      RequireJS.require(["@moment"], (moment2) => {
-        let _moment = this._type === "time" ? moment2(pickerValue, "HH:mm") : moment2(pickerValue);
-        this.updateValue(_moment);
-        if (this.onChanged)
-          this.onChanged(this, event);
-      });
-    };
-    this._dateInputMask = (event) => {
-      const key2 = event.key;
-      const isNumeric = key2 != " " && !isNaN(Number(key2));
-      const separator = this._type === "time" ? ":" : "/";
-      if (!isNumeric) {
-        event.preventDefault();
-      }
-      var len = this.inputElm.value.length;
-      if (len === 2) {
-        this.inputElm.value += separator;
-      }
-      if (this._type !== "time" && len === 5) {
-        this.inputElm.value += separator;
-      }
-      if (this._type === "dateTime") {
-        if (len === 10) {
-          this.inputElm.value += " ";
-        }
-        if (len === 13) {
-          this.inputElm.value += ":";
-        }
-      }
-    };
-    this._onFocus = () => {
-      this.inputElm.placeholder = this.formatString;
-      if (!this.inputElm.value)
-        return;
-      if (this.value) {
-        this.inputElm.value = this.value.format(this.defaultDateTimeFormat);
-      }
-    };
-    this._onBlur = (event) => {
-      if (!this.inputElm.value) {
-        const oldVal = this.value;
-        this.clear();
-        const isChanged = oldVal !== this.value;
-        if (event && isChanged && this.onChanged)
-          this.onChanged(this, event);
-        return;
-      }
-      ;
-      RequireJS.require(["@moment"], (moment2) => {
-        const temp = moment2(this.inputElm.value, this.formatString, true).format(this.datepickerFormat);
-        const _moment = moment2(temp, this.datepickerFormat, true);
-        this.updateValue(_moment, event);
-      });
-    };
-  }
-  _handleClick(event) {
-    return super._handleClick(event, true);
-  }
-  get caption() {
-    return this._caption;
-  }
-  set caption(value) {
-    this._caption = value;
-    this.labelElm.textContent = this._caption || "";
-    if (!value)
-      this.labelElm.style.display = "none";
-    else
-      this.labelElm.style.display = "";
-  }
-  get captionWidth() {
-    return this.labelElm.offsetWidth;
-  }
-  set captionWidth(value) {
-    this._captionWidth = value;
-    this.setElementPosition(this.labelElm, "width", value);
-    const width = this.width - this.captionWidth - (this._iconWidth || 0);
-    this.inputElm.style.width = `${width}px`;
-  }
-  get height() {
-    return this.offsetHeight;
-  }
-  set height(value) {
-    this.setPosition("height", value);
-    this.inputElm.style.height = typeof value === "string" ? value : `${value}px`;
-  }
-  get width() {
-    return this.offsetWidth;
-  }
-  set width(value) {
-    this.setPosition("width", value);
-    const width = typeof this._width === "string" ? this._width : `${this._width}px`;
-    const captionWidth = typeof this._captionWidth === "string" ? this._captionWidth : `${this._captionWidth}px`;
-    const iconWidth = `${this._iconWidth || 0}px`;
-    this.inputElm.style.width = `calc(${width} - ${captionWidth} - ${iconWidth})`;
-  }
-  get value() {
-    return this._value;
-  }
-  set value(value) {
-    if (value)
-      this.updateValue(value);
-    else
-      this.clear();
-  }
-  get defaultDateTimeFormat() {
-    switch (this._type) {
-      case "date":
-        return "DD/MM/YYYY";
-      case "dateTime":
-        return "DD/MM/YYYY HH:mm";
-      case "time":
-        return "HH:mm";
-    }
-  }
-  get dateTimeFormat() {
-    return this._dateTimeFormat;
-  }
-  set dateTimeFormat(format) {
-    this._dateTimeFormat = format;
-  }
-  get datepickerFormat() {
-    switch (this._type) {
-      case "date":
-        return "YYYY-MM-DD";
-      case "dateTime":
-        return "YYYY-MM-DDTHH:mm";
-      case "time":
-        return "HH:mm";
-    }
-  }
-  get maxLength() {
-    switch (this._type) {
-      case "date":
-        return 10;
-      case "dateTime":
-        return 16;
-      case "time":
-        return 5;
-    }
-  }
-  set enabled(value) {
-    this.inputElm.disabled = !value;
-    this.datepickerElm.disabled = !value;
-  }
-  get placeholder() {
-    return this._placeholder;
-  }
-  set placeholder(value) {
-    this._placeholder = value;
-    if (this.inputElm)
-      this.inputElm.placeholder = this._placeholder;
-  }
-  get formatString() {
-    return this.dateTimeFormat || this.defaultDateTimeFormat;
-  }
-  updateValue(value, event) {
-    this.inputElm.placeholder = this._placeholder || "";
-    const oldVal = this.value;
-    if (value.isValid()) {
-      this._value = value;
-      this.inputElm.value = value.format(this.formatString);
-      this.datepickerElm.value = value.format(this.datepickerFormat);
-      if (this.callback)
-        this.callback(this.inputElm.value);
-    } else if (this.value) {
-      this.inputElm.value = this.value.format(this.formatString);
-      this.datepickerElm.value = this.value.format(this.datepickerFormat);
-    }
-    const isChanged = oldVal && this.value && !oldVal.isSame(this.value) || (!oldVal || !this.value);
-    if (event && isChanged && this.onChanged)
-      this.onChanged(this, event);
-  }
-  clear() {
-    this._value = void 0;
-    this.inputElm.value = "";
-    this.datepickerElm.value = "";
-    this.callback && this.callback("");
-  }
-  init() {
-    if (!this.captionSpanElm) {
-      RequireJS.config({
-        paths: {
-          "@moment": `${LibPath}lib/moment/2.29.1/moment.js`
-        }
-      });
-      this.callback = this.getAttribute("parentCallback", true);
-      this.dateTimeFormat = this.getAttribute("dateTimeFormat", true, "");
-      this._type = this.getAttribute("type", true, "date");
-      this._iconWidth = this.getAttribute("height", true);
-      this.captionSpanElm = this.createElement("span", this);
-      this.labelElm = this.createElement("label", this.captionSpanElm);
-      this.inputElm = this.createElement("input", this);
-      this.inputElm.setAttribute("type", "text");
-      this.inputElm.setAttribute("autocomplete", "disabled");
-      this.inputElm.style.height = this.height + "px";
-      this.inputElm.onblur = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-        this._onBlur(event);
-      };
-      this.inputElm.pattern = this.formatString;
-      this.placeholder = this.getAttribute("placeholder", true, "");
-      this.toggleElm = this.createElement("span", this);
-      this.toggleElm.classList.add("datepicker-toggle");
-      this.toggleElm.style.width = this._iconWidth + "px";
-      this.toggleElm.style.height = this._iconWidth + "px";
-      this.toggleIconElm = new Icon(this, {
-        name: this._type === "time" ? "clock" : "calendar",
-        width: 12,
-        height: 12,
-        fill: theme_exports.ThemeVars.text.primary
-      });
-      this.toggleElm.appendChild(this.toggleIconElm);
-      this.datepickerElm = this.createElement("input");
-      const inputType = this._type === "dateTime" ? "datetime-local" : this._type;
-      this.datepickerElm.setAttribute("type", inputType);
-      this.datepickerElm.classList.add("datepicker");
-      this.datepickerElm.addEventListener("change", (event) => {
-        event.stopPropagation();
-        this._onDatePickerChange(event);
-      });
-      this.toggleElm.appendChild(this.datepickerElm);
-      this.captionWidth = this.getAttribute("captionWidth", true, defaultCaptionWidth);
-      this.caption = this.getAttribute("caption", true);
-      super.init();
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-Datepicker = __decorateClass([
-  customElements2("i-datepicker")
-], Datepicker);
-
-// packages/range/src/style/range.css.ts
-var Theme8 = theme_exports.ThemeVars;
-cssRule("i-range", {
-  position: "relative",
-  display: "inline-block",
-  fontFamily: Theme8.typography.fontFamily,
-  fontSize: Theme8.typography.fontSize,
-  "$nest": {
-    "*": {
-      boxSizing: "border-box"
-    },
-    "> span": {
-      overflow: "hidden"
-    },
-    "> span > label": {
-      boxSizing: "border-box",
-      color: Theme8.text.primary,
-      display: "inline-block",
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      verticalAlign: "middle",
-      textAlign: "right",
-      paddingRight: 4,
-      height: "100%"
-    },
-    ".slider": {
-      position: "relative",
-      display: "inline-block"
-    },
-    'input[type="range"]': {
-      "-webkit-appearance": "none",
-      appearance: "none",
-      background: "#d3d3d3",
-      backgroundImage: `linear-gradient(${Theme8.colors.info.main}, ${Theme8.colors.info.main})`,
-      backgroundSize: "0% 100%",
-      backgroundRepeat: "no-repeat !important",
-      borderRadius: "0.5rem",
-      opacity: 0.7,
-      border: 0,
-      margin: 0,
-      width: "inherit",
-      boxSizing: "border-box",
-      outline: "none",
-      verticalAlign: "middle"
-    },
-    'input[type="range"]:not(:disabled)': {
-      cursor: "pointer"
-    },
-    'input[type="range"]:hover': {
-      opacity: 1
-    },
-    'input[type="range"]:focus': {
-      outline: "none"
-    },
-    'input[type="range"]::-webkit-slider-runnable-track': {
-      "-webkit-appearance": "none",
-      boxShadow: "none",
-      border: "none",
-      background: "transparent",
-      borderRadius: "0.5rem",
-      height: "0.3rem",
-      marginLeft: "-6.5px",
-      marginRight: "-6.5px"
-    },
-    'input[type="range"]::-webkit-slider-thumb': {
-      "-webkit-appearance": "none",
-      appearance: "none",
-      marginTop: "-5px",
-      backgroundColor: Theme8.colors.info.main,
-      borderRadius: "0.5rem",
-      height: "1rem",
-      width: "1rem"
-    },
-    ".range-labels": {
-      display: "flex",
-      justifyContent: "space-between",
-      height: "auto",
-      overflow: "hidden",
-      listStyle: "none"
-    },
-    ".range-labels li": {
-      padding: "0 0.25rem"
-    },
-    '&.--step input[type="range"]': {
-      opacity: 1,
-      $nest: {
-        "&::-webkit-slider-runnable-track": {
-          zIndex: 2
-        },
-        "&::-webkit-slider-thumb": {
-          zIndex: 2
-        }
-      }
-    },
-    ".slider-step": {
-      position: "absolute",
-      zIndex: 0,
-      top: 2,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      background: "transparent"
-    },
-    ".step-dot": {
-      position: "relative",
-      zIndex: 1,
-      display: "flex",
       justifyContent: "center",
-      width: "3px",
-      height: "10px",
-      backgroundColor: "#a7a9ac"
-    },
-    ".tooltip": {
-      visibility: "hidden",
-      minWidth: 35,
-      maxWidth: 70,
-      overflowWrap: "break-word",
-      backgroundColor: "rgba(0, 0, 0, 0.78)",
-      color: "#fff",
-      textAlign: "center",
-      borderRadius: "6px",
-      padding: "8px",
-      position: "absolute",
-      zIndex: 1,
-      bottom: "150%",
-      left: "0%",
-      marginLeft: "-20px",
-      opacity: 0,
-      transition: "opacity 0.3s",
-      $nest: {
-        "&::after": {
-          content: "''",
-          position: "absolute",
-          top: "100%",
-          left: "50%",
-          marginLeft: "-5px",
-          borderWidth: "5px",
-          borderStyle: "solid",
-          borderColor: "rgba(0, 0, 0, 0.78) transparent transparent transparent"
-        }
-      }
-    },
-    'input[type="range"]:hover + .tooltip': {
-      visibility: "visible",
-      opacity: 1
-    }
-  }
-});
-
-// packages/range/src/range.ts
-var Range = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      height: 25,
-      width: 100
-    });
-  }
-  get caption() {
-    return this._caption;
-  }
-  set caption(value) {
-    this._caption = value;
-    this.labelElm.textContent = this._caption || "";
-    if (!value)
-      this.labelElm.style.display = "none";
-    else
-      this.labelElm.style.display = "";
-  }
-  get captionWidth() {
-    return this.labelElm.offsetWidth;
-  }
-  set captionWidth(value) {
-    this._captionWidth = value;
-    this.setElementPosition(this.labelElm, "width", value);
-    const width = this.width - this.captionWidth;
-    this.inputContainerElm.style.width = `${width}px`;
-  }
-  get value() {
-    return this._value;
-  }
-  set value(value) {
-    if (value === null)
-      value = +this.inputElm.min;
-    this._value = value;
-    this.inputElm.value = value.toString();
-    const min = Number(this.inputElm.min);
-    const max = Number(this.inputElm.max);
-    this.inputElm.style.backgroundSize = (this._value - min) * 100 / (max - min) + "% 100%";
-    this.onUpdateTooltip(false);
-    if (this.callback)
-      this.callback(value);
-  }
-  get width() {
-    return this.offsetWidth;
-  }
-  set width(value) {
-    this.setPosition("width", value);
-    const width = typeof value === "string" ? value : `${value}px`;
-    const captionWidth = typeof this._captionWidth === "string" ? this._captionWidth : `${this._captionWidth}px`;
-    this.inputContainerElm.style.width = `calc(${width} - ${captionWidth})`;
-  }
-  set enabled(value) {
-    this.inputElm.disabled = !value;
-  }
-  get tooltipVisible() {
-    return this._tooltipVisible;
-  }
-  set tooltipVisible(value) {
-    this._tooltipVisible = value;
-    this.tooltipElm.style.display = value ? "block" : "none";
-  }
-  onSliderChange(event) {
-    this.value = +this.inputElm.value;
-    const min = Number(this.inputElm.min);
-    const max = Number(this.inputElm.max);
-    this.inputElm.style.backgroundSize = (this._value - min) * 100 / (max - min) + "% 100%";
-    if (this.onChanged)
-      this.onChanged(this, event);
-    this.onUpdateTooltip(false);
-  }
-  onUpdateTooltip(init) {
-    let inputValue = this._value;
-    let formattedValue = this.tooltipFormatter ? this.tooltipFormatter(inputValue) : inputValue;
-    const min = Number(this.inputElm.min);
-    const max = Number(this.inputElm.max);
-    if (init) {
-      this.tooltipElm.style.marginLeft = `-${this.tooltipElm.clientWidth / 2}px`;
-    }
-    this.tooltipElm.innerHTML = formattedValue;
-    this.tooltipElm.style.left = (this._value - min) * 100 / (max - min) + "%";
-  }
-  init() {
-    if (!this.captionSpanElm) {
-      this.callback = this.getAttribute("parentCallback", true);
-      const min = this.getAttribute("min", true, 0);
-      const max = this.getAttribute("max", true, 100);
-      const step = this.getAttribute("step", true, 0);
-      const stepDots = this.getAttribute("stepDots", true);
-      const tooltipVisible = this.getAttribute("tooltipVisible", true, false);
-      const formatter = this.getAttribute("tooltipFormatter", true) || this.tooltipFormatter;
-      this.tooltipFormatter = formatter;
-      this.captionSpanElm = this.createElement("span", this);
-      this.labelElm = this.createElement("label", this.captionSpanElm);
-      this.inputContainerElm = this.createElement("div", this);
-      this.inputContainerElm.classList.add("slider");
-      this.inputElm = this.createElement("input", this.inputContainerElm);
-      this.inputElm.setAttribute("autocomplete", "disabled");
-      this.inputElm.type = "range";
-      this.inputElm.min = min;
-      this.inputElm.max = max;
-      if (step !== 0) {
-        this.inputElm.step = step;
-      }
-      this.inputElm.addEventListener("input", this.onSliderChange.bind(this));
-      if (this.onMouseUp)
-        this.inputElm.addEventListener("mouseup", () => {
-          this.onMouseUp(this, this.value);
-        });
-      if (this.onKeyUp)
-        this.inputElm.addEventListener("keyup", (e) => {
-          const keys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "PageUp", "PageDown"];
-          if (keys.includes(e.key))
-            this.onMouseUp(this, this.value);
-        });
-      this.tooltipElm = this.createElement("span", this.inputContainerElm);
-      this.tooltipElm.classList.add("tooltip");
-      this.tooltipVisible = tooltipVisible || this.tooltipFormatter || false;
-      if (stepDots) {
-        this.classList.add("--step");
-        const stepContainer = this.createElement("div", this);
-        stepContainer.classList.add("slider-step");
-        if (this.caption) {
-          stepContainer.style.width = Number(this._width) - this.captionWidth + "px";
-          stepContainer.style.marginLeft = this.captionWidth + "px";
-        } else {
-          stepContainer.style.width = "100%";
-        }
-        const dotNums = typeof stepDots === "boolean" ? (max - min) / (step || 1) + 1 : stepDots;
-        for (let i = 0; i < dotNums; i++) {
-          const dotElm = this.createElement("span", stepContainer);
-          dotElm.classList.add("step-dot");
-        }
-      }
-      this.captionWidth = this.getAttribute("captionWidth", true, 40);
-      this.caption = this.getAttribute("caption", true);
-      this.value = this.getAttribute("value", true, 0);
-      if (this._value > 0) {
-        this.inputElm.style.backgroundSize = (this._value - min) * 100 / (max - min) + "% 100%";
-      }
-      this.onUpdateTooltip(true);
-      super.init();
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-__decorateClass([
-  observable("value")
-], Range.prototype, "_value", 2);
-Range = __decorateClass([
-  customElements2("i-range")
-], Range);
-
-// packages/radio/src/radio.css.ts
-var Theme9 = theme_exports.ThemeVars;
-var captionStyle = style({
-  fontFamily: Theme9.typography.fontFamily,
-  fontSize: Theme9.typography.fontSize,
-  "$nest": {
-    "span": {
-      color: Theme9.text.primary
-    }
-  }
-});
-
-// packages/radio/src/radio.ts
-var defaultCaptionWidth2 = 40;
-var Radio = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      captionWidth: defaultCaptionWidth2,
-      height: 25,
-      width: 100
-    });
-  }
-  get value() {
-    return this._value;
-  }
-  set value(value) {
-    this._value = value || "";
-    this.inputElm.value = value;
-  }
-  get caption() {
-    return this._caption;
-  }
-  set caption(value) {
-    this._caption = value;
-    if (!value)
-      this.captionSpanElm.style.display = "none";
-    else
-      this.captionSpanElm.style.display = "";
-    this.captionSpanElm && (this.captionSpanElm.textContent = value);
-  }
-  get captionWidth() {
-    return this._captionWidth;
-  }
-  set captionWidth(value) {
-    this._captionWidth = value;
-    this.setElementPosition(this.captionSpanElm, "width", value);
-  }
-  _handleClick(event) {
-    const checked = this.inputElm.checked || false;
-    if (checked)
-      this.classList.add("is-checked");
-    else
-      this.classList.remove("is-checked");
-    return super._handleClick(event);
-  }
-  init() {
-    if (!this.initialized) {
-      super.init();
-      this.classList.add(captionStyle);
-      this.labelElm = this.createElement("label", this);
-      this.labelElm.classList.add("i-radio");
-      this.inputElm = this.createElement("input", this.labelElm);
-      this.inputElm.type = "radio";
-      const disabled = this.getAttribute("enabled") === false;
-      this.inputElm.disabled = disabled;
-      this.value = this.getAttribute("value");
-      this.captionSpanElm = this.createElement("span", this.labelElm);
-      this.captionSpanElm.classList.add("i-radio_label");
-      this.caption = this.getAttribute("caption", true, "");
-      this.captionWidth = this.getAttribute("captionWidth", true, defaultCaptionWidth2);
-      this.labelElm.style.color = theme_exports.ThemeVars.text.primary;
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-__decorateClass([
-  observable("value")
-], Radio.prototype, "_value", 2);
-Radio = __decorateClass([
-  customElements2("i-radio")
-], Radio);
-var RadioGroup = class extends Control {
-  constructor(parent, options) {
-    super(parent, options);
-    this._group = [];
-  }
-  get selectedValue() {
-    return this._selectedValue;
-  }
-  set selectedValue(value) {
-    this._selectedValue = value;
-    this._group.forEach((item) => {
-      if (item.value === value) {
-        const inputElm = item.querySelector("input");
-        if (inputElm)
-          inputElm.checked = true;
-        item.classList.add("is-checked");
-      } else {
-        item.classList.remove("is-checked");
-      }
-    });
-  }
-  get radioItems() {
-    return this._radioItems;
-  }
-  set radioItems(value) {
-    this._radioItems = value;
-    this.renderUI();
-  }
-  renderUI() {
-    this.clearInnerHTML();
-    this._group = [];
-    this.name = new Date().getTime().toString();
-    this.radioItems.forEach((item) => {
-      const elm = new Radio(this, item);
-      this.appendItem(elm);
-    });
-  }
-  appendItem(elm) {
-    this.appendChild(elm);
-    elm.onClick = this._handleChange.bind(this);
-    const inputElm = elm.getElementsByTagName("input")[0];
-    inputElm && inputElm.setAttribute("name", this.name);
-    if (this.selectedValue && elm.value === this.selectedValue)
-      inputElm.checked = true;
-    this._group.push(elm);
-  }
-  _handleChange(source, event) {
-    event.stopPropagation();
-    const selectedValue = this.selectedValue;
-    const value = source.value;
-    this._selectedValue = value;
-    this._group.forEach((item) => item.classList.remove("is-checked"));
-    source.classList.add("is-checked");
-    if (this.onChanged && selectedValue !== value)
-      this.onChanged(this, event);
-  }
-  async add(options) {
-    const elm = await Radio.create(options);
-    this.appendItem(elm);
-    this._radioItems.push(options);
-    return elm;
-  }
-  delete(index) {
-    if (index >= 0) {
-      const radio = this._group[index];
-      if (radio) {
-        this._group.splice(index, 1);
-        this._radioItems.splice(index, 1);
-        radio.remove();
-      }
-    }
-  }
-  init() {
-    var _a;
-    if (!this.initialized) {
-      this.classList.add("i-radio-group");
-      this.setAttribute("role", "radiogroup");
-      if ((_a = this.options) == null ? void 0 : _a.onChanged)
-        this.onChanged = this.options.onChanged;
-      const radioItems = this.getAttribute("radioItems", true);
-      radioItems && (this.radioItems = radioItems);
-      this.selectedValue = this.getAttribute("selectedValue", true);
-      super.init();
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-__decorateClass([
-  observable("selectedValue")
-], RadioGroup.prototype, "_selectedValue", 2);
-RadioGroup = __decorateClass([
-  customElements2("i-radio-group")
-], RadioGroup);
-
-// packages/input/src/style/input.css.ts
-var Theme10 = theme_exports.ThemeVars;
-cssRule("i-input", {
-  display: "inline-block",
-  fontFamily: Theme10.typography.fontFamily,
-  fontSize: Theme10.typography.fontSize,
-  "$nest": {
-    "> span": {
-      overflow: "hidden"
-    },
-    "> span > label": {
-      boxSizing: "border-box",
-      color: Theme10.text.primary,
-      display: "inline-block",
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      verticalAlign: "middle",
-      textAlign: "right",
-      paddingRight: 4,
-      height: "100%"
-    },
-    "> input": {
-      border: `0.5px solid ${Theme10.divider}`,
-      boxSizing: "border-box",
-      outline: "none",
-      color: Theme10.input.fontColor,
-      background: Theme10.input.background,
-      borderRadius: "inherit",
-      fontSize: "inherit",
-      maxHeight: "100%"
-    },
-    ".clear-btn": {
-      display: "none",
-      verticalAlign: "middle",
-      padding: "6px",
-      backgroundColor: Theme10.action.focus,
-      $nest: {
-        "&.active": {
-          display: "inline-flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer"
-        }
-      }
-    },
-    "textarea": {
-      width: "100%",
-      lineHeight: 1.5,
-      color: Theme10.input.fontColor,
-      background: Theme10.input.background
-    }
-  }
-});
-
-// packages/input/src/input.ts
-var defaultCaptionWidth3 = 40;
-var defaultRows = 4;
-var Input = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      height: 25,
-      width: 100
-    });
-    this._inputCallback = (value) => {
-      this._value = value;
-    };
-  }
-  get caption() {
-    if (this._inputControl) {
-      return this._inputControl.caption;
-    }
-    return this._caption;
-  }
-  set caption(value) {
-    if (this._inputControl) {
-      this._inputControl.caption = value;
-    } else {
-      this._caption = value;
-      this.labelElm.textContent = this._caption || "";
-      if (!value)
-        this.labelElm.style.display = "none";
-      else
-        this.labelElm.style.display = "";
-    }
-  }
-  get captionWidth() {
-    if (this._inputControl) {
-      return this._inputControl.captionWidth;
-    }
-    return this._captionWidth;
-  }
-  set captionWidth(value) {
-    if (this._inputControl) {
-      this._inputControl.captionWidth = value;
-    } else {
-      value = this._caption ? value || defaultCaptionWidth3 : 0;
-      this._captionWidth = value;
-      this.labelElm.style.width = value + "px";
-    }
-  }
-  get height() {
-    return this.offsetHeight;
-  }
-  set height(value) {
-    this.setPosition("height", value);
-    if (this._inputControl) {
-      this._inputControl.height = value;
-    } else {
-      this.inputElm.style.height = typeof value === "string" ? value : `${value}px`;
-    }
-  }
-  get value() {
-    if (this._inputControl) {
-      return this._inputControl.value;
-    }
-    return this._value;
-  }
-  set value(value) {
-    if (this._inputControl) {
-      this._inputControl.value = value;
-    } else {
-      if (value == null)
-        value = "";
-      this._value = value;
-      this.inputElm.value = value;
-    }
-  }
-  get width() {
-    return this.offsetWidth;
-  }
-  set width(value) {
-    this._width = value;
-    const _value = Number(value);
-    if (Number.isNaN(_value)) {
-      this.setPosition("width", value);
-      this.inputElm.style.width = value == null ? void 0 : value.toString();
-    } else {
-      this.style.width = value + "px";
-      const clearBtnWidth = this._showClearButton ? this._clearBtnWidth : 0;
-      const captionWidth = typeof this._captionWidth === "string" ? this._captionWidth : `${this._captionWidth}px`;
-      const width = typeof this._width === "string" ? this._width : `${this._width}px`;
-      this.inputElm.style.width = `calc(${width} - ${captionWidth} - ${clearBtnWidth}px)`;
-    }
-  }
-  get readOnly() {
-    return this._readOnly;
-  }
-  set readOnly(value) {
-    this._readOnly = value;
-    this.inputElm.readOnly = value;
-  }
-  get inputType() {
-    return this._inputType;
-  }
-  set inputType(type) {
-    this._inputType = type;
-  }
-  get inputControl() {
-    return this._inputControl;
-  }
-  set enabled(value) {
-    super.enabled = value;
-    if (this._inputControl) {
-      this._inputControl.enabled = value;
-    } else if (this.inputElm) {
-      this.inputElm.disabled = !value;
-    }
-  }
-  set placeholder(value) {
-    this.inputElm.placeholder = value;
-  }
-  get rows() {
-    return this._rows;
-  }
-  set rows(value) {
-    if (this.inputType !== "textarea")
-      return;
-    this._rows = value;
-    this.inputElm.rows = value;
-  }
-  get multiline() {
-    return this._multiline;
-  }
-  set multiline(value) {
-    this._multiline = value;
-    if (value) {
-      this.inputType = "textarea";
-      this.clearInnerHTML();
-      this._createInputElement(this.inputType);
-    }
-  }
-  get resize() {
-    return this._resize;
-  }
-  set resize(value) {
-    this._resize = value;
-    if (this.inputType === "textarea" && value && this.inputElm) {
-      this.inputElm.style.resize = value === "auto-grow" ? "none" : value;
-      if (value === "auto" || value === "auto-grow") {
-        this.inputElm.style.height = "auto";
-        this.inputElm.style.height = this.inputElm.scrollHeight + "px";
-      }
-    }
-  }
-  _createInputElement(type) {
-    const value = this.getAttribute("value");
-    const caption = this.getAttribute("caption");
-    const width = this.getAttribute("width", true);
-    const height = this.getAttribute("height", true);
-    const checked = this.getAttribute("checked", true);
-    const enabled = this.getAttribute("enabled", true);
-    const background = this.getAttribute("background", true);
-    this._clearBtnWidth = height - 2 || 0;
-    switch (type) {
-      case "checkbox":
-        this._inputControl = new Checkbox(this, {
-          value,
-          checked,
-          enabled,
-          caption,
-          indeterminate: this.getAttribute("indeterminate", true)
-        });
-        if (this.onChanged)
-          this._inputControl.onChanged = this.onChanged;
-        this.appendChild(this._inputControl);
-        this.inputElm = this._inputControl.querySelector('input[type="checkbox"]');
-        break;
-      case "combobox":
-        this._inputControl = new ComboBox(this, {
-          selectedItem: this.getAttribute("selectedItem", true),
-          items: this.getAttribute("items", true),
-          width,
-          height,
-          enabled,
-          icon: this.getAttribute("icon", true),
-          mode: this.getAttribute("mode", true),
-          placeholder: this.getAttribute("placeholder", true),
-          parentCallback: this._inputCallback
-        });
-        if (this.onChanged)
-          this._inputControl.onChanged = this.onChanged;
-        this.appendChild(this._inputControl);
-        this.inputElm = this._inputControl.querySelector("input");
-        break;
-      case "date":
-      case "dateTime":
-      case "time":
-        this._inputControl = new Datepicker(this, {
-          caption,
-          value,
-          placeholder: this._placeholder,
-          type,
-          dateTimeFormat: this.getAttribute("dateTimeFormat", true),
-          width,
-          height,
-          enabled,
-          parentCallback: this._inputCallback
-        });
-        if (this.onChanged)
-          this._inputControl.onChanged = this.onChanged;
-        this.appendChild(this._inputControl);
-        this.inputElm = this._inputControl.querySelector('input[type="text"]');
-        break;
-      case "range":
-        this._inputControl = new Range(this, {
-          value,
-          caption,
-          width,
-          height,
-          enabled,
-          min: this.getAttribute("min", true),
-          max: this.getAttribute("max", true),
-          step: this.getAttribute("step", true),
-          stepDots: this.getAttribute("stepDots", true),
-          tooltipFormatter: this.getAttribute("tooltipFormatter", true),
-          tooltipVisible: this.getAttribute("tooltipVisible", true),
-          parentCallback: this._inputCallback
-        });
-        this._inputControl.onChanged = this.onChanged;
-        this._inputControl.onMouseUp = this.onMouseUp;
-        this._inputControl.onKeyUp = this.onKeyUp;
-        this.appendChild(this._inputControl);
-        this.inputElm = this._inputControl.querySelector('input[type="range"]');
-        break;
-      case "radio":
-        const id = this.getAttribute("id") || "";
-        this._inputControl = new Radio(this, {
-          value,
-          checked,
-          enabled,
-          caption,
-          id: id + "_radio"
-        });
-        this.appendChild(this._inputControl);
-        this.inputElm = this._inputControl.querySelector('input[type="radio"]');
-        break;
-      case "textarea":
-        this.captionSpanElm = this.createElement("span", this);
-        this.labelElm = this.createElement("label", this.captionSpanElm);
-        this.inputElm = this.createElement("textarea", this);
-        this.inputElm.style.height = "auto";
-        const rows = this.getAttribute("rows", true) || defaultRows;
-        this.rows = rows;
-        if (this._placeholder) {
-          this.inputElm.placeholder = this._placeholder;
-        }
-        this.inputElm.style.resize = value === "auto-grow" ? "none" : value;
-        this.inputElm.disabled = enabled === false;
-        this.inputElm.addEventListener("input", this._handleChange.bind(this));
-        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
-        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
-        this.inputElm.addEventListener("blur", this._handleOnBlur.bind(this));
-        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
-        break;
-      case "color":
-        this.captionSpanElm = this.createElement("span", this);
-        this.labelElm = this.createElement("label", this.captionSpanElm);
-        this.inputElm = this.createElement("input", this);
-        this.inputElm.style.height = "auto";
-        this.inputElm.disabled = enabled === false;
-        this.inputElm.setAttribute("type", "color");
-        this.inputElm.addEventListener("input", this._handleChange.bind(this));
-        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
-        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
-        this.inputElm.addEventListener("blur", this._handleOnBlur.bind(this));
-        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
-        break;
-      default:
-        const inputType = type == "password" ? type : "text";
-        this.captionSpanElm = this.createElement("span", this);
-        this.labelElm = this.createElement("label", this.captionSpanElm);
-        this.inputElm = this.createElement("input", this);
-        this.inputElm.setAttribute("autocomplete", "disabled");
-        this.inputElm.style.height = this.height + "px";
-        this.inputElm.type = inputType;
-        if (this._placeholder)
-          this.inputElm.placeholder = this._placeholder;
-        this.inputElm.disabled = enabled === false;
-        this.inputElm.addEventListener("input", this._handleChange.bind(this));
-        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
-        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
-        this.inputElm.addEventListener("blur", this._handleOnBlur.bind(this));
-        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
-        this._showClearButton = this.getAttribute("showClearButton", true);
-        if (this._showClearButton) {
-          this.clearIconElm = this.createElement("span", this);
-          this.clearIconElm.classList.add("clear-btn");
-          this.clearIconElm.style.width = this._clearBtnWidth + "px";
-          this.clearIconElm.style.height = this._clearBtnWidth + "px";
-          this.clearIconElm.addEventListener("click", () => {
-            if (!this._enabled)
-              return false;
-            this._clearValue();
-          });
-          const clearIcon = new Icon(this, { name: "times", width: 12, height: 12, fill: theme_exports.ThemeVars.text.primary });
-          this.clearIconElm.appendChild(clearIcon);
-        }
-        break;
-    }
-    if (background && this._inputControl)
-      this._inputControl.background = background;
-  }
-  _handleChange(event) {
-    if (this.inputType === "number" && !/^-?\d*[.]?\d*$/.test(this.inputElm.value)) {
-      this.inputElm.value = this._value;
-      return;
-    }
-    if (this.inputType === "textarea" && (this.resize === "auto" || this.resize === "auto-grow")) {
-      this.inputElm.style.height = "auto";
-      this.inputElm.style.height = this.inputElm.scrollHeight + "px";
-    }
-    this._value = this.inputElm.value;
-    if (this.onChanged)
-      this.onChanged(this, event);
-  }
-  _handleInputKeyDown(event) {
-    if (this.onKeyDown)
-      this.onKeyDown(this, event);
-  }
-  _handleInputKeyUp(event) {
-    if (this.onKeyUp)
-      this.onKeyUp(this, event);
-    if (this.clearIconElm) {
-      if (this.value) {
-        this.clearIconElm.classList.add("active");
-      } else {
-        this.clearIconElm.classList.remove("active");
-      }
-    }
-  }
-  _handleOnBlur(event) {
-    if (this.onBlur) {
-      event.preventDefault();
-      this.onBlur(this);
-    }
-  }
-  _handleOnFocus(event) {
-    if (this.onFocus) {
-      event.preventDefault();
-      this.onFocus(this);
-    }
-  }
-  _clearValue() {
-    this.value = "";
-    this.clearIconElm.classList.remove("active");
-    if (this.onClearClick)
-      this.onClearClick(this);
-  }
-  init() {
-    if (!this.inputType) {
-      this._placeholder = this.getAttribute("placeholder", true);
-      this.inputType = this.getAttribute("inputType", true);
-      this._createInputElement(this.inputType);
-      this.multiline = this.getAttribute("multiline", true);
-      this.caption = this.getAttribute("caption", true);
-      this.captionWidth = parseInt(this.getAttribute("captionWidth", true));
-      this.value = this.getAttribute("value", true);
-      this.readOnly = this.getAttribute("readOnly", true, false);
-      this.resize = this.getAttribute("resize", true, "none");
-      if (this.value && this.clearIconElm)
-        this.clearIconElm.classList.add("active");
-      super.init();
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-__decorateClass([
-  observable("value")
-], Input.prototype, "_value", 2);
-Input = __decorateClass([
-  customElements2("i-input")
-], Input);
-
-// packages/markdown/src/style/markdown.css.ts
-var Theme11 = theme_exports.ThemeVars;
-cssRule("i-markdown", {
-  display: "inline-block",
-  color: Theme11.text.primary,
-  fontFamily: Theme11.typography.fontFamily,
-  fontSize: Theme11.typography.fontSize,
-  $nest: {
-    h1: {
-      fontSize: "48px",
-      fontWeight: "900",
-      marginBottom: "16px",
-      marginTop: "1.5em",
-      $nest: {
-        "@media (max-width: 700px)": {
-          fontSize: "24px"
-        }
-      }
-    },
-    h2: {
-      fontSize: "24px",
-      lineHeight: "1.5",
-      fontWeight: "600",
-      marginBottom: "16px",
-      marginTop: "1.5em",
-      $nest: {
-        "@media (max-width: 700px)": {
-          fontSize: "20px"
-        }
-      }
-    },
-    h3: {
-      fontSize: "20px",
-      lineHeight: "24px",
-      fontWeight: "600",
-      marginBottom: "16px",
-      marginTop: "1.5em",
-      $nest: {
-        "@media (max-width: 700px)": {
-          fontSize: "16px"
-        }
-      }
-    },
-    h4: {
-      fontSize: "16px",
-      fontWeight: "600",
-      marginBottom: "16px",
-      marginTop: "1.5em"
-    },
-    h5: {
-      fontSize: "14px",
-      fontWeight: "600",
-      marginBottom: "16px",
-      marginTop: "1.5em"
-    },
-    h6: {
-      fontSize: "13.6px",
-      fontWeight: "600",
-      marginBottom: "16px",
-      marginTop: "1.5em"
-    },
-    p: {
-      display: "block",
-      lineHeight: "150%",
-      marginBottom: "1em",
-      marginTop: "0",
-      fontSize: "15px"
-    },
-    "p > img": {
-      width: "50%",
-      float: "left",
-      $nest: {
-        "@media (max-width: 700px)": {
-          width: "100%"
-        }
-      }
-    },
-    "p img:nth-child(odd)": {
-      paddingRight: "6px",
-      $nest: {
-        "@media (max-width: 700px)": {
-          padding: "0"
-        }
-      }
-    },
-    "p img:nth-child(even)": {
-      paddingLeft: "6px",
-      $nest: {
-        "@media (max-width: 700px)": {
-          padding: "0"
-        }
-      }
-    },
-    "p img:only-child": {
-      width: "100%"
-    },
-    "p a": {
-      display: "contents"
-    },
-    "table": {
-      borderSpacing: "0",
-      border: "1px solid #393939",
-      width: "100%",
-      marginBottom: "20px",
-      $nest: {
-        "thead": {
-          background: "#FFF"
-        },
-        "th, td": {
-          padding: "10px"
-        },
-        "td": {
-          borderTop: "1px solid #393939"
-        },
-        "tbody": {
-          $nest: {
-            "tr:nth-child(odd)": {
-              backgroundColor: "#EEE"
-            },
-            "tr:nth-child(even)": {
-              backgroundColor: "#FFF"
-            }
-          }
-        }
-      }
-    },
-    strong: {
-      fontWeight: "600"
-    },
-    blockquote: {
-      background: "#e3e3ff",
-      borderLeft: "0.25em solid #55f",
-      display: "block",
-      padding: "15px 30px 15px 15px",
-      color: "#6a737d",
-      fontSize: "16px",
-      margin: "0 0 16px",
-      $nest: {
-        p: {
-          marginBottom: "0"
-        }
-      }
-    },
-    hr: {
-      border: "1px solid #dfe2e5",
-      boxSizing: "content-box",
-      margin: "1.5em 0",
-      overflow: "hidden",
-      padding: "0"
-    },
-    ol: {
-      marginBottom: "1em",
-      marginTop: "0",
-      paddingLeft: "2em",
-      $nest: {
-        li: {
-          fontSize: "16px"
-        },
-        "li+li": {
-          marginTop: "0.5em"
-        }
-      }
-    },
-    ul: {
-      marginBottom: "1em",
-      marginTop: "0",
-      paddingLeft: "2em",
-      $nest: {
-        li: {
-          fontSize: "16px"
-        },
-        "li+li": {
-          marginTop: "0.5em"
-        }
-      }
-    },
-    "ol ol, ul ul, ol ul, ul ol": {
-      marginTop: "0.5em"
-    },
-    "code, pre code": {
-      borderRadius: "3px",
-      background: "#ebeff3",
-      overflowX: "scroll",
-      border: "0",
-      display: "inline",
-      margin: "0",
-      overflow: "visible",
-      padding: "0",
-      whiteSpace: "pre",
-      wordBreak: "normal",
-      wordWrap: "normal"
-    },
-    "a, a:hover": {
-      color: "#55f",
-      textDecoration: "none"
-    }
-  }
-});
-
-// packages/markdown/src/markdown.ts
-var libs = [`${LibPath}lib/marked/marked.umd.js`];
-var Markdown = class extends Control {
-  constructor() {
-    super();
-    this.gitbookProcess = true;
-  }
-  async load(text) {
-    if (!this.marked)
-      this.marked = await this.loadLib();
-    text = await this.marked.parse(text);
-    text = await this.processText(text);
-    this.innerHTML = text;
-    return this.innerHTML;
-  }
-  async beforeRender(text) {
-    this.innerHTML = text;
-  }
-  async processText(text) {
-    if (this.gitbookProcess) {
-      text = text.replace(/\*\*\*\*/g, "\n	").replace(/\\/g, "");
-    }
-    return text;
-  }
-  async loadLib() {
-    return new Promise((resolve, reject) => {
-      RequireJS.require(libs, async (marked) => {
-        resolve(marked);
-      });
-    });
-  }
-  init() {
-    super.init();
-  }
-};
-Markdown = __decorateClass([
-  customElements2("i-markdown")
-], Markdown);
-
-// packages/tab/src/style/tab.css.ts
-var Theme12 = theme_exports.ThemeVars;
-cssRule("i-tabs", {
-  display: "block",
-  $nest: {
-    ".tabs-nav-wrap": {
-      display: "flex",
-      flex: "none",
-      overflow: "hidden"
-    },
-    "&:not(.vertical) .tabs-nav-wrap": {
-      $nest: {
-        "&:hover": {
-          overflowX: "auto",
-          overflowY: "hidden"
-        },
-        "&::-webkit-scrollbar-thumb": {
-          background: "#4b4b4b",
-          borderRadius: "5px"
-        },
-        "&::-webkit-scrollbar": {
-          height: "3px"
-        }
-      }
-    },
-    ".tabs-nav": {
-      position: "relative",
-      display: "flex",
-      flex: "none",
-      overflow: "hidden",
-      whiteSpace: "nowrap",
-      borderBottom: `1px solid #252525`,
-      margin: 0
-    },
-    "&.vertical": {
-      display: "flex",
-      $nest: {
-        ".tabs-nav": {
-          display: "flex",
-          flexDirection: "column"
-        },
-        ".tabs-nav:hover": {
-          overflowY: "auto"
-        },
-        ".tabs-nav::-webkit-scrollbar-thumb": {
-          background: "#4b4b4b",
-          borderRadius: "5px"
-        },
-        ".tabs-nav::-webkit-scrollbar": {
-          width: "3px"
-        }
-      }
-    },
-    "i-tab": {
-      position: "relative",
-      display: "inline-flex",
-      overflow: "hidden",
-      color: "rgba(255, 255, 255, 0.55)",
-      background: "#2e2e2e",
-      marginBottom: "-1px",
-      border: `1px solid #252525`,
       alignItems: "center",
-      font: "inherit",
-      textAlign: "center",
-      minHeight: "36px",
-      $nest: {
-        "&:not(.disabled):hover": {
-          cursor: "pointer",
-          color: "#fff"
-        },
-        "&:not(.disabled).active.border": {
-          borderColor: `${Theme12.divider} ${Theme12.divider} #fff`,
-          borderBottomWidth: "1.5px"
-        },
-        ".tab-item": {
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          cursor: "pointer",
-          padding: "0.5rem 1rem",
-          gap: "5px",
-          $nest: {
-            "i-image": {
-              display: "flex"
-            }
-          }
-        }
-      }
+      marginBottom: "1rem"
     },
-    "i-tab:not(.disabled).active": {
-      backgroundColor: "#1d1d1d",
-      borderBottomColor: "transparent",
-      color: "#fff"
-    },
-    ".tabs-content": {
-      position: "relative",
-      overflow: "hidden",
-      display: "flex",
+    "i-upload-drag": {
+      position: "absolute",
       width: "100%",
       height: "100%",
-      minHeight: "200px",
-      $nest: {
-        "&::after": {
-          clear: "both"
-        },
-        "i-label .f1yauex0": {
-          whiteSpace: "normal"
-        },
-        ".content-pane": {
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          flex: "none"
-        }
-      }
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
     },
-    "span.close": {
-      width: "18px",
-      height: "18px",
-      marginLeft: "5px",
-      marginRight: "-5px",
-      borderRadius: "5px",
-      lineHeight: "18px",
-      fontSize: "18px",
-      visibility: "hidden",
-      opacity: 0,
-      $nest: {
-        "&:hover": {
-          background: "rgba(78, 78, 78, 0.48)"
-        }
-      }
+    ".i-upload-drag_area": {
+      marginTop: "4rem"
     },
-    ".tabs-nav:not(.is-closable) span.close": {
+    ".i-upload-dragger_active": {
+      border: `2px dashed ${Theme6.colors.primary.main}`,
+      backgroundColor: Theme6.colors.info.light,
+      opacity: "0.8"
+    },
+    'input[type="file"]': {
       display: "none"
     },
-    ".tabs-nav.is-closable i-tab:not(.disabled):hover span.close, .tabs-nav.is-closable i-tab:not(.disabled).active span.close": {
+    ".i-upload_preview": {
+      display: "none",
+      minHeight: 200,
+      position: "relative",
+      overflow: "hidden",
+      width: "100%",
+      height: "100%"
+    },
+    ".i-upload_preview img": {
+      maxHeight: "inherit",
+      maxWidth: "100%"
+    },
+    ".i-upload_preview-img": {
+      maxHeight: "inherit",
+      maxWidth: "100%",
+      display: "table"
+    },
+    ".i-upload_preview-crop": {
+      position: "absolute",
+      border: `1px dashed ${Theme6.background.paper}`,
+      width: 150,
+      height: 150,
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
+      boxSizing: "border-box",
+      boxShadow: "0 0 0 9999em",
+      color: "rgba(0, 0, 0, 0.5)",
+      overflow: "hidden",
+      cursor: "crosshair"
+    },
+    ".i-upload_preview-remove": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      visibility: "hidden",
+      opacity: 0,
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "rgba(0, 0, 0, 0.58)",
+      cursor: "pointer",
+      $nest: {
+        "> span": {
+          padding: "1rem",
+          border: "2px solid #fff",
+          borderRadius: "5px",
+          color: "#fff",
+          fontWeight: "bold"
+        }
+      }
+    },
+    ".i-upload_preview:hover .i-upload_preview-remove.active": {
       visibility: "visible",
       opacity: 1
+    },
+    ".i-upload_list": {
+      margin: "1rem 0 2rem",
+      display: "flex",
+      gap: 7,
+      width: "100%"
+    },
+    ".i-upload_list.i-upload_list-picture": {
+      flexDirection: "row"
+    },
+    ".i-upload_list.i-upload_list-text": {
+      flexDirection: "column",
+      alignContent: "center"
+    },
+    ".i-upload_list.i-upload_list-text i-icon": {
+      position: "unset"
+    },
+    ".i-upload_list-item": {
+      display: "inline-flex",
+      position: "relative",
+      justifyContent: "space-between"
+    },
+    ".i-upload_list-item:hover i-icon": {
+      display: "block"
+    },
+    ".i-upload_list.i-upload_list-text .i-upload_list-item:hover": {
+      backgroundColor: Theme6.background.default
+    },
+    ".i-upload_list.i-upload_list-text .i-upload_list-item": {
+      width: "100%",
+      padding: ".25rem"
+    },
+    ".i-upload_list-item .i-upload_list-img": {
+      width: 100,
+      height: 50,
+      objectFit: "cover"
+    },
+    ".i-upload_list-item i-icon": {
+      cursor: "pointer",
+      position: "absolute",
+      right: -5,
+      top: -5,
+      display: "none"
     }
   }
 });
-var getTabMediaQueriesStyleClass = (mediaQueries) => {
-  let styleObj = getControlMediaQueriesStyle(mediaQueries);
-  for (let mediaQuery of mediaQueries) {
-    let mediaQueryRule;
-    if (mediaQuery.minWidth && mediaQuery.maxWidth) {
-      mediaQueryRule = `@media (min-width: ${mediaQuery.minWidth}) and (max-width: ${mediaQuery.maxWidth})`;
-    } else if (mediaQuery.minWidth) {
-      mediaQueryRule = `@media (min-width: ${mediaQuery.minWidth})`;
-    } else if (mediaQuery.maxWidth) {
-      mediaQueryRule = `@media (max-width: ${mediaQuery.maxWidth})`;
-    }
-    if (mediaQueryRule) {
-      const nestObj = styleObj["$nest"][mediaQueryRule]["$nest"] || {};
-      const ruleObj = styleObj["$nest"][mediaQueryRule];
-      styleObj["$nest"][mediaQueryRule] = {
-        ...ruleObj,
-        $nest: {
-          ...nestObj,
-          ".tabs-nav": {}
-        }
-      };
-      if (mediaQuery.properties.mode) {
-        const mode = mediaQuery.properties.mode;
-        styleObj["$nest"][mediaQueryRule]["display"] = mode === "vertical" ? "flex !important" : "block !important";
-        if (mode === "horizontal") {
-          styleObj["$nest"][mediaQueryRule]["$nest"][".tabs-nav"]["flexDirection"] = "row !important";
-          styleObj["$nest"][mediaQueryRule]["$nest"][".tabs-nav"]["width"] = "100%";
-          styleObj["$nest"][mediaQueryRule]["$nest"][".tabs-nav"]["justifyContent"] = "center";
-        } else {
-          styleObj["$nest"][mediaQueryRule]["$nest"][".tabs-nav"]["flexDirection"] = "column !important";
-          styleObj["$nest"][mediaQueryRule]["$nest"][".tabs-nav"]["width"] = "auto";
-          styleObj["$nest"][mediaQueryRule]["$nest"][".tabs-nav"]["justifyContent"] = "start";
-        }
-      }
-      if (typeof mediaQuery.properties.visible === "boolean") {
-        const visible = mediaQuery.properties.visible;
-        styleObj["$nest"][mediaQueryRule]["display"] = visible ? "block !important" : "none !important";
-      }
-    }
-  }
-  return style(styleObj);
-};
 
-// packages/tab/src/tab.ts
-var Tabs = class extends Container {
+// packages/upload/src/upload.ts
+var Theme7 = theme_exports.ThemeVars;
+var fileId = 1;
+var genFileId = () => Date.now() + fileId++;
+var UploadDrag = class extends Control {
   constructor(parent, options) {
     super(parent, options);
-    this.accumTabIndex = 0;
-    this.dragStartHandler = this.dragStartHandler.bind(this);
-    this.dragOverHandler = this.dragOverHandler.bind(this);
-    this.dropHandler = this.dropHandler.bind(this);
+    this.counter = 0;
   }
-  get activeTab() {
-    return this._tabs[this.activeTabIndex];
+  get caption() {
+    return this._caption;
   }
-  get activeTabIndex() {
-    return this._activeTabIndex;
+  set caption(value) {
+    this._caption = value;
+    this._labelElm.textContent = this._caption || "";
+    if (!value)
+      this._labelElm.style.display = "none";
+    else
+      this._labelElm.style.display = "";
   }
-  set activeTabIndex(index) {
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value) {
+    this._disabled = value;
+  }
+  handleOnDragEnter(source, event) {
     var _a;
-    if (index < 0 || this._activeTabIndex === index)
+    source.preventDefault();
+    if (this.disabled)
       return;
-    const prevTab = this._tabs[this._activeTabIndex];
-    if (prevTab) {
-      prevTab.classList.remove("active");
-      this.contentPanes[this._activeTabIndex].style.display = "none";
+    this.counter++;
+    (_a = this.parentElement) == null ? void 0 : _a.classList.add("i-upload-dragger_active");
+  }
+  handleOnDragOver(source, event) {
+    source.preventDefault();
+  }
+  handleOnDragLeave(source, event) {
+    var _a;
+    if (this.disabled)
+      return;
+    this.counter--;
+    if (this.counter === 0) {
+      (_a = this.parentElement) == null ? void 0 : _a.classList.remove("i-upload-dragger_active");
     }
-    this._activeTabIndex = index;
-    (_a = this.activeTab) == null ? void 0 : _a.classList.add("active");
-    if (this.contentPanes[index])
-      this.contentPanes[index].style.display = "";
   }
-  get items() {
-    return this._tabs;
-  }
-  get closable() {
-    return this._closable;
-  }
-  set closable(value) {
-    this._closable = value;
-    if (value) {
-      this.tabsNavElm.classList.add("is-closable");
-    } else {
-      this.tabsNavElm.classList.remove("is-closable");
+  async getAllFileEntries(dataTransferItemList) {
+    let fileEntries = [];
+    let queue = [];
+    for (let i = 0; i < dataTransferItemList.length; i++) {
+      queue.push(dataTransferItemList[i].webkitGetAsEntry());
     }
+    while (queue.length > 0) {
+      let entry = queue.shift();
+      if (entry == null ? void 0 : entry.isFile) {
+        fileEntries.push(entry);
+      } else if (entry == null ? void 0 : entry.isDirectory) {
+        let reader = entry.createReader();
+        queue.push(...await this.readAllDirectoryEntries(reader));
+      }
+    }
+    return Promise.all(fileEntries.map((entry) => this.readEntryContentAsync(entry)));
+  }
+  async readAllDirectoryEntries(directoryReader) {
+    let entries = [];
+    let readEntries = await this.readEntriesPromise(directoryReader);
+    while (readEntries.length > 0) {
+      entries.push(...readEntries);
+      readEntries = await this.readEntriesPromise(directoryReader);
+    }
+    return entries;
+  }
+  async readEntriesPromise(directoryReader) {
+    try {
+      return await new Promise((resolve, reject) => {
+        directoryReader.readEntries(resolve, reject);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async readEntryContentAsync(entry) {
+    return new Promise((resolve, reject) => {
+      let reading = 0;
+      const contents = [];
+      reading++;
+      entry.file(async (file) => {
+        reading--;
+        const rawFile = file;
+        rawFile.path = entry.fullPath;
+        rawFile.cid = await hashFile(file);
+        contents.push(rawFile);
+        if (reading === 0) {
+          resolve(contents);
+        }
+      });
+    });
+  }
+  async handleOnDrop(source, event) {
+    var _a, _b;
+    source.preventDefault();
+    if (this.disabled)
+      return;
+    this.onBeforeDrop(this);
+    this.counter = 0;
+    (_a = this.parentElement) == null ? void 0 : _a.classList.remove("i-upload-dragger_active");
+    const accept = (_b = this.parentElement) == null ? void 0 : _b.getAttribute("accept");
+    if (!accept) {
+      if (this.onDrop) {
+        const files = await this.getAllFileEntries(source.dataTransfer.items);
+        const flattenFiles = files.reduce((acc, val) => acc.concat(val), []);
+        console.log("beforeOnDrop: ", flattenFiles);
+        this.onDrop(this, flattenFiles);
+      }
+      return;
+    }
+    const valids = [].slice.call(source.dataTransfer.files).filter((file) => {
+      const { type, name } = file;
+      const extension = name.indexOf(".") > -1 ? `.${name.split(".").pop()}` : "";
+      const baseType = type.replace(/\/.*$/, "");
+      return accept.split(",").map((type2) => type2.trim()).filter((type2) => type2).some((acceptedType) => {
+        if (/\..+$/.test(acceptedType)) {
+          return extension === acceptedType;
+        }
+        if (/\/\*$/.test(acceptedType)) {
+          return baseType === acceptedType.replace(/\/\*$/, "");
+        }
+        if (/^[^\/]+\/[^\/]+$/.test(acceptedType)) {
+          return type === acceptedType;
+        }
+        return false;
+      });
+    });
+    if (this.onDrop)
+      this.onDrop(this, valids);
+  }
+  init() {
+    if (!this._wrapperElm) {
+      super.init();
+      this.onBeforeDrop = this.getAttribute("onBeforeDrop", true) || this.onBeforeDrop;
+      this.onDrop = this.getAttribute("onDrop", true) || this.onDrop;
+      this._wrapperElm = this.createElement("div", this);
+      this._wrapperElm.classList.add("i-upload-drag_area");
+      this._labelElm = this.createElement("span", this._wrapperElm);
+      this._labelElm.style.color = Theme7.text.primary;
+      this.caption = this.getAttribute("caption", true);
+      this.disabled = this.getAttribute("disabled", true);
+      this.addEventListener("dragenter", this.handleOnDragEnter.bind(this));
+      this.addEventListener("dragover", this.handleOnDragOver.bind(this));
+      this.addEventListener("dragleave", this.handleOnDragLeave.bind(this));
+      this.addEventListener("drop", this.handleOnDrop.bind(this));
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+UploadDrag = __decorateClass([
+  customElements2("i-upload-drag")
+], UploadDrag);
+var Upload = class extends Control {
+  constructor(parent, options) {
+    super(parent, options, {
+      multiple: false
+    });
+    this._dt = new DataTransfer();
+    this._fileList = [];
+    this.handleRemoveImagePreview = (event) => {
+      if (!this.isPreviewing || !this.enabled)
+        return;
+      event.stopPropagation();
+      const file = this._dt.files.length ? this._dt.files[0] : void 0;
+      this.clear();
+      if (this.onRemoved)
+        this.onRemoved(this, file);
+    };
+    this.toBase64 = (file) => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+  get caption() {
+    return this._caption;
+  }
+  set caption(value) {
+    this._caption = value;
+  }
+  get accept() {
+    return this._accept;
+  }
+  set accept(value) {
+    this._accept = value;
+    this._fileElm && value && this._fileElm.setAttribute("accept", `${value}`);
   }
   get draggable() {
     return this._draggable;
   }
   set draggable(value) {
-    if (this._draggable === value)
-      return;
     this._draggable = value;
-    if (this.draggable) {
-      this.tabsNavElm.ondragover = this.dragOverHandler;
-      this.tabsNavElm.ondrop = this.dropHandler;
-    } else {
-      this.tabsNavElm.ondragover = null;
-      this.tabsNavElm.ondrop = null;
-    }
-    this.handleTagDrag(this._tabs);
+    if (value)
+      this.classList.add("el-upload-dragger");
+    else
+      this.classList.remove("el-upload-dragger");
   }
-  get mode() {
-    const isVertical = this.classList.contains("vertical");
-    return isVertical ? "vertical" : "horizontal";
+  get multiple() {
+    return this._multiple;
   }
-  set mode(type) {
-    if (type === "vertical") {
-      this.classList.add("vertical");
-    } else {
-      this.classList.remove("vertical");
-    }
+  set multiple(value) {
+    this._multiple = value;
+    if (this._fileElm && value)
+      this._fileElm.setAttribute("multiple", `${value}`);
   }
-  get mediaQueries() {
-    return this._mediaQueries;
+  get fileList() {
+    return this._fileList;
   }
-  set mediaQueries(value) {
-    this._mediaQueries = value;
-    let style2 = getTabMediaQueriesStyleClass(this._mediaQueries);
-    this._mediaStyle && this.classList.remove(this._mediaStyle);
-    this._mediaStyle = style2;
-    this.classList.add(style2);
-  }
-  add(options) {
-    const tab = new Tab(this, options);
-    if (options == null ? void 0 : options.children) {
-      tab.append(options == null ? void 0 : options.children);
-    }
-    if (this.draggable) {
-      this.handleTagDrag([tab]);
-    }
-    this.appendTab(tab);
-    this.activeTabIndex = tab.index;
-    return tab;
-  }
-  delete(tab) {
-    const index = this._tabs.findIndex((t) => t.id === tab.id);
-    const activeIndex = this.activeTabIndex;
-    if (index >= 0) {
-      this._tabs.splice(index, 1);
-      const pane = this.contentPanes[index];
-      this.contentPanes.splice(index, 1);
-      pane.remove();
-      if (activeIndex >= index) {
-        let newActiveIndex = activeIndex > index ? activeIndex - 1 : this._tabs[activeIndex] ? activeIndex : this._tabs.length - 1;
-        this._activeTabIndex = newActiveIndex;
-        if (this.activeTab) {
-          this.activeTab.classList.add("active");
-          this.contentPanes[newActiveIndex].style.display = "";
-        }
+  set fileList(value) {
+    this._fileList = value;
+    if (value && value.length) {
+      value.forEach((f) => {
+        this._dt.items.add(f);
+      });
+      if (this._fileElm) {
+        this._fileElm.files = this._dt.files;
+        this.updateFileListUI(this._fileElm.files);
       }
     }
-    tab.remove();
   }
-  appendTab(tab) {
-    tab._container = this.tabsContentElm;
-    tab.parent = this;
-    this._tabs.push(tab);
-    if (!tab.id)
-      tab.id = `tab-${this.accumTabIndex++}`;
-    this.tabsNavElm.appendChild(tab);
-    const contentPane = this.createElement("div", this.tabsContentElm);
-    tab._contentElm = contentPane;
-    contentPane.classList.add("content-pane");
-    contentPane.style.display = "none";
-    this.contentPanes.push(contentPane);
-    const children = tab.children;
-    for (let i = 0; i < children.length; i++) {
-      if (children[i].classList.contains("tab-item"))
-        continue;
-      if (children[i] instanceof Control) {
-        children[i].parent = tab;
-      }
-    }
-    ;
+  get enabled() {
+    return super.enabled;
   }
-  handleTagDrag(tabs) {
-    tabs.forEach((tab) => {
-      if (this.draggable) {
-        tab.setAttribute("draggable", "true");
-        tab.ondragstart = this.dragStartHandler;
-      } else {
-        tab.removeAttribute("draggable");
-        tab.ondragstart = null;
-      }
-    });
-  }
-  _handleClick(event) {
-    return super._handleClick(event, true);
-  }
-  dragStartHandler(event) {
-    if (!(event.target instanceof Tab))
+  set enabled(value) {
+    super.enabled = value;
+    if (this._uploadDragElm)
+      this._uploadDragElm.disabled = !value || !this.draggable;
+    if (!this._previewRemoveElm)
       return;
-    this.curDragTab = event.target;
+    if (value)
+      this._previewRemoveElm.classList.add("active");
+    else
+      this._previewRemoveElm.classList.remove("active");
   }
-  dragOverHandler(event) {
-    event.preventDefault();
+  addFile(file) {
+    this._dt.items.add(file);
+    this._fileList.push(file);
+    if (this.onAdded)
+      this.onAdded(this, file);
   }
-  dropHandler(event) {
-    event.preventDefault();
-    if (!this.curDragTab)
+  previewFile(files) {
+    if (!files || !files.length)
       return;
-    const target = event.target;
-    const dropTab = target instanceof Tab ? target : target.closest("i-tab");
-    if (dropTab && !this.curDragTab.isSameNode(dropTab)) {
-      const curActiveTab = this.activeTab;
-      const dragIndex = this.curDragTab.index;
-      const dropIndex = dropTab.index;
-      const [dragTab] = this._tabs.splice(dragIndex, 1);
-      this._tabs.splice(dropIndex, 0, dragTab);
-      const [dragContent] = this.contentPanes.splice(dragIndex, 1);
-      this.contentPanes.splice(dropIndex, 0, dragContent);
-      if (dragIndex > dropIndex) {
-        this.tabsNavElm.insertBefore(this.curDragTab, dropTab);
-      } else {
-        dropTab.after(this.curDragTab);
+    const imgUrl = URL.createObjectURL(files[files.length - 1]);
+    this.preview(imgUrl);
+  }
+  async handleUpload(source, event) {
+    const files = source.target.files;
+    if (files) {
+      const processedFiles = [];
+      for (let i = 0; i < files.length; i++) {
+        const rawFile = files[i];
+        rawFile.path = `/${rawFile.name}`;
+        rawFile.cid = await hashFile(rawFile);
+        processedFiles.push(rawFile);
       }
-      this.activeTabIndex = curActiveTab.index;
-      if (this.onChanged)
-        this.onChanged(this, this.activeTab);
-    }
-    this.curDragTab = null;
-  }
-  refresh() {
-    if (this.dock) {
-      super.refresh(true);
-      const height = this.mode === "horizontal" ? this.clientHeight - this.tabsNavElm.clientHeight : this.clientHeight;
-      this.tabsContentElm.style.height = height + "px";
-      this.refreshControls();
+      this.proccessFiles(processedFiles);
     }
   }
-  init() {
-    super.init();
-    if (!this.tabsNavElm) {
-      this.contentPanes = [];
-      this._tabs = [];
-      const _tabs = [];
-      this.childNodes.forEach((node) => {
-        if (node instanceof Tab) {
-          _tabs.push(node);
+  async proccessFiles(files) {
+    if (!files || !files.length)
+      return;
+    if (!this.fileList)
+      this._dt = new DataTransfer();
+    for (let i = 0; i < files.length; i++) {
+      let file = files[i];
+      file.uid = genFileId();
+      if (!!this.onUploading)
+        await this.checkBeforeUpload(file);
+      else
+        this.addFile(file);
+    }
+    this.updateFileListUI(this._dt.files);
+    this.previewFile(this._dt.files);
+    if (this.onChanged)
+      this.onChanged(this, this.fileList);
+  }
+  async checkBeforeUpload(file) {
+    const before = this.onUploading(this, file);
+    if (before && before.then) {
+      before.then((value) => {
+        if (value)
+          this.addFile(file);
+      }, () => {
+        if (this.onRemoved)
+          this.onRemoved(this, file);
+      });
+    } else {
+      if (this.onRemoved)
+        this.onRemoved(this, file);
+    }
+  }
+  updateFileListUI(files) {
+    if (this._fileListElm) {
+      this._fileListElm.innerHTML = "";
+      for (let file of files) {
+        const itemElm = this.createElement("div", this._fileListElm);
+        itemElm.classList.add("i-upload_list-item");
+        if (file.type.includes("image/")) {
+          this._fileListElm.classList.add("i-upload_list-picture");
+          const imgElm = new Image();
+          imgElm.src = URL.createObjectURL(file);
+          imgElm.classList.add("i-upload_list-img");
+          imgElm.onload = function() {
+            URL.revokeObjectURL(imgElm.src);
+          };
+          itemElm.appendChild(imgElm);
         } else {
-          node.remove();
+          this._fileListElm.classList.add("i-upload_list-text");
+          const spanElm = this.createElement("span", itemElm);
+          spanElm.textContent = file.name;
         }
-      });
-      const tabsNavWrapElm = this.createElement("div", this);
-      tabsNavWrapElm.classList.add("tabs-nav-wrap");
-      tabsNavWrapElm.addEventListener("wheel", (event) => {
-        if (this.mode !== "horizontal")
-          return;
-        event.preventDefault();
-        tabsNavWrapElm.scrollLeft += event.deltaY;
-      });
-      this.tabsNavElm = this.createElement("div", tabsNavWrapElm);
-      this.tabsNavElm.classList.add("tabs-nav");
-      this.tabsContentElm = this.createElement("div", this);
-      this.tabsContentElm.classList.add("tabs-content");
-      this.closable = this.getAttribute("closable", true) || false;
-      this.mode = this.getAttribute("mode", true) || "horizontal";
-      for (const tab of _tabs) {
-        this.appendTab(tab);
+        const removeIcon = new Icon(void 0, {
+          width: 12,
+          height: 12,
+          fill: Theme7.action.active,
+          name: "trash"
+        });
+        itemElm.appendChild(removeIcon);
+        removeIcon.addEventListener("click", () => this.handleRemove(file));
       }
-      this.draggable = this.getAttribute("draggable", true) || false;
-      const activeTabIndex = this.getAttribute("activeTabIndex", true);
-      if (this._tabs.length)
-        this.activeTabIndex = activeTabIndex || 0;
-      this.mediaQueries = this.getAttribute("mediaQueries", true, []);
+      this._fileListElm.style.display = files.length ? "flex" : "none";
     }
   }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-Tabs = __decorateClass([
-  customElements2("i-tabs")
-], Tabs);
-var Tab = class extends Container {
-  active() {
-    this._parent.activeTabIndex = this.index;
-  }
-  addChildControl(control) {
-    if (this._contentElm)
-      this._contentElm.appendChild(control);
-  }
-  removeChildControl(control) {
-    if (this._contentElm && this._contentElm.contains(control))
-      this._contentElm.removeChild(control);
-  }
-  get caption() {
-    return this.captionElm.innerHTML;
-  }
-  set caption(value) {
-    this.captionElm.innerHTML = value;
-  }
-  close() {
-    this.handleCloseTab();
-  }
-  get index() {
-    return this._parent.items.findIndex((t) => t.id === this.id);
-  }
-  get icon() {
-    if (!this._icon) {
-      this._icon = Icon.create({
-        width: 16,
-        height: 16
-      }, this);
+  renderPreview() {
+    this._previewElm = this.createElement("div", this._wrapperElm);
+    this._previewElm.classList.add("i-upload_preview");
+    this._wrapImgElm = this.createElement("div", this._previewElm);
+    this._wrapImgElm.classList.add("i-upload_preview-img");
+    this._previewRemoveElm = this.createElement("div", this._previewElm);
+    if (this.enabled) {
+      this._previewRemoveElm.classList.add("active");
+    } else {
+      this._previewRemoveElm.classList.remove("active");
     }
-    ;
-    return this._icon;
+    this._previewRemoveElm.classList.add("i-upload_preview-remove");
+    this._previewRemoveElm.onclick = this.handleRemoveImagePreview;
+    const span = this.createElement("span", this._previewRemoveElm);
+    span.style.fontFamily = Theme7.typography.fontFamily;
+    span.innerHTML = "Click to remove";
   }
-  set icon(elm) {
-    if (this._icon)
-      this.tabContainer.removeChild(this._icon);
-    this._icon = elm;
-    if (this._icon)
-      this.tabContainer.prepend(this._icon);
-  }
-  get innerHTML() {
-    return this._contentElm.innerHTML;
-  }
-  set innerHTML(value) {
-    this._contentElm.innerHTML = value;
-  }
-  get font() {
-    return {
-      color: this.captionElm.style.color,
-      name: this.captionElm.style.fontFamily,
-      size: this.captionElm.style.fontSize,
-      bold: this.captionElm.style.fontStyle.indexOf("bold") >= 0,
-      style: this.captionElm.style.fontStyle,
-      transform: this.captionElm.style.textTransform,
-      weight: this.captionElm.style.fontWeight
-    };
-  }
-  set font(value) {
-    if (this.captionElm) {
-      this.captionElm.style.color = value.color || "";
-      this.captionElm.style.fontSize = value.size || "";
-      this.captionElm.style.fontFamily = value.name || "";
-      this.captionElm.style.fontStyle = value.style || "";
-      this.captionElm.style.textTransform = value.transform || "none";
-      this.captionElm.style.fontWeight = value.bold ? "bold" : `${value.weight}` || "";
+  handleRemove(file) {
+    const rawFile = file;
+    for (let i = 0; i < this._dt.items.length; i++) {
+      if (rawFile.uid === this._dt.files[i].uid) {
+        this._dt.items.remove(i);
+        this.fileList = this._fileList.filter((f) => f.uid !== rawFile.uid);
+        if (this.onRemoved)
+          this.onRemoved(this, file);
+        break;
+      }
     }
+    this._fileElm.files = this._dt.files;
+    this.updateFileListUI(this._dt.files);
+    if (!this._dt.items.length)
+      this.clear();
   }
-  _handleClick(event) {
-    if (!this._parent || !this.enabled || this._parent.activeTab.isSameNode(this))
-      return false;
-    if (this._parent) {
-      if (this._parent.activeTab != this)
-        this._parent.activeTabIndex = this.index;
-      if (this._parent.onChanged)
-        this._parent.onChanged(this._parent, this._parent.activeTab);
-    }
-    return super._handleClick(event);
-  }
-  handleCloseTab(event) {
-    if (event) {
-      event.stopPropagation();
-      event.preventDefault();
-    }
-    if (!this._parent || !this.enabled || event && !this._parent.closable)
+  preview(uri) {
+    if (!uri)
       return;
-    const isActiveChange = this._parent.activeTab.isSameNode(this);
-    if (this._parent.onCloseTab)
-      this._parent.onCloseTab(this._parent, this);
-    this._parent.delete(this);
-    if (isActiveChange && this._parent.onChanged)
-      this._parent.onChanged(this._parent, this._parent.activeTab);
+    this.isPreviewing = true;
+    this._wrapImgElm.innerHTML = "";
+    this._previewImgElm = new Image2();
+    this._wrapImgElm.appendChild(this._previewImgElm);
+    this._previewImgElm.url = uri;
+    this._previewElm.style.display = "block";
+    this._wrapperFileElm.style.display = "none";
+    if (this._uploadDragElm)
+      this._uploadDragElm.style.display = "none";
+  }
+  clear() {
+    this._fileElm.value = "";
+    this._wrapperFileElm.style.display = "block";
+    if (this._uploadDragElm)
+      this._uploadDragElm.style.display = this.draggable ? "flex" : "none";
+    if (this._previewElm)
+      this._previewElm.style.display = "none";
+    this._wrapImgElm && (this._wrapImgElm.innerHTML = "");
+    if (this._fileListElm)
+      this._fileListElm.style.display = "none";
+    this._dt = new DataTransfer();
+    this.isPreviewing = false;
+    this._fileList = [];
+  }
+  async upload(endpoint) {
+    let cid = await hashFiles(this._fileList);
+    let result = await application.postData(endpoint, cid);
+    console.dir(result);
+  }
+  addFiles() {
+  }
+  addFolder() {
   }
   init() {
-    if (!this.captionElm) {
+    if (!this.initialized) {
       super.init();
-      this.tabContainer = this.createElement("div", this);
-      this.tabContainer.classList.add("tab-item");
-      this.captionElm = this.createElement("div", this.tabContainer);
-      this.caption = this.getAttribute("caption", true) || "";
-      const font = this.getAttribute("font", true);
-      if (font)
-        this.font = font;
-      const icon = this.getAttribute("icon", true);
-      if (icon) {
-        icon.height = icon.height || "16px";
-        icon.width = icon.width || "16px";
-        this.icon = new Icon(void 0, icon);
+      this._wrapperElm = this.createElement("div", this);
+      this._wrapperElm.classList.add("i-upload-wrapper");
+      this._wrapperFileElm = this.createElement("div", this._wrapperElm);
+      this.caption = this.getAttribute("caption", true);
+      this.draggable = this.getAttribute("draggable", true, false);
+      this._uploadDragElm = new UploadDrag(this, {
+        caption: this.caption,
+        disabled: !this.enabled || !this.draggable,
+        onBeforeDrop: (source) => this.onBeforeDrop(source),
+        onDrop: (source, value) => {
+          value && this.proccessFiles(value);
+        }
+      });
+      this._wrapperElm.appendChild(this._uploadDragElm);
+      this._fileElm = this.createElement("input", this._wrapperFileElm);
+      this._fileElm.type = "file";
+      this.multiple = this.getAttribute("multiple", true);
+      this.accept = this.getAttribute("accept");
+      if (!this.enabled)
+        this._fileElm.setAttribute("disabled", "");
+      const btn = new Button(this, {
+        caption: "Choose an image"
+      });
+      btn.className = `i-upload_btn ${!this.enabled && "disabled"}`;
+      this._wrapperFileElm.appendChild(btn);
+      const fileListAttr = this.getAttribute("showFileList", true);
+      if (fileListAttr && !this._fileListElm) {
+        this._fileListElm = this.createElement("div", this);
+        this._fileListElm.classList.add("i-upload_list");
+        this._fileListElm.style.display = "none";
       }
-      ;
-      const closeButton = this.createElement("span", this.tabContainer);
-      closeButton.classList.add("close");
-      closeButton.innerHTML = "&times;";
-      closeButton.onclick = this.handleCloseTab.bind(this);
+      this.renderPreview();
+      const fileList = this.getAttribute("fileList", true);
+      fileList && (this.fileList = fileList);
+      this._wrapperElm.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (!this.enabled)
+          return;
+        if (!this.isPreviewing)
+          this._fileElm.click();
+      });
+      this._fileElm.addEventListener("change", this.handleUpload.bind(this));
     }
   }
   static async create(options, parent) {
@@ -17705,166 +20798,19 @@ var Tab = class extends Container {
     return self;
   }
 };
-Tab = __decorateClass([
-  customElements2("i-tab")
-], Tab);
-
-// packages/markdown-editor/src/style/markdown-editor.css.ts
-var Theme13 = theme_exports.ThemeVars;
-cssRule("i-markdown-editor", {
-  display: "block",
-  $nest: {
-    ".editor-container": {
-      marginRight: "auto",
-      marginLeft: "auto"
-    },
-    ".editor-tabs": {
-      display: "block",
-      position: "relative",
-      border: `1px solid ${Theme13.divider}`,
-      borderRadius: "6px",
-      $nest: {
-        ".tabs": {
-          backgroundColor: Theme13.background.paper,
-          borderBottom: `1px solid ${Theme13.divider}`,
-          borderTopLeftRadius: "6px",
-          borderTopRightRadius: "6px",
-          marginBottom: 0,
-          zIndex: 1,
-          $nest: {
-            "i-tab": {
-              display: "inline-block",
-              padding: "12px 16px",
-              textDecoration: "none",
-              backgroundColor: "transparent",
-              border: "1px solid transparent",
-              borderBottom: 0,
-              borderRadius: 0,
-              transition: "color .2s cubic-bezier(0.3, 0, 0.5, 1)",
-              cursor: "pointer",
-              $nest: {
-                ".tab-link": {
-                  display: "none"
-                },
-                "&::after": {
-                  content: "none!important"
-                },
-                "i-icon": {
-                  display: "inline-block",
-                  verticalAlign: "middle",
-                  fill: Theme13.text.secondary
-                },
-                "span": {
-                  marginLeft: "6px",
-                  fontSize: "14px",
-                  lineHeight: "23px",
-                  color: Theme13.text.secondary,
-                  verticalAlign: "middle"
-                },
-                "&.active": {
-                  borderTopLeftRadius: "6px",
-                  borderTopRightRadius: "6px",
-                  backgroundColor: Theme13.colors.primary.main,
-                  borderColor: Theme13.divider,
-                  $nest: {
-                    "&:first-of-type": {
-                      borderColor: "transparent",
-                      borderTopRightRadius: 0,
-                      borderRightColor: Theme13.divider
-                    },
-                    "i-icon": {
-                      fill: Theme13.text.primary
-                    },
-                    "span": {
-                      fontWeight: 600,
-                      color: Theme13.text.primary
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "#preview": {
-          padding: "32px 85px"
-        }
-      }
-    }
-  }
-});
-
-// packages/markdown-editor/src/markdown-editor.ts
-var MarkdownEditor = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      width: "100%",
-      height: "auto"
-    });
-  }
-  onViewPreview() {
-    const value = this.mdEditor.value;
-    this.mdPreviewer.load(value);
-  }
-  getValue() {
-    return this.mdEditor.value;
-  }
-  setValue(value) {
-    this.mdEditor.value = value;
-    if (this.tabs.activeTabIndex === 1) {
-      this.mdPreviewer.load(value);
-    }
-  }
-  init() {
-    super.init();
-    const container = this.createElement("div", this);
-    container.classList.add("editor-container");
-    this.tabs = new Tabs(void 0, {
-      width: "auto"
-    });
-    container.appendChild(this.tabs);
-    this.mdEditor = new CodeEditor(void 0, {
-      width: "100%",
-      height: "646px",
-      language: "markdown"
-    });
-    this.editTab = this.tabs.add({
-      caption: "Edit file",
-      icon: {
-        name: "code",
-        width: "16px",
-        height: "16px",
-        fill: "currentColor"
-      },
-      children: this.mdEditor
-    });
-    this.mdPreviewer = new Markdown();
-    this.previewTab = this.tabs.add({
-      caption: "Preview",
-      icon: {
-        name: "eye",
-        width: "16px",
-        height: "16px",
-        fill: "currentColor"
-      },
-      children: this.mdPreviewer
-    });
-    this.previewTab.onClick = this.onViewPreview.bind(this);
-    this.tabs.activeTabIndex = 0;
-  }
-};
-MarkdownEditor = __decorateClass([
-  customElements2("i-markdown-editor")
-], MarkdownEditor);
+Upload = __decorateClass([
+  customElements2("i-upload")
+], Upload);
 
 // packages/link/src/style/link.css.ts
-var Theme14 = theme_exports.ThemeVars;
+var Theme8 = theme_exports.ThemeVars;
 cssRule("i-link", {
   display: "block",
   cursor: "pointer",
   textTransform: "inherit",
   $nest: {
     "&:hover *": {
-      color: Theme14.colors.primary.dark
+      color: Theme8.colors.primary.dark
     },
     "> a": {
       display: "inline",
@@ -17943,8 +20889,114 @@ Link = __decorateClass([
   customElements2("i-link")
 ], Link);
 
+// packages/label/src/style/label.css.ts
+var Theme9 = theme_exports.ThemeVars;
+var captionStyle = style({
+  display: "inline-block",
+  color: Theme9.text.primary,
+  fontFamily: Theme9.typography.fontFamily,
+  fontSize: Theme9.typography.fontSize
+});
+
+// packages/label/src/label.ts
+var Label = class extends Control {
+  constructor(parent, options) {
+    super(parent, options);
+  }
+  get caption() {
+    return this.captionSpan.innerHTML;
+  }
+  set caption(value) {
+    this.captionSpan.innerHTML = value || "";
+  }
+  get link() {
+    if (!this._link) {
+      this._link = new Link(this, {
+        href: "#",
+        target: "_blank",
+        font: this.font
+      });
+      this._link.append(this.captionSpan);
+      this.appendChild(this._link);
+    }
+    return this._link;
+  }
+  set link(value) {
+    if (this._link) {
+      this._link.prepend(this.captionSpan);
+      this._link.remove();
+    }
+    this._link = value;
+    if (this._link) {
+      this._link.append(this.captionSpan);
+      this.appendChild(this._link);
+    }
+  }
+  set height(value) {
+    this.setPosition("height", value);
+    if (this.captionSpan)
+      this.captionSpan.style.height = value + "px";
+  }
+  set width(value) {
+    this.setPosition("width", value);
+    if (this.captionSpan)
+      this.captionSpan.style.width = value + "px";
+  }
+  get wordBreak() {
+    return this.style.wordBreak;
+  }
+  set wordBreak(value) {
+    this.style.wordBreak = value;
+  }
+  get overflowWrap() {
+    return this.style.overflowWrap;
+  }
+  set overflowWrap(value) {
+    this.style.overflowWrap = value;
+  }
+  init() {
+    if (!this.captionSpan) {
+      let childNodes = [];
+      for (let i = 0; i < this.childNodes.length; i++) {
+        childNodes.push(this.childNodes[i]);
+      }
+      this.captionSpan = this.createElement("span", this);
+      this.classList.add(captionStyle);
+      this.caption = this.getAttribute("caption", true) || "";
+      if (childNodes && childNodes.length) {
+        for (let i = 0; i < childNodes.length; i++) {
+          this.captionSpan.appendChild(childNodes[i]);
+        }
+      }
+      const linkAttr = this.getAttribute("link", true);
+      if (linkAttr) {
+        const link = new Link(this, {
+          ...linkAttr,
+          font: this.font
+        });
+        this.link = link;
+      }
+      const wordBreak = this.getAttribute("wordBreak", true);
+      if (wordBreak)
+        this.wordBreak = wordBreak;
+      const overflowWrap = this.getAttribute("overflowWrap", true);
+      if (overflowWrap)
+        this.overflowWrap = overflowWrap;
+      super.init();
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+Label = __decorateClass([
+  customElements2("i-label")
+], Label);
+
 // packages/modal/src/style/modal.css.ts
-var Theme15 = theme_exports.ThemeVars;
+var Theme10 = theme_exports.ThemeVars;
 var wrapperStyle = style({
   position: "fixed",
   left: 0,
@@ -17987,7 +21039,7 @@ var modalStyle = style({
   fontFamily: "Helvetica",
   fontSize: "14px",
   padding: "10px 10px 5px 10px",
-  backgroundColor: Theme15.background.modal,
+  backgroundColor: Theme10.background.modal,
   position: "relative",
   borderRadius: "2px",
   minWidth: "300px",
@@ -18001,7 +21053,7 @@ var titleStyle = style({
   alignItems: "center",
   $nest: {
     "span": {
-      color: Theme15.colors.primary.main
+      color: Theme10.colors.primary.main
     },
     "i-icon": {
       display: "inline-block",
@@ -18011,7 +21063,7 @@ var titleStyle = style({
 });
 
 // packages/modal/src/modal.ts
-var Theme16 = theme_exports.ThemeVars;
+var Theme11 = theme_exports.ThemeVars;
 var showEvent = new Event("show");
 var Modal = class extends Container {
   constructor(parent, options) {
@@ -18314,7 +21366,7 @@ var Modal = class extends Container {
       if (closeIconAttr) {
         closeIconAttr.height = closeIconAttr.height || "16px";
         closeIconAttr.width = closeIconAttr.width || "16px";
-        closeIconAttr.fill = closeIconAttr.fill || Theme16.colors.primary.main;
+        closeIconAttr.fill = closeIconAttr.fill || Theme11.colors.primary.main;
         this.closeIcon = new Icon(void 0, closeIconAttr);
       }
       while (this.childNodes.length > 1) {
@@ -18495,17 +21547,19 @@ var getGridLayoutMediaQueriesStyleClass = (mediaQueries) => {
     if (mediaQueryRule) {
       styleObj["$nest"][mediaQueryRule] = styleObj["$nest"][mediaQueryRule] || {};
       if (mediaQuery.properties.templateColumns) {
-        styleObj["$nest"][mediaQueryRule]["gridTemplateColumns"] = mediaQuery.properties.templateColumns.join(" ");
+        const templateColumnsStr = mediaQuery.properties.templateColumns.join(" ");
+        styleObj["$nest"][mediaQueryRule]["gridTemplateColumns"] = `${templateColumnsStr} !important`;
       }
       if (mediaQuery.properties.templateRows) {
-        styleObj["$nest"][mediaQueryRule]["gridTemplateRows"] = mediaQuery.properties.templateRows.join(" ");
+        const templateRowsStr = mediaQuery.properties.templateRows.join(" ");
+        styleObj["$nest"][mediaQueryRule]["gridTemplateRows"] = `${templateRowsStr} !important`;
       }
       if (mediaQuery.properties.templateAreas) {
         let templateAreasStr = "";
         for (let i = 0; i < mediaQuery.properties.templateAreas.length; i++) {
           templateAreasStr += '"' + mediaQuery.properties.templateAreas[i].join(" ") + '" ';
         }
-        styleObj["$nest"][mediaQueryRule]["gridTemplateAreas"] = templateAreasStr;
+        styleObj["$nest"][mediaQueryRule]["gridTemplateAreas"] = `${templateAreasStr} !important`;
       }
       if (mediaQuery.properties.display) {
         styleObj["$nest"][mediaQueryRule]["display"] = mediaQuery.properties.display;
@@ -18960,8 +22014,9033 @@ CardLayout = __decorateClass([
   customElements2("i-card-layout")
 ], CardLayout);
 
-// packages/menu/src/style/menu.css.ts
+// packages/upload/src/style/upload-modal.css.ts
+var Theme12 = theme_exports.ThemeVars;
+cssRule("i-upload-modal", {
+  $nest: {
+    "i-modal": {
+      position: "fixed!important",
+      zIndex: 16,
+      $nest: {
+        "> div": {
+          left: "50%!important",
+          top: "50%!important",
+          transform: "translate(-50%,-50%)!important"
+        },
+        ".modal": {
+          padding: 0,
+          height: "auto",
+          backgroundColor: Theme12.colors.primary.contrastText,
+          borderRadius: "10px",
+          boxShadow: "0 1px 5px 0 rgb(0 0 0 / 12%), 0 2px 10px 0 rgb(0 0 0 / 8%), 0 1px 20px 0 rgb(0 0 0 / 8%)",
+          overflow: "auto",
+          maxHeight: "90vh"
+        }
+      }
+    },
+    ".modal-close": {
+      position: "absolute",
+      top: "1rem",
+      right: "1rem",
+      maxHeight: "10%",
+      zIndex: 2,
+      cursor: "pointer",
+      gap: 0,
+      backgroundColor: "transparent",
+      border: 0,
+      padding: "0!important",
+      boxShadow: "none"
+    },
+    ".upload-box": {
+      borderRadius: "0.375rem",
+      padding: "3.125rem 8.5rem 3.125rem 8.125rem"
+    },
+    ".heading": {
+      display: "block",
+      fontSize: "1.625rem",
+      color: Theme12.colors.primary.dark,
+      marginBottom: "0.5rem",
+      fontWeight: 700,
+      lineHeight: 1.2,
+      textAlign: "center"
+    },
+    ".label": {
+      display: "block",
+      marginBottom: "0.5rem",
+      color: Theme12.text.primary,
+      textAlign: "center"
+    },
+    ".file-uploader-dropzone": {
+      display: "flex",
+      flexDirection: "column",
+      gridRowGap: "2rem",
+      rowGap: "1.5rem",
+      marginBottom: "2.5rem",
+      marginTop: "2rem",
+      $nest: {
+        ".droparea": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          gridRowGap: "1rem",
+          rowGap: "1rem",
+          padding: "1.875rem 0",
+          background: "rgba(255,255,255,.1)",
+          border: `1px dashed ${Theme12.colors.primary.light}`,
+          borderRadius: "0.625rem",
+          cursor: "pointer"
+        },
+        "i-upload": {
+          position: "absolute",
+          top: 0,
+          opacity: 0,
+          minHeight: "auto",
+          minWidth: "auto",
+          margin: 0,
+          zIndex: 1,
+          $nest: {
+            ".i-upload_preview-img": {
+              display: "none!important"
+            }
+          }
+        },
+        ".filelist": {
+          fontSize: "0.8rem",
+          fontWeight: 400,
+          borderBottom: "0.0625rem solid rgba(105,196,205,.25)",
+          marginBottom: "0.5rem",
+          $nest: {
+            ".file": {
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderTop: "0.0625rem solid rgba(105,196,205,.25)",
+              padding: "0.25rem 0",
+              minHeight: "44px",
+              gap: "5px"
+            },
+            ".status-2": {
+              $nest: {
+                "i-label": {
+                  color: "red"
+                }
+              }
+            },
+            "i-label": {
+              fontSize: "14px",
+              color: Theme12.colors.primary.dark,
+              maxWidth: "80%",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis"
+            },
+            ".filename": {
+              fontWeight: 600
+            },
+            ".status": {
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              $nest: {
+                "i-label": {
+                  fontStyle: "italic"
+                },
+                "i-button": {
+                  background: "transparent",
+                  boxShadow: "none",
+                  gap: 0,
+                  marginLeft: "5px",
+                  $nest: {
+                    "i-icon": {
+                      fill: `${Theme12.colors.primary.dark}!important`
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        ".pagination": {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "5px",
+          $nest: {
+            "i-button": {
+              width: "24px",
+              height: "24px",
+              borderRadius: "50%",
+              fontSize: "11px",
+              fontWeight: 700,
+              color: Theme12.colors.primary.dark,
+              backgroundColor: "transparent",
+              border: `1px solid ${Theme12.colors.primary.dark}`,
+              boxShadow: "none",
+              gap: "unset",
+              userSelect: "none",
+              $nest: {
+                "&.active": {
+                  color: Theme12.colors.primary.contrastText,
+                  backgroundColor: Theme12.colors.primary.dark
+                },
+                "&.dots": {
+                  borderColor: "transparent"
+                },
+                "i-icon": {
+                  height: "10px!important",
+                  width: "12px!important",
+                  fill: `${Theme12.colors.primary.dark}!important`
+                }
+              }
+            }
+          }
+        },
+        ".upload-btn": {
+          background: Theme12.colors.primary.light,
+          color: Theme12.colors.primary.contrastText,
+          padding: "8px",
+          boxShadow: "none"
+        }
+      }
+    },
+    ".status-filter": {
+      display: "flex",
+      justifyContent: "space-between",
+      $nest: {
+        ".filter-bar": {
+          display: "flex",
+          gap: "10px",
+          $nest: {
+            ".filter-btn": {
+              fontSize: "14px",
+              background: "transparent",
+              color: Theme12.text.secondary,
+              boxShadow: "none"
+            },
+            ".filter-btn.filter-btn-active": {
+              fontWeight: "bold",
+              color: Theme12.colors.primary.dark
+            }
+          }
+        },
+        ".filter-actions": {
+          $nest: {
+            "i-button": {
+              background: Theme12.colors.primary.light,
+              color: Theme12.colors.primary.contrastText,
+              padding: "5px 10px",
+              fontSize: "14px",
+              boxShadow: "none"
+            }
+          }
+        }
+      }
+    },
+    ".note": {
+      display: "flex",
+      flexDirection: "column",
+      lineHeight: "1.4375rem",
+      paddingLeft: "1.25rem",
+      paddingRight: "0.25rem",
+      $nest: {
+        "&:not(:last-child)": {
+          marginBottom: "1.5rem"
+        },
+        ".head": {
+          fontSize: "14px",
+          fontWeight: 700,
+          color: Theme12.text.primary
+        },
+        ".desc": {
+          fontSize: "12px",
+          fontWeight: 400,
+          letterSpacing: 0,
+          color: Theme12.text.secondary
+        }
+      }
+    }
+  }
+});
+
+// packages/upload/src/upload-modal.ts
+var Theme13 = theme_exports.ThemeVars;
+var FILE_STATUS;
+(function(FILE_STATUS2) {
+  FILE_STATUS2[FILE_STATUS2["LISTED"] = 0] = "LISTED";
+  FILE_STATUS2[FILE_STATUS2["SUCCESS"] = 1] = "SUCCESS";
+  FILE_STATUS2[FILE_STATUS2["FAILED"] = 2] = "FAILED";
+  FILE_STATUS2[FILE_STATUS2["UPLOADING"] = 3] = "UPLOADING";
+})(FILE_STATUS || (FILE_STATUS = {}));
+var ITEMS_PER_PAGE = 5;
+var UploadModal = class extends Control {
+  constructor(parent, options) {
+    super(parent, options);
+    this.isForcedCancelled = false;
+    this.currentPage = 1;
+    this.currentFilterStatus = 0;
+    this.files = [];
+    this.fileListData = [];
+  }
+  get rootCid() {
+    return this._rootCid;
+  }
+  set rootCid(value) {
+    console.log("set rootCid: ", value);
+    this._rootCid = value;
+  }
+  get parentDir() {
+    return this._parentDir;
+  }
+  set parentDir(value) {
+    console.log("set parentDir: ", value);
+    this._parentDir = value;
+  }
+  async show() {
+    await this.init();
+    if (!this.parentElement)
+      document.body.appendChild(this);
+    this._uploadModalElm.visible = true;
+  }
+  hide() {
+    this._uploadModalElm.visible = false;
+    this.reset();
+  }
+  onBeforeDrop(target) {
+    console.log("onBeforeDrop: ", target);
+    this._fileUploader.enabled = false;
+    this._fileIcon.url = `${LibPath}assets/img/loading-icon.svg`;
+    this._dragLabelElm.caption = "Processing your files...";
+  }
+  onBeforeUpload(target, file) {
+    return new Promise((resolve, reject) => {
+      resolve(true);
+    });
+  }
+  filteredFileListData() {
+    return this.currentFilterStatus === 0 ? this.fileListData : this.fileListData.filter((i) => i.status === this.currentFilterStatus);
+  }
+  numPages() {
+    return Math.ceil(this.filteredFileListData().length / ITEMS_PER_PAGE);
+  }
+  setCurrentPage(page) {
+    if (page >= 1 && page <= this.numPages())
+      this.currentPage = page;
+    this.renderFileList();
+    this.renderPagination();
+  }
+  async renderFilterBar() {
+    this._filterBarElm.clearInnerHTML();
+    const listedBtnElm = new Button(this._filterBarElm, {
+      caption: `All (${this.fileListData.length})`,
+      class: `filter-btn ${this.currentFilterStatus === 0 ? "filter-btn-active" : ""}`
+    });
+    listedBtnElm.onClick = () => this.onChangeCurrentFilterStatus(0);
+    const successBtnElm = new Button(this._filterBarElm, {
+      caption: `Success (${this.fileListData.filter((i) => i.status === 1).length})`,
+      class: `filter-btn ${this.currentFilterStatus === 1 ? "filter-btn-active" : ""}`
+    });
+    successBtnElm.onClick = () => this.onChangeCurrentFilterStatus(1);
+    const failedBtnElm = new Button(this._filterBarElm, {
+      caption: `Fail (${this.fileListData.filter((i) => i.status === 2).length})`,
+      class: `filter-btn ${this.currentFilterStatus === 2 ? "filter-btn-active" : ""}`
+    });
+    failedBtnElm.onClick = () => this.onChangeCurrentFilterStatus(2);
+    const uploadingBtnElm = new Button(this._filterBarElm, {
+      caption: `Uploading (${this.fileListData.filter((i) => i.status === 3).length})`,
+      class: `filter-btn ${this.currentFilterStatus === 3 ? "filter-btn-active" : ""}`
+    });
+    uploadingBtnElm.onClick = () => this.onChangeCurrentFilterStatus(3);
+    this._filterActionsElm.clearInnerHTML();
+    if (this.currentFilterStatus === 3) {
+      const cancelBtnElm = new Button(this._filterActionsElm, {
+        caption: "Cancel"
+      });
+      cancelBtnElm.onClick = () => this.onCancel();
+    } else {
+      const clearBtnElm = new Button(this._filterActionsElm, {
+        caption: "Clear"
+      });
+      clearBtnElm.onClick = () => this.onClear();
+    }
+  }
+  async renderFileList() {
+    const fileUIData = [];
+    this._fileListElm.clearInnerHTML();
+    const filteredFileListData = this.filteredFileListData();
+    const paginatedFilteredFileListData = filteredFileListData.slice((this.currentPage - 1) * ITEMS_PER_PAGE, ITEMS_PER_PAGE * this.currentPage);
+    for (let i = 0; i < paginatedFilteredFileListData.length; i++) {
+      const fileData = paginatedFilteredFileListData[i];
+      const fileElm = new Panel(this._fileListElm, {
+        class: `file file-${i} status-${fileData.status}`
+      });
+      const fileNameElm = new Label(fileElm, {
+        caption: fileData.file.path || fileData.file.name
+      });
+      const statusElm = new Panel(fileElm, { class: "status" });
+      const percentageElm = new Label(statusElm, {
+        caption: `${fileData.percentage}%`
+      });
+      const removeBtnElm = new Button(statusElm, {
+        class: "remove-btn",
+        icon: { name: "times-circle" }
+      });
+      removeBtnElm.onClick = () => this.onRemoveFile(i);
+    }
+  }
+  getPagination(currentIndex, totalPages) {
+    let current = currentIndex, last = totalPages, delta = 2, left = current - delta, right = current + delta + 1, range = [], rangeWithDots = [], l;
+    for (let i = 1; i <= last; i++) {
+      if (i == 1 || i == last || i >= left && i < right) {
+        range.push(i);
+      }
+    }
+    for (let i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+    return rangeWithDots;
+  }
+  async renderPagination() {
+    const numPages = this.numPages();
+    const rangeWithDots = this.getPagination(this.currentPage, numPages);
+    if (numPages >= 1) {
+      if (this.currentPage > numPages) {
+        this.setCurrentPage(numPages);
+      } else {
+        this._paginationElm.clearInnerHTML();
+        const prevBtn = new Button(this._paginationElm, {
+          icon: { name: "chevron-left" }
+        });
+        prevBtn.onClick = () => {
+          this.setCurrentPage(this.currentPage - 1);
+        };
+        for (let i = 0; i < rangeWithDots.length; i++) {
+          const pageBtn = new Button(this._paginationElm, {
+            class: this.currentPage === rangeWithDots[i] ? "active" : "",
+            caption: rangeWithDots[i].toString()
+          });
+          if (rangeWithDots[i] === "...") {
+            pageBtn.classList.add("dots");
+          } else {
+            pageBtn.onClick = () => {
+              this.setCurrentPage(rangeWithDots[i]);
+            };
+          }
+        }
+        const nexBtn = new Button(this._paginationElm, {
+          icon: { name: "chevron-right" }
+        });
+        nexBtn.onClick = () => {
+          this.setCurrentPage(this.currentPage + 1);
+        };
+      }
+    } else {
+      this._paginationElm.clearInnerHTML();
+    }
+  }
+  onChangeCurrentFilterStatus(status) {
+    this.currentFilterStatus = status;
+    this.renderFilterBar();
+    this.renderPagination();
+    this.renderFileList();
+  }
+  onClear() {
+    switch (this.currentFilterStatus) {
+      case 0:
+        this.fileListData = this.fileListData && this.fileListData.length ? this.fileListData.filter((fileData) => ![
+          0,
+          1,
+          2
+        ].includes(fileData.status)) : this.fileListData;
+        break;
+      case 1:
+        this.fileListData = this.fileListData && this.fileListData.length ? this.fileListData.filter((fileData) => ![1].includes(fileData.status)) : this.fileListData;
+        break;
+      case 2:
+        this.fileListData = this.fileListData && this.fileListData.length ? this.fileListData.filter((fileData) => ![2].includes(fileData.status)) : this.fileListData;
+        break;
+    }
+    this.renderFilterBar();
+    this.renderFileList();
+    this.renderPagination();
+  }
+  onCancel() {
+    this.currentRequest.abort();
+    this.isForcedCancelled = true;
+  }
+  async onChangeFile(source, files) {
+    console.log("onChangeFile: ", files);
+    return new Promise(async (resolve, reject) => {
+      if (!files.length)
+        reject();
+      this._fileUploader.enabled = true;
+      this._fileIcon.url = `${LibPath}assets/img/file-icon.png`;
+      this._dragLabelElm.caption = "Drag and drop your files here";
+      for (let i = 0; i < files.length; i++) {
+        this.fileListData.push({ file: files[i], status: 0, percentage: 0 });
+        this.files.push(files[i]);
+      }
+      this.renderFileList();
+      this.renderFilterBar();
+      this.renderPagination();
+      this.toggle(true);
+      this._fileUploader.clear();
+    });
+  }
+  onRemove(source, file) {
+  }
+  onRemoveFile(index) {
+    this.fileListData.splice(index, 1);
+    this.files.splice(index, 1);
+    this.renderFileList();
+    this.renderFilterBar();
+    this.renderPagination();
+    if (!this.fileListData.length) {
+      this.toggle(false);
+    }
+  }
+  getDirItems(cidItem, result) {
+    var _a;
+    result = result || [];
+    if (cidItem.type == "dir") {
+      let items = [];
+      if (cidItem.links) {
+        for (let i = 0; i < ((_a = cidItem.links) == null ? void 0 : _a.length); i++) {
+          let item = cidItem.links[i];
+          if (item.type == "dir")
+            this.getDirItems(item, result);
+          items.push({
+            cid: item.cid,
+            name: item.name,
+            size: item.size,
+            type: item.type
+          });
+        }
+      }
+      result.push({
+        cid: cidItem.cid,
+        name: cidItem.name,
+        size: cidItem.size,
+        type: "dir",
+        links: items
+      });
+    }
+    return result;
+  }
+  async onUpload() {
+    return new Promise(async (resolve, reject) => {
+      var _a, _b, _c, _d, _e;
+      if (!this.fileListData.length)
+        reject();
+      this._uploadBtnElm.caption = "Uploading files to IPFS...";
+      this.isForcedCancelled = false;
+      const cidItems = await hashFiles(this.files);
+      console.dir("### IPFS Upload ###");
+      console.log("cidItems: ", cidItems);
+      let dirItems = this.getDirItems(cidItems);
+      console.log("dirItems: ", dirItems);
+      if (this.parentDir && this.rootCid) {
+        const oldParentDirCID = cidItems.cid;
+        dirItems = dirItems.filter((dirItem) => dirItem.cid !== oldParentDirCID);
+        const items = [];
+        for (let i = 0; i < dirItems.length; i++) {
+          let item = dirItems[i];
+          items.push({ cid: item });
+        }
+        for (let i = 0; i < this.fileListData.length; i++) {
+          const file = this.fileListData[i];
+          const cidItem = (_a = cidItems.links) == null ? void 0 : _a.find((cidItem2) => {
+            var _a2;
+            return cidItem2.cid === ((_a2 = file.file.cid) == null ? void 0 : _a2.cid);
+          });
+          if (cidItem)
+            items.push({ cid: cidItem, data: file.file });
+        }
+        try {
+          const uploadResult = await application.uploadTo(this.parentDir.cid, items);
+          console.log("uploadToResult: ", uploadResult);
+          if (uploadResult && uploadResult.data) {
+            uploadResult.data.name = this.parentDir.name;
+            console.log("uploadToResult before sync: ", this.parentDir);
+            const syncResult = await application.uploadTo(this.rootCid, [
+              { cid: uploadResult.data }
+            ]);
+            console.log("syncResult: ", syncResult);
+            if (syncResult && syncResult.data) {
+              if (this.onBeforeUploaded)
+                this.onBeforeUploaded(this, syncResult.data);
+            }
+          }
+        } catch (err) {
+          console.log("Error! ", err);
+        }
+      } else {
+        if (this.onBeforeUploaded)
+          this.onBeforeUploaded(this, cidItems);
+        let uploadUrl = await application.getUploadUrl(cidItems);
+        for (let i = 0; i < dirItems.length; i++) {
+          let item = dirItems[i];
+          if (uploadUrl[item.cid]) {
+            await application.upload(uploadUrl[item.cid], JSON.stringify(item));
+          }
+        }
+        for (let i = 0; i < this.fileListData.length; i++) {
+          if (this.isForcedCancelled) {
+            break;
+          } else {
+            const file = this.fileListData[i];
+            file.url = `/ipfs/${cidItems.cid}${file.file.path || file.file.name}`;
+            if ([1, 3].includes(file.status) || !((_b = file.file.cid) == null ? void 0 : _b.cid)) {
+              continue;
+            }
+            this.fileListData[i].status = 3;
+            this.renderFilterBar();
+            if (uploadUrl[(_c = file.file.cid) == null ? void 0 : _c.cid]) {
+              try {
+                let result = await application.upload(uploadUrl[(_d = file.file.cid) == null ? void 0 : _d.cid], file.file);
+                console.log("uploaded fileListData result: ", result);
+                if (this.onUploaded)
+                  this.onUploaded(this, file.file, (_e = file.file.cid) == null ? void 0 : _e.cid);
+                this.fileListData[i].status = 1;
+                this.renderFilterBar();
+                this.renderFileList();
+              } catch (err) {
+                console.log("Error! ", err);
+                this.fileListData[i].status = 2;
+              }
+            }
+          }
+        }
+        this.renderFilterBar();
+        this.renderFileList();
+        this.renderPagination();
+        this._uploadBtnElm.caption = "Upload file to IPFS";
+      }
+    });
+  }
+  reset() {
+    this._fileListElm.clearInnerHTML();
+    this._paginationElm.clearInnerHTML();
+    this._uploadBtnElm.caption = "Upload file to IPFS";
+    this.fileListData = [];
+    this.files = [];
+    this.toggle(false);
+  }
+  toggle(showFileList) {
+    if (showFileList) {
+      this._statusFilterElm.visible = true;
+      this._uploadBtnElm.visible = true;
+      this._notePnlElm.visible = false;
+    } else {
+      this._statusFilterElm.visible = false;
+      this._uploadBtnElm.visible = false;
+      this._notePnlElm.visible = true;
+    }
+  }
+  async init() {
+    if (!this.initialized) {
+      super.init();
+      this.rootCid = this.getAttribute("rootCid", true);
+      this.parentDir = this.getAttribute("parentDir", true);
+      this._uploadModalElm = await Modal.create({
+        showBackdrop: true,
+        closeOnBackdropClick: false,
+        width: "800px"
+      });
+      this.appendChild(this._uploadModalElm);
+      this._uploadBoxElm = new Panel(this);
+      this._uploadBoxElm.classList.add("upload-box");
+      this._closeBtnElm = new Button(this._uploadBoxElm, {
+        icon: { name: "times" },
+        class: "modal-close",
+        onClick: () => this.hide()
+      });
+      const headingElm = new Label(this._uploadBoxElm, {
+        caption: "Upload more files"
+      });
+      headingElm.classList.add("heading");
+      const labelElm = new Label(this._uploadBoxElm, {
+        caption: "Choose file to upload to IPFS network"
+      });
+      labelElm.classList.add("label");
+      const fileUploaderDropzone = new Panel(this._uploadBoxElm);
+      fileUploaderDropzone.classList.add("file-uploader-dropzone");
+      const droparea = new Panel(fileUploaderDropzone);
+      droparea.classList.add("droparea");
+      this._fileUploader = new Upload(droparea, {
+        multiple: true,
+        draggable: true
+      });
+      this._fileUploader.onBeforeDrop = (source) => this.onBeforeDrop(source);
+      this._fileUploader.onUploading = this.onBeforeUpload;
+      this._fileUploader.onChanged = (source, files) => this.onChangeFile(source, files);
+      this._fileUploader.onRemoved = () => this.onRemove;
+      this._fileIcon = new Image2(droparea, { width: 60, height: 60 });
+      this._fileIcon.classList.add("icon");
+      this._fileIcon.url = `${LibPath}assets/img/file-icon.png`;
+      this._dragLabelElm = new Label(droparea, {
+        caption: "Drag and drop your files here"
+      });
+      this._statusFilterElm = new Panel(fileUploaderDropzone);
+      this._statusFilterElm.classList.add("status-filter");
+      this._statusFilterElm.visible = false;
+      this._filterBarElm = new Panel(this._statusFilterElm);
+      this._filterBarElm.classList.add("filter-bar");
+      this._filterActionsElm = new Panel(this._statusFilterElm);
+      this._filterActionsElm.classList.add("filter-actions");
+      this._fileListElm = new Panel(fileUploaderDropzone);
+      this._fileListElm.classList.add("filelist");
+      this._paginationElm = new Panel(fileUploaderDropzone);
+      this._paginationElm.classList.add("pagination");
+      this._uploadBtnElm = new Button(fileUploaderDropzone, {
+        caption: "Upload files to IPFS",
+        class: "upload-btn",
+        visible: false
+      });
+      this._uploadBtnElm.onClick = () => this.onUpload();
+      this._notePnlElm = new Panel(this._uploadBoxElm);
+      const note1Elm = new Panel(this._notePnlElm, { class: "note" });
+      const head1Elm = new Label(note1Elm, {
+        caption: "Public Data",
+        class: "head"
+      });
+      const desc1Elm = new Label(note1Elm, {
+        caption: "All data uploaded to IPFS Explorer is available to anyone who requests it using the correct CID. Do not store any private or sensitive information in an unencrypted form using IPFS Explorer.",
+        class: "desc"
+      });
+      const note2Elm = new Panel(this._notePnlElm, { class: "note" });
+      const head2Elm = new Label(note2Elm, {
+        caption: "Permanent Data",
+        class: "head"
+      });
+      const des2cElm = new Label(note2Elm, {
+        caption: "Deleting files from the IPFS Explorer site\u2019s Files page will remove them from the file listing for your account, but that doesn\u2019t prevent nodes on the decentralized storage network from retaining copies of the data indefinitely. Do not use IPFS Explorer for data that may need to be permanently deleted in the future.",
+        class: "desc"
+      });
+      this._uploadModalElm.item = this._uploadBoxElm;
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+UploadModal = __decorateClass([
+  customElements2("i-upload-modal")
+], UploadModal);
+
+// packages/tab/src/style/tab.css.ts
+var Theme14 = theme_exports.ThemeVars;
+cssRule("i-tabs", {
+  display: "block",
+  $nest: {
+    "> .tabs-nav-wrap": {
+      display: "flex",
+      flex: "none",
+      overflow: "hidden",
+      $nest: {
+        ".tabs-nav": {
+          position: "relative",
+          display: "flex",
+          flex: "none",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+          borderBottom: `1px solid #252525`,
+          margin: 0
+        },
+        ".tabs-nav:not(.is-closable) span.close": {
+          display: "none"
+        },
+        ".tabs-nav.is-closable i-tab:not(.disabled):hover span.close": {
+          visibility: "visible",
+          opacity: 1
+        },
+        ".tabs-nav.is-closable i-tab:not(.disabled).active span.close": {
+          visibility: "visible",
+          opacity: 1
+        },
+        "i-tab": {
+          position: "relative",
+          display: "inline-flex",
+          overflow: "hidden",
+          color: "rgba(255, 255, 255, 0.55)",
+          background: "#2e2e2e",
+          marginBottom: "-1px",
+          border: `1px solid #252525`,
+          alignItems: "center",
+          font: "inherit",
+          textAlign: "center",
+          minHeight: "36px",
+          $nest: {
+            "&:not(.disabled):hover": {
+              cursor: "pointer",
+              color: "#fff"
+            },
+            "&:not(.disabled).active.border": {
+              borderColor: `${Theme14.divider} ${Theme14.divider} #fff`,
+              borderBottomWidth: "1.5px"
+            },
+            ".tab-item": {
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+              padding: "0.5rem 1rem",
+              gap: "5px",
+              $nest: {
+                "i-image": {
+                  display: "flex"
+                }
+              }
+            }
+          }
+        },
+        "i-tab:not(.disabled).active": {
+          backgroundColor: "#1d1d1d",
+          borderBottomColor: "transparent",
+          color: "#fff"
+        }
+      }
+    },
+    "&:not(.vertical) > .tabs-nav-wrap": {
+      $nest: {
+        "&:hover": {
+          overflowX: "auto",
+          overflowY: "hidden"
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "#4b4b4b",
+          borderRadius: "5px"
+        },
+        "&::-webkit-scrollbar": {
+          height: "3px"
+        }
+      }
+    },
+    "&.vertical": {
+      display: "flex",
+      $nest: {
+        "> .tabs-nav-wrap .tabs-nav": {
+          display: "flex",
+          flexDirection: "column"
+        },
+        "> .tabs-nav-wrap .tabs-nav:hover": {
+          overflowY: "auto"
+        },
+        "> .tabs-nav-wrap .tabs-nav::-webkit-scrollbar-thumb": {
+          background: "#4b4b4b",
+          borderRadius: "5px"
+        },
+        "> .tabs-nav-wrap .tabs-nav::-webkit-scrollbar": {
+          width: "3px"
+        }
+      }
+    },
+    "> .tabs-content": {
+      position: "relative",
+      overflow: "hidden",
+      display: "flex",
+      width: "100%",
+      height: "100%",
+      minHeight: "200px",
+      $nest: {
+        "&::after": {
+          clear: "both"
+        },
+        "i-label .f1yauex0": {
+          whiteSpace: "normal"
+        },
+        ".content-pane": {
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          flex: "none"
+        }
+      }
+    },
+    "span.close": {
+      width: "18px",
+      height: "18px",
+      marginLeft: "5px",
+      marginRight: "-5px",
+      borderRadius: "5px",
+      lineHeight: "18px",
+      fontSize: "18px",
+      visibility: "hidden",
+      opacity: 0,
+      $nest: {
+        "&:hover": {
+          background: "rgba(78, 78, 78, 0.48)"
+        }
+      }
+    }
+  }
+});
+var getTabMediaQueriesStyleClass = (mediaQueries) => {
+  let styleObj = getControlMediaQueriesStyle(mediaQueries);
+  for (let mediaQuery of mediaQueries) {
+    let mediaQueryRule;
+    if (mediaQuery.minWidth && mediaQuery.maxWidth) {
+      mediaQueryRule = `@media (min-width: ${mediaQuery.minWidth}) and (max-width: ${mediaQuery.maxWidth})`;
+    } else if (mediaQuery.minWidth) {
+      mediaQueryRule = `@media (min-width: ${mediaQuery.minWidth})`;
+    } else if (mediaQuery.maxWidth) {
+      mediaQueryRule = `@media (max-width: ${mediaQuery.maxWidth})`;
+    }
+    if (mediaQueryRule) {
+      const nestObj = styleObj["$nest"][mediaQueryRule]["$nest"] || {};
+      const ruleObj = styleObj["$nest"][mediaQueryRule];
+      styleObj["$nest"][mediaQueryRule] = {
+        ...ruleObj,
+        $nest: {
+          ...nestObj,
+          "> .tabs-nav-wrap .tabs-nav": {}
+        }
+      };
+      if (mediaQuery.properties.mode) {
+        const mode = mediaQuery.properties.mode;
+        styleObj["$nest"][mediaQueryRule]["display"] = mode === "vertical" ? "flex !important" : "block !important";
+        if (mode === "horizontal") {
+          styleObj["$nest"][mediaQueryRule]["$nest"]["> .tabs-nav-wrap .tabs-nav"]["flexDirection"] = "row !important";
+          styleObj["$nest"][mediaQueryRule]["$nest"]["> .tabs-nav-wrap .tabs-nav"]["width"] = "100%";
+          styleObj["$nest"][mediaQueryRule]["$nest"]["> .tabs-nav-wrap .tabs-nav"]["justifyContent"] = "center";
+        } else {
+          styleObj["$nest"][mediaQueryRule]["$nest"]["> .tabs-nav-wrap .tabs-nav"]["flexDirection"] = "column !important";
+          styleObj["$nest"][mediaQueryRule]["$nest"]["> .tabs-nav-wrap .tabs-nav"]["width"] = "auto";
+          styleObj["$nest"][mediaQueryRule]["$nest"]["> .tabs-nav-wrap .tabs-nav"]["justifyContent"] = "start";
+        }
+      }
+      if (typeof mediaQuery.properties.visible === "boolean") {
+        const visible = mediaQuery.properties.visible;
+        styleObj["$nest"][mediaQueryRule]["display"] = visible ? "block !important" : "none !important";
+      }
+    }
+  }
+  return style(styleObj);
+};
+
+// packages/tab/src/tab.ts
+var Tabs = class extends Container {
+  constructor(parent, options) {
+    super(parent, options);
+    this.accumTabIndex = 0;
+    this.dragStartHandler = this.dragStartHandler.bind(this);
+    this.dragOverHandler = this.dragOverHandler.bind(this);
+    this.dropHandler = this.dropHandler.bind(this);
+  }
+  get activeTab() {
+    return this._tabs[this.activeTabIndex];
+  }
+  get activeTabIndex() {
+    return this._activeTabIndex;
+  }
+  set activeTabIndex(index) {
+    var _a;
+    if (index < 0 || this._activeTabIndex === index)
+      return;
+    const prevTab = this._tabs[this._activeTabIndex];
+    if (prevTab) {
+      prevTab.classList.remove("active");
+      this.contentPanes[this._activeTabIndex].style.display = "none";
+    }
+    this._activeTabIndex = index;
+    (_a = this.activeTab) == null ? void 0 : _a.classList.add("active");
+    if (this.contentPanes[index])
+      this.contentPanes[index].style.display = "";
+  }
+  get items() {
+    return this._tabs;
+  }
+  get closable() {
+    return this._closable;
+  }
+  set closable(value) {
+    this._closable = value;
+    if (value) {
+      this.tabsNavElm.classList.add("is-closable");
+    } else {
+      this.tabsNavElm.classList.remove("is-closable");
+    }
+  }
+  get draggable() {
+    return this._draggable;
+  }
+  set draggable(value) {
+    if (this._draggable === value)
+      return;
+    this._draggable = value;
+    if (this.draggable) {
+      this.tabsNavElm.ondragover = this.dragOverHandler;
+      this.tabsNavElm.ondrop = this.dropHandler;
+    } else {
+      this.tabsNavElm.ondragover = null;
+      this.tabsNavElm.ondrop = null;
+    }
+    this.handleTagDrag(this._tabs);
+  }
+  get mode() {
+    const isVertical = this.classList.contains("vertical");
+    return isVertical ? "vertical" : "horizontal";
+  }
+  set mode(type) {
+    if (type === "vertical") {
+      this.classList.add("vertical");
+    } else {
+      this.classList.remove("vertical");
+    }
+  }
+  get mediaQueries() {
+    return this._mediaQueries;
+  }
+  set mediaQueries(value) {
+    this._mediaQueries = value;
+    let style2 = getTabMediaQueriesStyleClass(this._mediaQueries);
+    this._mediaStyle && this.classList.remove(this._mediaStyle);
+    this._mediaStyle = style2;
+    this.classList.add(style2);
+  }
+  add(options) {
+    const tab = new Tab(this, options);
+    if (options == null ? void 0 : options.children) {
+      tab.append(options == null ? void 0 : options.children);
+    }
+    if (this.draggable) {
+      this.handleTagDrag([tab]);
+    }
+    this.appendTab(tab);
+    this.activeTabIndex = tab.index;
+    return tab;
+  }
+  delete(tab) {
+    const index = this._tabs.findIndex((t) => t.id === tab.id);
+    const activeIndex = this.activeTabIndex;
+    if (index >= 0) {
+      this._tabs.splice(index, 1);
+      const pane = this.contentPanes[index];
+      this.contentPanes.splice(index, 1);
+      pane.remove();
+      if (activeIndex >= index) {
+        let newActiveIndex = activeIndex > index ? activeIndex - 1 : this._tabs[activeIndex] ? activeIndex : this._tabs.length - 1;
+        this._activeTabIndex = newActiveIndex;
+        if (this.activeTab) {
+          this.activeTab.classList.add("active");
+          this.contentPanes[newActiveIndex].style.display = "";
+        }
+      }
+    }
+    tab.remove();
+  }
+  appendTab(tab) {
+    tab._container = this.tabsContentElm;
+    tab.parent = this;
+    this._tabs.push(tab);
+    if (!tab.id)
+      tab.id = `tab-${this.accumTabIndex++}`;
+    this.tabsNavElm.appendChild(tab);
+    const contentPane = this.createElement("div", this.tabsContentElm);
+    tab._contentElm = contentPane;
+    contentPane.classList.add("content-pane");
+    contentPane.style.display = "none";
+    this.contentPanes.push(contentPane);
+    const children = tab.children;
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].classList.contains("tab-item"))
+        continue;
+      if (children[i] instanceof Control) {
+        children[i].parent = tab;
+      }
+    }
+    ;
+  }
+  handleTagDrag(tabs) {
+    tabs.forEach((tab) => {
+      if (this.draggable) {
+        tab.setAttribute("draggable", "true");
+        tab.ondragstart = this.dragStartHandler;
+      } else {
+        tab.removeAttribute("draggable");
+        tab.ondragstart = null;
+      }
+    });
+  }
+  _handleClick(event) {
+    return super._handleClick(event, true);
+  }
+  dragStartHandler(event) {
+    if (!(event.target instanceof Tab))
+      return;
+    this.curDragTab = event.target;
+  }
+  dragOverHandler(event) {
+    event.preventDefault();
+  }
+  dropHandler(event) {
+    event.preventDefault();
+    if (!this.curDragTab)
+      return;
+    const target = event.target;
+    const dropTab = target instanceof Tab ? target : target.closest("i-tab");
+    if (dropTab && !this.curDragTab.isSameNode(dropTab)) {
+      const curActiveTab = this.activeTab;
+      const dragIndex = this.curDragTab.index;
+      const dropIndex = dropTab.index;
+      const [dragTab] = this._tabs.splice(dragIndex, 1);
+      this._tabs.splice(dropIndex, 0, dragTab);
+      const [dragContent] = this.contentPanes.splice(dragIndex, 1);
+      this.contentPanes.splice(dropIndex, 0, dragContent);
+      if (dragIndex > dropIndex) {
+        this.tabsNavElm.insertBefore(this.curDragTab, dropTab);
+      } else {
+        dropTab.after(this.curDragTab);
+      }
+      this.activeTabIndex = curActiveTab.index;
+      if (this.onChanged)
+        this.onChanged(this, this.activeTab);
+    }
+    this.curDragTab = null;
+  }
+  refresh() {
+    if (this.dock) {
+      super.refresh(true);
+      const height = this.mode === "horizontal" ? this.clientHeight - this.tabsNavElm.clientHeight : this.clientHeight;
+      this.tabsContentElm.style.height = height + "px";
+      this.refreshControls();
+    }
+  }
+  init() {
+    super.init();
+    if (!this.tabsNavElm) {
+      this.contentPanes = [];
+      this._tabs = [];
+      const _tabs = [];
+      this.childNodes.forEach((node) => {
+        if (node instanceof Tab) {
+          _tabs.push(node);
+        } else {
+          node.remove();
+        }
+      });
+      const tabsNavWrapElm = this.createElement("div", this);
+      tabsNavWrapElm.classList.add("tabs-nav-wrap");
+      tabsNavWrapElm.addEventListener("wheel", (event) => {
+        if (this.mode !== "horizontal")
+          return;
+        event.preventDefault();
+        tabsNavWrapElm.scrollLeft += event.deltaY;
+      });
+      this.tabsNavElm = this.createElement("div", tabsNavWrapElm);
+      this.tabsNavElm.classList.add("tabs-nav");
+      this.tabsContentElm = this.createElement("div", this);
+      this.tabsContentElm.classList.add("tabs-content");
+      this.closable = this.getAttribute("closable", true) || false;
+      this.mode = this.getAttribute("mode", true) || "horizontal";
+      for (const tab of _tabs) {
+        this.appendTab(tab);
+      }
+      this.draggable = this.getAttribute("draggable", true) || false;
+      const activeTabIndex = this.getAttribute("activeTabIndex", true);
+      if (this._tabs.length)
+        this.activeTabIndex = activeTabIndex || 0;
+      this.mediaQueries = this.getAttribute("mediaQueries", true, []);
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+Tabs = __decorateClass([
+  customElements2("i-tabs")
+], Tabs);
+var Tab = class extends Container {
+  active() {
+    this._parent.activeTabIndex = this.index;
+  }
+  addChildControl(control) {
+    if (this._contentElm)
+      this._contentElm.appendChild(control);
+  }
+  removeChildControl(control) {
+    if (this._contentElm && this._contentElm.contains(control))
+      this._contentElm.removeChild(control);
+  }
+  get caption() {
+    return this.captionElm.innerHTML;
+  }
+  set caption(value) {
+    this.captionElm.innerHTML = value;
+  }
+  close() {
+    this.handleCloseTab();
+  }
+  get index() {
+    return this._parent.items.findIndex((t) => t.id === this.id);
+  }
+  get icon() {
+    if (!this._icon) {
+      this._icon = Icon.create({
+        width: 16,
+        height: 16
+      }, this);
+    }
+    ;
+    return this._icon;
+  }
+  set icon(elm) {
+    if (this._icon)
+      this.tabContainer.removeChild(this._icon);
+    this._icon = elm;
+    if (this._icon)
+      this.tabContainer.prepend(this._icon);
+  }
+  get innerHTML() {
+    return this._contentElm.innerHTML;
+  }
+  set innerHTML(value) {
+    this._contentElm.innerHTML = value;
+  }
+  get font() {
+    return {
+      color: this.captionElm.style.color,
+      name: this.captionElm.style.fontFamily,
+      size: this.captionElm.style.fontSize,
+      bold: this.captionElm.style.fontStyle.indexOf("bold") >= 0,
+      style: this.captionElm.style.fontStyle,
+      transform: this.captionElm.style.textTransform,
+      weight: this.captionElm.style.fontWeight
+    };
+  }
+  set font(value) {
+    if (this.captionElm) {
+      this.captionElm.style.color = value.color || "";
+      this.captionElm.style.fontSize = value.size || "";
+      this.captionElm.style.fontFamily = value.name || "";
+      this.captionElm.style.fontStyle = value.style || "";
+      this.captionElm.style.textTransform = value.transform || "none";
+      this.captionElm.style.fontWeight = value.bold ? "bold" : `${value.weight}` || "";
+    }
+  }
+  _handleClick(event) {
+    if (!this._parent || !this.enabled || this._parent.activeTab.isSameNode(this))
+      return false;
+    if (this._parent) {
+      if (this._parent.activeTab != this)
+        this._parent.activeTabIndex = this.index;
+      if (this._parent.onChanged)
+        this._parent.onChanged(this._parent, this._parent.activeTab);
+    }
+    return super._handleClick(event);
+  }
+  handleCloseTab(event) {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    if (!this._parent || !this.enabled || event && !this._parent.closable)
+      return;
+    const isActiveChange = this._parent.activeTab.isSameNode(this);
+    if (this._parent.onCloseTab)
+      this._parent.onCloseTab(this._parent, this);
+    this._parent.delete(this);
+    if (isActiveChange && this._parent.onChanged)
+      this._parent.onChanged(this._parent, this._parent.activeTab);
+  }
+  init() {
+    if (!this.captionElm) {
+      super.init();
+      this.tabContainer = this.createElement("div", this);
+      this.tabContainer.classList.add("tab-item");
+      this.captionElm = this.createElement("div", this.tabContainer);
+      this.caption = this.getAttribute("caption", true) || "";
+      const font = this.getAttribute("font", true);
+      if (font)
+        this.font = font;
+      const icon = this.getAttribute("icon", true);
+      if (icon) {
+        icon.height = icon.height || "16px";
+        icon.width = icon.width || "16px";
+        this.icon = new Icon(void 0, icon);
+      }
+      ;
+      const closeButton = this.createElement("span", this.tabContainer);
+      closeButton.classList.add("close");
+      closeButton.innerHTML = "&times;";
+      closeButton.onclick = this.handleCloseTab.bind(this);
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+Tab = __decorateClass([
+  customElements2("i-tab")
+], Tab);
+
+// packages/combo-box/src/style/combo-box.css.ts
+var Theme15 = theme_exports.ThemeVars;
+var ItemListStyle = style({
+  display: "none",
+  position: "absolute",
+  margin: "0.05rem 0 0",
+  backgroundColor: "#fff",
+  border: "1px solid rgba(0,0,0,.15)",
+  borderRadius: "0.25rem",
+  zIndex: "99999",
+  $nest: {
+    "> ul": {
+      maxHeight: "100px",
+      overflowY: "scroll",
+      overflowX: "hidden",
+      listStyle: "none",
+      margin: 0,
+      padding: 0,
+      borderRadius: "inherit"
+    },
+    "> ul > li": {
+      display: "block",
+      width: "100%",
+      padding: "0.25rem 0.5rem",
+      backgroundColor: "transparent",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      cursor: "pointer",
+      borderRadius: "inherit"
+    },
+    "> ul > li .highlight": {
+      backgroundColor: Theme15.colors.warning.light
+    },
+    "> ul > li.matched": {
+      backgroundColor: Theme15.colors.primary.light
+    },
+    "> ul > li:hover": {
+      backgroundColor: Theme15.colors.primary.light
+    }
+  }
+});
+cssRule("i-combo-box", {
+  position: "relative",
+  display: "flex",
+  fontFamily: Theme15.typography.fontFamily,
+  fontSize: Theme15.typography.fontSize,
+  color: Theme15.text.primary,
+  alignItems: "center",
+  $nest: {
+    "&.i-combo-box-multi": {
+      height: "auto !important"
+    },
+    "> .icon-btn": {
+      display: "inline-flex",
+      flexWrap: "nowrap",
+      whiteSpace: "nowrap",
+      background: "inherit",
+      padding: "8px",
+      marginLeft: "-1px",
+      cursor: "pointer",
+      height: "100%",
+      alignItems: "center",
+      position: "absolute",
+      right: 0,
+      border: `0.5px solid ${Theme15.divider}`,
+      borderLeft: "none",
+      borderRadius: "inherit",
+      borderTopLeftRadius: "0px !important",
+      borderBottomLeftRadius: "0px !important"
+    },
+    "> .icon-btn:hover": {
+      backgroundColor: Theme15.action.hover
+    },
+    "> .icon-btn i-icon": {
+      display: "inline-block",
+      width: "12px",
+      height: "12px"
+    },
+    ".selection": {
+      display: "inline-flex",
+      alignItems: "center",
+      flexWrap: "wrap",
+      maxWidth: "calc(100% - 32px)",
+      height: "100%",
+      border: `0.5px solid ${Theme15.divider}`,
+      borderRight: "none !important",
+      background: Theme15.combobox.background,
+      borderRadius: "inherit",
+      borderTopRightRadius: "0px !important",
+      borderBottomRightRadius: "0px !important",
+      padding: "2px 4px",
+      transition: "all .3s cubic-bezier(.645,.045,.355,1)",
+      gap: 5,
+      flexGrow: 1,
+      maxHeight: "100%",
+      $nest: {
+        ".selection-item": {
+          border: `1px solid ${Theme15.divider}`,
+          backgroundColor: "rgba(0, 0, 0, 0.12)",
+          color: "#000",
+          borderRadius: 3,
+          display: "inline-flex",
+          alignItems: "center",
+          padding: "3px 5px",
+          gap: 4,
+          maxWidth: "clamp(100px, 50%, 200px)",
+          userSelect: "none",
+          $nest: {
+            ".close-icon": {
+              cursor: "pointer",
+              opacity: "0.5"
+            },
+            ".close-icon:hover": {
+              opacity: 1
+            },
+            "> span:first-child": {
+              display: "inline-block",
+              overflow: "hidden",
+              whiteSpace: "pre",
+              textOverflow: "ellipsis"
+            }
+          }
+        },
+        "input": {
+          padding: "1px 0.5rem",
+          border: "none",
+          boxShadow: "none",
+          outline: "none",
+          width: "auto !important",
+          maxWidth: "100%",
+          flex: 1,
+          background: Theme15.combobox.background,
+          color: Theme15.combobox.fontColor,
+          fontSize: "inherit"
+        }
+      }
+    }
+  }
+});
+
+// packages/combo-box/src/combo-box.ts
+var defaultIcon2 = {
+  width: 16,
+  height: 16,
+  fill: theme_exports.ThemeVars.text.primary
+};
+var ComboBox = class extends Control {
+  constructor(parent, options) {
+    super(parent, options, {
+      mode: "single"
+    });
+    this.newItem = null;
+    this.isListShown = false;
+  }
+  get value() {
+    return this.selectedItem;
+  }
+  set value(value) {
+  }
+  get selectedItem() {
+    return this._selectedItem;
+  }
+  set selectedItem(value) {
+    let isValueValid = false;
+    let validValue;
+    if (this.isMulti) {
+      const formattedValue = Array.isArray(value) ? value : [value];
+      validValue = formattedValue.filter((item) => this.isValueValid(item));
+      isValueValid = !!validValue.length;
+    } else {
+      validValue = value;
+      isValueValid = this.isValueValid(value);
+    }
+    if (isValueValid) {
+      this._selectedItem = validValue;
+      if (Array.isArray(this._selectedItem)) {
+        this.inputElm.value = "";
+        const selectionItems = Array.from(this.inputWrapElm.querySelectorAll(".selection-item"));
+        selectionItems.forEach((elm) => this.inputWrapElm.removeChild(elm));
+        this._selectedItem.forEach((item) => {
+          const itemElm = this.createElement("div");
+          itemElm.classList.add("selection-item");
+          const content = this.createElement("span", itemElm);
+          content.textContent = item.label;
+          itemElm.appendChild(content);
+          const closeButton = this.createElement("span", itemElm);
+          closeButton.classList.add("close-icon");
+          closeButton.innerHTML = "&times;";
+          closeButton.addEventListener("click", (event) => this.handleRemove(event, item));
+          this.inputWrapElm.appendChild(itemElm);
+          this.inputWrapElm.insertBefore(itemElm, this.inputElm);
+        });
+      } else {
+        this.inputElm.value = this._selectedItem.label;
+      }
+      if (this.callback)
+        this.callback(value);
+    } else if (this.isMulti) {
+      this._selectedItem = validValue;
+      this.inputElm.value = "";
+      const selectionItems = Array.from(this.inputWrapElm.querySelectorAll(".selection-item"));
+      selectionItems.forEach((elm) => this.inputWrapElm.removeChild(elm));
+    }
+  }
+  get caption() {
+    return this._caption;
+  }
+  set caption(value) {
+    this._caption = value;
+    this.labelElm.innerHTML = this._caption || "";
+    if (!value)
+      this.labelElm.style.display = "none";
+    else
+      this.labelElm.style.display = "";
+  }
+  get captionWidth() {
+    return this._captionWidth;
+  }
+  set captionWidth(value) {
+    this._captionWidth = value;
+    this.setElementPosition(this.labelElm, "width", value);
+  }
+  get items() {
+    return this._items;
+  }
+  set items(items) {
+    this._items = items;
+  }
+  get icon() {
+    if (!this._icon) {
+      this._icon = new Icon(void 0, defaultIcon2);
+      if (this.iconElm)
+        this.iconElm.appendChild(this._icon);
+    }
+    return this._icon;
+  }
+  set icon(value) {
+    if (this.iconElm) {
+      if (this._icon && this.iconElm.contains(this._icon))
+        this.iconElm.removeChild(this._icon);
+      this._icon = value;
+      if (this._icon)
+        this.iconElm.appendChild(this._icon);
+    }
+  }
+  get searchStr() {
+    return this._searchStr;
+  }
+  set searchStr(str) {
+    if (str === null)
+      str = "";
+    this._searchStr = str;
+  }
+  get placeholder() {
+    return this.inputElm.placeholder;
+  }
+  set placeholder(value) {
+    this.inputElm.placeholder = value;
+  }
+  get mode() {
+    return this._mode;
+  }
+  set mode(value) {
+    this._mode = value;
+    if (this.isMulti)
+      this.classList.add("i-combo-box-multi");
+    else
+      this.classList.remove("i-combo-box-multi");
+  }
+  get isMulti() {
+    return this.mode === "tags" || this.mode === "multiple";
+  }
+  set border(value) {
+    super.border = value;
+    if (this.inputWrapElm && this.border.style)
+      this.inputWrapElm.style.borderStyle = "none";
+    if (this.iconElm && this.border.style)
+      this.iconElm.style.borderStyle = "none";
+  }
+  get border() {
+    return super.border;
+  }
+  isValueValid(value) {
+    if (!value)
+      return false;
+    const index = this.getItemIndex(this.items, value);
+    return index >= 0;
+  }
+  getItemIndex(items, item) {
+    const value = item == null ? void 0 : item.value.toString();
+    if (!value)
+      return -1;
+    const index = items.findIndex((_item) => {
+      return _item.value.toString().toLowerCase() === value.toLowerCase();
+    });
+    return index;
+  }
+  openList() {
+    this.isListShown = true;
+    window.document.body.append(this.listElm);
+    this.listElm.classList.add("show");
+    this.listElm.style.display = "block";
+    this.calculatePositon();
+    if (!this.searchStr)
+      this.renderItems();
+  }
+  calculatePositon() {
+    let parentElement = this.linkTo || this;
+    let rect = parentElement.getBoundingClientRect();
+    const scrollTop = document.documentElement.scrollTop || window.pageYOffset;
+    const scrollLeft = document.documentElement.scrollLeft || window.pageXOffset;
+    const top = rect.top + scrollTop + rect.height;
+    const left = rect.left + scrollLeft;
+    const width = rect.right - rect.left;
+    this.listElm.style.top = top + "px";
+    this.listElm.style.left = left + "px";
+    this.listElm.style.width = width + "px";
+  }
+  closeList() {
+    var _a;
+    this.isListShown = false;
+    this.listElm.remove();
+    this.listElm.style.display = "none";
+    this.listElm.classList.remove("show");
+    this.searchStr = "";
+    if (this.isMulti || Array.isArray(this.selectedItem))
+      return;
+    const label = (_a = this.selectedItem) == null ? void 0 : _a.label;
+    if (label && this.inputElm)
+      this.inputElm.value = label;
+  }
+  toggleList() {
+    this.isListShown ? this.closeList() : this.openList();
+  }
+  escapeRegExp(text) {
+    return text ? text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&") : text;
+  }
+  renderItems() {
+    if (this.mode === "tags" && this.newItem) {
+      if (this.searchStr)
+        this.newItem.label = this.searchStr;
+      const liElm = this.listElm.querySelector(`li[data-key="${this.newItem.value}"]`);
+      if (liElm) {
+        if (this.searchStr) {
+          liElm.textContent = this.searchStr;
+          liElm.classList.add("matched");
+          liElm.innerHTML = `<span class="highlight">${this.searchStr}</span>`;
+        } else {
+          liElm.remove();
+          this.newItem = null;
+        }
+      } else {
+        const ul = this.listElm.querySelector("ul");
+        ul && this.add(this.newItem, ul);
+      }
+    }
+    const regExp = new RegExp(this.escapeRegExp(this.searchStr), "g");
+    this.listElm.innerHTML = "";
+    if (this.searchStr)
+      this.openList();
+    const ulElm = this.createElement("ul", this.listElm);
+    let creatingNew = false;
+    for (let item of this.items) {
+      const label = item.label || "";
+      const isMatchedPart = this.searchStr && label.toLowerCase().includes(this.searchStr.toLowerCase());
+      const isMatchedDone = this.searchStr && label.toLowerCase() === this.searchStr.toLowerCase();
+      if (item.isNew && isMatchedPart && !isMatchedDone)
+        creatingNew = true;
+      if (!this.searchStr || isMatchedDone || isMatchedPart) {
+        const liElm = this.createElement("li", ulElm);
+        liElm.setAttribute("data-key", item.value);
+        liElm.addEventListener("click", (event) => {
+          event.stopPropagation();
+          this.onItemClick(event, liElm, item);
+        });
+        if (Array.isArray(this.selectedItem)) {
+          const index = this.getItemIndex(this.selectedItem, item);
+          if (index >= 0)
+            liElm.classList.add("matched");
+        } else if (item === this.selectedItem) {
+          liElm.classList.add("matched");
+        }
+        const displayItem = this.searchStr ? label.replace(regExp, `<span class="highlight">${this.searchStr}</span>`) : label;
+        liElm.innerHTML = displayItem;
+      }
+    }
+    if (!ulElm.innerHTML || creatingNew) {
+      if (this.mode === "tags") {
+        if (!this.newItem)
+          this.newItem = {
+            value: new Date().getTime().toString(),
+            label: this.searchStr
+          };
+        const liElm = this.listElm.querySelector(`li[data-key="${this.newItem.label}"]`);
+        if (!liElm)
+          this.add(this.newItem, ulElm);
+      } else if (!ulElm.innerHTML)
+        ulElm.innerHTML = '<li style="text-align:center;">No data</li>';
+    }
+  }
+  add(item, parent) {
+    const liElm = this.createElement("li");
+    liElm.setAttribute("data-key", item.value);
+    liElm.addEventListener("click", (event) => {
+      event.stopPropagation();
+      this.onItemClick(event, liElm, item);
+    });
+    liElm.classList.add("matched");
+    liElm.innerHTML = `<span class="highlight">${this.searchStr}</span>`;
+    parent.prepend(liElm);
+  }
+  handleRemove(event, item) {
+    event.stopPropagation();
+    if (!this.enabled)
+      return;
+    const liElm = this.listElm.querySelector(`li[data-key="${item.value}"]`);
+    if (liElm) {
+      liElm.classList.remove("matched");
+      if (this.mode === "tags" && item.isNew) {
+        liElm.remove();
+        this.items = this.items.filter((data) => data.value !== item.value);
+      }
+    }
+    const selectedItem = this.selectedItem;
+    const selectedIndex = this.getItemIndex(selectedItem, item);
+    if (selectedIndex >= 0)
+      selectedItem.splice(selectedIndex, 1);
+    this.selectedItem = selectedItem;
+    if (this.onChanged)
+      this.onChanged(this, event);
+  }
+  onItemClick(event, liElm, item) {
+    var _a;
+    if (((_a = this.newItem) == null ? void 0 : _a.value) === item.value) {
+      item = { ...this.newItem, value: this.newItem.label, isNew: true };
+      this.items.push(item);
+    }
+    this.newItem = null;
+    if (Array.isArray(this.selectedItem)) {
+      const index = this.getItemIndex(this.selectedItem, item);
+      const selectedItem = this.selectedItem;
+      if (index >= 0) {
+        selectedItem.splice(index, 1);
+      } else {
+        selectedItem.push(item);
+      }
+      this.selectedItem = selectedItem;
+      liElm.classList.toggle("matched");
+      this.closeList();
+    } else {
+      this.selectedItem = item;
+      this.closeList();
+    }
+    if (this.onChanged)
+      this.onChanged(this, event);
+  }
+  clear() {
+    if (this.isMulti) {
+      this._selectedItem = [];
+    } else {
+      this._selectedItem = void 0;
+    }
+    this.inputElm.value = "";
+  }
+  init() {
+    if (!this.inputElm) {
+      this.callback = this.getAttribute("parentCallback", true);
+      const placeholder = this.getAttribute("placeholder", true);
+      this.mode = this.getAttribute("mode", true);
+      this.items = this.getAttribute("items", true, []);
+      this.captionSpanElm = this.createElement("span", this);
+      this.labelElm = this.createElement("label", this.captionSpanElm);
+      this.inputWrapElm = this.createElement("div", this);
+      this.inputWrapElm.classList.add("selection");
+      this.inputElm = this.createElement("input", this.inputWrapElm);
+      const disabled = this.getAttribute("enabled") === false;
+      this.inputElm.disabled = disabled;
+      this.inputElm.addEventListener("click", (e) => {
+        this.openList();
+        if (this.onClick)
+          this.onClick(this, e);
+      });
+      this.inputElm.addEventListener("keyup", () => {
+        this.searchStr = this.inputElm.value;
+        this.renderItems();
+      });
+      this.inputWrapElm.appendChild(this.inputElm);
+      placeholder && (this.placeholder = placeholder);
+      this.iconElm = this.createElement("span", this);
+      this.iconElm.classList.add("icon-btn");
+      this.iconElm.addEventListener("click", () => {
+        if (!this._enabled)
+          return false;
+        this.toggleList();
+      });
+      let iconAttr = this.getAttribute("icon", true);
+      if (iconAttr) {
+        iconAttr = { ...defaultIcon2, ...iconAttr };
+        const icon = new Icon(void 0, iconAttr);
+        this.icon = icon;
+      }
+      this.selectedItem = this.getAttribute("selectedItem", true);
+      this.listElm = this.createElement("div");
+      this.listElm.classList.add(ItemListStyle);
+      this.listElm.classList.add("item-list");
+      this.renderItems();
+      document.addEventListener("click", (e) => {
+        if (!this._enabled)
+          return false;
+        if (!this.contains(e.target))
+          this.closeList();
+      });
+      super.init();
+      window.addEventListener("resize", this.calculatePositon.bind(this));
+    }
+  }
+  disconnectCallback() {
+    window.removeEventListener("resize", this.calculatePositon.bind(this));
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+ComboBox = __decorateClass([
+  customElements2("i-combo-box")
+], ComboBox);
+
+// packages/datepicker/src/style/datepicker.css.ts
+var Theme16 = theme_exports.ThemeVars;
+cssRule("i-datepicker", {
+  display: "inline-block",
+  fontFamily: Theme16.typography.fontFamily,
+  fontSize: Theme16.typography.fontSize,
+  "$nest": {
+    "*": {
+      boxSizing: "border-box"
+    },
+    "> span": {
+      overflow: "hidden"
+    },
+    "> span > label": {
+      boxSizing: "border-box",
+      color: Theme16.text.primary,
+      display: "inline-block",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      verticalAlign: "middle",
+      textAlign: "right",
+      paddingRight: 4,
+      height: "100%"
+    },
+    "> input": {
+      borderRadius: "inherit",
+      padding: "1px 0.5rem",
+      border: `0.5px solid ${Theme16.divider}`,
+      boxSizing: "border-box",
+      outline: "none",
+      fontSize: "inherit",
+      color: Theme16.input.fontColor,
+      background: "transparent",
+      verticalAlign: "top",
+      borderTopRightRadius: "0px !important",
+      borderBottomRightRadius: "0px !important",
+      borderRight: "none !important"
+    },
+    "> input[type=text]:focus": {
+      borderColor: Theme16.colors.info.main
+    },
+    "i-icon": {
+      fill: Theme16.colors.primary.contrastText
+    },
+    ".datepicker-toggle": {
+      display: "inline-flex",
+      position: "relative",
+      backgroundColor: "transparent",
+      border: `0.5px solid ${Theme16.divider}`,
+      padding: "7px",
+      marginLeft: "-1px",
+      cursor: "pointer",
+      justifyContent: "center",
+      alignItems: "center",
+      verticalAlign: "top",
+      borderRadius: "inherit",
+      borderTopLeftRadius: "0px !important",
+      borderBottomLeftRadius: "0px !important",
+      height: "100%"
+    },
+    "> .datepicker-toggle:hover": {
+      backgroundColor: "#545b62"
+    },
+    ".datepicker": {
+      position: "absolute",
+      left: 0,
+      top: 0,
+      width: "100%",
+      height: "100%",
+      border: 0,
+      padding: 0,
+      opacity: 0,
+      cursor: "pointer"
+    },
+    ".datepicker::-webkit-calendar-picker-indicator": {
+      position: "absolute",
+      left: 0,
+      top: 0,
+      width: "100%",
+      height: "100%",
+      margin: 0,
+      padding: 0,
+      cursor: "pointer"
+    }
+  }
+});
+
+// packages/datepicker/src/datepicker.ts
+var defaultCaptionWidth = 40;
+var Datepicker = class extends Control {
+  constructor(parent, options) {
+    super(parent, options, {
+      captionWidth: defaultCaptionWidth,
+      height: 25,
+      width: 100
+    });
+    this._onDatePickerChange = (event) => {
+      const pickerValue = this.datepickerElm.value;
+      if (!pickerValue) {
+        this.inputElm.placeholder = this._placeholder || "";
+        this.inputElm.value = "";
+        if (this.onChanged)
+          this.onChanged(this, event);
+        return;
+      }
+      RequireJS.require(["@moment"], (moment2) => {
+        let _moment = this._type === "time" ? moment2(pickerValue, "HH:mm") : moment2(pickerValue);
+        this.updateValue(_moment);
+        if (this.onChanged)
+          this.onChanged(this, event);
+      });
+    };
+    this._onBlur = (event) => {
+      if (this.onBlur) {
+        this.onBlur(this);
+      }
+      if (!this.inputElm.value) {
+        const oldVal = this.value;
+        this.clear();
+        const isChanged = oldVal !== this.value;
+        if (event && isChanged && this.onChanged)
+          this.onChanged(this, event);
+        return;
+      }
+      ;
+      RequireJS.require(["@moment"], (moment2) => {
+        const temp = moment2(this.inputElm.value, this.formatString, true).format(this.datepickerFormat);
+        const _moment = moment2(temp, this.datepickerFormat, true);
+        this.updateValue(_moment, event);
+      });
+    };
+  }
+  _handleClick(event) {
+    return super._handleClick(event, true);
+  }
+  get caption() {
+    return this._caption;
+  }
+  set caption(value) {
+    this._caption = value;
+    this.labelElm.textContent = this._caption || "";
+    if (!value)
+      this.labelElm.style.display = "none";
+    else
+      this.labelElm.style.display = "";
+  }
+  get captionWidth() {
+    return this.labelElm.offsetWidth;
+  }
+  set captionWidth(value) {
+    this._captionWidth = value;
+    this.setElementPosition(this.labelElm, "width", value);
+    const width = this.width - this.captionWidth - (this._iconWidth || 0);
+    this.inputElm.style.width = `${width}px`;
+  }
+  get height() {
+    return this.offsetHeight;
+  }
+  set height(value) {
+    this.setPosition("height", value);
+    this.inputElm.style.height = typeof value === "string" ? value : `${value}px`;
+  }
+  get width() {
+    return this.offsetWidth;
+  }
+  set width(value) {
+    this.setPosition("width", value);
+    const width = typeof this._width === "string" ? this._width : `${this._width}px`;
+    let captionWidth = typeof this._captionWidth === "string" ? this._captionWidth : `${this._captionWidth}px`;
+    if (!this._caption)
+      captionWidth = "0px";
+    const iconWidth = `${this._iconWidth || 0}px`;
+    this.inputElm.style.width = `calc(${width} - ${captionWidth} - ${iconWidth} - ${this.border.width || "0px"})`;
+  }
+  set border(value) {
+    super.border = value;
+    if (this.border.width !== void 0)
+      this.width = this._width;
+    if (this.toggleElm && this.border.style)
+      this.toggleElm.style.borderStyle = "none";
+  }
+  get border() {
+    return super.border;
+  }
+  get value() {
+    return this._value;
+  }
+  set value(value) {
+    if (value)
+      this.updateValue(value);
+    else
+      this.clear();
+  }
+  get defaultDateTimeFormat() {
+    switch (this._type) {
+      case "date":
+        return "DD/MM/YYYY";
+      case "dateTime":
+        return "DD/MM/YYYY HH:mm";
+      case "time":
+        return "HH:mm";
+    }
+  }
+  get dateTimeFormat() {
+    return this._dateTimeFormat;
+  }
+  set dateTimeFormat(format) {
+    this._dateTimeFormat = format;
+  }
+  get datepickerFormat() {
+    switch (this._type) {
+      case "date":
+        return "YYYY-MM-DD";
+      case "dateTime":
+        return "YYYY-MM-DDTHH:mm";
+      case "time":
+        return "HH:mm";
+    }
+  }
+  get maxLength() {
+    switch (this._type) {
+      case "date":
+        return 10;
+      case "dateTime":
+        return 16;
+      case "time":
+        return 5;
+    }
+  }
+  get enabled() {
+    return super.enabled;
+  }
+  set enabled(value) {
+    super.enabled = value;
+    this.inputElm.disabled = !value;
+    this.datepickerElm.disabled = !value;
+  }
+  get placeholder() {
+    return this._placeholder;
+  }
+  set placeholder(value) {
+    this._placeholder = value;
+    if (this.inputElm)
+      this.inputElm.placeholder = this._placeholder;
+  }
+  get formatString() {
+    return this.dateTimeFormat || this.defaultDateTimeFormat;
+  }
+  updateValue(value, event) {
+    this.inputElm.placeholder = this._placeholder || "";
+    const oldVal = this.value;
+    if (value.isValid()) {
+      this._value = value;
+      this.inputElm.value = value.format(this.formatString);
+      this.datepickerElm.value = value.format(this.datepickerFormat);
+      if (this.callback)
+        this.callback(this.inputElm.value);
+    } else if (this.value) {
+      this.inputElm.value = this.value.format(this.formatString);
+      this.datepickerElm.value = this.value.format(this.datepickerFormat);
+    }
+    const isChanged = oldVal && this.value && !oldVal.isSame(this.value) || (!oldVal || !this.value);
+    if (event && isChanged && this.onChanged)
+      this.onChanged(this, event);
+  }
+  clear() {
+    this._value = void 0;
+    this.inputElm.value = "";
+    this.datepickerElm.value = "";
+    this.callback && this.callback("");
+  }
+  init() {
+    if (!this.captionSpanElm) {
+      RequireJS.config({
+        paths: {
+          "@moment": `${LibPath}lib/moment/2.29.1/moment.js`
+        }
+      });
+      this.callback = this.getAttribute("parentCallback", true);
+      this.dateTimeFormat = this.getAttribute("dateTimeFormat", true, "");
+      this._type = this.getAttribute("type", true, "date");
+      this._iconWidth = this.getAttribute("height", true);
+      this.captionSpanElm = this.createElement("span", this);
+      this.labelElm = this.createElement("label", this.captionSpanElm);
+      this.inputElm = this.createElement("input", this);
+      this.inputElm.setAttribute("type", "text");
+      this.inputElm.setAttribute("autocomplete", "disabled");
+      this.inputElm.style.height = this.height + "px";
+      this.inputElm.pattern = this.formatString;
+      this.placeholder = this.getAttribute("placeholder", true, "");
+      this.toggleElm = this.createElement("span", this);
+      this.toggleElm.classList.add("datepicker-toggle");
+      this.toggleElm.style.width = this._iconWidth + "px";
+      this.toggleIconElm = new Icon(this, {
+        name: this._type === "time" ? "clock" : "calendar",
+        width: 12,
+        height: 12,
+        fill: theme_exports.ThemeVars.text.primary
+      });
+      this.toggleElm.appendChild(this.toggleIconElm);
+      this.datepickerElm = this.createElement("input");
+      const inputType = this._type === "dateTime" ? "datetime-local" : this._type;
+      this.datepickerElm.setAttribute("type", inputType);
+      this.datepickerElm.classList.add("datepicker");
+      this.datepickerElm.addEventListener("input", (event) => {
+        event.stopPropagation();
+        this._onDatePickerChange(event);
+      });
+      this.toggleElm.appendChild(this.datepickerElm);
+      this.caption = this.getAttribute("caption", true);
+      this.captionWidth = this.getAttribute("captionWidth", true, this._caption ? defaultCaptionWidth : 0);
+      super.init();
+    }
+  }
+  _handleBlur(event, stopPropagation) {
+    event.stopPropagation();
+    event.preventDefault();
+    this._onBlur(event);
+    return true;
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+Datepicker = __decorateClass([
+  customElements2("i-datepicker")
+], Datepicker);
+
+// packages/range/src/style/range.css.ts
 var Theme17 = theme_exports.ThemeVars;
+cssRule("i-range", {
+  position: "relative",
+  display: "inline-block",
+  fontFamily: Theme17.typography.fontFamily,
+  fontSize: Theme17.typography.fontSize,
+  "$nest": {
+    "*": {
+      boxSizing: "border-box"
+    },
+    "> span": {
+      overflow: "hidden"
+    },
+    "> span > label": {
+      boxSizing: "border-box",
+      color: Theme17.text.primary,
+      display: "inline-block",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      verticalAlign: "middle",
+      textAlign: "right",
+      paddingRight: 4,
+      height: "100%"
+    },
+    ".slider": {
+      position: "relative",
+      display: "inline-block"
+    },
+    'input[type="range"]': {
+      "-webkit-appearance": "none",
+      appearance: "none",
+      background: "#d3d3d3",
+      backgroundImage: `linear-gradient(${Theme17.colors.info.main}, ${Theme17.colors.info.main})`,
+      backgroundSize: "0% 100%",
+      backgroundRepeat: "no-repeat !important",
+      borderRadius: "0.5rem",
+      opacity: 0.7,
+      border: 0,
+      margin: 0,
+      width: "inherit",
+      boxSizing: "border-box",
+      outline: "none",
+      verticalAlign: "middle"
+    },
+    'input[type="range"]:not(:disabled)': {
+      cursor: "pointer"
+    },
+    'input[type="range"]:hover': {
+      opacity: 1
+    },
+    'input[type="range"]:focus': {
+      outline: "none"
+    },
+    'input[type="range"]::-webkit-slider-runnable-track': {
+      "-webkit-appearance": "none",
+      boxShadow: "none",
+      border: "none",
+      background: "transparent",
+      borderRadius: "0.5rem",
+      height: "0.3rem",
+      marginLeft: "-6.5px",
+      marginRight: "-6.5px"
+    },
+    'input[type="range"]::-webkit-slider-thumb': {
+      "-webkit-appearance": "none",
+      appearance: "none",
+      marginTop: "-5px",
+      backgroundColor: Theme17.colors.info.main,
+      borderRadius: "0.5rem",
+      height: "1rem",
+      width: "1rem"
+    },
+    ".range-labels": {
+      display: "flex",
+      justifyContent: "space-between",
+      height: "auto",
+      overflow: "hidden",
+      listStyle: "none"
+    },
+    ".range-labels li": {
+      padding: "0 0.25rem"
+    },
+    '&.--step input[type="range"]': {
+      opacity: 1,
+      $nest: {
+        "&::-webkit-slider-runnable-track": {
+          zIndex: 2
+        },
+        "&::-webkit-slider-thumb": {
+          zIndex: 2
+        }
+      }
+    },
+    ".slider-step": {
+      position: "absolute",
+      zIndex: 0,
+      top: 2,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      background: "transparent"
+    },
+    ".step-dot": {
+      position: "relative",
+      zIndex: 1,
+      display: "flex",
+      justifyContent: "center",
+      width: "3px",
+      height: "10px",
+      backgroundColor: "#a7a9ac"
+    },
+    ".tooltip": {
+      visibility: "hidden",
+      minWidth: 35,
+      maxWidth: 70,
+      overflowWrap: "break-word",
+      backgroundColor: "rgba(0, 0, 0, 0.78)",
+      color: "#fff",
+      textAlign: "center",
+      borderRadius: "6px",
+      padding: "8px",
+      position: "absolute",
+      zIndex: 1,
+      bottom: "150%",
+      left: "0%",
+      marginLeft: "-20px",
+      opacity: 0,
+      transition: "opacity 0.3s",
+      $nest: {
+        "&::after": {
+          content: "''",
+          position: "absolute",
+          top: "100%",
+          left: "50%",
+          marginLeft: "-5px",
+          borderWidth: "5px",
+          borderStyle: "solid",
+          borderColor: "rgba(0, 0, 0, 0.78) transparent transparent transparent"
+        }
+      }
+    },
+    'input[type="range"]:hover + .tooltip': {
+      visibility: "visible",
+      opacity: 1
+    }
+  }
+});
+
+// packages/range/src/range.ts
+var Range = class extends Control {
+  constructor(parent, options) {
+    super(parent, options, {
+      height: 25,
+      width: 100
+    });
+  }
+  get caption() {
+    return this._caption;
+  }
+  set caption(value) {
+    this._caption = value;
+    this.labelElm.textContent = this._caption || "";
+    if (!value)
+      this.labelElm.style.display = "none";
+    else
+      this.labelElm.style.display = "";
+  }
+  get captionWidth() {
+    return this.labelElm.offsetWidth;
+  }
+  set captionWidth(value) {
+    this._captionWidth = value;
+    this.setElementPosition(this.labelElm, "width", value);
+    const width = this.width - this.captionWidth;
+    this.inputContainerElm.style.width = `${width}px`;
+  }
+  get value() {
+    return this._value;
+  }
+  set value(value) {
+    if (value === null)
+      value = +this.inputElm.min;
+    this._value = value;
+    this.inputElm.value = value.toString();
+    const min = Number(this.inputElm.min);
+    const max = Number(this.inputElm.max);
+    this.inputElm.style.backgroundSize = (this._value - min) * 100 / (max - min) + "% 100%";
+    this.onUpdateTooltip(false);
+    if (this.callback)
+      this.callback(value);
+  }
+  get width() {
+    return this.offsetWidth;
+  }
+  set width(value) {
+    this.setPosition("width", value);
+    const width = typeof value === "string" ? value : `${value}px`;
+    const captionWidth = typeof this._captionWidth === "string" ? this._captionWidth : `${this._captionWidth}px`;
+    this.inputContainerElm.style.width = `calc(${width} - ${captionWidth})`;
+  }
+  get enabled() {
+    return super.enabled;
+  }
+  set enabled(value) {
+    super.enabled = value;
+    this.inputElm.disabled = !value;
+  }
+  get tooltipVisible() {
+    return this._tooltipVisible;
+  }
+  set tooltipVisible(value) {
+    this._tooltipVisible = value;
+    this.tooltipElm.style.display = value ? "block" : "none";
+  }
+  onSliderChange(event) {
+    this.value = +this.inputElm.value;
+    const min = Number(this.inputElm.min);
+    const max = Number(this.inputElm.max);
+    this.inputElm.style.backgroundSize = (this._value - min) * 100 / (max - min) + "% 100%";
+    if (this.onChanged)
+      this.onChanged(this, event);
+    this.onUpdateTooltip(false);
+  }
+  onUpdateTooltip(init) {
+    let inputValue = this._value;
+    let formattedValue = this.tooltipFormatter ? this.tooltipFormatter(inputValue) : inputValue;
+    const min = Number(this.inputElm.min);
+    const max = Number(this.inputElm.max);
+    if (init) {
+      this.tooltipElm.style.marginLeft = `-${this.tooltipElm.clientWidth / 2}px`;
+    }
+    this.tooltipElm.innerHTML = formattedValue;
+    this.tooltipElm.style.left = (this._value - min) * 100 / (max - min) + "%";
+  }
+  init() {
+    if (!this.captionSpanElm) {
+      this.callback = this.getAttribute("parentCallback", true);
+      const min = this.getAttribute("min", true, 0);
+      const max = this.getAttribute("max", true, 100);
+      const step = this.getAttribute("step", true, 0);
+      const stepDots = this.getAttribute("stepDots", true);
+      const tooltipVisible = this.getAttribute("tooltipVisible", true, false);
+      const formatter = this.getAttribute("tooltipFormatter", true) || this.tooltipFormatter;
+      this.tooltipFormatter = formatter;
+      this.captionSpanElm = this.createElement("span", this);
+      this.labelElm = this.createElement("label", this.captionSpanElm);
+      this.inputContainerElm = this.createElement("div", this);
+      this.inputContainerElm.classList.add("slider");
+      this.inputElm = this.createElement("input", this.inputContainerElm);
+      this.inputElm.setAttribute("autocomplete", "disabled");
+      this.inputElm.type = "range";
+      this.inputElm.min = min;
+      this.inputElm.max = max;
+      if (step !== 0) {
+        this.inputElm.step = step;
+      }
+      this.inputElm.addEventListener("input", this.onSliderChange.bind(this));
+      if (this.onMouseUp)
+        this.inputElm.addEventListener("mouseup", () => {
+          this.onMouseUp(this, this.value);
+        });
+      if (this.onKeyUp)
+        this.inputElm.addEventListener("keyup", (e) => {
+          const keys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "PageUp", "PageDown"];
+          if (keys.includes(e.key))
+            this.onMouseUp(this, this.value);
+        });
+      this.tooltipElm = this.createElement("span", this.inputContainerElm);
+      this.tooltipElm.classList.add("tooltip");
+      this.tooltipVisible = tooltipVisible || this.tooltipFormatter || false;
+      if (stepDots) {
+        this.classList.add("--step");
+        const stepContainer = this.createElement("div", this);
+        stepContainer.classList.add("slider-step");
+        if (this.caption) {
+          stepContainer.style.width = Number(this._width) - this.captionWidth + "px";
+          stepContainer.style.marginLeft = this.captionWidth + "px";
+        } else {
+          stepContainer.style.width = "100%";
+        }
+        const dotNums = typeof stepDots === "boolean" ? (max - min) / (step || 1) + 1 : stepDots;
+        for (let i = 0; i < dotNums; i++) {
+          const dotElm = this.createElement("span", stepContainer);
+          dotElm.classList.add("step-dot");
+        }
+      }
+      this.captionWidth = this.getAttribute("captionWidth", true, 40);
+      this.caption = this.getAttribute("caption", true);
+      this.value = this.getAttribute("value", true, 0);
+      if (this._value > 0) {
+        this.inputElm.style.backgroundSize = (this._value - min) * 100 / (max - min) + "% 100%";
+      }
+      this.onUpdateTooltip(true);
+      super.init();
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+__decorateClass([
+  observable("value")
+], Range.prototype, "_value", 2);
+Range = __decorateClass([
+  customElements2("i-range")
+], Range);
+
+// packages/radio/src/radio.css.ts
+var Theme18 = theme_exports.ThemeVars;
+var captionStyle2 = style({
+  fontFamily: Theme18.typography.fontFamily,
+  fontSize: Theme18.typography.fontSize,
+  "$nest": {
+    "span": {
+      color: Theme18.text.primary
+    }
+  }
+});
+
+// packages/radio/src/radio.ts
+var defaultCaptionWidth2 = 40;
+var Radio = class extends Control {
+  constructor(parent, options) {
+    super(parent, options, {
+      captionWidth: defaultCaptionWidth2,
+      height: 25,
+      width: 100
+    });
+  }
+  get value() {
+    return this._value;
+  }
+  set value(value) {
+    this._value = value || "";
+    this.inputElm.value = value;
+  }
+  get caption() {
+    return this._caption;
+  }
+  set caption(value) {
+    this._caption = value;
+    if (!value)
+      this.captionSpanElm.style.display = "none";
+    else
+      this.captionSpanElm.style.display = "";
+    this.captionSpanElm && (this.captionSpanElm.textContent = value);
+  }
+  get captionWidth() {
+    return this._captionWidth;
+  }
+  set captionWidth(value) {
+    this._captionWidth = value;
+    this.setElementPosition(this.captionSpanElm, "width", value);
+  }
+  _handleClick(event) {
+    const checked = this.inputElm.checked || false;
+    if (checked)
+      this.classList.add("is-checked");
+    else
+      this.classList.remove("is-checked");
+    return super._handleClick(event);
+  }
+  init() {
+    if (!this.initialized) {
+      super.init();
+      this.classList.add(captionStyle2);
+      this.labelElm = this.createElement("label", this);
+      this.labelElm.classList.add("i-radio");
+      this.inputElm = this.createElement("input", this.labelElm);
+      this.inputElm.type = "radio";
+      const disabled = this.getAttribute("enabled") === false;
+      this.inputElm.disabled = disabled;
+      this.value = this.getAttribute("value");
+      this.captionSpanElm = this.createElement("span", this.labelElm);
+      this.captionSpanElm.classList.add("i-radio_label");
+      this.caption = this.getAttribute("caption", true, "");
+      this.captionWidth = this.getAttribute("captionWidth", true, defaultCaptionWidth2);
+      this.labelElm.style.color = theme_exports.ThemeVars.text.primary;
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+__decorateClass([
+  observable("value")
+], Radio.prototype, "_value", 2);
+Radio = __decorateClass([
+  customElements2("i-radio")
+], Radio);
+var RadioGroup = class extends Control {
+  constructor(parent, options) {
+    super(parent, options);
+    this._group = [];
+  }
+  get selectedValue() {
+    return this._selectedValue;
+  }
+  set selectedValue(value) {
+    this._selectedValue = value;
+    this._group.forEach((item) => {
+      const inputElm = item.querySelector("input");
+      if (inputElm)
+        inputElm.checked = item.value === value;
+      if (item.value === value) {
+        item.classList.add("is-checked");
+      } else {
+        item.classList.remove("is-checked");
+      }
+    });
+  }
+  get radioItems() {
+    return this._radioItems;
+  }
+  set radioItems(value) {
+    this._radioItems = value;
+    this.renderUI();
+  }
+  renderUI() {
+    this.clearInnerHTML();
+    this._group = [];
+    this.name = new Date().getTime().toString();
+    this.radioItems.forEach((item) => {
+      const elm = new Radio(this, item);
+      this.appendItem(elm);
+    });
+  }
+  appendItem(elm) {
+    this.appendChild(elm);
+    elm.onClick = this._handleChange.bind(this);
+    const inputElm = elm.getElementsByTagName("input")[0];
+    inputElm && inputElm.setAttribute("name", this.name);
+    if (this.selectedValue && elm.value === this.selectedValue)
+      inputElm.checked = true;
+    this._group.push(elm);
+  }
+  _handleChange(source, event) {
+    event.stopPropagation();
+    const selectedValue = this.selectedValue;
+    const value = source.value;
+    this._selectedValue = value;
+    this._group.forEach((item) => item.classList.remove("is-checked"));
+    source.classList.add("is-checked");
+    if (this.onChanged && selectedValue !== value)
+      this.onChanged(this, event);
+  }
+  async add(options) {
+    const elm = await Radio.create(options);
+    this.appendItem(elm);
+    this._radioItems.push(options);
+    return elm;
+  }
+  delete(index) {
+    if (index >= 0) {
+      const radio = this._group[index];
+      if (radio) {
+        this._group.splice(index, 1);
+        this._radioItems.splice(index, 1);
+        radio.remove();
+      }
+    }
+  }
+  init() {
+    var _a;
+    if (!this.initialized) {
+      this.classList.add("i-radio-group");
+      this.setAttribute("role", "radiogroup");
+      if ((_a = this.options) == null ? void 0 : _a.onChanged)
+        this.onChanged = this.options.onChanged;
+      const radioItems = this.getAttribute("radioItems", true);
+      radioItems && (this.radioItems = radioItems);
+      this.selectedValue = this.getAttribute("selectedValue", true);
+      super.init();
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+__decorateClass([
+  observable("selectedValue")
+], RadioGroup.prototype, "_selectedValue", 2);
+RadioGroup = __decorateClass([
+  customElements2("i-radio-group")
+], RadioGroup);
+
+// packages/input/src/style/input.css.ts
+var Theme19 = theme_exports.ThemeVars;
+cssRule("i-input", {
+  display: "inline-block",
+  fontFamily: Theme19.typography.fontFamily,
+  fontSize: Theme19.typography.fontSize,
+  "$nest": {
+    "> span": {
+      overflow: "hidden"
+    },
+    "> span > label": {
+      boxSizing: "border-box",
+      color: Theme19.text.primary,
+      display: "inline-block",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      verticalAlign: "middle",
+      textAlign: "right",
+      paddingRight: 4,
+      height: "100%"
+    },
+    "> input": {
+      border: `0.5px solid ${Theme19.divider}`,
+      boxSizing: "border-box",
+      outline: "none",
+      color: Theme19.input.fontColor,
+      background: Theme19.input.background,
+      borderRadius: "inherit",
+      fontSize: "inherit",
+      maxHeight: "100%"
+    },
+    ".clear-btn": {
+      display: "none",
+      verticalAlign: "middle",
+      padding: "6px",
+      backgroundColor: Theme19.action.focus,
+      $nest: {
+        "&.active": {
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer"
+        }
+      }
+    },
+    "textarea": {
+      width: "100%",
+      lineHeight: 1.5,
+      color: Theme19.input.fontColor,
+      background: Theme19.input.background
+    }
+  }
+});
+
+// packages/input/src/input.ts
+var defaultCaptionWidth3 = 40;
+var defaultRows = 4;
+var Input = class extends Control {
+  constructor(parent, options) {
+    super(parent, options, {
+      height: 25,
+      width: 100
+    });
+    this._inputCallback = (value) => {
+      this._value = value;
+    };
+  }
+  get caption() {
+    if (this._inputControl) {
+      return this._inputControl.caption;
+    }
+    return this._caption;
+  }
+  set caption(value) {
+    if (this._inputControl) {
+      this._inputControl.caption = value;
+    } else {
+      this._caption = value;
+      this.labelElm.textContent = this._caption || "";
+      if (!value)
+        this.labelElm.style.display = "none";
+      else
+        this.labelElm.style.display = "";
+    }
+  }
+  get captionWidth() {
+    if (this._inputControl) {
+      return this._inputControl.captionWidth;
+    }
+    return this._captionWidth;
+  }
+  set captionWidth(value) {
+    if (this._inputControl) {
+      this._inputControl.captionWidth = value;
+    } else {
+      value = this._caption ? value || defaultCaptionWidth3 : 0;
+      this._captionWidth = value;
+      this.labelElm.style.width = value + "px";
+    }
+  }
+  get height() {
+    return this.offsetHeight;
+  }
+  set height(value) {
+    this.setPosition("height", value);
+    if (this._inputControl) {
+      this._inputControl.height = value;
+    } else {
+      this.inputElm.style.height = typeof value === "string" ? value : `${value}px`;
+    }
+  }
+  get value() {
+    if (this._inputControl) {
+      return this._inputControl.value;
+    }
+    return this._value;
+  }
+  set value(value) {
+    if (this._inputControl) {
+      this._inputControl.value = value;
+    } else {
+      if (value == null)
+        value = "";
+      this._value = value;
+      this.inputElm.value = value;
+    }
+  }
+  get width() {
+    return this.offsetWidth;
+  }
+  set width(value) {
+    this._width = value;
+    const clearBtnWidth = this._showClearButton ? this._clearBtnWidth : 0;
+    const captionWidth = typeof this._captionWidth === "string" ? this._captionWidth : `${this._captionWidth}px`;
+    this.setPosition("width", value);
+    this.inputElm.style.width = `calc(100% - ${captionWidth} - ${clearBtnWidth}px)`;
+  }
+  get readOnly() {
+    return this._readOnly;
+  }
+  set readOnly(value) {
+    this._readOnly = value;
+    this.inputElm.readOnly = value;
+  }
+  get inputType() {
+    return this._inputType;
+  }
+  set inputType(type) {
+    this._inputType = type;
+  }
+  get inputControl() {
+    return this._inputControl;
+  }
+  get enabled() {
+    return super.enabled;
+  }
+  set enabled(value) {
+    super.enabled = value;
+    if (this._inputControl) {
+      this._inputControl.enabled = value;
+    } else if (this.inputElm) {
+      this.inputElm.disabled = !value;
+    }
+  }
+  set placeholder(value) {
+    this.inputElm.placeholder = value;
+  }
+  get rows() {
+    return this._rows;
+  }
+  set rows(value) {
+    if (this.inputType !== "textarea")
+      return;
+    this._rows = value;
+    this.inputElm.rows = value;
+  }
+  get multiline() {
+    return this._multiline;
+  }
+  set multiline(value) {
+    this._multiline = value;
+    if (value) {
+      this.inputType = "textarea";
+      this.clearInnerHTML();
+      this._createInputElement(this.inputType);
+    }
+  }
+  get resize() {
+    return this._resize;
+  }
+  set resize(value) {
+    this._resize = value;
+    if (this.inputType === "textarea" && value && this.inputElm) {
+      this.inputElm.style.resize = value === "auto-grow" ? "none" : value;
+      if (value === "auto" || value === "auto-grow") {
+        this.inputElm.style.height = "auto";
+        this.inputElm.style.height = this.inputElm.scrollHeight + 2 + "px";
+      }
+    }
+  }
+  set border(value) {
+    super.border = value;
+    const inputTypes = ["text", "number", "textarea", "password"];
+    if (!this.inputType || inputTypes.includes(this.inputType)) {
+      if (this.border.width !== void 0)
+        this.inputElm.style.borderWidth = this.border.width;
+      if (this.border.style)
+        this.inputElm.style.borderStyle = this.border.style;
+      if (this.border.color)
+        this.inputElm.style.borderColor = this.border.color;
+    }
+  }
+  get border() {
+    return super.border;
+  }
+  _createInputElement(type) {
+    const value = this.getAttribute("value");
+    const caption = this.getAttribute("caption");
+    const width = this.getAttribute("width", true);
+    const height = this.getAttribute("height", true);
+    const checked = this.getAttribute("checked", true);
+    const enabled = this.getAttribute("enabled", true);
+    const background = this.getAttribute("background", true);
+    this._clearBtnWidth = height - 2 || 0;
+    switch (type) {
+      case "checkbox":
+        this._inputControl = new Checkbox(this, {
+          value,
+          checked,
+          enabled,
+          caption,
+          indeterminate: this.getAttribute("indeterminate", true)
+        });
+        if (this.onChanged)
+          this._inputControl.onChanged = this.onChanged;
+        this.appendChild(this._inputControl);
+        this.inputElm = this._inputControl.querySelector('input[type="checkbox"]');
+        break;
+      case "combobox":
+        this._inputControl = new ComboBox(this, {
+          selectedItem: this.getAttribute("selectedItem", true),
+          items: this.getAttribute("items", true),
+          width,
+          height,
+          enabled,
+          icon: this.getAttribute("icon", true),
+          mode: this.getAttribute("mode", true),
+          placeholder: this.getAttribute("placeholder", true),
+          parentCallback: this._inputCallback
+        });
+        if (this.onChanged)
+          this._inputControl.onChanged = this.onChanged;
+        this.appendChild(this._inputControl);
+        this.inputElm = this._inputControl.querySelector("input");
+        break;
+      case "date":
+      case "dateTime":
+      case "time":
+        this._inputControl = new Datepicker(this, {
+          caption,
+          value,
+          placeholder: this._placeholder,
+          type,
+          dateTimeFormat: this.getAttribute("dateTimeFormat", true),
+          width,
+          height,
+          enabled,
+          parentCallback: this._inputCallback
+        });
+        if (this.onChanged)
+          this._inputControl.onChanged = this.onChanged;
+        this.appendChild(this._inputControl);
+        this.inputElm = this._inputControl.querySelector('input[type="text"]');
+        break;
+      case "range":
+        this._inputControl = new Range(this, {
+          value,
+          caption,
+          width,
+          height,
+          enabled,
+          min: this.getAttribute("min", true),
+          max: this.getAttribute("max", true),
+          step: this.getAttribute("step", true),
+          stepDots: this.getAttribute("stepDots", true),
+          tooltipFormatter: this.getAttribute("tooltipFormatter", true),
+          tooltipVisible: this.getAttribute("tooltipVisible", true),
+          parentCallback: this._inputCallback
+        });
+        this._inputControl.onChanged = this.onChanged;
+        this._inputControl.onMouseUp = this.onMouseUp;
+        this._inputControl.onKeyUp = this.onKeyUp;
+        this.appendChild(this._inputControl);
+        this.inputElm = this._inputControl.querySelector('input[type="range"]');
+        break;
+      case "radio":
+        const id = this.getAttribute("id") || "";
+        this._inputControl = new Radio(this, {
+          value,
+          checked,
+          enabled,
+          caption,
+          id: id + "_radio"
+        });
+        this.appendChild(this._inputControl);
+        this.inputElm = this._inputControl.querySelector('input[type="radio"]');
+        break;
+      case "textarea":
+        this.captionSpanElm = this.createElement("span", this);
+        this.labelElm = this.createElement("label", this.captionSpanElm);
+        this.inputElm = this.createElement("textarea", this);
+        this.inputElm.style.height = "auto";
+        const rows = this.getAttribute("rows", true) || defaultRows;
+        this.rows = rows;
+        if (this._placeholder) {
+          this.inputElm.placeholder = this._placeholder;
+        }
+        this.inputElm.style.resize = value === "auto-grow" ? "none" : value;
+        this.inputElm.disabled = enabled === false;
+        this.inputElm.addEventListener("input", this._handleChange.bind(this));
+        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
+        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
+        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
+        break;
+      case "color":
+        this.captionSpanElm = this.createElement("span", this);
+        this.labelElm = this.createElement("label", this.captionSpanElm);
+        this.inputElm = this.createElement("input", this);
+        this.inputElm.style.height = "auto";
+        this.inputElm.disabled = enabled === false;
+        this.inputElm.setAttribute("type", "color");
+        this.inputElm.addEventListener("input", this._handleChange.bind(this));
+        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
+        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
+        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
+        break;
+      default:
+        const inputType = type == "password" ? type : "text";
+        this.captionSpanElm = this.createElement("span", this);
+        this.labelElm = this.createElement("label", this.captionSpanElm);
+        this.inputElm = this.createElement("input", this);
+        this.inputElm.setAttribute("autocomplete", "disabled");
+        this.inputElm.style.height = this.height + "px";
+        this.inputElm.type = inputType;
+        if (this._placeholder)
+          this.inputElm.placeholder = this._placeholder;
+        this.inputElm.disabled = enabled === false;
+        this.inputElm.addEventListener("input", this._handleChange.bind(this));
+        this.inputElm.addEventListener("keydown", this._handleInputKeyDown.bind(this));
+        this.inputElm.addEventListener("keyup", this._handleInputKeyUp.bind(this));
+        this.inputElm.addEventListener("focus", this._handleOnFocus.bind(this));
+        this._showClearButton = this.getAttribute("showClearButton", true);
+        if (this._showClearButton) {
+          this.clearIconElm = this.createElement("span", this);
+          this.clearIconElm.classList.add("clear-btn");
+          this.clearIconElm.style.width = this._clearBtnWidth + "px";
+          this.clearIconElm.style.height = this._clearBtnWidth + "px";
+          this.clearIconElm.addEventListener("click", () => {
+            if (!this._enabled)
+              return false;
+            this._clearValue();
+          });
+          const clearIcon = new Icon(this, { name: "times", width: 12, height: 12, fill: theme_exports.ThemeVars.text.primary });
+          this.clearIconElm.appendChild(clearIcon);
+        }
+        break;
+    }
+    if (background && this._inputControl)
+      this._inputControl.background = background;
+  }
+  _handleChange(event) {
+    if (this.inputType === "number" && !/^-?\d*[.]?\d*$/.test(this.inputElm.value)) {
+      this.inputElm.value = this._value;
+      return;
+    }
+    if (this.inputType === "textarea" && (this.resize === "auto" || this.resize === "auto-grow")) {
+      this.inputElm.style.height = "auto";
+      this.inputElm.style.height = this.inputElm.scrollHeight + 2 + "px";
+    }
+    this._value = this.inputElm.value;
+    if (this.onChanged)
+      this.onChanged(this, event);
+  }
+  _handleInputKeyDown(event) {
+    if (this.onKeyDown)
+      this.onKeyDown(this, event);
+  }
+  _handleInputKeyUp(event) {
+    if (this.onKeyUp)
+      this.onKeyUp(this, event);
+    if (this.clearIconElm) {
+      if (this.value) {
+        this.clearIconElm.classList.add("active");
+      } else {
+        this.clearIconElm.classList.remove("active");
+      }
+    }
+  }
+  _handleBlur(event, stopPropagation) {
+    if (this.onBlur) {
+      event.preventDefault();
+      this.onBlur(this);
+    }
+    return true;
+  }
+  _handleOnFocus(event) {
+    if (this.onFocus) {
+      event.preventDefault();
+      this.onFocus(this);
+    }
+  }
+  _clearValue() {
+    this.value = "";
+    this.clearIconElm.classList.remove("active");
+    if (this.onClearClick)
+      this.onClearClick(this);
+  }
+  init() {
+    if (!this.inputType) {
+      this._placeholder = this.getAttribute("placeholder", true);
+      this.inputType = this.getAttribute("inputType", true);
+      this._createInputElement(this.inputType);
+      this.multiline = this.getAttribute("multiline", true);
+      this.caption = this.getAttribute("caption", true);
+      this.captionWidth = parseInt(this.getAttribute("captionWidth", true));
+      this.value = this.getAttribute("value", true);
+      this.readOnly = this.getAttribute("readOnly", true, false);
+      this.resize = this.getAttribute("resize", true, "none");
+      if (this.value && this.clearIconElm)
+        this.clearIconElm.classList.add("active");
+      super.init();
+    }
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+};
+__decorateClass([
+  observable("value")
+], Input.prototype, "_value", 2);
+Input = __decorateClass([
+  customElements2("i-input")
+], Input);
+
+// packages/application/src/styles/jsonUI.css.ts
+var Theme20 = theme_exports.ThemeVars;
+var jsonUICheckboxStyle = style({
+  display: "flex",
+  alignItems: "center",
+  gap: 8,
+  $nest: {
+    "i-checkbox": {
+      display: "flex",
+      height: "auto !important"
+    }
+  }
+});
+var jsonUIComboboxStyle = style({
+  $nest: {
+    ".selection": {
+      border: `1px solid ${Theme20.divider}`
+    },
+    ".selection input": {
+      paddingInline: 0
+    }
+  }
+});
+var jsonUITabStyle = style({
+  display: "block",
+  $nest: {
+    ".tabs-nav": {
+      borderBottom: `none`,
+      borderRight: `1px solid #606770`
+    },
+    "i-tab": {
+      color: "#606770",
+      background: "none",
+      margin: "4px",
+      border: `none`,
+      borderRadius: `5px`,
+      $nest: {
+        "&:not(.disabled):hover": {
+          color: "#606770"
+        }
+      }
+    },
+    "i-tab:not(.disabled).active": {
+      backgroundColor: "#c2c2c2",
+      color: "#000000"
+    }
+  }
+});
+
+// packages/application/src/jsonUI.ts
+var import_moment = __toModule(require_moment());
+var checkPropertyChange = (value, schema, property) => {
+  return validate(value, schema, { changing: property || "property" });
+};
+var validate = (instance, schema, options) => {
+  if (!options)
+    options = {};
+  var _changing = options.changing;
+  function getType(schema2) {
+    return schema2.type;
+  }
+  var errors = [];
+  function checkProp(value, schema2, path, scope, i, isNonObjArrayItem) {
+    if (isNonObjArrayItem && typeof i === "number") {
+      if (typeof value === "object") {
+        value = value[Object.keys(value)[0]];
+        if (isNaN(value) && (schema2.type === "number" || schema2.type === "integer"))
+          value = "";
+      }
+      scope = scope + "_" + (i + 1).toString();
+    } else {
+      const parsedPath = path.split(".");
+      let parsedScope = scope.split("/");
+      let parentProp = "";
+      if (parsedScope.length > 1) {
+        parsedScope = parsedScope.splice(0, parsedScope.length - 2);
+        parentProp = parsedScope[parsedScope.length - 1].split("_")[0];
+      }
+      let idxOfArray = -1;
+      parsedPath.forEach((value2) => {
+        if (value2.includes(parentProp)) {
+          let matches = value2.match(/\[(.*?)\]/);
+          if (matches)
+            idxOfArray = parseInt(matches[1]) + 1;
+        }
+      });
+      if (idxOfArray > 0 && getType(schema2) != "object") {
+        scope = scope + "_" + idxOfArray;
+      }
+    }
+    var l;
+    path += path ? typeof i == "number" ? "[" + i + "]" : typeof i == "undefined" ? "" : "." + i : i;
+    function addError(message, scope2, overwritePath) {
+      errors.push({ property: overwritePath || path, scope: scope2, message });
+    }
+    if ((typeof schema2 != "object" || schema2 instanceof Array) && (path || typeof schema2 != "function") && !(schema2 && getType(schema2))) {
+      if (typeof schema2 == "function") {
+        if (!(value instanceof schema2)) {
+          addError("is not an instance of the class/constructor " + schema2.name, scope);
+        }
+      } else if (schema2) {
+        addError("Invalid schema/property definition " + schema2, scope);
+      }
+      return null;
+    }
+    if (_changing && schema2.readOnly) {
+      addError("is a readonly field, it can not be changed", scope);
+    }
+    if (schema2["extends"]) {
+      checkProp(value, schema2["extends"], path, scope, i);
+    }
+    function checkType(type, value2, scope2) {
+      if (type) {
+        if (type != "any" && (type == "null" ? value2 !== null : typeof value2 != type) && !(value2 instanceof Array && type == "array") && typeof type == "string" && !(type == "integer" && value2 % 1 === 0)) {
+          return [{
+            property: path,
+            scope: scope2,
+            message: value2 + " - " + typeof value2 + " value found, but a " + type + " is required"
+          }];
+        }
+        if (type instanceof Array) {
+          let unionErrors = [];
+          for (var j2 = 0; j2 < type.length; j2++) {
+            if (!(unionErrors = checkType(type[j2], value2, scope2)).length) {
+              break;
+            }
+          }
+          if (unionErrors.length) {
+            return unionErrors;
+          }
+        } else if (typeof type == "object") {
+          var priorErrors = errors;
+          errors = [];
+          checkProp(value2, type, path, scope2);
+          var theseErrors = errors;
+          errors = priorErrors;
+          return theseErrors;
+        }
+      }
+      return [];
+    }
+    if (value === void 0 || value === "" || value instanceof Array && !value.length) {
+      if (schema2.required && typeof schema2.required === "boolean") {
+        addError("is missing and it is required", scope);
+      }
+    } else {
+      if (getType(schema2) === "object" && schema2.required instanceof Array) {
+        for (let requiredField of schema2.required) {
+          if (value[requiredField] === void 0 || value[requiredField] === "" || value[requiredField] instanceof Array && !value[requiredField].length) {
+            addError(`is missing and it is required`, scope + "/properties/" + requiredField, requiredField);
+          }
+        }
+      }
+      errors = errors.concat(checkType(getType(schema2), value, scope));
+      if (schema2.disallow && !checkType(schema2.disallow, value, scope).length) {
+        addError(" disallowed value was matched", scope);
+      }
+      if (value !== null) {
+        if (value instanceof Array) {
+          if (schema2.items) {
+            var itemsIsArray = schema2.items instanceof Array;
+            var propDef = schema2.items;
+            for (i = 0, l = value.length; i < l; i += 1) {
+              if (itemsIsArray)
+                propDef = schema2.items[i];
+              if (options.coerce)
+                value[i] = options.coerce(value[i], propDef);
+              if (schema2.items.type == "object") {
+                var errors2 = checkProp(value[i], propDef, path, scope, i);
+                if (errors2)
+                  errors.concat(errors2);
+              }
+            }
+          }
+          if (schema2.minItems && value.length < schema2.minItems) {
+            addError("There must be a minimum of " + schema2.minItems + " in the array", scope);
+          }
+          if (schema2.maxItems && value.length > schema2.maxItems) {
+            addError("There must be a maximum of " + schema2.maxItems + " in the array", scope);
+          }
+        } else if (schema2.properties || schema2.additionalProperties) {
+          errors.concat(checkObj(value, schema2.properties, path, schema2.additionalProperties, scope));
+        }
+        if (schema2.items && schema2.items.type != "object") {
+          for (let i2 = 0; i2 < value.length; i2++) {
+            checkProp(value[i2], schema2.items, path, scope, i2, true);
+          }
+        }
+        if (schema2.pattern && typeof value == "string" && !value.match(schema2.pattern)) {
+          addError("does not match the regex pattern " + schema2.pattern, scope);
+        }
+        if (schema2.maxLength && typeof value == "string" && value.length > schema2.maxLength) {
+          addError("may only be " + schema2.maxLength + " characters long", scope);
+        }
+        if (schema2.minLength && typeof value == "string" && value.length < schema2.minLength) {
+          addError("must be at least " + schema2.minLength + " characters long", scope);
+        }
+        if (typeof schema2.minimum !== "undefined" && typeof value == typeof schema2.minimum && schema2.minimum > value) {
+          addError("must have a minimum value of " + schema2.minimum, scope);
+        }
+        if (typeof schema2.maximum !== "undefined" && typeof value == typeof schema2.maximum && schema2.maximum < value) {
+          addError("must have a maximum value of " + schema2.maximum, scope);
+        }
+        if (schema2["enum"]) {
+          var enumer = schema2["enum"];
+          l = enumer.length;
+          var found;
+          for (var j = 0; j < l; j++) {
+            if (enumer[j] === value) {
+              found = 1;
+              break;
+            }
+          }
+          if (!found) {
+            addError("does not have a value in the enumeration " + enumer.join(", "), scope);
+          }
+        }
+        if (typeof schema2.maxDecimal == "number" && value.toString().match(new RegExp("\\.[0-9]{" + (schema2.maxDecimal + 1) + ",}"))) {
+          addError("may only have " + schema2.maxDecimal + " digits of decimal places", scope);
+        }
+        if (value !== "") {
+          if (schema2.format === "wallet-address") {
+            const regex = new RegExp("^((0x[a-fA-F0-9]{40})|([13][a-km-zA-HJ-NP-Z1-9]{25,34})|(X[1-9A-HJ-NP-Za-km-z]{33})|(4[0-9AB][1-9A-HJ-NP-Za-km-z]{93}))$");
+            if (!regex.test(value))
+              addError("is not a valid wallet address", scope);
+          } else if (schema2.format === "cid") {
+            const regex = new RegExp("^(Qm[1-9A-HJ-NP-Za-km-z]{44,}|b[A-Za-z2-7]{58,}|B[A-Z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]{48,}|F[0-9A-F]{50,})$");
+            if (!regex.test(value))
+              addError("is not a valid cid", scope);
+          } else if (schema2.format === "cid-v0") {
+            const regex = new RegExp("^(Qm[1-9A-HJ-NP-Za-km-z]{44,})$");
+            if (!regex.test(value))
+              addError("is not a valid version 0 cid", scope);
+          } else if (schema2.format === "cid-v1") {
+            const regex = new RegExp("^(b[A-Za-z2-7]{58,}|B[A-Z2-7]{58,}|z[1-9A-HJ-NP-Za-km-z]{48,}|F[0-9A-F]{50,})$");
+            if (!regex.test(value))
+              addError("is not a valid version 1 cid", scope);
+          } else if (schema2.format === "uuid") {
+            const regex = new RegExp("^[0-9a-fA-F]{8}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{4}\\b-[0-9a-fA-F]{12}$");
+            if (!regex.test(value))
+              addError("is not a valid uuid", scope);
+          }
+        }
+      }
+    }
+    return null;
+  }
+  function checkObj(instance2, objTypeDef, path, additionalProp, scope) {
+    if (typeof objTypeDef == "object") {
+      if (typeof instance2 != "object" || instance2 instanceof Array) {
+        errors.push({ property: path, scope, message: "an object is required" });
+      }
+      for (var i in objTypeDef) {
+        if (objTypeDef.hasOwnProperty(i) && i != "__proto__" && i != "constructor") {
+          var value = instance2.hasOwnProperty(i) ? instance2[i] : void 0;
+          if (value === void 0 && options.existingOnly)
+            continue;
+          var propDef = objTypeDef[i];
+          if (value === void 0 && propDef["default"]) {
+            value = instance2[i] = propDef["default"];
+          }
+          if (options.coerce && i in instance2) {
+            value = instance2[i] = options.coerce(value, propDef);
+          }
+          checkProp(value, propDef, path, scope + "/properties/" + i, i);
+        }
+      }
+    }
+    for (i in instance2) {
+      if (instance2.hasOwnProperty(i) && !(i.charAt(0) == "_" && i.charAt(1) == "_") && objTypeDef && !objTypeDef[i] && additionalProp === false) {
+        if (options.filter) {
+          delete instance2[i];
+          continue;
+        } else {
+          errors.push({
+            property: path,
+            message: "The property " + i + " is not defined in the schema and the schema does not allow additional properties",
+            scope
+          });
+        }
+      }
+      var requires = objTypeDef && objTypeDef[i] && objTypeDef[i].requires;
+      if (requires && !(requires in instance2)) {
+        errors.push({
+          property: path,
+          scope,
+          message: "the presence of the property " + i + " requires that " + requires + " also be present"
+        });
+      }
+      value = instance2[i];
+      if (additionalProp && (!(objTypeDef && typeof objTypeDef == "object") || !(i in objTypeDef))) {
+        if (options.coerce) {
+          value = instance2[i] = options.coerce(value, additionalProp);
+        }
+        checkProp(value, additionalProp, path, scope + "/properties/" + i, i);
+      }
+      if (!_changing && value && value.$schema) {
+        const errors2 = checkProp(value, value.$schema, path, scope + "/properties/" + i, i);
+        if (errors2)
+          errors = errors.concat(errors2);
+      }
+    }
+    return errors;
+  }
+  const root = "#";
+  if (schema) {
+    checkProp(instance, schema, "", root, _changing || "");
+  }
+  if (!_changing && instance && instance.$schema) {
+    checkProp(instance, instance.$schema, "", root, "");
+  }
+  return { valid: !errors.length, errors };
+};
+var mustBeValid = (result) => {
+  if (!result.valid) {
+    throw new TypeError(result.errors.map(function(error) {
+      return "for property " + error.property + ": " + error.message;
+    }).join(", \n"));
+  }
+};
+var DataSchemaValidator = {
+  checkPropertyChange,
+  mustBeValid,
+  validate
+};
+function renderUI(target, options, confirmCallback, valueChangedCallback) {
+  const defaultDateFormat = options.dateFormat || "DD/MM/YYYY";
+  const defaultTimeFormat = options.timeFormat || "HH:mm:ss";
+  const defaultDateTimeFormat = options.dateTimeFormat || "DD/MM/YYYY HH:mm:ss";
+  const controls = {};
+  const descriptions = {};
+  const errorMsgs = {};
+  const flatRules = [];
+  const validateOnValueChanged = async (idxScope) => {
+    const data = await getData(options.jsonSchema);
+    const validationResult = validate(data, options.jsonSchema, { changing: false });
+    let showErrMsg = false;
+    let errMsg = "";
+    if ((validationResult == null ? void 0 : validationResult.valid) == false) {
+      for (let idx = 0; idx < validationResult.errors.length; idx++) {
+        if (validationResult.errors[idx].scope == idxScope) {
+          showErrMsg = true;
+          errMsg = validationResult.errors[idx].message;
+        }
+      }
+    }
+    if (showErrMsg == true) {
+      if (descriptions.hasOwnProperty(idxScope))
+        descriptions[idxScope].visible = false;
+      errorMsgs[idxScope].caption = errMsg;
+      errorMsgs[idxScope].visible = true;
+    } else {
+      if (descriptions.hasOwnProperty(idxScope))
+        descriptions[idxScope].visible = true;
+      errorMsgs[idxScope].caption = "";
+      errorMsgs[idxScope].visible = false;
+    }
+    valueChangedCallback && valueChangedCallback(data, errMsg);
+  };
+  const renderForm = (schema, scope = "#", isArray = false, idx, schemaOptions) => {
+    var _a;
+    if (!schema)
+      return void 0;
+    const currentField = scope.substr(scope.lastIndexOf("/") + 1);
+    const labelName = schema.title || (scope != "#/" ? convertFieldNameToLabel(currentField) : "");
+    const columnWidth = options.columnWidth ? options.columnWidth : "100px";
+    const idxScope = idx !== void 0 ? `${scope}_${idx}` : scope;
+    let isRequired = false;
+    let arrRequired = [];
+    if (typeof schema.required === "boolean") {
+      isRequired = schema.required;
+    } else if (typeof schema.required === "object") {
+      arrRequired = schema.required;
+    }
+    if (schema.enum && schema.enum.length > 0 || schema.oneOf && schema.oneOf.length > 0) {
+      const items = [];
+      if (schema.oneOf && schema.oneOf.length > 0) {
+        for (const item of schema.oneOf) {
+          items.push({
+            label: item.title,
+            value: item.const
+          });
+        }
+      } else if (schema.enum && schema.enum.length > 0) {
+        for (const item of schema.enum) {
+          items.push({ label: item, value: item });
+        }
+      }
+      const groupPnl = new Panel();
+      const hStack = new HStack(groupPnl, { gap: 2 });
+      if (!isArray) {
+        new Label(hStack, { caption: labelName });
+        if (isRequired) {
+          new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+        }
+      }
+      const controlPnl = new Panel(groupPnl);
+      let combobox = new ComboBox(controlPnl, {
+        width: "100%",
+        items,
+        icon: { name: "caret-down" },
+        readOnly: schema.readOnly
+      });
+      combobox.id = idxScope;
+      combobox.classList.add(jsonUIComboboxStyle);
+      combobox.onChanged = () => validateOnValueChanged(idxScope);
+      controls[idxScope] = combobox;
+      if (isArray) {
+        controls[idxScope].setAttribute("role", "column");
+        controls[idxScope].setAttribute("field", currentField);
+      }
+      if (schema.description)
+        descriptions[idxScope] = new Label(groupPnl, { caption: schema.description });
+      errorMsgs[idxScope] = new Label(groupPnl, { visible: false, font: { color: "#ff0000" } });
+      return groupPnl;
+    } else if (schema.type === "string") {
+      if (["date", "time", "date-time"].indexOf(schema.format || "") >= 0) {
+        let datePickerType = schema.format;
+        if (schema.format === "date-time")
+          datePickerType = "dateTime";
+        const groupPnl = new Panel();
+        const hStack = new HStack(groupPnl, { gap: 2 });
+        if (!isArray) {
+          new Label(hStack, { caption: labelName });
+          if (isRequired) {
+            new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+          }
+        }
+        const controlPnl = new Panel(groupPnl);
+        let dateTimeFormat;
+        if (schema.format === "date") {
+          dateTimeFormat = defaultDateFormat;
+        } else if (schema.format === "date-time") {
+          dateTimeFormat = defaultDateTimeFormat;
+        } else if (schema.format === "time") {
+          dateTimeFormat = defaultTimeFormat;
+        }
+        const datePicker = new Datepicker(controlPnl, {
+          width: columnWidth,
+          type: datePickerType,
+          dateTimeFormat,
+          readOnly: schema.readOnly
+        });
+        datePicker.id = idxScope;
+        datePicker.onChanged = () => validateOnValueChanged(idxScope);
+        controls[idxScope] = datePicker;
+        if (isArray) {
+          controls[idxScope].setAttribute("role", "column");
+          controls[idxScope].setAttribute("field", currentField);
+          controls[idxScope].setAttribute("format", schema.format || "");
+        }
+        if (schema.description)
+          descriptions[idxScope] = new Label(groupPnl, { caption: schema.description });
+        errorMsgs[idxScope] = new Label(groupPnl, { visible: false, font: { color: "#ff0000" } });
+        return groupPnl;
+      } else if (schema.format === "data-url") {
+        const groupPnl = new Panel();
+        const hStack = new HStack(groupPnl, { gap: 2 });
+        if (!isArray) {
+          new Label(hStack, { caption: labelName });
+          if (isRequired) {
+            new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+          }
+        }
+        const controlPnl = new Panel(groupPnl);
+        let upload = new Upload(controlPnl, {
+          readOnly: schema.readOnly
+        });
+        upload.id = idxScope;
+        upload.onChanged = () => validateOnValueChanged(idxScope);
+        controls[idxScope] = upload;
+        if (isArray) {
+          controls[idxScope].setAttribute("role", "column");
+          controls[idxScope].setAttribute("field", currentField);
+          controls[idxScope].setAttribute("format", schema.format);
+        }
+        return groupPnl;
+      } else {
+        const groupPnl = new Panel();
+        const hStack = new HStack(groupPnl, { gap: 2 });
+        if (!isArray) {
+          new Label(hStack, { caption: labelName });
+          if (isRequired) {
+            new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+          }
+        }
+        const controlPnl = new Panel(groupPnl);
+        let inputType = "text";
+        if (schema.format === "color")
+          inputType = "color";
+        else if (schema.format === "multi")
+          inputType = "textarea";
+        let input = new Input(controlPnl, {
+          width: columnWidth,
+          inputType,
+          readOnly: schema.readOnly
+        });
+        input.id = idxScope;
+        input.onBlur = () => validateOnValueChanged(idxScope);
+        controls[idxScope] = input;
+        if (isArray) {
+          controls[idxScope].setAttribute("role", "column");
+          controls[idxScope].setAttribute("field", currentField);
+        }
+        if (schema.description)
+          descriptions[idxScope] = new Label(groupPnl, { caption: schema.description });
+        errorMsgs[idxScope] = new Label(groupPnl, { visible: false, font: { color: "#ff0000" } });
+        return groupPnl;
+      }
+    } else if (["integer", "number"].indexOf(((_a = schema.type) == null ? void 0 : _a.toString()) || "") >= 0) {
+      const groupPnl = new Panel();
+      const hStack = new HStack(groupPnl, { gap: 2 });
+      if (!isArray) {
+        new Label(hStack, { caption: labelName });
+        if (isRequired) {
+          new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+        }
+      }
+      const controlPnl = new Panel(groupPnl);
+      let inputType = "number";
+      if (schema.type === "integer")
+        inputType = "integer";
+      let input = new Input(controlPnl, {
+        width: columnWidth,
+        inputType,
+        readOnly: schema.readOnly
+      });
+      input.id = idxScope;
+      input.onBlur = () => validateOnValueChanged(idxScope);
+      controls[idxScope] = input;
+      if (isArray) {
+        controls[idxScope].setAttribute("role", "column");
+        controls[idxScope].setAttribute("field", currentField);
+        controls[idxScope].setAttribute("format", inputType);
+      }
+      if (schema.description)
+        descriptions[idxScope] = new Label(groupPnl, { caption: schema.description });
+      errorMsgs[idxScope] = new Label(groupPnl, { visible: false, font: { color: "#ff0000" } });
+      return groupPnl;
+    } else if (schema.type === "boolean") {
+      const groupPnl = new Panel();
+      groupPnl.classList.add(jsonUICheckboxStyle);
+      const hStack = new HStack(groupPnl, { gap: 2 });
+      if (!isArray) {
+        new Label(hStack, { caption: labelName });
+        if (isRequired) {
+          new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+        }
+      }
+      const controlPnl = new Panel(groupPnl);
+      let checkbox = new Checkbox(controlPnl, {
+        readOnly: schema.readOnly
+      });
+      checkbox.id = idxScope;
+      checkbox.onChanged = () => validateOnValueChanged(idxScope);
+      controls[idxScope] = checkbox;
+      if (isArray) {
+        controls[idxScope].setAttribute("role", "column");
+        controls[idxScope].setAttribute("field", currentField);
+      }
+      return groupPnl;
+    } else if (schema.type === "object") {
+      const properties = schema.properties;
+      if (!properties)
+        return void 0;
+      const groupPnl = new Panel(void 0, {
+        border: {
+          width: 1,
+          style: "solid",
+          color: "#EEE",
+          radius: "0.4rem"
+        },
+        padding: {
+          top: 16,
+          bottom: 16,
+          left: 16,
+          right: 16
+        }
+      });
+      const templateColumns = [];
+      if (options.columnsPerRow)
+        for (let i = 0; i < options.columnsPerRow; i++)
+          templateColumns.push("1fr");
+      let form = new GridLayout(void 0, {
+        templateColumns,
+        gap: {
+          row: 10,
+          column: 10
+        },
+        padding: {
+          top: 5,
+          bottom: 5,
+          left: 10,
+          right: 10
+        }
+      });
+      if (scope !== "#") {
+        const pnl = new Panel(groupPnl, {
+          padding: {
+            top: 5,
+            bottom: 5,
+            left: 10,
+            right: 10
+          },
+          border: {
+            bottom: {
+              width: 1,
+              style: "solid",
+              color: "#CCC",
+              radius: 5
+            }
+          }
+        });
+        const hStack = new HStack(pnl, { gap: 2 });
+        new Label(hStack, { caption: labelName, font: { size: "1.6rem" } });
+        if (isRequired) {
+          new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+        }
+      }
+      for (const propertyName in properties) {
+        let currentSchema = properties[propertyName];
+        if (!(currentSchema == null ? void 0 : currentSchema.required) && arrRequired.includes(propertyName)) {
+          currentSchema.required = true;
+        }
+        const control = renderForm(currentSchema, `${idxScope}/properties/${propertyName}`, false, idx);
+        form.append(control);
+      }
+      groupPnl.append(form);
+      controls[idxScope] = groupPnl;
+      return groupPnl;
+    } else if (schema.type === "array") {
+      if (!schema.items)
+        return void 0;
+      let isVertical = false;
+      if (typeof (schemaOptions == null ? void 0 : schemaOptions.detail) === "object") {
+        isVertical = schemaOptions.detail.type === "VerticalLayout";
+      }
+      const groupPnl = new Panel(void 0, {
+        border: {
+          width: 1,
+          style: "solid",
+          color: "#EEE",
+          radius: "0.4rem"
+        },
+        padding: {
+          top: 16,
+          bottom: 16,
+          left: 8,
+          right: 8
+        }
+      });
+      groupPnl.setAttribute("role", "array");
+      const arrayField = scope.split("/");
+      groupPnl.setAttribute("array-field", arrayField[arrayField.length - 1]);
+      groupPnl.setAttribute("array-field-idx", `${idx === void 0 ? "" : idx}`);
+      const pnlTitle = new HStack(groupPnl, {
+        padding: {
+          top: 5,
+          bottom: 5,
+          left: 10,
+          right: 10
+        },
+        border: {
+          bottom: {
+            width: 1,
+            style: "solid",
+            color: "#DADDE1"
+          }
+        },
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "transparent"
+      });
+      const hStack = new HStack(pnlTitle, { gap: 2 });
+      new Label(hStack, { caption: labelName, font: { size: "1rem" } });
+      if (isRequired) {
+        new Label(hStack, { caption: "*", font: { color: "#ff0000" } });
+      }
+      const btnAdd = new Icon(new Panel(pnlTitle), {
+        name: "plus",
+        fill: theme_exports.ThemeVars.colors.primary.main,
+        width: "1em",
+        height: "1em"
+      });
+      btnAdd.classList.add("pointer");
+      btnAdd.setAttribute("role", "add");
+      const pnlItems = new Panel(groupPnl, {
+        padding: {
+          top: 5,
+          bottom: 5,
+          left: 5,
+          right: 5
+        }
+      });
+      const _items = schema.items;
+      const itemsRequired = typeof (_items == null ? void 0 : _items.required) === "object" ? _items.required : [];
+      const updateIndex = (props, newIdx, currentIdx, prefixScope, newPrefix, subIdx) => {
+        var _a2, _b;
+        for (const propertyName in props) {
+          const subIndex = subIdx || 0;
+          const finalIndex = subIdx ? subIndex : newIdx;
+          const currentScope = `${prefixScope}/properties/${propertyName}_${subIdx ? subIndex : currentIdx}`;
+          const newScope = `${newPrefix || prefixScope}/properties/${propertyName}_${finalIndex}`;
+          if (props[propertyName].type === "object") {
+            updateIndex(props[propertyName].properties, newIdx, currentIdx, currentScope, newScope);
+          } else if (props[propertyName].type === "array" && ((_a2 = props[propertyName].items) == null ? void 0 : _a2.type) === "object") {
+            const rows = ((_b = controls[currentScope]) == null ? void 0 : _b.querySelectorAll(":scope > i-panel > [role='row']")) || [];
+            let _currentItemIdx = 0;
+            while (_currentItemIdx < rows.length) {
+              _currentItemIdx++;
+              updateIndex(props[propertyName].items.properties, newIdx, currentIdx, currentScope, newScope, subIndex + _currentItemIdx);
+            }
+          }
+          const parentLayout = controls[newScope].closest("[array-item-idx");
+          if (parentLayout) {
+            parentLayout.setAttribute("array-item-idx", `${newIdx}`);
+            parentLayout["options"]["array-item-idx"] = `${newIdx}`;
+          }
+          updateSingleIndex(currentScope, newScope, finalIndex);
+        }
+      };
+      const updateNonObjIndex = (newIdx, currentIdx, prefixScope) => {
+        const currentScope = `${prefixScope}_${currentIdx}`;
+        const newScope = `${prefixScope}_${newIdx}`;
+        updateSingleIndex(currentScope, newScope);
+      };
+      const updateSingleIndex = (currentScope, newScope, finalIndex) => {
+        const tempControl = controls[currentScope];
+        controls[newScope] = tempControl;
+        if (controls[newScope].id) {
+          controls[newScope].id = newScope;
+        } else if (controls[newScope].getAttribute("object-field-idx") && finalIndex != void 0) {
+          controls[newScope].setAttribute("object-field-idx", `${finalIndex}`);
+          controls[newScope]["options"]["object-field-idx"] = `${finalIndex}`;
+        } else if (controls[newScope].getAttribute("array-field-idx") && finalIndex != void 0) {
+          controls[newScope].setAttribute("array-field-idx", `${finalIndex}`);
+          controls[newScope]["options"]["array-field-idx"] = `${finalIndex}`;
+        }
+        const tempErrMsg = errorMsgs[currentScope];
+        if (tempErrMsg) {
+          errorMsgs[newScope] = tempErrMsg;
+          controls[newScope].onChanged = () => validateOnValueChanged(newScope);
+        }
+        const tempDescription = descriptions[currentScope];
+        if (tempDescription) {
+          descriptions[newScope] = tempDescription;
+        }
+        delete descriptions[currentScope];
+        delete errorMsgs[currentScope];
+        delete controls[currentScope];
+      };
+      const isObject = _items.type === "object";
+      if (!isObject)
+        isVertical = true;
+      if (isVertical && _items.type) {
+        const addCard = () => {
+          const index = groupPnl.querySelectorAll(":scope > i-panel > [role='row']").length + 1;
+          const arrIndex = groupPnl.getAttribute("array-field-idx") || idx;
+          const newIdxScope = idx !== void 0 ? `${scope}_${arrIndex}` : scope;
+          const gridSize = isObject ? ["1fr", "3fr"] : ["3fr", "1fr"];
+          const gridLayout = new GridLayout(pnlItems, {
+            templateColumns: gridSize,
+            border: {
+              bottom: {
+                width: 1,
+                style: "solid",
+                color: "#DADDE1"
+              }
+            },
+            padding: {
+              top: 32,
+              bottom: 32,
+              left: 8,
+              right: 8
+            },
+            gap: {
+              row: 10,
+              column: 10
+            }
+          });
+          gridLayout.position = "relative";
+          gridLayout.setAttribute("role", "row");
+          gridLayout.setAttribute("array-item-idx", `${index}`);
+          if (isObject == false) {
+            if (schema.required === true) {
+              _items.required = true;
+            }
+            const control = renderForm(_items, `${idxScope}`, true, index);
+            if (control) {
+              control.setAttribute("object-field-idx", `${index}`);
+              gridLayout.append(control);
+            }
+          } else if (typeof _items === "object" && _items.type === "object" && _items.properties) {
+            for (const propertyName in _items.properties) {
+              let property = schema.items.properties[propertyName];
+              if (!(property == null ? void 0 : property.required) && (arrRequired.includes(propertyName) || itemsRequired.includes(propertyName))) {
+                property.required = true;
+              }
+              const control = renderForm(property, `${newIdxScope}/properties/${propertyName}`, true, index);
+              if (control && (property == null ? void 0 : property.type) === "object") {
+                control.setAttribute("object-field", propertyName);
+                control.setAttribute("object-field-idx", `${index}`);
+                const lb = control.querySelector(":scope > i-panel");
+                if (lb) {
+                  lb.style.display = "none";
+                }
+              }
+              ;
+              const hStack2 = new HStack(void 0, { gap: 2 });
+              const _property = property;
+              new Label(hStack2, { caption: _property.title || convertFieldNameToLabel(propertyName) });
+              if (_property.required) {
+                new Label(hStack2, { caption: "*", font: { color: "#ff0000" } });
+              }
+              gridLayout.append(hStack2);
+              gridLayout.append(control);
+            }
+          }
+          const btnDelete = new Icon(void 0, {
+            name: "times",
+            fill: "#ff0000",
+            width: "1rem",
+            height: "1rem"
+          });
+          if (!isObject) {
+            const hStack2 = new HStack(gridLayout, {
+              height: "40px",
+              padding: {
+                top: 10,
+                bottom: 10,
+                left: 15,
+                right: 15
+              }
+            });
+            hStack2.verticalAlignment = "center";
+            hStack2.horizontalAlignment = "end";
+            hStack2.append(btnDelete);
+          } else {
+            btnDelete.style.top = "5px";
+            btnDelete.style.right = "5px";
+            gridLayout.append(btnDelete);
+          }
+          btnDelete.position = "absolute";
+          btnDelete.classList.add("pointer");
+          btnDelete.onClick = () => {
+            let currentIdx = Number(gridLayout.getAttribute("array-item-idx") || "1");
+            let newIdx = Number(gridLayout.getAttribute("array-item-idx") || "1");
+            let idxItem = groupPnl.querySelectorAll(":scope > i-panel > [role='row']").length;
+            while (newIdx < idxItem) {
+              currentIdx++;
+              if (isObject)
+                updateIndex(_items.properties, newIdx, currentIdx, newIdxScope);
+              else
+                updateNonObjIndex(newIdx, currentIdx, newIdxScope);
+              newIdx = Number(currentIdx);
+            }
+            gridLayout.remove();
+          };
+        };
+        btnAdd.onClick = () => {
+          addCard();
+        };
+        addCard();
+      } else {
+        let colCount = 0;
+        if (schema.items instanceof Array)
+          colCount = schema.items.length;
+        else if (typeof schema.items === "object" && schema.items.type === "object" && schema.items.properties)
+          colCount = Object.keys(schema.items.properties).length;
+        const templateColumns = [];
+        for (let i = 0; i < colCount; i++)
+          templateColumns.push("1fr");
+        templateColumns.push("1em");
+        const headerColumn = new GridLayout(pnlItems, {
+          templateColumns,
+          border: {
+            top: {
+              width: 1,
+              style: "solid",
+              color: "#DADDE1"
+            },
+            bottom: {
+              width: 1,
+              style: "solid",
+              color: "#DADDE1"
+            }
+          },
+          padding: {
+            top: 16,
+            bottom: 16,
+            left: 16,
+            right: 16
+          },
+          gap: {
+            row: 10,
+            column: 10
+          }
+        });
+        if (schema.items instanceof Array) {
+          for (const item of schema.items) {
+            const _item = item;
+            if (_item.title) {
+              const hStack2 = new HStack(headerColumn, { gap: 2 });
+              new Label(hStack2, { caption: _item.title });
+              if (_item.required) {
+                new Label(hStack2, { caption: "*", font: { color: "#ff0000" } });
+              }
+            }
+          }
+        } else if (typeof schema.items === "object") {
+          if (schema.items.type === "object" && schema.items.properties) {
+            for (const propertyName in schema.items.properties) {
+              let property = schema.items.properties[propertyName];
+              if (!(property == null ? void 0 : property.required) && (arrRequired.includes(propertyName) || itemsRequired.includes(propertyName))) {
+                property.required = true;
+              }
+              const hStack2 = new HStack(headerColumn, { gap: 2 });
+              const _property = property;
+              new Label(hStack2, { caption: _property.title || convertFieldNameToLabel(propertyName) });
+              if (_property.required) {
+                new Label(hStack2, { caption: "*", font: { color: "#ff0000" } });
+              }
+            }
+          }
+        }
+        const addRow = () => {
+          const index = groupPnl.querySelectorAll(":scope > i-panel > [role='row']").length + 1;
+          const arrIndex = groupPnl.getAttribute("array-field-idx") || idx;
+          const newIdxScope = idx !== void 0 ? `${scope}_${arrIndex}` : scope;
+          const bodyColumn = new GridLayout(pnlItems, {
+            templateColumns,
+            gap: {
+              row: 10,
+              column: 10
+            },
+            padding: {
+              top: 16,
+              bottom: 16,
+              left: 16,
+              right: 16
+            },
+            border: {
+              bottom: {
+                width: 1,
+                style: "solid",
+                color: "#DADDE1"
+              }
+            }
+          });
+          bodyColumn.setAttribute("role", "row");
+          bodyColumn.setAttribute("array-item-idx", `${index}`);
+          if (typeof schema.items === "object" && _items.type === "object" && _items.properties) {
+            for (const propertyName in _items.properties) {
+              const property = schema.items.properties[propertyName];
+              if (!(property == null ? void 0 : property.required) && (arrRequired.includes(propertyName) || itemsRequired.includes(propertyName))) {
+                property.required = true;
+              }
+              const control = renderForm(property, `${newIdxScope}/properties/${propertyName}`, true, index);
+              if (control && (property == null ? void 0 : property.type) === "object") {
+                control.setAttribute("object-field", propertyName);
+                control.setAttribute("object-field-idx", `${index}`);
+                const lb = control.querySelector(":scope > i-panel");
+                if (lb) {
+                  lb.style.display = "none";
+                }
+              }
+              ;
+              bodyColumn.append(control);
+            }
+            const btnDelete = new Icon(bodyColumn, {
+              name: "times",
+              fill: "#ff0000",
+              width: "1em",
+              height: "1em",
+              margin: {
+                top: "0.75em"
+              }
+            });
+            btnDelete.classList.add("pointer");
+            btnDelete.onClick = () => {
+              let currentIdx = Number(bodyColumn.getAttribute("array-item-idx") || "1");
+              let newIdx = Number(bodyColumn.getAttribute("array-item-idx") || "1");
+              let idxItem = groupPnl.querySelectorAll(":scope > i-panel > [role='row']").length;
+              while (newIdx < idxItem) {
+                currentIdx++;
+                updateIndex(_items.properties, newIdx, currentIdx, newIdxScope);
+                newIdx = Number(currentIdx);
+              }
+              bodyColumn.remove();
+            };
+          }
+        };
+        addRow();
+        btnAdd.onClick = () => {
+          addRow();
+        };
+      }
+      controls[idxScope] = groupPnl;
+      return groupPnl;
+    } else if (schema.type === "null") {
+      return void 0;
+    } else if (schema.type === "any") {
+      return void 0;
+    } else
+      return void 0;
+  };
+  const renderFormBySchema = (dataSchema, uiSchema, scope = "#") => {
+    if (!dataSchema || !uiSchema)
+      return;
+    clearUI();
+    let uiWrapper = new Panel(target, {
+      padding: {
+        left: 10,
+        right: 10,
+        top: 0,
+        bottom: 10
+      }
+    });
+    uiWrapper.id = "uiWrapper";
+    let formTabs = new Tabs(uiWrapper, {
+      mode: "vertical"
+    });
+    formTabs.id = "formTabs";
+    formTabs.classList.add(jsonUITabStyle);
+    formTabs.visible = ["Categorization", "Category"].includes(uiSchema.type);
+    let ui = createUI(uiSchema);
+    if (ui)
+      uiWrapper.append(ui);
+    setupRules();
+  };
+  const setupRules = () => {
+    for (const item of flatRules) {
+      const { rule, elm } = item;
+      if (rule && rule.condition && rule.condition.scope && rule.condition.schema) {
+        const control = document.getElementById(rule.condition.scope);
+        if (control) {
+          const toggleValidate = () => {
+            if (rule.effect === "HIDE" || rule.effect === "SHOW") {
+              if (control.checked === rule.condition.schema.const) {
+                elm.visible = rule.effect === "SHOW";
+              } else {
+                elm.visible = !(rule.effect === "SHOW");
+              }
+            } else if (rule.effect == "ENABLE" || rule.effect == "DISABLE") {
+              if (control.checked === rule.condition.schema.const) {
+                elm.enabled = rule.effect === "ENABLE";
+              } else {
+                elm.enabled = !(rule.effect === "ENABLE");
+              }
+            }
+          };
+          if (control.tagName === "I-CHECKBOX" || control.tagName === "I-SWITCH") {
+            control.onChanged = (target2, event) => {
+              toggleValidate();
+            };
+            toggleValidate();
+          }
+        }
+      }
+    }
+  };
+  const clearUI = () => {
+    let uiWrapper = document.getElementById("uiWrapper");
+    if (uiWrapper)
+      uiWrapper.innerHTML = "";
+  };
+  const generateTemplateColumnsByNumber = (count) => {
+    let columns = [];
+    for (let i = 0; i < count; i++)
+      columns.push("1fr");
+    return columns;
+  };
+  const getDataSchemaByScope = (scope) => {
+    const segments = scope.split("/");
+    let obj = {};
+    for (const segment of segments) {
+      if (segment === "#")
+        obj = options.jsonSchema;
+      else
+        obj = obj[segment];
+    }
+    if (obj == void 0)
+      console.log("No corresponding scope:", scope);
+    return [segments[segments.length - 1], obj];
+  };
+  const createUI = (uiSchema, carryData) => {
+    if (!uiSchema)
+      return null;
+    const { elements, type, scope, label, options: options2, rule } = uiSchema;
+    if (type === "VerticalLayout") {
+      const elm = new VStack(void 0, {
+        justifyContent: "center",
+        alignItems: "center"
+      });
+      if (elements)
+        elements.map((v) => {
+          let ui = createUI(v);
+          if (ui)
+            elm.append(ui);
+        });
+      if (rule)
+        flatRules.push({ elm, rule });
+      return elm;
+    } else if (type === "HorizontalLayout") {
+      const elm = new GridLayout(void 0, {
+        width: "100%",
+        gap: { column: 16 },
+        templateColumns: elements ? generateTemplateColumnsByNumber(elements.length) : ""
+      });
+      if (elements)
+        elements.map((v) => {
+          let ui = createUI(v);
+          if (ui)
+            elm.append(ui);
+        });
+      if (rule)
+        flatRules.push({ elm, rule });
+      return elm;
+    } else if (type === "Group") {
+      const elm = new Panel(void 0, {
+        width: "100%"
+      });
+      elm.classList.add("box");
+      if (label !== false && !!label) {
+        let boxHeader = new Panel(elm);
+        let boxHeaderLabel = new Label(boxHeader, {
+          caption: label
+        });
+        boxHeaderLabel.classList.add("box-header");
+      }
+      const boxContent = new Panel(elm);
+      boxContent.classList.add("box-content");
+      if (elements)
+        elements.map((v) => {
+          let ui = createUI(v);
+          if (ui)
+            boxContent.append(ui);
+        });
+      if (rule)
+        flatRules.push({ elm, rule });
+      return elm;
+    } else if (type === "Categorization") {
+      let elm = new Tabs();
+      elm.classList.add(jsonUITabStyle);
+      let formTabs = document.getElementById("formTabs");
+      if (formTabs)
+        formTabs.visible = true;
+      if (elements) {
+        for (let i = 0; i < elements.length; i++) {
+          const element = elements[i];
+          createUI(element, { tabs: formTabs, index: i });
+        }
+      }
+      elm = formTabs;
+      if (rule)
+        flatRules.push({ elm, rule });
+      return formTabs;
+    } else if (type === "Category") {
+      let caption;
+      if (label !== false) {
+        caption = label;
+      }
+      if (carryData && carryData.tabs && carryData.index != void 0) {
+        const children = new Panel(void 0, {
+          padding: {
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10
+          }
+        });
+        if (elements) {
+          for (const element of elements) {
+            let ui = createUI(element);
+            if (ui)
+              children.append(ui);
+          }
+        }
+        let tabCaption = typeof caption == "boolean" ? "" : caption;
+        const formTabs = document.getElementById("formTabs");
+        let tab = formTabs.add({ caption: tabCaption, children });
+        formTabs.activeTabIndex = 0;
+        if (rule)
+          flatRules.push({ elm: tab, rule });
+      }
+    } else if (type === "Control" && scope) {
+      const [key2, dataSchema] = getDataSchemaByScope(scope);
+      const stub = new Panel(void 0, {
+        padding: {
+          left: 5,
+          right: 5,
+          top: 5,
+          bottom: 5
+        }
+      });
+      stub.classList.add("form-group");
+      let caption, labelElm, descriptionElm;
+      let formControlElm = new Panel();
+      formControlElm.classList.add("form-control");
+      let hideLabel = false;
+      if (label !== false) {
+        caption = label;
+        if (!caption)
+          caption = convertFieldNameToLabel(key2);
+      }
+      const control = renderForm(dataSchema, scope, false, void 0, options2);
+      formControlElm.append(control);
+      if (formControlElm)
+        stub.append(formControlElm);
+      if (descriptionElm)
+        stub.append(descriptionElm);
+      if (rule) {
+        flatRules.push({ elm: stub, rule });
+      }
+      ;
+      return stub;
+    } else
+      return null;
+  };
+  const setData = (schema, data, scope = "#", idx) => {
+    var _a;
+    if (!schema || !data)
+      return;
+    const idxScope = idx !== void 0 ? `${scope}_${idx}` : scope;
+    if (schema.type === "object") {
+      if (!schema.properties)
+        return;
+      for (const propertyName in schema.properties) {
+        setData(schema.properties[propertyName], data[propertyName], `${idxScope}/properties/${propertyName}`, idx);
+      }
+    } else if (schema.type === "array") {
+      if (typeof schema.items === "object" && schema.items.properties) {
+        const grid = controls[idxScope];
+        const btnAdd = grid.querySelector("[role='add']");
+        let rows = grid.querySelectorAll("[role='row']");
+        if (data instanceof Array) {
+          for (let i = 0; i < data.length; i++) {
+            const columnData = data[i];
+            if (btnAdd && i > 0)
+              btnAdd.onClick(btnAdd);
+            if (typeof columnData === "object") {
+              for (const propertyName in columnData) {
+                const fieldData = columnData[propertyName];
+                rows = grid.querySelectorAll(":scope > i-panel > [role='row']");
+                if (rows) {
+                  const row = rows[rows.length - 1];
+                  const column = row.querySelector(`[role='column'][field='${propertyName}']`);
+                  if (column) {
+                    if (column.tagName === "I-CHECKBOX") {
+                      column.checked = fieldData;
+                    } else if (column.tagName === "I-COMBO-BOX") {
+                      column.selectedItem = column.items.find((v) => v.value === fieldData) || void 0;
+                    } else if (column.tagName === "I-DATEPICKER") {
+                      const format = column.getAttribute("format");
+                      let dateFormat;
+                      if (format === "date")
+                        dateFormat = defaultDateFormat;
+                      else if (format === "time")
+                        dateFormat = defaultTimeFormat;
+                      else
+                        dateFormat = defaultDateTimeFormat;
+                      column.value = (0, import_moment.default)(fieldData, dateFormat);
+                    } else {
+                      column.value = fieldData;
+                    }
+                    continue;
+                  }
+                  const properties = ((_a = schema.items) == null ? void 0 : _a.properties) || {};
+                  const objectField = row.querySelector(`:scope > [object-field='${propertyName}']`);
+                  if (objectField) {
+                    const idxObj = objectField.getAttribute("object-field-idx");
+                    setData(properties[propertyName], fieldData, `${idxScope}/properties/${propertyName}`, Number(idxObj));
+                    continue;
+                  }
+                  const arrayField = row.querySelector(`:scope > [array-field='${propertyName}']`);
+                  if (arrayField) {
+                    const idxObj = arrayField.getAttribute("array-field-idx");
+                    setData(properties[propertyName], fieldData, `${idxScope}/properties/${propertyName}`, Number(idxObj));
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        const grid = controls[idxScope];
+        const btnAdd = grid.querySelector("[role='add']");
+        for (let i = 0; i < data.length; i++) {
+          if (btnAdd && i > 0)
+            btnAdd.onClick(btnAdd);
+          if (typeof schema.items != "boolean" && typeof schema.items != "undefined")
+            setData(schema.items, data[i], `${scope}_${i + 1}`);
+        }
+      }
+    } else {
+      const control = controls[idxScope];
+      if (control.tagName === "I-CHECKBOX")
+        control.checked = data;
+      else if (control.tagName === "I-DATEPICKER")
+        control.value = (0, import_moment.default)(data);
+      else if (control.tagName === "I-COMBO-BOX") {
+        control.selectedItem = control.items.find((v) => v.value === data) || void 0;
+      } else
+        control.value = data;
+    }
+  };
+  const getData = async (schema, scope = "#", idx) => {
+    var _a, _b, _c, _d;
+    if (!schema)
+      return null;
+    const idxScope = idx !== void 0 ? `${scope}_${idx}` : scope;
+    if (schema.type === "object") {
+      const properties = schema.properties;
+      if (!properties)
+        return void 0;
+      const data = {};
+      for (const propertyName in properties) {
+        data[propertyName] = await getData(properties[propertyName], `${idxScope}/properties/${propertyName}`, idx);
+      }
+      return data;
+    } else if (schema.type === "array") {
+      const grid = controls[idxScope];
+      if (!grid)
+        return void 0;
+      const rows = grid.querySelectorAll("[role='row']");
+      if (!rows)
+        return void 0;
+      const listData = [];
+      for (const row of rows) {
+        const parentRow = row.closest("[role='array']");
+        if (parentRow !== grid)
+          continue;
+        const columns = row.querySelectorAll("[role='column']");
+        const objects = row.querySelectorAll(":scope > [object-field]");
+        const arrayField = row.querySelectorAll(":scope > [array-field]");
+        if (!columns && !objects && !arrayField)
+          continue;
+        const columnData = {};
+        for (const column of columns) {
+          const parentCol = column.closest("[role='row']");
+          if (parentCol !== row)
+            continue;
+          const fieldName = column.getAttribute("field");
+          if (!fieldName)
+            continue;
+          if (column.tagName === "I-CHECKBOX") {
+            columnData[fieldName] = column.checked;
+          } else if (column.tagName === "I-COMBO-BOX") {
+            columnData[fieldName] = (_a = column.value) == null ? void 0 : _a.value;
+          } else if (column.tagName === "I-DATEPICKER") {
+            const format = column.getAttribute("format");
+            let dateFormat;
+            if (format === "date")
+              dateFormat = defaultDateFormat;
+            else if (format === "time")
+              dateFormat = defaultTimeFormat;
+            else
+              dateFormat = defaultDateTimeFormat;
+            columnData[fieldName] = ((_b = column.value) == null ? void 0 : _b.format(dateFormat)) || "";
+          } else if (column.tagName === "I-UPLOAD") {
+            if (!column.fileList || column.fileList && column.fileList.length === 0)
+              return void 0;
+            columnData[fieldName] = await column.toBase64(column.fileList[0]);
+          } else if (column.tagName === "I-INPUT") {
+            const format = column.getAttribute("format");
+            if (format === "number")
+              columnData[fieldName] = parseFloat(column.value);
+            else if (format === "integer")
+              columnData[fieldName] = parseInt(column.value);
+            else
+              columnData[fieldName] = column.value;
+          }
+        }
+        const properties = ((_c = schema.items) == null ? void 0 : _c.properties) || {};
+        for (const obj of objects) {
+          const field = obj.getAttribute("object-field");
+          const idxObj = obj.getAttribute("object-field-idx");
+          if (field && properties[field]) {
+            columnData[field] = await getData(properties[field], `${idxScope}/properties/${field}`, Number(idxObj));
+          }
+        }
+        for (const card of arrayField) {
+          const field = card.getAttribute("array-field");
+          const idxObj = card.getAttribute("array-field-idx");
+          if (field && properties[field]) {
+            columnData[field] = await getData(properties[field], `${idxScope}/properties/${field}`, Number(idxObj));
+          }
+        }
+        listData.push(columnData);
+      }
+      return listData;
+    } else {
+      const control = controls[idxScope];
+      if (!control)
+        return void 0;
+      if (control.tagName === "I-CHECKBOX")
+        return control.checked;
+      else if (control.tagName === "I-COMBO-BOX") {
+        return (_d = control.value) == null ? void 0 : _d.value;
+      } else if (control.tagName === "I-DATEPICKER") {
+        const value = control.value;
+        if (value === void 0)
+          return "";
+        if (schema.format === "date")
+          return (value == null ? void 0 : value.format(defaultDateFormat)) || "";
+        else if (schema.format === "time")
+          return (value == null ? void 0 : value.format(defaultTimeFormat)) || "";
+        else if (schema.format === "date-time")
+          return (value == null ? void 0 : value.format(defaultDateTimeFormat)) || "";
+      } else if (control.tagName === "I-UPLOAD") {
+        if (!control.fileList || control.fileList && control.fileList.length === 0)
+          return void 0;
+        const dataUrl = await control.toBase64(control.fileList[0]);
+        return dataUrl;
+      } else if (control.tagName === "I-INPUT") {
+        if (schema.type === "string")
+          return control.value;
+        else if (schema.type === "integer") {
+          const value = parseInt(control.value);
+          return isNaN(value) ? void 0 : value;
+        } else if (schema.type === "number") {
+          const value = parseFloat(control.value);
+          return isNaN(value) ? void 0 : value;
+        } else
+          return control.value;
+      }
+      return control.value;
+    }
+  };
+  const panel = new Panel();
+  if (options == null ? void 0 : options.jsonUISchema) {
+    renderFormBySchema(options.jsonSchema, options.jsonUISchema);
+  } else {
+    const form = renderForm(options.jsonSchema);
+    panel.append(form);
+  }
+  const pnlButton = new HStack();
+  const confirmButtonCaption = options.confirmButtonCaption ? options.confirmButtonCaption : "Confirm";
+  const buttonStack = new HStack(void 0, {
+    justifyContent: "end",
+    alignItems: "center",
+    width: "100%",
+    padding: {
+      left: 10,
+      right: 10,
+      top: 5,
+      bottom: 5
+    }
+  });
+  if (options.showClearButton) {
+    const clearButtonCaption = options.clearButtonCaption ? options.clearButtonCaption : "Clear";
+    const btnClear = new Button(buttonStack, {
+      caption: clearButtonCaption,
+      padding: {
+        top: 5,
+        bottom: 5,
+        left: 5,
+        right: 5
+      },
+      margin: {
+        right: 5
+      },
+      font: {
+        color: options.clearButtonFontColor ? options.clearButtonFontColor : "#FFF"
+      },
+      background: {
+        color: options.clearButtonBackgroundColor ? options.clearButtonBackgroundColor : "#3F51B5"
+      }
+    });
+    btnClear.onClick = () => {
+      for (const scope in controls) {
+        const control = controls[scope];
+        if (control.tagName === "I-COMBO-BOX")
+          control.clear();
+        else if (control.tagName === "I-CHECKBOX")
+          control.checked = false;
+        else
+          control.value = void 0;
+      }
+    };
+  }
+  if (!options.hideConfirmButton) {
+    const btnConfirm = new Button(buttonStack, {
+      caption: confirmButtonCaption,
+      padding: {
+        top: 5,
+        bottom: 5,
+        left: 5,
+        right: 5
+      },
+      font: {
+        color: options.confirmButtonFontColor ? options.confirmButtonFontColor : "#FFF"
+      },
+      background: {
+        color: options.confirmButtonBackgroundColor ? options.confirmButtonBackgroundColor : "#3F51B5"
+      }
+    });
+    btnConfirm.onClick = async () => {
+      if (!confirmCallback)
+        return;
+      const data = await getData(options.jsonSchema);
+      const validationResult = validate(data, options.jsonSchema, { changing: false });
+      if (validationResult == null ? void 0 : validationResult.valid)
+        confirmCallback(true, data);
+      else
+        confirmCallback(false, validationResult);
+    };
+    panel.append(pnlButton);
+  }
+  if (target) {
+    target.append(panel);
+    if (buttonStack.childNodes.length > 0) {
+      target.append(buttonStack);
+    }
+    if (options.data) {
+      const validationResult = validate(options.data, options.jsonSchema, { changing: false });
+      if (validationResult == null ? void 0 : validationResult.valid)
+        setData(options.jsonSchema, options.data);
+      else
+        console.log(validationResult);
+    }
+  }
+}
+function convertFieldNameToLabel(name) {
+  let label = "";
+  for (let i = 0; i < name.length; i++) {
+    let char = name[i];
+    if (i == 0) {
+      label += char.toUpperCase();
+      continue;
+    }
+    if (char == char.toUpperCase())
+      label += ` ${char}`;
+    else
+      label += char;
+  }
+  return label;
+}
+
+// packages/application/src/index.ts
+var API_IPFS_BASEURL = "/api/ipfs/v0";
+var IpfsDataType;
+(function(IpfsDataType2) {
+  IpfsDataType2[IpfsDataType2["Raw"] = 0] = "Raw";
+  IpfsDataType2[IpfsDataType2["Directory"] = 1] = "Directory";
+  IpfsDataType2[IpfsDataType2["File"] = 2] = "File";
+  IpfsDataType2[IpfsDataType2["Metadata"] = 3] = "Metadata";
+  IpfsDataType2[IpfsDataType2["Symlink"] = 4] = "Symlink";
+  IpfsDataType2[IpfsDataType2["HAMTShard"] = 5] = "HAMTShard";
+})(IpfsDataType || (IpfsDataType = {}));
+var Application = class {
+  constructor() {
+    this.modules = {};
+    this.modulesId = {};
+    this.scripts = {};
+    this.id = 0;
+    this.LibHost = "";
+    this.packages = {};
+    this.cidItems = {};
+    this.globalEvents = new GlobalEvents();
+  }
+  get EventBus() {
+    return EventBus.getInstance();
+  }
+  static get Instance() {
+    return this._instance || (this._instance = new this());
+  }
+  assets(name) {
+    if (this._assets) {
+      let items = name.split("/");
+      let value = this._assets;
+      let item = items.shift();
+      ;
+      while (value && item) {
+        value = value[item];
+        item = items.shift();
+      }
+      ;
+      return value;
+    }
+    ;
+  }
+  async postData(endpoint, data) {
+    data = data || {};
+    const response = await fetch(endpoint, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data)
+    });
+    return response.json();
+  }
+  async showUploadModal() {
+    if (!this._uploadModal)
+      this._uploadModal = new UploadModal();
+    this._uploadModal.show();
+  }
+  async getUploadUrl(item) {
+    let { data } = await this.postData(`${API_IPFS_BASEURL}/upload`, { data: item });
+    return data || {};
+  }
+  async uploadData(fileName, content) {
+    let cid = await hashContent(content);
+    let item = {
+      cid: cid.cid,
+      name: fileName,
+      size: cid.size,
+      type: "file"
+    };
+    let dir = await hashItems([item]);
+    let data = await this.getUploadUrl(dir);
+    if ((data == null ? void 0 : data[dir.cid]) && (data == null ? void 0 : data[cid.cid])) {
+      let dirStatus = await this.upload(data[dir.cid], JSON.stringify(dir));
+      let fileStatus = await this.upload(data[cid.cid], content);
+      if (dirStatus == 200 && fileStatus == 200)
+        return { success: true, data: dir };
+      else
+        return { success: false, error: `Failed to upload file. Status code: ${fileStatus}` };
+    } else
+      return { success: false };
+  }
+  async uploadFile(extensions) {
+    return new Promise(async (resolve, reject) => {
+      const input = document.createElement("input");
+      input.type = "file";
+      if (extensions) {
+        const accept = Array.isArray(extensions) ? extensions.map((ext) => `.${ext}`).join(",") : `.${extensions}`;
+        input.accept = accept;
+      }
+      ;
+      input.addEventListener("change", async () => {
+        var _a;
+        const file = (_a = input.files) == null ? void 0 : _a[0];
+        if (file) {
+          file.path = `/${file.name}`;
+          file.cid = await hashFile(file);
+          let dir = await hashFiles([file]);
+          let { data } = await this.postData(`${API_IPFS_BASEURL}/upload`, { data: dir });
+          if (data == null ? void 0 : data[file.cid.cid]) {
+            let result = await this.upload(data[file.cid.cid], file);
+          }
+          ;
+          if (data == null ? void 0 : data[dir.cid]) {
+            let result = await this.upload(data[dir.cid], JSON.stringify(dir));
+          }
+          ;
+          resolve({
+            success: true,
+            data: dir
+          });
+        } else {
+          reject({ success: false, error: "No file selected" });
+        }
+      });
+      input.click();
+    });
+  }
+  async uploadTo(targetCid, items) {
+    let cid = await (await fetch(`/ipfs/${targetCid}`)).json();
+    if (cid == null ? void 0 : cid.links) {
+      for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+        let exists = false;
+        for (let k = 0; k < cid.links.length; k++) {
+          if (cid.links[k].name == item.cid.name) {
+            cid.links[k] = item.cid;
+            exists = true;
+            break;
+          }
+          ;
+        }
+        ;
+        if (!exists)
+          cid.links.push(item.cid);
+      }
+      ;
+      let newCid = await hashItems(cid.links);
+      let uploadUrl = await this.getUploadUrl(newCid);
+      for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+        if (uploadUrl[item.cid.cid]) {
+          let data;
+          if (item.cid.type == "dir")
+            data = item.data || JSON.stringify(item.cid);
+          else
+            data = item.data;
+          if (!data)
+            throw new Error(`Missing upload data: ${item.cid.name}`);
+          let result = await this.upload(uploadUrl[item.cid.cid], data);
+          if (result != 200)
+            throw new Error(`File upload failed: ${item.cid.name}`);
+        }
+        ;
+      }
+      ;
+      if (uploadUrl[newCid.cid]) {
+        let result = await this.upload(uploadUrl[newCid.cid], JSON.stringify(newCid));
+        if (result != 200)
+          throw new Error(`File upload failed: ${newCid.cid}`);
+      }
+      ;
+      return {
+        success: true,
+        data: newCid
+      };
+    }
+    ;
+    throw new Error(`Target CID not found: ${targetCid}`);
+  }
+  async upload(url, data) {
+    return new Promise(async (resolve) => {
+      if (typeof data == "string") {
+        let result = await fetch(url, {
+          method: "PUT",
+          body: data
+        });
+        resolve(result.status);
+      } else {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          let result = await fetch(url, {
+            method: "PUT",
+            body: reader.result
+          });
+          resolve(result.status);
+        };
+        reader.onerror = () => {
+          resolve(0);
+        };
+        reader.readAsArrayBuffer(data);
+      }
+      ;
+    });
+  }
+  async getCidItem(host, cid, paths) {
+    if (paths.length > 0) {
+      let cidItem = this.cidItems[cid];
+      if (!cidItem) {
+        try {
+          let data = localStorage.getItem(cid);
+          if (data)
+            cidItem = JSON.parse(data);
+        } catch (err) {
+        }
+        ;
+        if (!cidItem)
+          cidItem = await (await fetch(`${host}/${cid}`)).json();
+        let id = await hashItems(cidItem.links);
+        if (id.cid != cid)
+          throw new Error("CID not match");
+        try {
+          localStorage.setItem(cid, JSON.stringify(cidItem));
+        } catch (err) {
+        }
+        this.cidItems[cid] = cidItem;
+      }
+      ;
+      if (cidItem && cidItem.links) {
+        let path = paths.shift();
+        for (let i = 0; i < cidItem.links.length; i++) {
+          if (cidItem.links[i].name == path) {
+            if (cidItem.links[i].type == "dir")
+              return await this.getCidItem(host, cidItem.links[i].cid, paths);
+            else {
+              return cidItem.links[i];
+            }
+            ;
+          }
+          ;
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    return;
+  }
+  async verifyScript(modulePath, script) {
+    var _a, _b;
+    if (((_a = this._initOptions) == null ? void 0 : _a.ipfs) && typeof ((_b = this._initOptions) == null ? void 0 : _b.ipfs) == "string") {
+      try {
+        let paths = modulePath.split("/");
+        let cid = await this.getCidItem("/ipfs", this._initOptions.ipfs, paths);
+        if (!cid)
+          return false;
+        let scriptCid = await hashContent(script);
+        return cid.cid == scriptCid.cid;
+      } catch (err) {
+        return false;
+      }
+    }
+    ;
+    return true;
+  }
+  async getScript(modulePath) {
+    if (this.scripts[modulePath])
+      return this.scripts[modulePath];
+    try {
+      let result = await (await fetch(modulePath)).text();
+      if (typeof result == "string") {
+        if (await this.verifyScript(modulePath, result)) {
+          this.scripts[modulePath] = result;
+          return result;
+        }
+        ;
+      }
+      ;
+    } catch (err) {
+    }
+    ;
+    return "";
+  }
+  async loadScript(modulePath, script) {
+    try {
+      if (this.scripts[modulePath])
+        return true;
+      if (!script)
+        script = await this.getContent(modulePath);
+      if (script && await this.verifyScript(modulePath, script)) {
+        this.scripts[modulePath] = script;
+        await import(`data:text/javascript,${encodeURIComponent(script)}`);
+        return true;
+      }
+      ;
+    } catch (err) {
+    }
+    ;
+    return false;
+  }
+  async getContent(modulePath) {
+    try {
+      return await (await fetch(modulePath)).text();
+    } catch (err) {
+    }
+    return "";
+  }
+  async fetchDirectoryInfoByCID(ipfsCid) {
+    try {
+      const IPFS_API = `https://ipfs.scom.dev/ipfs/${ipfsCid}`;
+      let result = await fetch(IPFS_API);
+      let jsonContent = await result.json();
+      if (jsonContent.links)
+        return jsonContent.links;
+      return [];
+    } catch (err) {
+      console.log(err);
+    }
+    ;
+    return [];
+  }
+  async getModule(modulePath, options) {
+    if (this.modules[modulePath])
+      return this.modules[modulePath];
+    let result = await this.newModule(modulePath, options);
+    if (result)
+      this.modules[modulePath] = result;
+    return result;
+  }
+  async loadPackage(packageName, modulePath) {
+    var _a, _b, _c;
+    let options = this._initOptions;
+    if (options && options.modules && options.modules[packageName]) {
+      let pack = options.modules[packageName];
+      for (let i = 0; i < ((_a = pack.dependencies) == null ? void 0 : _a.length); i++) {
+        let n = pack.dependencies[i];
+        if (!RequireJS.defined(n))
+          await this.loadPackage(n);
+      }
+      ;
+    }
+    ;
+    if (!modulePath) {
+      if ((_b = options == null ? void 0 : options.modules) == null ? void 0 : _b[packageName])
+        modulePath = ((options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : "") + "modules/" + ((_c = options == null ? void 0 : options.modules) == null ? void 0 : _c[packageName].path) + "/index.js";
+      else
+        return null;
+    } else if (modulePath == "*") {
+      modulePath = ((options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : "") + "libs/" + packageName + "/index.js";
+    } else if (modulePath.startsWith("{LIB}/")) {
+      let libPath = LibPath || "";
+      if (LibPath && !LibPath.endsWith("/"))
+        libPath = libPath + "/";
+      modulePath = modulePath.replace("{LIB}/", libPath);
+    }
+    if (this.packages[modulePath])
+      return this.packages[modulePath];
+    let script = await this.getScript(modulePath);
+    if (script) {
+      _currentDefineModule = null;
+      this.currentModulePath = modulePath;
+      if (modulePath.indexOf("://") > 0)
+        this.currentModuleDir = modulePath.split("/").slice(0, -1).join("/");
+      else
+        this.currentModuleDir = application.LibHost + modulePath.split("/").slice(0, -1).join("/");
+      await import(`data:text/javascript,${encodeURIComponent(script)}`);
+      this.currentModulePath = "";
+      this.currentModuleDir = "";
+      let m = window["require"](packageName);
+      if (m) {
+        this.packages[modulePath] = m.default || m;
+        return m.default || m;
+      }
+    }
+    ;
+    return null;
+  }
+  async loadModule(modulePath, options) {
+    let module2 = await this.newModule(modulePath, options);
+    if (module2)
+      document.body.append(module2);
+    return module2;
+  }
+  getModulePath(module2) {
+    let options = this._initOptions;
+    let modulePath = module2;
+    if (options && options.modules && options.modules[module2] && options.modules[module2].path) {
+      modulePath = "";
+      if (options.rootDir)
+        modulePath += options.rootDir + "/";
+      if (options.moduleDir)
+        modulePath += options.moduleDir + "/";
+      modulePath += options.modules[module2].path;
+      if (!modulePath.endsWith(".js"))
+        modulePath += "/index.js";
+    } else if (options && options.dependencies && options.dependencies[module2])
+      modulePath = `${(options == null ? void 0 : options.rootDir) ? options.rootDir + "/" : ""}libs/${module2}/index.js`;
+    return modulePath;
+  }
+  async newModule(module2, options) {
+    var _a, _b, _c, _d;
+    if (options) {
+      if (options.main) {
+        this._initOptions = options;
+      }
+      ;
+      if (!this._assets && options.assets)
+        this._assets = await this.loadPackage(options.assets) || {};
+      if (options.dependencies) {
+        for (let p in options.dependencies) {
+          if (p != options.main)
+            await this.loadPackage(p, options.dependencies[p]);
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    if (((_b = (_a = this._initOptions) == null ? void 0 : _a.geo) == null ? void 0 : _b.enabled) && !this.geoInfo) {
+      const apiUrl = this._initOptions.geo.apiUrl || "/api/geo/v0";
+      const geoResponse = await fetch(apiUrl);
+      const geo = await geoResponse.json();
+      this.geoInfo = geo;
+    }
+    ;
+    let modulePath = module2;
+    if (this._initOptions) {
+      if (modulePath != this._initOptions.main && ((_c = this._initOptions.geo) == null ? void 0 : _c.enabled)) {
+        try {
+          if (this._initOptions.geo.blockedCountries.includes((_d = this.geoInfo) == null ? void 0 : _d.country)) {
+            module2 = this._initOptions.geo.moduleOnBlocking;
+            modulePath = this.getModulePath(this._initOptions.geo.moduleOnBlocking);
+          } else {
+            modulePath = this.getModulePath(module2);
+          }
+        } catch (err) {
+          console.log(err);
+          module2 = this._initOptions.geo.moduleOnBlocking;
+          modulePath = this.getModulePath(this._initOptions.geo.moduleOnBlocking);
+        }
+      } else {
+        modulePath = this.getModulePath(module2);
+      }
+    }
+    ;
+    let elmId = this.modulesId[modulePath];
+    if (elmId && modulePath) {
+      return document.createElement(elmId);
+    }
+    ;
+    let script;
+    if (options && options.script)
+      script = options.script;
+    else {
+      if (this._initOptions && this._initOptions.modules && this._initOptions.modules[module2] && this._initOptions.modules[module2].dependencies) {
+        let dependencies = this._initOptions.modules[module2].dependencies;
+        for (let i = 0; i < dependencies.length; i++) {
+          let dep = dependencies[i];
+          let path = this.getModulePath(dep);
+          if (!this.packages[path]) {
+            await this.loadPackage(dep, path);
+          }
+          ;
+        }
+        ;
+      }
+      ;
+      script = await this.getScript(modulePath);
+    }
+    ;
+    if (script) {
+      _currentDefineModule = null;
+      this.currentModulePath = modulePath;
+      if (modulePath.indexOf("://") > 0)
+        this.currentModuleDir = modulePath.split("/").slice(0, -1).join("/");
+      else
+        this.currentModuleDir = application.LibHost + modulePath.split("/").slice(0, -1).join("/");
+      await import(`data:text/javascript,${encodeURIComponent(script)}`);
+      document.getElementsByTagName("html")[0].classList.add(applicationStyle);
+      this.currentModulePath = "";
+      this.currentModuleDir = "";
+      if (!_currentDefineModule && this.packages[modulePath]) {
+        _currentDefineModule = this.packages[modulePath];
+      }
+      ;
+      if (_currentDefineModule) {
+        let module3 = _currentDefineModule.default || _currentDefineModule;
+        if (module3) {
+          this.id++;
+          elmId = `i-module--${this.id}`;
+          this.modulesId[modulePath] = elmId;
+          let Module2 = class extends module3 {
+          };
+          customElements.define(elmId, Module2);
+          let result = new Module2(null, options);
+          return result;
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    return null;
+  }
+  async copyToClipboard(value) {
+    if (!value)
+      return false;
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(value);
+        return true;
+      } else {
+        const input = document.createElement("input");
+        input.value = value;
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        const result = document.execCommand("copy");
+        document.body.removeChild(input);
+        return result;
+      }
+    } catch (err) {
+      console.log("debug: copy", err);
+      return false;
+    }
+    ;
+  }
+  xssSanitize(value) {
+    return DOMPurify.sanitize(value);
+  }
+};
+window["application"] = Application.Instance;
+var application = Application.Instance;
+
+// packages/code-editor/src/monaco.ts
+async function addFile(fileName, content) {
+  let monaco = await initMonaco();
+  if (monaco) {
+    let model = await getFileModel(fileName);
+    if (!model) {
+      if ((fileName == null ? void 0 : fileName.endsWith(".tsx")) || (fileName == null ? void 0 : fileName.endsWith(".ts")))
+        model = monaco.editor.createModel(content || "", "typescript", monaco.Uri.file(fileName));
+      else
+        model = monaco.editor.createModel(content || "");
+    }
+    return model;
+  }
+  ;
+  return null;
+}
+async function updateFile(fileName, content) {
+  let monaco = await initMonaco();
+  if (monaco) {
+    let model = await getFileModel(fileName);
+    if (model) {
+      model.setValue(content);
+    }
+    return model;
+  }
+  ;
+  return null;
+}
+async function getFileModel(fileName) {
+  let monaco = await initMonaco();
+  if (monaco) {
+    let models = monaco.editor.getModels();
+    for (let i = 0; i < models.length; i++) {
+      let model = models[i];
+      if (model.uri.path == fileName || model.uri.path == "/" + fileName)
+        return model;
+    }
+    ;
+  }
+  ;
+  return null;
+}
+async function addLib(lib, dts) {
+  let monaco = await initMonaco();
+  monaco.languages.typescript.typescriptDefaults.addExtraLib(dts, lib);
+}
+async function initMonaco() {
+  if (window.monaco)
+    return window.monaco;
+  return new Promise((resolve) => {
+    window.MonacoEnvironment = {};
+    RequireJS.config({ paths: { "vs": `${LibPath}lib/monaco-editor/0.32.1/min/vs` } });
+    RequireJS.require([`vs/editor/editor.main`], (monaco) => {
+      resolve(monaco);
+      if (monaco.$loaded)
+        return;
+      monaco.$loaded = true;
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        experimentalDecorators: true,
+        allowSyntheticDefaultImports: true,
+        jsx: monaco.languages.typescript.JsxEmit.Preserve,
+        moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        allowNonTsExtensions: true,
+        target: monaco.languages.typescript.ScriptTarget.ES2020
+      });
+      monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+      monaco.languages.registerCompletionItemProvider("typescript", {
+        triggerCharacters: [">"],
+        provideCompletionItems: (model, position) => {
+          const code = model.getValueInRange({
+            startLineNumber: position.lineNumber,
+            startColumn: 1,
+            endLineNumber: position.lineNumber,
+            endColumn: position.column
+          });
+          const tag = code.slice(code.lastIndexOf("<") + 1, code.length);
+          if (!tag || !tag.endsWith(">") || tag.startsWith("/") || tag.indexOf(" ") > 0)
+            return;
+          const word = model.getWordUntilPosition(position);
+          return {
+            suggestions: [
+              {
+                label: `</${tag}`,
+                kind: monaco.languages.CompletionItemKind.EnumMember,
+                insertText: `$1</${tag}`,
+                insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                range: {
+                  startLineNumber: position.lineNumber,
+                  endLineNumber: position.lineNumber,
+                  startColumn: word.startColumn,
+                  endColumn: word.endColumn
+                }
+              }
+            ]
+          };
+        }
+      });
+    });
+  });
+}
+
+// packages/code-editor/src/style/code-editor.css.ts
+cssRule("i-code-editor", {
+  $nest: {
+    "*": {
+      boxSizing: "border-box"
+    },
+    ".full-height": {
+      height: "100vh"
+    },
+    ".half-width": {
+      width: "50%"
+    },
+    ".column": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "stretch"
+    },
+    ".row": {
+      display: "flex",
+      flexDirection: "row"
+    },
+    ".align-right": {
+      marginLeft: "auto",
+      alignSelf: "stretch"
+    },
+    "#flex-wrapper": {
+      display: "flex",
+      alignItems: "stretch"
+    },
+    "#operation-editor": {
+      height: "60vh",
+      minHeight: "260px"
+    },
+    "#variables-editor": {
+      height: "30vh",
+      alignItems: "stretch"
+    },
+    "#results-editor": {
+      height: "90vh",
+      alignItems: "stretch"
+    },
+    "#toolbar": {
+      minHeight: "40px",
+      backgroundColor: "#1e1e1e",
+      display: "inline-flex",
+      alignItems: "stretch"
+    },
+    "#toolbar > button, #toolbar > select, #toolbar > span, button#execute-op": {
+      margin: "4px",
+      padding: "4px"
+    },
+    "#toolbar button, #toolbar select": {
+      backgroundColor: "#1e1e1e",
+      color: "#eee",
+      border: "1px solid #eee",
+      borderRadius: "4px"
+    },
+    "#toolbar button:hover, select:hover, button:focus, select:focus": {
+      backgroundColor: "darkslategrey"
+    },
+    "#execution-tray": {
+      display: "inline-flex",
+      alignItems: "baseline"
+    },
+    "#schema-status": {
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      color: "#eee"
+    },
+    "#toolbar button.reload-button": {
+      border: "0 none",
+      padding: "4px",
+      width: "30px",
+      textAlign: "center"
+    }
+  }
+});
+
+// packages/code-editor/src/code-editor.ts
+var CodeEditor = class extends Control {
+  get monaco() {
+    return window.monaco;
+  }
+  init() {
+    if (!this.editor) {
+      super.init();
+      this.language = this.getAttribute("language", true);
+      this.style.display = "inline-block";
+      if (this.language)
+        this.loadContent(void 0, this.language);
+    }
+    ;
+  }
+  get editor() {
+    return this._editor;
+  }
+  get language() {
+    return this._language;
+  }
+  set language(value) {
+    this._language = value;
+    if (!this.editor) {
+      this.loadContent();
+    } else {
+      let monaco = this.monaco;
+      let model = this.editor.getModel();
+      if (model) {
+        monaco.editor.setModelLanguage(model, value);
+      }
+    }
+  }
+  async loadContent(content, language, fileName) {
+    let monaco = await initMonaco();
+    if (content == void 0)
+      content = content || this._value || "";
+    this._value = content;
+    language = language || this._language || "typescript";
+    this._language = language;
+    if (!this._editor) {
+      let captionDiv = this.createElement("div", this);
+      captionDiv.style.display = "inline-block";
+      captionDiv.style.height = "100%";
+      captionDiv.style.width = "100%";
+      const customOptions = this._options || {};
+      let options = {
+        theme: "vs-dark",
+        tabSize: 2,
+        formatOnPaste: true,
+        formatOnType: true,
+        renderWhitespace: "none",
+        automaticLayout: true,
+        minimap: {
+          enabled: false
+        },
+        ...customOptions
+      };
+      this._editor = monaco.editor.create(captionDiv, options);
+      this._editor.onDidChangeModelContent((event) => {
+        if (typeof this.onChange === "function")
+          this.onChange(this, event);
+      });
+      if (fileName) {
+        let model = await getFileModel(fileName);
+        if (model) {
+          this._editor.setModel(model);
+          model.setValue(content);
+          return;
+        }
+      }
+      ;
+      if (language == "typescript" || (fileName == null ? void 0 : fileName.endsWith(".tsx")) || (fileName == null ? void 0 : fileName.endsWith(".ts"))) {
+        let model = monaco.editor.createModel(content || this._value || "", "typescript", fileName ? monaco.Uri.file(fileName) : void 0);
+        this._editor.setModel(model);
+      } else {
+        let model = monaco.editor.createModel(content || this._value || "", language || this._language, fileName ? monaco.Uri.file(fileName) : void 0);
+        this._editor.setModel(model);
+      }
+      ;
+    } else {
+      let model = this._editor.getModel();
+      if (language == "typescript" && model && fileName && this._fileName != fileName) {
+        if (!this._fileName)
+          model.dispose();
+        model = await getFileModel(fileName);
+        if (!model)
+          model = monaco.editor.createModel(content || this._value || "", "typescript", monaco.Uri.file(fileName));
+        this._editor.setModel(model);
+      } else {
+        this._editor.setValue(content);
+        if (language && model)
+          monaco.editor.setModelLanguage(model, language);
+      }
+      ;
+    }
+    ;
+    this._fileName = fileName || "";
+    this._editor.setScrollTop(0);
+  }
+  async loadFile(fileName) {
+    var _a;
+    let model = await getFileModel(fileName);
+    if (model) {
+      if (!this._fileName)
+        (_a = this._editor.getModel()) == null ? void 0 : _a.dispose();
+      this._fileName = fileName;
+      this._editor.setModel(model);
+    }
+    ;
+  }
+  updateOptions(options) {
+    this._options = options;
+    if (this._editor)
+      this._editor.updateOptions(options);
+  }
+  get value() {
+    if (this._editor)
+      return this._editor.getValue();
+    else
+      return this._value;
+  }
+  set value(value) {
+    this._value = value;
+    if (this._editor) {
+      this._editor.setValue(value);
+      this._editor.setScrollTop(0);
+    } else
+      this.loadContent();
+  }
+};
+CodeEditor.addLib = addLib;
+CodeEditor.addFile = addFile;
+CodeEditor.getFileModel = getFileModel;
+CodeEditor.updateFile = updateFile;
+CodeEditor = __decorateClass([
+  customElements2("i-code-editor")
+], CodeEditor);
+
+// packages/code-editor/src/diff-editor.ts
+var EditorType;
+(function(EditorType2) {
+  EditorType2[EditorType2["modified"] = 0] = "modified";
+  EditorType2[EditorType2["original"] = 1] = "original";
+})(EditorType || (EditorType = {}));
+var CodeDiffEditor = class extends Control {
+  init() {
+    if (!this.editor) {
+      super.init();
+      this.language = this.getAttribute("language", true);
+      this.style.display = "inline-block";
+    }
+    ;
+  }
+  get editor() {
+    return this._editor;
+  }
+  get language() {
+    return this._language;
+  }
+  set language(value) {
+    this._language = value;
+    if (!this.editor) {
+      if (this.language) {
+        this.loadContent(1, "", this.language);
+        this.loadContent(0, "", this.language);
+      }
+    } else {
+      this.setModelLanguage(value, "getOriginalEditor");
+      this.setModelLanguage(value, "getModifiedEditor");
+    }
+  }
+  setModelLanguage(value, functionName) {
+    let monaco = window.monaco;
+    let model = this.editor[functionName]().getModel();
+    if (model) {
+      monaco.editor.setModelLanguage(model, value);
+    }
+  }
+  getEditor(type) {
+    if (type === 1)
+      return this.editor.getOriginalEditor();
+    else
+      return this.editor.getModifiedEditor();
+  }
+  getModel(type) {
+    return this.getEditor(type).getModel();
+  }
+  async loadContent(type, content, language, fileName) {
+    let monaco = await initMonaco();
+    const value = type === 0 ? this._modifiedValue : this._originalValue;
+    if (content == void 0)
+      content = content || value || "";
+    type === 0 ? this._modifiedValue = content : this._originalValue = content;
+    language = language || this._language || "typescript";
+    this._language = language;
+    if (!this._editor) {
+      let captionDiv = this.createElement("div", this);
+      captionDiv.style.display = "inline-block";
+      captionDiv.style.height = "100%";
+      captionDiv.style.width = "100%";
+      let options = {
+        theme: "vs-dark",
+        originalEditable: false,
+        automaticLayout: true
+      };
+      this._editor = monaco.editor.createDiffEditor(captionDiv, options);
+      this._editor.onDidUpdateDiff(() => {
+        if (typeof this.onChange === "function")
+          this.onChange(this);
+      });
+    }
+    if (!this._modifiedModel || !this._originalModel) {
+      let model;
+      if (fileName == null ? void 0 : fileName.endsWith(".tsx")) {
+        model = monaco.editor.createModel(content || value || "", "typescript");
+      } else
+        model = monaco.editor.createModel(content || value || "", language || this._language || "typescript");
+      type === 0 ? this._modifiedModel = model : this._originalModel = model;
+      if (this._originalModel && this._modifiedModel) {
+        this._editor.setModel({
+          original: this._originalModel,
+          modified: this._modifiedModel
+        });
+      }
+    } else {
+      let model = this.getModel(type);
+      if (model)
+        monaco.editor.setModelLanguage(model, language);
+      this.getEditor(type).setValue(content);
+    }
+  }
+  updateOptions(options) {
+    this.editor.updateOptions(options);
+  }
+  get originalValue() {
+    if (this.editor)
+      return this.editor.getOriginalEditor().getValue();
+    else
+      return this._originalValue;
+  }
+  set originalValue(value) {
+    this._originalValue = value;
+    if (this.editor) {
+      this.editor.getOriginalEditor().setValue(value);
+    } else
+      this.loadContent(1);
+  }
+  get modifiedValue() {
+    if (this.editor)
+      return this.editor.getModifiedEditor().getValue();
+    else
+      return this._modifiedValue;
+  }
+  set modifiedValue(value) {
+    this._modifiedValue = value;
+    if (this.editor) {
+      this.editor.getModifiedEditor().setValue(value);
+    } else {
+      this.loadContent(0);
+    }
+  }
+};
+CodeDiffEditor.addLib = addLib;
+CodeDiffEditor.addFile = addFile;
+CodeDiffEditor.getFileModel = getFileModel;
+CodeDiffEditor.updateFile = updateFile;
+CodeDiffEditor = __decorateClass([
+  customElements2("i-code-diff-editor")
+], CodeDiffEditor);
+
+// packages/data-grid/src/style/dataGrid.css.ts
+var Theme21 = theme_exports.ThemeVars;
+cssRule("i-data-grid", {
+  border: "0.5px solid #dadada",
+  $nest: {
+    ".scrollBox": {
+      overflow: "auto",
+      position: "absolute",
+      height: "100%",
+      width: "100%",
+      top: 0,
+      zIndex: 4
+    },
+    ".grid": {
+      position: "absolute",
+      fontSize: "12px",
+      fontFamily: '"Segoe UI", Tahoma, Arial, Helvetica, sans-serif',
+      color: "#5A5757",
+      borderSpacing: 0,
+      tableLayout: "fixed",
+      backgroundColor: "white"
+    },
+    ".grid tr": {
+      overflow: "hidden"
+    },
+    ".grid tr div": {
+      paddingLeft: "2px",
+      paddingRight: "2px"
+    },
+    ".grid_cell_hidden": {
+      display: "none"
+    },
+    ".grid_fixed_cell": {
+      background: "#F9F9F9",
+      borderBottom: "0.5px solid #dadada",
+      borderRight: "0.5px solid #dadada",
+      boxSizing: "border-box"
+    },
+    ".grid_curr_cell": {
+      border: "2px solid #5f5f5f",
+      boxSizing: "border-box"
+    },
+    ".grid_selected_cell": {
+      backgroundColor: "rgb(160, 195, 255)",
+      pointerEvents: "none",
+      opacity: 0.2
+    },
+    ".grid_cell": {
+      borderBottom: "0.5px solid #dadada",
+      borderRight: "0.5px solid #dadada",
+      boxSizing: "border-box",
+      background: "white",
+      cursor: "default"
+    },
+    ".grid_cell_value": {
+      textOverflow: "ellipsis",
+      wordWrap: "break-word",
+      whiteSpace: "pre"
+    },
+    ".grid_cell_value.image img": {
+      maxHeight: "100%",
+      maxWidth: "100%"
+    },
+    ".grid_header_splitter": {
+      position: "relative",
+      zoom: 1,
+      filter: "alpha(opacity=50)",
+      opacity: 0.5,
+      float: "right",
+      cursor: "e-resize"
+    },
+    "input": {
+      border: "none",
+      outline: "none"
+    },
+    "table": {
+      marginLeft: "1px",
+      marginTop: "1px"
+    }
+  }
+});
+
+// packages/data-grid/src/dataGrid.ts
+function parseNumber(value, decimal) {
+  if (typeof value == "string")
+    value = value.replace(/,/g, "");
+  if (decimal)
+    return parseFloat(parseFloat(value).toFixed(decimal));
+  else
+    return parseFloat(value);
+}
+function getCursorPosX(event) {
+  event = event || window.event;
+  let pos = 0;
+  if (event instanceof TouchEvent) {
+    if (event.changedTouches && event.changedTouches[0])
+      pos = event.changedTouches[0].pageX || event.changedTouches[0].clientX;
+    else if (event.touches && event.touches[0])
+      pos = event.touches[0].pageX || event.touches[0].clientX;
+  } else
+    pos = event.pageX || event.clientX;
+  return pos + document.body.scrollLeft + document.documentElement.scrollLeft;
+}
+function getCursorPosY(event) {
+  event = event || window.event;
+  let pos = 0;
+  if (event instanceof TouchEvent) {
+    if (event.changedTouches && event.changedTouches[0])
+      pos = event.changedTouches[0].pageY || event.changedTouches[0].clientY;
+    else if (event.touches && event.touches[0])
+      pos = event.touches[0].pageY || event.touches[0].clientY;
+  } else
+    pos = event.pageY || event.clientY;
+  return pos + document.body.scrollTop + document.documentElement.scrollTop;
+}
+var TGridOptions = class {
+  constructor(owner) {
+    this._autoRowHeight = false;
+    this._rowSelect = false;
+    this.autoAddRow = false;
+    this.fileDropUpload = false;
+    this.sortOnClick = true;
+    this.owner = owner;
+  }
+  get autoRowHeight() {
+    return this._autoRowHeight;
+  }
+  set autoRowHeight(value) {
+    if (value != this._autoRowHeight) {
+      this.owner.rowHeights = [];
+      this._autoRowHeight = value;
+      this.owner.enableUpdateTimer();
+    }
+    ;
+  }
+  get rowSelect() {
+    return this._rowSelect;
+  }
+  set rowSelect(value) {
+    if (this._rowSelect != value) {
+      this._rowSelect = value;
+      this.owner.enableUpdateTimer();
+    }
+    ;
+  }
+};
+var TGridCell = class {
+  constructor(grid, col, row) {
+    this._visible = true;
+    this.grid = grid;
+    this._col = col;
+    this._row = row;
+  }
+  get button() {
+    return this._button;
+  }
+  set button(value) {
+    this._button = value;
+    this.grid.enableUpdateTimer();
+  }
+  get checkBox() {
+    return this._checkBox;
+  }
+  set checkBox(value) {
+    this._checkBox = value;
+    this.grid.enableUpdateTimer();
+  }
+  get col() {
+    return this._col;
+  }
+  set col(value) {
+    this._col = value;
+  }
+  get color() {
+    return this._color;
+  }
+  set color(value) {
+    this._color = value;
+    this.grid.enableUpdateTimer();
+  }
+  get dataType() {
+    return this._dataType;
+  }
+  set dataType(value) {
+    this._dataType = value;
+    this.grid.enableUpdateTimer();
+  }
+  get displayValue() {
+    return;
+  }
+  get formula() {
+    return this._formula;
+  }
+  set formula(value) {
+    this._formula = value;
+    this.grid.enableUpdateTimer();
+  }
+  get hint() {
+    return this._hint;
+  }
+  set hint(value) {
+    this._hint = value;
+    this.grid.enableUpdateTimer();
+  }
+  get horizontalAlign() {
+    return this._horizontalAlign;
+  }
+  set horizontalAlign(value) {
+    this._horizontalAlign = value;
+    this.grid.enableUpdateTimer();
+  }
+  get html() {
+    return this._html;
+  }
+  set html(value) {
+    this._html = value;
+    this.grid.enableUpdateTimer();
+  }
+  get image() {
+    return this._image;
+  }
+  set image(value) {
+    this._image = value;
+    this.grid.enableUpdateTimer();
+  }
+  get object() {
+    return this._object;
+  }
+  set object(value) {
+    this._object = value;
+    this.grid.enableUpdateTimer();
+  }
+  get readOnly() {
+    return this._readOnly;
+  }
+  set readOnly(value) {
+    this._readOnly = value;
+    this.grid.enableUpdateTimer();
+  }
+  get row() {
+    return this._row;
+  }
+  set row(value) {
+    this._row = value;
+  }
+  get text() {
+    return this._text;
+  }
+  set text(value) {
+    this._text = value;
+    this.grid.enableUpdateTimer();
+  }
+  get value() {
+    return this._value;
+  }
+  set value(value) {
+    this._value = value;
+    this.grid.enableUpdateTimer();
+  }
+  get visible() {
+    return this._visible;
+  }
+  set visible(value) {
+    this._visible = value;
+    this.grid.enableUpdateTimer();
+  }
+};
+var TGridCells = class {
+  constructor(owner) {
+    this.data = [[]];
+    this.grid = owner;
+  }
+  assign(data) {
+    for (let r = 0; r < data.length; r++) {
+      let d = data[r]["data"];
+      let row = data[r]["row"];
+      for (let c = 0; c < d.length; c++) {
+        this.setValue(c, row, d[c]);
+      }
+    }
+  }
+  cells(aCol, aRow, refresh2) {
+    if (refresh2)
+      return this.getCell(aCol, aRow);
+    else if (this.data[aRow]) {
+      let cell = this.data[aRow][aCol];
+      if (cell && cell.mergeRect && (aCol != cell.mergeRect.startCol || aRow != cell.mergeRect.startRow)) {
+        cell = this.data[cell.mergeRect.startRow][cell.mergeRect.startCol];
+      }
+      return cell || this.getCell(aCol, aRow);
+    } else
+      return this.getCell(aCol, aRow);
+  }
+  clear() {
+    this.data = [[]];
+  }
+  deleteCol(aCol) {
+    for (let r = 0; r < this.data.length; r++) {
+      let row = this.data[r];
+      if (row)
+        row.splice(aCol, 1);
+    }
+    this.updateCellIndex();
+  }
+  deleteRow(aRow) {
+    if (this.data.length > aRow)
+      this.data.splice(aRow, 1);
+    this.updateCellIndex();
+  }
+  getCell(aCol, aRow, refresh2) {
+    if (typeof this.data[aRow] == "undefined")
+      this.data[aRow] = [];
+    if (typeof this.data[aRow][aCol] == "undefined")
+      this.data[aRow][aCol] = new TGridCell(this.grid, aCol, aRow);
+    if (refresh2 && this.data[aRow][aCol])
+      this.data[aRow][aCol]._displayValue = void 0;
+    return this.data[aRow][aCol];
+  }
+  getObject(aCol, aRow) {
+    let cell = this.cells(aCol, aRow);
+    if (cell)
+      return cell.object;
+    else
+      return void 0;
+  }
+  getValue(aCol, aRow) {
+    let cell = this.cells(aCol, aRow);
+    if (cell) {
+      if (cell.mergeRect)
+        cell = this.getCell(cell.mergeRect.startCol, cell.mergeRect.startRow);
+      if (cell.value != void 0) {
+        return cell.value;
+      } else
+        return "";
+    }
+    ;
+  }
+  getExcelValue(aCol, aRow, callback) {
+  }
+  getExcelValues(startCol, startRow, callback) {
+  }
+  getExcelValues1(startCol, startRow, callback) {
+  }
+  insertCol(aCol) {
+    for (let r = 0; r < this.data.length; r++) {
+      let row = this.data[r];
+      if (row)
+        row.splice(aCol, 0, void 0);
+    }
+    this.updateCellIndex();
+  }
+  insertRow(aRow) {
+    this.data.splice(aRow, 0, []);
+    this.updateCellIndex();
+  }
+  loadFromJSON(json) {
+    let data = json["data"];
+    for (let i = 0; i < data.length; i++) {
+      let row = data[i];
+      for (let k = 0; k < row.length; k++) {
+        let cell = row[k];
+        if (cell)
+          this.setValue(k, i, cell["v"]);
+      }
+    }
+  }
+  moveRow(fromIdx, toIdx) {
+    if (toIdx < this.data.length) {
+      this.data.splice(toIdx, 0, this.data.splice(fromIdx, 1)[0]);
+      this.updateCellIndex();
+    }
+  }
+  saveToJSON(json) {
+    let data = [];
+    json["data"] = data;
+    for (let i = 0; i < this.data.length; i++) {
+      let row = this.data[i];
+      data[i] = [];
+      for (let k = 0; k < row.length; k++) {
+        let cell = row[k];
+        if (cell)
+          data[i][k] = {
+            "v": cell._value
+          };
+      }
+    }
+  }
+  setDateValue(aCol, aRow, aValue) {
+    let cell = this.getCell(aCol, aRow);
+    cell._value = aValue;
+    cell._isDate = true;
+  }
+  setMergeCell(rect) {
+    for (let col = rect.startCol; col <= rect.endCol; col++)
+      for (let row = rect.startRow; row <= rect.endRow; row++) {
+        let cell = this.getCell(col, row);
+        cell.mergeRect = rect;
+      }
+  }
+  setObject(aCol, aRow, aObject) {
+    let cell = this.getCell(aCol, aRow);
+    cell.object = aObject;
+  }
+  setRowCount(value) {
+    if (this.data.length > value)
+      this.data.length = value;
+  }
+  setValue(aCol, aRow, aValue, disp) {
+    let cell = this.getCell(aCol, aRow);
+    if (!disp)
+      cell._value = aValue;
+    else
+      cell._dispValue = aValue;
+  }
+  setFile(aCol, aRow, aValue) {
+    let cell = this.getCell(aCol, aRow);
+    cell._file = aValue;
+  }
+  sort(col, descending) {
+    let fixedRow = this.data.slice(0, this.grid.fixedRow);
+    let data = this.data.slice(this.grid.fixedRow);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i] && data[i][col])
+        data[i][col]._idx = i;
+    }
+    ;
+    let self = this;
+    data.sort(function(item1, item2) {
+      if (self.grid["onSort"]) {
+        if (item1[col] && item2[col])
+          return self.grid["onSort"](self.grid, descending, col, item1[col]._row, item2[col].row);
+        else if (item1[col]) {
+          if (descending)
+            return -1;
+          else
+            return 1;
+        } else {
+          if (descending)
+            return 1;
+          else
+            return -1;
+        }
+      } else {
+        let value1;
+        let value2;
+        let idx1 = 0;
+        let idx2 = 0;
+        ;
+        if (item1[col]) {
+          value1 = item1[col]._displayValue || item1[col]._value;
+          idx1 = item1[col]._idx;
+        }
+        if (value1 == void 0)
+          value1 = "";
+        if (item2[col]) {
+          value2 = item2[col]._displayValue || item2[col]._value;
+          idx2 = item2[col]._idx;
+        }
+        if (value2 == void 0)
+          value2 = "";
+        if (typeof value1 == "string")
+          value1 = value1.toLowerCase();
+        if (typeof value2 == "string")
+          value2 = value2.toLowerCase();
+        if (value1 == value2)
+          return idx1 > idx2 ? 1 : idx1 < idx2 ? -1 : 0;
+        else if (value1 > value2)
+          return descending ? -1 : 1;
+        else
+          return descending ? 1 : -1;
+      }
+    });
+    this.data = fixedRow.concat(data);
+    this.updateCellIndex();
+  }
+  updateCellIndex() {
+    for (let r = 0; r < this.data.length; r++) {
+      let row = this.data[r];
+      for (let c = 0; c < row.length; c++) {
+        let cell = this.data[r][c];
+        if (cell) {
+          cell._col = c;
+          cell._row = r;
+        }
+        ;
+      }
+      ;
+    }
+    ;
+  }
+};
+var TGridColumn = class {
+  constructor(grid, colIdx) {
+    this._visible = true;
+    this._resizable = true;
+    this._sortable = true;
+    this._readOnly = false;
+    this.grid = grid;
+    this._colIdx = colIdx;
+  }
+  get asJSON() {
+    return {
+      "color": this._color && this._color != "clNone" ? this._color : void 0,
+      "horizontalAlign": this._horizontalAlign != void 0 && this._horizontalAlign != 1 ? this._horizontalAlign : void 0,
+      "type": this._type && this._type != "string" ? this._type : void 0,
+      "width": this.width,
+      "readOnly": this._readOnly ? this._readOnly : void 0,
+      "visible": !this._visible ? this._visible : void 0,
+      "resizable": !this._resizable ? this._resizable : void 0,
+      "lookupContext": this._lookupContext ? this._lookupContext : void 0,
+      "lookupTable": this._lookupTable ? this._lookupTable : void 0,
+      "suggestTable": this._suggestTable ? this._suggestTable : void 0,
+      "lookupField": this._lookupField ? this._lookupField : void 0,
+      "lookupDetailField": this._lookupDetailField ? this._lookupDetailField : void 0,
+      "lookupDetailValue": this._lookupDetailValue ? this._lookupDetailValue : void 0,
+      "lookupDetailType": this._lookupDetailType ? this._lookupDetailType : void 0,
+      "listOfValue": this._listOfValue ? this._listOfValue : void 0,
+      "format": this._format ? this._format : void 0,
+      "formula": this._formula ? this._formula : void 0,
+      "displayUserName": this._displayUserName,
+      "binding": this._binding
+    };
+  }
+  set asJSON(value) {
+    this._color = value.color;
+    this._horizontalAlign = value["horizontalAlign"] != void 0 ? value["horizontalAlign"] : value["alignment"];
+    this._type = value["type"] || value["dataType"];
+    this._checkBox = value["type"] == "checkBox";
+    this._radioButton = value["type"] == "radioButton";
+    this._readOnly = value["readOnly"];
+    this._visible = value["visible"];
+    this._resizable = value["resizable"];
+    this._lookupContext = value["lookupContext"];
+    this._lookupTable = value["lookupTable"];
+    this._lookupField = value["lookupField"];
+    this._suggestTable = value["suggestTable"];
+    this._lookupDetailField = value["lookupDetailField"];
+    this._lookupDetailValue = value["lookupDetailValue"];
+    this._lookupDetailType = value["lookupDetailType"];
+    this._listOfValue = value["listOfValue"];
+    this._displayUserName = value["displayUserName"];
+    this._format = value["format"];
+    this._formula = value["formula"];
+    this._binding = value["binding"];
+    if (value["width"] != void 0)
+      this["width"] = value["width"];
+    if (value["rows"] && value["rows"] > 1)
+      this._rows = value["rows"];
+    this.grid.enableUpdateTimer();
+  }
+  get binding() {
+    return this._binding;
+  }
+  set binding(value) {
+    this._binding = value;
+  }
+  get button() {
+    return this._type == "button";
+  }
+  set button(value) {
+    if (value) {
+      this._type = "button";
+      this._button = true;
+    } else if (this._type == "button") {
+      this._type = "string";
+      this._button = false;
+    }
+    ;
+    this.grid.enableUpdateTimer();
+  }
+  get checkBox() {
+    return this._type == "checkBox";
+  }
+  set checkBox(value) {
+    if (value) {
+      this._type = "checkBox";
+      this._checkBox = true;
+    } else if (this._type == "checkBox") {
+      this._type = "string";
+      this._checkBox = false;
+    }
+    ;
+    this.grid.enableUpdateTimer();
+  }
+  get colIdx() {
+    return this._colIdx;
+  }
+  set colIdx(value) {
+    if (this.colIdx > -1)
+      this.grid.columns[this.colIdx] = null;
+    this._colIdx = value;
+    this.grid.columns[value] = this;
+    this.grid.enableUpdateTimer();
+  }
+  get color() {
+    return this._color || "clNone";
+  }
+  set color(value) {
+    this._color = value;
+    this.grid.enableUpdateTimer();
+  }
+  get dataType() {
+    return this._dataType;
+  }
+  set dataType(value) {
+    this._dataType = value;
+    this.grid.enableUpdateTimer();
+  }
+  get default() {
+    return (!this._color || this._color == "clNone") && (this._horizontalAlign == void 0 || this._horizontalAlign == 1) && (!this._type || this._type == "string") && !this._readOnly && this._visible && (!this._dataType || this._dataType == 0) && this._resizable && !this._lookupContext && !this._lookupTable && !this._lookupField && !this._listOfValue;
+  }
+  get format() {
+    return this._format;
+  }
+  set format(value) {
+    this._format = value;
+    this.grid.enableUpdateTimer();
+  }
+  get formula() {
+    return this._formula;
+  }
+  set formula(value) {
+    this._formula = value;
+    this.grid.enableUpdateTimer();
+  }
+  get horizontalAlign() {
+    return this._horizontalAlign || 1;
+  }
+  set horizontalAlign(value) {
+    this._horizontalAlign = value;
+    this.grid.enableUpdateTimer();
+  }
+  get radioButton() {
+    return this._type == "radioButton";
+  }
+  set radioButton(value) {
+    if (value) {
+      this._type = "radioButton";
+      this._radioButton = true;
+    } else if (this._type == "radioButton") {
+      this._type = "string";
+      this._radioButton = false;
+    }
+    this.grid.enableUpdateTimer();
+  }
+  get readOnly() {
+    return this._readOnly;
+  }
+  set readOnly(value) {
+    this._readOnly = value;
+    this.grid.enableUpdateTimer();
+  }
+  get resizable() {
+    return this._resizable !== false;
+  }
+  set resizable(value) {
+    this._resizable = value;
+    this.grid.enableUpdateTimer();
+  }
+  get sortable() {
+    return this._sortable !== false;
+  }
+  set sortable(value) {
+    this._sortable = value;
+  }
+  get type() {
+    return this._type || "string";
+  }
+  set type(value) {
+    this._type = value;
+    this.grid.enableUpdateTimer();
+  }
+  get visible() {
+    return this._visible !== false;
+  }
+  set visible(value) {
+    this._visible = value;
+    this.grid.enableUpdateTimer();
+  }
+  get width() {
+    return this.grid.getColWidth(this._colIdx);
+  }
+  set width(value) {
+    this.grid.setColWidth(this._colIdx, value);
+    this.grid.enableUpdateTimer();
+  }
+};
+var TGridColumns = class {
+  constructor(grid) {
+    this.columns = [];
+    this.grid = grid;
+  }
+  clear() {
+    this.columns = [];
+  }
+  deleteCol(aCol) {
+    this.columns.splice(aCol, 1);
+    this.updateColIndex();
+  }
+  getColumn(index) {
+    if (index > this.columns.length) {
+      let len = this.columns.length;
+      for (let i = len; i <= index; i++)
+        this.columns.push("");
+    }
+    let col = this.columns[index];
+    if (!col) {
+      col = new TGridColumn(this.grid, index);
+      this.columns[index] = col;
+    }
+    return col;
+  }
+  insertCol(colIdx) {
+    let col = new TGridColumn(this.grid, colIdx);
+    this.columns.splice(colIdx, 0, col);
+    this.updateColIndex();
+  }
+  loadFromJSON(value) {
+    this.count = value.length;
+    for (let i = 0; i < value.length; i++) {
+      if (value[i]) {
+        let col = this.getColumn(i);
+        if (value[i]["colIdx"] == void 0)
+          value[i]["colIdx"] = i;
+        col["asJSON"] = value[i];
+      }
+    }
+    this.grid.colCount = this.count;
+  }
+  _loadFromJSON(value) {
+    this.loadFromJSON(value);
+  }
+  saveToJSON() {
+    let result = [];
+    let withValue = false;
+    for (let i = 0; i < this.columns.length; i++) {
+      if (this.columns[i] && !this.columns[i]["default"]) {
+        withValue = true;
+        result.push(this.columns[i]["asJSON"]);
+      } else
+        result.push("");
+    }
+    if (withValue)
+      return result;
+  }
+  setColCount(value) {
+    this.columns.length = value;
+  }
+  updateColIndex() {
+    for (let i = 0; i < this.columns.length; i++)
+      this.columns[i]._colIdx = i;
+  }
+};
+var TGridRow = class {
+  constructor(grid) {
+    this._visible = true;
+    this._resizable = false;
+    this.grid = grid;
+  }
+  get color() {
+    return this._color;
+  }
+  set color(value) {
+    this._color = value;
+    this.grid.enableUpdateTimer();
+  }
+  get height() {
+    return this._height;
+  }
+  set height(value) {
+    this._height = value;
+    this.grid.enableUpdateTimer();
+  }
+  get readOnly() {
+    return this._readOnly;
+  }
+  set readOnly(value) {
+    this._readOnly = value;
+    this.grid.enableUpdateTimer();
+  }
+  get resizable() {
+    return this._resizable;
+  }
+  set resizable(value) {
+    this._resizable = value;
+    this.grid.enableUpdateTimer();
+  }
+  get visible() {
+    return this._visible;
+  }
+  set visible(value) {
+    this._visible = value;
+    this.grid.enableUpdateTimer();
+  }
+};
+var TGridRows = class {
+  constructor(grid, defaultHeight) {
+    this.rows = [];
+    this.grid = grid;
+    this.defaultHeight = defaultHeight;
+  }
+  clear() {
+    this.rows = [];
+  }
+  getHeight(index) {
+    let row = this.rows[index];
+    if (row)
+      return row.height;
+    else
+      return this.defaultHeight;
+  }
+  getRow(index) {
+    let row = this.rows[index];
+    if (!row) {
+      row = new TGridRow(this.grid);
+      this.rows[index] = row;
+    }
+    ;
+    return row;
+  }
+};
+var DataGrid = class extends Control {
+  constructor(parent, options) {
+    super(parent, options);
+    this._listOfValue = {};
+    this._defaultRowHeight = 19;
+    this._defaultColWidth = 64;
+    this._layout = "grid";
+    this.mergeRect = [];
+    this.tableCells = [[]];
+    this.tableSplitters = [];
+    this.selectedCells = [];
+    this.selectedCellsHighlight = [];
+    this._colCount = 3;
+    this._rowCount = 3;
+    this.colWidths = [];
+    this._rowHeights = [];
+    this._fixedCol = 0;
+    this._fixedRow = 1;
+    this._leftCol = 0;
+    this._topRow = 1;
+    this._row = 0;
+    this._col = 0;
+    this._scrollLeft = 0;
+    this._scrollTop = 0;
+    this.showDataInternalFlag = false;
+    this._sorting = false;
+    this._updateTableInternalFlag = false;
+    this._totalColWidth = 0;
+    this._totalRowHeight = 0;
+    this.visibleRowCount = 0;
+    this.visibleColCount = 0;
+    this.sortingDescending = false;
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+  get fixedCol() {
+    return this._fixedCol;
+  }
+  set fixedCol(value) {
+    this._fixedCol = value;
+  }
+  get fixedRow() {
+    return this._fixedRow;
+  }
+  set fixedRow(value) {
+    this._fixedRow = value;
+  }
+  get layout() {
+    return this._layout;
+  }
+  set layout(value) {
+    this._layout = value;
+  }
+  async init() {
+    await super.init();
+    this._init();
+  }
+  _init() {
+    this.options = new TGridOptions(this);
+    this.placeHolder = this.createElement("div", this);
+    this._table = this.createElement("table", this);
+    this.data = new TGridCells(this);
+    this.columns = new TGridColumns(this);
+    this.gridRows = new TGridRows(this, this._defaultRowHeight);
+    this.cellHighlight = this.createElement("div", this);
+    this.placeHolder.style.position = "absolute";
+    this.cellHighlight.className = "grid_curr_cell";
+    this.cellHighlight.style.position = "absolute";
+    this.cellHighlight.style.display = "none";
+    this.cellHighlight.style.zIndex = "3";
+    this.selectedRangeHighlight = this.createElement("div", this);
+    this.selectedRangeHighlight.className = "grid_selected_cell";
+    this.selectedRangeHighlight.style.position = "absolute";
+    this.selectedRangeHighlight.style.display = "none";
+    this.selectedRangeHighlight.style.zIndex = "3";
+    this._table.className = "grid";
+    this._table.style.tableLayout = "fixed";
+    this._table.style.position = "relative";
+    this.tableContainer = this.createElement("div", this);
+    this.tableContainer.className = "container";
+    this.tableContainer.style.overflow = "hidden";
+    this.tableContainer.style.width = "100%";
+    this.tableContainer.style.height = "100%";
+    this.tableContainer.appendChild(this._table);
+    this._scrollBox = this.createElement("div", this);
+    this._scrollBox.className = "scrollBox";
+    this._scrollBox.tabIndex = 0;
+    this._scrollBox.appendChild(this.placeHolder);
+    this.edit = this.createElement("input", this);
+    this.edit.setAttribute("autocomplete", "disabled");
+    this.edit.className = "grid_edit";
+    this.edit.style.border = "0px";
+    this.edit.style.width = "10px";
+    this.edit.style.height = "10px";
+    this.edit.style.position = "absolute";
+    this.edit.style.top = "-100px";
+    this.edit.style.left = "-100px";
+    this.style.overflow = "hidden";
+    this.style.backgroundColor = "#FFFFFF";
+    this._height = 89;
+    this._width = 324;
+    this.colWidths = [];
+    this._scrollLeft = 0;
+    this._scrollTop = 0;
+    this._scrollBox.addEventListener("mousewheel", (event) => {
+      console.dir(event);
+      let delta = Math.max(-1, Math.min(1, event.wheelDelta || -event.detail));
+      this._handleMouseWheel(event, delta);
+    });
+    this.edit.addEventListener("input", this._handleInput.bind(this));
+    this.edit.addEventListener("propertychange", this._handleInput.bind(this));
+    this.addEventListener("dragover", this._handleDragOver.bind(this));
+    this.addEventListener("drop", this._handleFileDrop.bind(this));
+    this._scrollBox.onscroll = this._handleScroll.bind(this);
+    this.setCurrCell(this._fixedCol, this._fixedRow);
+    this._updateLanguage();
+    this._updateListOfValues();
+    this.enableUpdateTimer(true, true);
+  }
+  calcTopRow(rowIdx) {
+    if (rowIdx == this._fixedRow)
+      return rowIdx;
+    let row = rowIdx;
+    let height = this._scrollBox.clientHeight;
+    if (this.layout == "card") {
+    } else {
+      for (let i = 0; i < this._fixedRow; i++)
+        height = height - this.getRowHeight(i) - 0.8;
+      height = height - this.getRowHeight(row);
+      while (row > this._fixedRow) {
+        let h = this.getRowHeight(row) + 0.8;
+        height = height - h;
+        if (height < h - 4) {
+          return row - 1;
+        }
+        ;
+        row--;
+      }
+    }
+    return row;
+  }
+  cells(aCol, aRow, refresh2) {
+    return this.data.getCell(aCol, aRow, refresh2);
+  }
+  get col() {
+    return this._col;
+  }
+  set col(value) {
+    this._col = value;
+  }
+  get row() {
+    return this._row;
+  }
+  set row(value) {
+    this._row = value;
+  }
+  get colCount() {
+    return this._colCount;
+  }
+  set colCount(value) {
+    this._colCount = value;
+    this.enableUpdateTimer(false, true);
+  }
+  get readOnly() {
+    return this._readOnly;
+  }
+  set readOnly(value) {
+    this._readOnly = value;
+  }
+  get rowCount() {
+    return this._rowCount;
+  }
+  set rowCount(value) {
+    this._rowCount = value;
+    this.enableUpdateTimer(true, false);
+  }
+  get topRow() {
+    return this._topRow;
+  }
+  set topRow(value) {
+    this._topRow = value;
+  }
+  _updateRowHeights(row) {
+    let height = this._defaultRowHeight;
+    for (let col = 0; col < this._colCount; col++) {
+      let cell = this.data.cells(col, row);
+      if (cell && cell._height && cell._height > height) {
+        height = cell._height;
+      }
+    }
+    ;
+    this._rowHeights[row] = height;
+    this._updateTotalRowHeight();
+    return height;
+  }
+  setObject(aCol, aRow, aObject) {
+    if (this.data)
+      this.data.setObject(aCol, aRow, aObject);
+  }
+  setJSONValue(value, prop, newValue) {
+    let obj;
+    try {
+      if (value)
+        obj = JSON.parse(value);
+      else
+        obj = {};
+    } catch (err) {
+      obj = {};
+    }
+    obj[prop] = newValue;
+    return JSON.stringify(obj);
+  }
+  updateBindingData(cell, column) {
+    column = column || this.columns.getColumn(cell._col);
+    if (column && column.binding) {
+      let obj = this.getObject(0, cell._row);
+      if (!obj) {
+        obj = {};
+        this.setObject(0, this._row, obj);
+      }
+      obj[column.binding] = cell._value;
+    }
+  }
+  _updateCurrCellValue(editor) {
+    console.dir("### _updateCurrCellValue");
+    let cardViewEditor = false;
+    if (editor)
+      cardViewEditor = true;
+    if (this.editorMode || this._cardPanel) {
+      let oldValue = this.data.getValue(this._col, this._row);
+      editor = editor || this.editor;
+      if (!editor || editor._isModified === false)
+        return;
+      let newValue;
+      if (editor.valueCode)
+        newValue = editor.valueCode;
+      else if (editor.getText)
+        newValue = editor.getText();
+      else
+        newValue = application.xssSanitize(editor.value);
+      let text = "";
+      if (editor.getText)
+        text = editor.getText();
+      else
+        text = newValue;
+      let cell = this.data.getCell(this._col, this._row);
+      if (cell.mergeRect && (this._col != cell.mergeRect.startCol || this._row != cell.mergeRect.startRow))
+        cell = this.data.getCell(cell.mergeRect.startCol, cell.mergeRect.startRow);
+      if (true) {
+        if (this.options._autoRowHeight) {
+          let div = this._currCell.div;
+          div.textContent = text;
+          let height = div.clientHeight + 3;
+          if (cell.mergeRect) {
+            height = height / (cell.mergeRect.endRow - cell.mergeRect.startRow + 1);
+            for (let i = cell.mergeRect.startRow; i <= cell.mergeRect.endRow; i++) {
+              cell._height = height;
+              this._updateRowHeights(i);
+            }
+          } else {
+            cell._height = height;
+            this._updateRowHeights(this._row);
+          }
+        } else
+          this._currCell.div.textContent = text;
+      }
+      cell._value = newValue;
+      this.origValue = void 0;
+      if (!cardViewEditor)
+        this.enableUpdateTimer();
+      if (cell._field) {
+        if (!cell._record) {
+          let column = this.columns.getColumn(cell._col);
+          let record = this.getObject(0, cell._row);
+          let rs = record[cell._lookupTable];
+          cell._record = rs.append();
+          let v = column._lookupDetailValue;
+          switch (column._lookupDetailType) {
+            case "date":
+              v = new Date(v);
+              v.setHours(0, 0, 0, 0);
+              break;
+            case "numeric":
+              if (typeof v == "string")
+                v = parseFloat(v);
+              break;
+          }
+          ;
+          cell._record[column._lookupDetailField] = v;
+        }
+        cell._record[cell._field] = newValue;
+      } else if (this._dataBindingContext) {
+        let record = this.getObject(0, this._row);
+        let field = this.getObject(this._col, 0);
+        let idx = 0;
+        let jsonValue;
+        if (typeof field == "number") {
+          idx = field;
+          field = this.dataBinding["fields"][idx];
+          if (this.dataBinding["jsonValues"])
+            jsonValue = this.dataBinding["jsonValues"][idx];
+        }
+        this.data.getCell(0, this._row)._newRow = false;
+        let fieldType = this.dataBinding["fieldTypes"][idx];
+        if (fieldType == "float")
+          newValue = parseNumber(newValue);
+        else if (fieldType == "integer")
+          newValue == Math.round(parseNumber(newValue));
+        else if (editor && editor["dataType"] == "dtNumber")
+          newValue = parseNumber(newValue);
+        if (!record && field) {
+          record = this._dataBindingContext["append"]();
+          this.setObject(0, this._row, record);
+        }
+        if (record && field) {
+          if (jsonValue)
+            newValue = this.setJSONValue(record[field], jsonValue, newValue);
+          if (record[field] != newValue)
+            record[field] = newValue;
+        }
+        if (true)
+          this.enableUpdateTimer();
+      }
+      this.updateBindingData(cell);
+      if (this.onCellChange)
+        this.onCellChange(this, cell, oldValue, newValue);
+    }
+    ;
+  }
+  hideEditor(updateValue) {
+    this.edit.value = "";
+    if (updateValue && this.editor && this.editor["dataType"] == "dtUserAccount") {
+      let editor = this.editor;
+      editor["dataType"] = "";
+      this.editor = null;
+      let self = this;
+      return;
+    }
+    if (updateValue && this.editor && this.editor["dataType"] == "dtFile")
+      updateValue = false;
+    else if (this.editor && this.editor.buildInEditor && this.editor["dataType"] == "dtLookup") {
+      this.editor["onChange"] = void 0;
+      this.editor.hide(updateValue);
+    }
+    if (updateValue)
+      this._updateCurrCellValue();
+    if (this.editor) {
+      this.editorMode = false;
+      let editor = this.editor;
+      this.editor = void 0;
+      this.removeChild(editor);
+      this.edit.removeEventListener("propertychange", this._handleInput.bind(this));
+      this.edit.removeEventListener("input", this._handleInput.bind(this));
+      this.edit.value = "";
+      this.edit.addEventListener("propertychange", this._handleInput.bind(this));
+      this.edit.addEventListener("input", this._handleInput.bind(this));
+      this.focus();
+      this.edit.focus();
+      if (this.onEditModeChanged)
+        this.onEditModeChanged(this);
+    }
+    ;
+  }
+  checkEmptyRow(row) {
+    let cell = this.data.getCell(0, row);
+    if (cell._newRow != void 0)
+      return cell._newRow;
+    for (let i = 0; i < this._colCount; i++) {
+      if (this.data.getValue(i, row) != "" && this.data.getValue(i, row) != void 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+  setRowCount(aRowCount) {
+    if (this._rowCount != aRowCount) {
+      this._rowCount = aRowCount;
+      if (this._row >= this._rowCount || this._row < this._fixedRow)
+        this._row = this._fixedRow;
+      this.data.setRowCount(aRowCount);
+      this.refresh();
+      this.enableUpdateTimer(true);
+    }
+  }
+  refresh() {
+    super.refresh();
+    this.enableUpdateTimer();
+  }
+  deleteRow(row) {
+    if (this._dataBindingContext && this._dataBindingContext["readOnly"])
+      return;
+    this.data.deleteRow(row);
+    if (this._rowHeights.length > row)
+      this._rowHeights.splice(row, 1);
+    this.setRowCount(this._rowCount - 1);
+    if (this._dataBindingContext) {
+      let record = this.getObject(0, this._row);
+      if (record && this._dataBindingContext["current"] !== record) {
+        if (this._bindingRecordSet)
+          this._bindingRecordSet["current"] = record;
+        this._dataBindingContext["current"] = record;
+      }
+    }
+    ;
+    this.enableUpdateTimer();
+  }
+  getObject(aCol, aRow) {
+    return this.data.getObject(aCol, aRow);
+  }
+  getValue(col, row) {
+    return this.data.getValue(col, row);
+  }
+  setScrollLeft() {
+    console.dir("#setScrollLeft");
+    this._scrollBox.onscroll = null;
+    clearTimeout(this._restScrollboxHandler);
+    clearTimeout(this._setScrollLeftInterval);
+    this._setScrollLeftInterval = setTimeout(() => {
+      this.setScrollLeftInternal();
+      this._restScrollboxHandler = setTimeout(() => {
+        this._scrollBox.onscroll = this._handleScroll.bind(this);
+      }, 10);
+    }, 10);
+  }
+  setScrollLeftInternal() {
+    if (this._leftCol == this._fixedCol) {
+      this._scrollBox.scrollLeft = 0;
+      this._scrollLeft = this._scrollBox.scrollLeft;
+    } else {
+      let w = 0;
+      for (let i = 0; i < this._fixedCol; i++)
+        w = w + this.getColWidth(i) + 0.8;
+      for (let i = this._leftCol; i < this._colCount; i++)
+        w = w + this.getColWidth(i) + 0.8;
+      this._scrollBox.scrollLeft = this._scrollBox.scrollWidth - w;
+      this._scrollLeft = this._scrollBox.scrollLeft;
+    }
+    ;
+  }
+  setScrollTop() {
+    this._scrollBox.onscroll = null;
+    clearInterval(this._restScrollboxHandler);
+    clearInterval(this._setScrollTopInterval);
+    this._setScrollTopInterval = setTimeout(() => {
+      this.setScrollTopInternal();
+      this._restScrollboxHandler = setTimeout(() => {
+        this._scrollBox.onscroll = this._handleScroll.bind(this);
+      }, 10);
+    }, 10);
+  }
+  setScrollTopInternal() {
+    console.dir("setScrollTopInternal");
+    if (this._topRow == this._fixedRow) {
+      this._scrollBox.scrollTop = 0;
+      this._scrollTop = this._scrollBox.scrollTop;
+    }
+    if (this.layout == "card") {
+    } else {
+      let h = 0;
+      for (let i = 0; i < this._fixedRow; i++)
+        h = h + this.getRowHeight(i) + 0.8;
+      for (let i = this._topRow; i < this._rowCount; i++)
+        h = h + this.getRowHeight(i) + 0.8;
+      this._scrollBox.scrollTop = this._scrollBox.scrollHeight - h;
+      this._scrollTop = this._scrollBox.scrollTop;
+    }
+    ;
+  }
+  setLeftCol(aLeftCol, skipSetScroll) {
+    console.log("setLeftCol", aLeftCol, skipSetScroll);
+    if (aLeftCol != this._leftCol) {
+      if (this.editorMode) {
+        this.hideEditor(true);
+      }
+      ;
+      if (aLeftCol < this._fixedCol)
+        this._leftCol = this._fixedCol;
+      else if (aLeftCol >= this._colCount)
+        this._leftCol = this._colCount - 1;
+      else
+        this._leftCol = aLeftCol;
+      this.showData(100);
+      if (!skipSetScroll)
+        this.setScrollLeft();
+      this.enableUpdateTimer();
+    }
+  }
+  setTopRow(row, skipSetScroll) {
+    console.log("setTopRow", row, skipSetScroll);
+    if (row != this._topRow) {
+      if (this.editorMode) {
+        this.hideEditor(true);
+      }
+      ;
+      if (row < this._fixedRow)
+        this._topRow = this._fixedRow;
+      else if (row >= this._rowCount)
+        this._topRow = this._rowCount - 1;
+      else
+        this._topRow = row;
+      this.showData(100);
+      if (!skipSetScroll)
+        this.setScrollTop();
+      this.enableUpdateTimer();
+    }
+    ;
+  }
+  showData(interval) {
+    let self = this;
+    self.showDataFlag = true;
+    if (self._showDataTimeout) {
+      clearTimeout(self._showDataTimeout);
+    }
+    if (interval && !self._refreshDataTimeout) {
+      self._refreshDataTimeout = setTimeout(function() {
+        clearTimeout(self._refreshDataTimeout);
+        self._refreshDataTimeout = void 0;
+        if (!self._destroyed)
+          self.showDataInternal();
+      }, 10);
+    }
+    ;
+    self._showDataTimeout = setTimeout(function() {
+      if (self._refreshDataTimeout) {
+        clearTimeout(self._refreshDataTimeout);
+        self._refreshDataTimeout = void 0;
+      }
+      clearTimeout(self._showDataTimeout);
+      self._showDataTimeout = void 0;
+      if (self.showDataFlag) {
+        self.showDataFlag = false;
+        self._updateTableInternal();
+        if (!self["_destroyed"])
+          self.showDataInternal();
+      }
+    }, 100);
+  }
+  getTableCellByActualIndex(aColIdx, aRowIdx) {
+    let aCol;
+    let aRow;
+    if (aColIdx < this._fixedCol)
+      aCol = aColIdx;
+    else
+      aCol = aColIdx - this._leftCol + this._fixedCol;
+    if (aRowIdx < this._fixedRow)
+      aRow = aRowIdx;
+    else
+      aRow = aRowIdx - this._topRow + this._fixedRow;
+    for (let i = this._topRow; i < aRow; i++) {
+      if (this.gridRows.rows[i] && this.gridRows.rows[i]._visible == false)
+        aRow--;
+    }
+    if (aRow >= this._fixedRow && this.tableCells[aRow])
+      return this.tableCells[aRow][aCol];
+    else
+      return void 0;
+  }
+  getTableCell(aColIdx, aRowIdx) {
+    if (this.tableCells && this.tableCells[aRowIdx])
+      return this.tableCells[aRowIdx][aColIdx];
+    else
+      return void 0;
+  }
+  highlightCurrCell() {
+    var _a, _b, _c;
+    this._currCell = this.getTableCellByActualIndex(this._col, this._row);
+    if (!this.options._rowSelect) {
+      if (!this._currCell) {
+        return this.cellHighlight.style.display = "none";
+      }
+    }
+    this.highlightSelectedCell();
+    this.selectedRangeHighlight.style.display = "none";
+    if (this._currCell || this.options._rowSelect && this._row < this._rowCount) {
+      if (this.options._rowSelect) {
+        this.cellHighlight.style.display = "block";
+        if (this._currCell) {
+          this.cellHighlight.style.display = "";
+          this.cellHighlight.style.top = this._currCell.offsetTop - 1 + "px";
+          this.cellHighlight.style.height = this._currCell.offsetHeight + 1 + "px";
+        } else
+          this.cellHighlight.style.display = "none";
+        this.cellHighlight.style.left = "0px";
+        if (this._totalColWidth + 2 < this.tableContainer.clientWidth)
+          this.cellHighlight.style.width = this._totalColWidth + 2 + "px";
+        else
+          this.cellHighlight.style.width = this.tableContainer.clientWidth + 2 + "px";
+      } else if (this._currCell) {
+        let tableCell = this.getTableCell(this._col, this._row);
+        if (tableCell && this._currCell.cell) {
+          let edit = this.edit;
+          edit.value = this._currCell.cell._displayValue || this._currCell.cell._value || "";
+          edit.setSelectionRange(0, edit.value.length);
+        } else {
+          this.edit.value = "";
+        }
+        ;
+        this.cellHighlight.style.display = "block";
+        let parentRect = this.getBoundingClientRect();
+        let elemRect = (_a = this._currCell) == null ? void 0 : _a.getBoundingClientRect();
+        this.cellHighlight.style.top = this._currCell.offsetTop + "px";
+        this.cellHighlight.style.left = this._currCell.offsetLeft + "px";
+        if ((_b = this._currCell) == null ? void 0 : _b.offsetWidth)
+          this.cellHighlight.style.width = this._currCell.offsetWidth + 1 + "px";
+        else
+          this.cellHighlight.style.width = "0px";
+        if ((_c = this._currCell) == null ? void 0 : _c.offsetHeight)
+          this.cellHighlight.style.height = this._currCell.offsetHeight + 1 + "px";
+        else
+          this.cellHighlight.style.height = "0px";
+      }
+      ;
+    } else {
+      this.cellHighlight.style.display = "none";
+    }
+    if (this._currCell && this._currCell.cell)
+      this.cellHighlight.title = this._currCell.cell._hint || "";
+    else
+      this.cellHighlight.title = "";
+  }
+  setCurrCell(aCol, aRow, triggerEvent) {
+    if (this._col == aCol && this._row == aRow)
+      return;
+    this.selectedCells = [];
+    let cell = this.data.getCell(aCol, aRow);
+    let idx = this.selectedCells.indexOf(cell);
+    if (idx < 0) {
+      this.selectedCells.push(cell);
+    } else {
+      this.selectedCells.splice(idx, 1);
+    }
+    this.highlightSelectedCell();
+    if (this.editorMode) {
+      this.hideEditor(true);
+    }
+    ;
+    if (aCol < 0)
+      aCol = 0;
+    if (aRow < this._fixedRow)
+      aRow = this._fixedRow;
+    let rowChange = false;
+    if (aCol < this._colCount && aRow < this._rowCount) {
+      this._col = aCol;
+      if (this._row != aRow) {
+        rowChange = true;
+        if (!this._readOnly && this.options._autoAddRow && this._row == this._rowCount - 1 && this.checkEmptyRow(this._row)) {
+          if (this._dataBindingContext) {
+            let record = this.getObject(0, this._row);
+            if (record)
+              this._dataBindingContext["delete"](record);
+            this.deleteRow(this._row);
+          } else
+            this._rowCount = this._rowCount - 1;
+          this.enableUpdateTimer();
+        }
+      }
+      this._row = aRow;
+      if (aCol < this._leftCol)
+        this.setLeftCol(aCol);
+      if (aRow < this._topRow)
+        this.setTopRow(aRow);
+      if (this._scrollBox.clientWidth > 0) {
+        let topRow = this.calcTopRow(aRow);
+        if (topRow > this._topRow)
+          this.setTopRow(topRow);
+        let leftCol = this.calcLeftCol(aCol);
+        if (leftCol > this._leftCol)
+          this.setLeftCol(leftCol);
+      }
+      this.highlightCurrCell();
+      if (rowChange) {
+        let record = this.getObject(0, this._row);
+        if (this._bindingRecordSet && this._bindingRecordSet["current"] !== record)
+          this._bindingRecordSet["current"] = record;
+        if (this._dataBindingContext && this._dataBindingContext["current"] !== record) {
+          this._skipRefreshData = true;
+          if (this._bindingRecordSet)
+            this._bindingRecordSet["current"] = record;
+          this._dataBindingContext["current"] = record;
+        }
+        if (triggerEvent && this.onRowChange) {
+          this.onRowChange(this);
+        }
+      }
+      if (triggerEvent && this.onCellSelect) {
+        this.onCellSelect(this, cell);
+      }
+    }
+    ;
+  }
+  highlightSelectedCell() {
+    if (this.selectedCells.length > 1) {
+      let idx = {};
+      for (let i = 0; i < this.selectedCells.length; i++) {
+        let cell = this.selectedCells[i];
+        idx[cell.col + "-" + cell.row] = false;
+      }
+      for (let i = this.selectedCellsHighlight.length - 1; i > -1; i--) {
+        let div = this.selectedCellsHighlight[i];
+        if (typeof idx[div.col + "-" + div.row] == "undefined") {
+          this.removeChild(this.selectedCellsHighlight[i]);
+          this.selectedCellsHighlight["splice"](i, 1);
+        } else
+          idx[div.col + "-" + div.row] = true;
+      }
+      for (let i = 0; i < this.selectedCells.length; i++) {
+        let cell = this.selectedCells[i];
+        if (idx[cell["col"] + "-" + cell["row"]] == false) {
+          let tableCell = this.getTableCellByActualIndex(cell.col, cell.row);
+          if (tableCell) {
+            let div = this.createElement("div", this);
+            this.appendChild(div);
+            this.selectedCellsHighlight.push(div);
+            div.className = "grid_selected_cell";
+            div.style.position = "absolute";
+            div.style.display = "block";
+            div.style.zIndex = "3";
+            div.col = cell["col"];
+            div.row = cell["row"];
+            div.style.top = tableCell.offsetTop + "px";
+            div.style.left = tableCell.offsetLeft + "px";
+            div.style.width = tableCell.offsetWidth + "px";
+            div.style.height = tableCell.offsetHeight + "px";
+          }
+          ;
+        }
+        ;
+      }
+      ;
+    } else {
+      for (let i = this.selectedCellsHighlight.length - 1; i > -1; i--)
+        this.removeChild(this.selectedCellsHighlight[i]);
+      this.selectedCellsHighlight = [];
+    }
+    ;
+  }
+  _updateLanguage() {
+  }
+  _updateListOfValues() {
+  }
+  _handleScrollHorizontal(sender) {
+    if (sender.scrollLeft == 0) {
+      this.setLeftCol(this._fixedCol, true);
+      return;
+    }
+    let width = sender.scrollWidth - sender.scrollLeft - sender.clientWidth;
+    for (let i = 0; i < this._fixedCol; i++)
+      width = width - this.getColWidth(i) - 1;
+    for (let i = this._colCount - 1; i > 0; i--) {
+      let w = this.getColWidth(i);
+      width = width - w - 1;
+      if (width <= 0) {
+        let col = this.calcLeftCol(i);
+        this.setLeftCol(col, true);
+        break;
+      }
+    }
+    this.highlightCurrCell();
+  }
+  _handleScrollVertical(sender) {
+    if (sender.scrollTop == 0) {
+      if (this._cardPanel)
+        this._cardPanel["setTop"](0);
+      this.setTopRow(this._fixedRow, true);
+      return;
+    }
+    if (this.layout == "card") {
+    } else {
+      let height = sender.scrollHeight - sender.scrollTop - sender.clientHeight;
+      for (let i = 0; i < this._fixedRow; i++) {
+        height = height - this.getRowHeight(i);
+      }
+      for (let i = this._rowCount - 1; i > 0; i--) {
+        let h = this.getRowHeight(i);
+        height = height - h;
+        if (height <= 0) {
+          let row = this.calcTopRow(i);
+          this.setTopRow(row, true);
+          break;
+        }
+      }
+      ;
+    }
+    this.highlightCurrCell();
+  }
+  _handleScroll(event) {
+    console.dir("_handleScroll");
+    let target = event.target;
+    clearTimeout(this.scrollHorizontalTimer);
+    clearTimeout(this.scrollVerticalTimer);
+    if (this._scrollLeft != target.scrollLeft) {
+      this._scrollLeft = target.scrollLeft;
+      this.scrollHorizontalTimer = setTimeout(() => {
+        this._handleScrollHorizontal(target);
+      }, 10);
+    } else if (this._scrollTop != target.scrollTop) {
+      this._scrollTop = target.scrollTop;
+      this.scrollVerticalTimer = setTimeout(() => {
+        this._handleScrollVertical(target);
+      }, 10);
+    }
+  }
+  _handleFileDrop(event) {
+    console.dir("## _handleFileDrop");
+  }
+  _handleDragOver(event) {
+    console.dir("## _handleDragOver");
+  }
+  _handleInput(event) {
+    this.showEditor(this.edit.value);
+  }
+  _handleMouseWheel(event, delta) {
+    console.dir("## _handleMouseWheel");
+  }
+  getColLeft(aCol) {
+    let cell = this.getTableCellByActualIndex(aCol, 1);
+    if (cell)
+      return cell.offsetLeft;
+    let r = 0;
+    for (let i = 0; i < this._fixedCol; i++) {
+      r = r + this.getColWidth(i);
+    }
+    for (let i = this._leftCol; i < aCol; i++) {
+      r = r + this.getColWidth(i);
+    }
+    return r;
+  }
+  getColRight(aCol) {
+    let cell = this.getTableCellByActualIndex(aCol, 1);
+    if (cell)
+      return cell.offsetLeft + this.getColWidth(aCol);
+    let r = 0;
+    for (let i = 0; i < this._fixedCol; i++) {
+      r = r + this.getColWidth(i);
+    }
+    for (let i = this._leftCol; i < aCol; i++) {
+      r = r + this.getColWidth(i);
+    }
+    return r + this.getColWidth(aCol);
+  }
+  getColWidth(col) {
+    let column = this.cols(col);
+    if (column && column._visible === false)
+      return 0;
+    let w = this.colWidths[col];
+    if (w != void 0)
+      return w;
+    else
+      return this._defaultColWidth;
+  }
+  getRowHeight(row) {
+    let h = this._rowHeights[row];
+    if (h)
+      return h;
+    else
+      return this._defaultRowHeight;
+  }
+  _updateTotalRowHeight() {
+    this._totalRowHeight = 0;
+    for (let i = 0; i < this._rowCount; i++) {
+      this._totalRowHeight = this._totalRowHeight + this.getRowHeight(i) + 0.8;
+    }
+    this.placeHolder.style.height = this._totalRowHeight + "px";
+  }
+  _updateTotalColWidth() {
+    this._totalColWidth = 0;
+    for (let i = 0; i < this._colCount; i++) {
+      this._totalColWidth = this._totalColWidth + this.getColWidth(i);
+    }
+    if (this._totalColWidth < this["width"])
+      this.placeHolder.style.width = "100%";
+    else
+      this.placeHolder.style.width = this._totalColWidth + "px";
+  }
+  _updateTableRows() {
+    for (let i = this._table.rows.length - 1; i >= 0; i--) {
+      this._table.deleteRow(i);
+    }
+    this.visibleRowCount = Math.round(this.heightValue / this._defaultRowHeight) + 1;
+    if (this.visibleRowCount > this._rowCount)
+      this.visibleRowCount = this._rowCount;
+    for (let i = this._table.rows.length; i < this.visibleRowCount; i++) {
+      let r = this._table.insertRow(this._table.rows.length);
+    }
+    ;
+  }
+  getActualColIdx(col) {
+    if (col < this._fixedCol)
+      return col;
+    else
+      return col + this._leftCol - this._fixedCol;
+  }
+  getActualRowIdx(row) {
+    if (row < this._fixedRow)
+      return row;
+    else {
+      let result = row + this._topRow - this._fixedRow;
+      for (let i = this._topRow; i <= result; i++) {
+        if (this.gridRows.rows[i] && this.gridRows.rows[i]._visible == false)
+          result++;
+      }
+      ;
+      return result;
+    }
+    ;
+  }
+  cols(colIdx) {
+    return this.columns.getColumn(colIdx);
+  }
+  _updateTableCellDiv(tableCell, col, row) {
+    if (!tableCell.div) {
+      let div = this.createElement("div");
+      tableCell.div = div;
+      div.owner = this;
+      if (row < this._fixedRow)
+        tableCell.className = "header grid_fixed_cell";
+      else if (col < this._fixedCol)
+        tableCell.className = "grid_fixed_cell";
+      let actCol = this.getActualColIdx(col);
+      let actRow = this.getActualRowIdx(row);
+      let cell = this.data.cells(actCol, actRow);
+      let w = 0;
+      let h = 0;
+      if (cell && cell.mergeRect) {
+        let divRect = this.createElement("div");
+        divRect.style.overflow = "hidden";
+        divRect.style.position = "relative";
+        tableCell.appendChild(divRect);
+        w = this.getColWidth(cell.mergeRect.startCol) - 2;
+        h = this.getRowHeight(cell.mergeRect.startRow) - 1;
+        for (let i = cell.mergeRect.startCol + 1; i <= cell.mergeRect.endCol; i++)
+          w = w + this.getColWidth(i) - 2;
+        for (let i = cell.mergeRect.startRow + 1; i <= cell.mergeRect.endRow; i++)
+          h = h + this.getRowHeight(i) - 2;
+        let left = 0;
+        let top = 0;
+        if (cell.mergeRect.startCol > this._fixedCol && cell.mergeRect.startCol < this._leftCol) {
+          for (let i = cell.mergeRect.startCol; i < this._leftCol; i++)
+            left = left + this.getColWidth(i) - 2;
+        }
+        if (cell.mergeRect.startRow > this._fixedRow && cell.mergeRect.startRow < this._topRow) {
+          for (let i = cell.mergeRect.startRow; i < this._topRow; i++)
+            top = top + this.getRowHeight(i) - 1;
+        }
+        divRect.appendChild(div);
+        divRect.style.width = w - left + "px";
+        divRect.style.height = h - top + "px";
+        div.style.position = "absolute";
+        div.style.left = -left + "px";
+        div.style.top = -top + "px";
+      } else {
+        w = this.getColWidth(actCol) - 2;
+        let column = this.cols(actCol);
+        if (column && column._visible === false)
+          tableCell.className += " grid_cell_hidden";
+        h = this.getRowHeight(actRow) - 2;
+        if (row < this._fixedRow)
+          tableCell.style.minWidth = w + "px";
+        tableCell.style.position = "relative";
+        tableCell.appendChild(div);
+      }
+      div.style.width = w + "px";
+      div.style.height = "auto";
+      div.style.whiteSpace = "wrap";
+      div.style.maxHeight = h + "px";
+      div.style.overflow = "hidden";
+      if (col == 0)
+        div.style.minHeight = h + "px";
+      div.className = "grid_cell_value";
+    }
+    ;
+  }
+  _updateTableCols() {
+    let w = 0;
+    for (let i = 0; i < this._fixedCol; i++)
+      w = w + this.getColWidth(i);
+    this.visibleColCount = this._fixedCol;
+    let width = this.widthValue;
+    if (width == 0)
+      this._needUpdate = true;
+    else
+      this._needUpdate = false;
+    for (let i = this._leftCol; i < this._colCount; i++) {
+      w = w + this.getColWidth(i);
+      this.visibleColCount++;
+      if (w >= width)
+        break;
+    }
+    ;
+    for (let row = 0; row < this._table.rows.length; row++) {
+      let r = this._table.rows[row];
+      this.tableCells[row] = [];
+      for (let col = 0; col < this.visibleColCount; col++) {
+        let tableCell = r.insertCell(r.cells.length);
+        if (col == 0)
+          tableCell.style.height = this._defaultRowHeight + "px";
+        tableCell.owner = this;
+        if ((col + this._leftCol) % 2 == 0)
+          tableCell.className = "grid_cell even_col";
+        else
+          tableCell.className = "grid_cell odd_col";
+        if ((row + this._topRow) % 2 == 0)
+          tableCell.className += " even_row";
+        else
+          tableCell.className += " odd_row";
+        this._updateTableCellDiv(tableCell, col, row);
+        this.tableCells[row][col] = tableCell;
+        if (row == 0 && (col < this._fixedCol && col == this.sortingCol || (col >= this._fixedCol && col + (this._leftCol > 0 ? this._leftCol - this._fixedCol : 0)) == this.sortingCol)) {
+          tableCell.style.position = "relative";
+          let elm = this.createElement("div");
+          elm.style.position = "absolute";
+          elm.style.width = "6px";
+          elm.style.height = "6px";
+          elm.style.right = "4px";
+          if (this.sortingDescending) {
+            elm.style.top = "2px";
+            elm.className = "fa fa-sort-desc";
+          } else {
+            elm.style.top = "6px";
+            elm.className = "fa fa-sort-asc";
+          }
+          tableCell.appendChild(elm);
+        }
+      }
+    }
+  }
+  setColWidth(aColIndex, width, trigerEvent) {
+    let orig = 0;
+    orig = this.colWidths[aColIndex];
+    this.colWidths[aColIndex] = width;
+    for (let i = 0; i < this.tableCells.length; i++) {
+      let tableCell = this.getTableCell(aColIndex, i);
+      let tableCellDiv = tableCell == null ? void 0 : tableCell.div;
+      let column = this.cols(aColIndex);
+      if (tableCell && tableCell.div && !column._checkBox && !column._radioButton)
+        tableCellDiv.style.width = width - 3 + "px";
+    }
+    for (let i = 0; i < this._rowCount; i++) {
+      let cell = this.cells(aColIndex, i);
+      if (cell)
+        cell._height = void 0;
+    }
+    if (trigerEvent && this.onColResize) {
+      if (this.resizeTimer)
+        clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(() => {
+        this.onColResize(this, aColIndex, width);
+      }, 50);
+    }
+    this.enableUpdateTimer(true, true);
+  }
+  _updateTableMergedCells() {
+    console.dir("### _updateTableMergedCells");
+  }
+  sort(col, descending) {
+    let currRow = this.data.data[this._row];
+    if (this.editorMode)
+      this.hideEditor();
+    this._rowHeights = [];
+    if (this.data.data.length > this._rowCount)
+      this.data.data.length = this._rowCount;
+    if (col >= 0)
+      this.data.sort(col, descending);
+    this.sortingDescending = descending || false;
+    this.sortingCol = col;
+    if (currRow)
+      this._row = this.data.data.indexOf(currRow);
+    this.enableUpdateTimer();
+  }
+  getEditor(col, cell) {
+    let editor = this.createElement("input", this);
+    editor.setAttribute("autocomplete", "disabled");
+    editor.className = "grid_edit";
+    this.appendChild(editor);
+    return editor;
+  }
+  handleEditControlChange(event) {
+    console.dir("## handleEditControlChange");
+  }
+  _handleDblClick(event, stopPropagation) {
+    return true;
+  }
+  colLeft() {
+    let aRow = this._row;
+    let aCol = this._col - 1;
+    while (aCol > this._fixedCol) {
+      let column = this.cols(aCol);
+      if (column && column.visible === false)
+        aCol--;
+      else
+        break;
+    }
+    ;
+    if (aCol < this._colCount) {
+      let cell = this.data.cells(aCol, aRow);
+      if (cell && cell.mergeRect) {
+        if (cell.mergeRect.startRow != aRow) {
+          aRow = cell.mergeRect.endRow + 1;
+        }
+        ;
+        this.setCurrCell(aCol, aRow, true);
+      } else
+        this.setCurrCell(aCol, aRow, true);
+    }
+    ;
+  }
+  colRight() {
+    let aRow = this._row;
+    let aCol = this._col + 1;
+    while (aCol < this._colCount - 1) {
+      let column = this.cols(aCol);
+      if (column && column.visible === false)
+        aCol++;
+      else
+        break;
+    }
+    ;
+    if (aCol < this._colCount) {
+      let cell = this.data.cells(aCol, aRow);
+      if (cell && cell.mergeRect) {
+        if (cell.mergeRect.startRow != aRow) {
+          aRow = cell.mergeRect.endRow + 1;
+        }
+        this.setCurrCell(aCol, aRow, true);
+      } else
+        this.setCurrCell(aCol, aRow, true);
+    }
+    ;
+  }
+  autoAddRow() {
+    if (!this._readOnly && !this.options._rowSelect && this.options._autoAddRow && this._row == this._rowCount - 1) {
+      let emptyRow = this.checkEmptyRow(this._row);
+      if (!emptyRow) {
+        this._rowCount = this._rowCount + 1;
+        this.setCurrCell(this._col, this._row + 1, true);
+        let cell = this.data.getCell(0, this._row);
+        if (this._dataBindingContext) {
+          cell._newRow = true;
+          let rd = this._dataBindingContext["append"]();
+          this.setObject(0, this._row, rd);
+          this._skipRefreshData = true;
+          if (this._bindingRecordSet)
+            this._bindingRecordSet["current"] = rd;
+          this._dataBindingContext["current"] = rd;
+        }
+        this._updateTotalRowHeight();
+        this.enableUpdateTimer();
+      }
+    }
+  }
+  rowDown(disableAutoAddRow) {
+    let aCol = this._col;
+    let aRow = this._row + 1;
+    while (aRow < this._rowCount - 1 && this.gridRows.rows[aRow] && this.gridRows.rows[aRow]._visible == false) {
+      aRow++;
+    }
+    if (this.gridRows.rows[aRow] && this.gridRows.rows[aRow]._visible == false)
+      aRow = this._row;
+    this.gridRows.rows[aRow] && this.gridRows.rows[aRow]._visible == false;
+    if (!disableAutoAddRow)
+      this.autoAddRow();
+    if (aRow < this._rowCount) {
+      let cell = this.data.cells(aCol, aRow);
+      if (cell && cell.mergeRect) {
+        if (cell.mergeRect.startRow != aRow) {
+          aRow = cell.mergeRect.endRow + 1;
+        }
+        this.setCurrCell(aCol, aRow, true);
+      } else
+        this.setCurrCell(aCol, aRow, true);
+    }
+    ;
+  }
+  calcBottomRow(topRowIdx) {
+    if (topRowIdx == this._rowCount - 1)
+      return topRowIdx;
+    let row = topRowIdx;
+    let height = this._scrollBox.clientHeight;
+    if (this.layout == "card") {
+    } else {
+      for (let i = 0; i < this._fixedRow; i++)
+        height = height - this.getRowHeight(i) - 0.8;
+      height = height - this.getRowHeight(row);
+      while (row < this._rowCount - 1) {
+        let h = this.getRowHeight(row - 1) + 0.8;
+        height = height - h;
+        if (height <= 0)
+          return row;
+        row++;
+      }
+      ;
+    }
+    ;
+    return row;
+  }
+  calcLeftCol(colIdx) {
+    if (colIdx == this._fixedCol)
+      return colIdx;
+    let col = colIdx;
+    let width = this._scrollBox.clientWidth;
+    for (let i = 0; i < this._fixedCol; i++)
+      width = width - this.getColWidth(i) - 0.8;
+    width = width - this.getColWidth(col) - 0.8;
+    while (col > this._fixedCol - 1) {
+      let w = this.getColWidth(col - 1) + 0.8;
+      width = width - w;
+      if (width <= 0) {
+        return col;
+      }
+      col--;
+    }
+    return col;
+  }
+  rowUp() {
+    let aCol = this._col;
+    let aRow = this._row - 1;
+    let cell = this.data.cells(aCol, aRow);
+    if (cell && cell.mergeRect) {
+      if (cell.mergeRect.endRow != aRow) {
+        aRow = cell.mergeRect.startRow - 1;
+      }
+      ;
+      this.setCurrCell(aCol, aRow, true);
+    } else
+      this.setCurrCell(aCol, aRow, true);
+  }
+  restoreOrigCellValue() {
+    if (this.origValue != void 0) {
+      if (this.editorMode)
+        this.editor.value = this.origValue;
+      else
+        this._currCell.div.textContent = this.origValue;
+    }
+    ;
+  }
+  _handleKeyDown(event, stopPropagation) {
+    if (!this.editorMode)
+      this.edit.focus();
+    if (!this.enabled)
+      return false;
+    else if (event.keyCode == 229) {
+      setTimeout(() => {
+      }, 10);
+      return true;
+    }
+    ;
+    let keyCode = event.keyCode;
+    switch (keyCode) {
+      case 9: {
+        if (event.shiftKey)
+          this.colLeft();
+        else
+          this.colRight();
+        return true;
+      }
+      case 13: {
+        if (this.editorMode) {
+          if (!event.shiftKey) {
+            this.hideEditor(true);
+            this.colRight();
+          }
+        } else {
+          this.setCurrCell(this._col + 1, this._row, true);
+        }
+        return true;
+      }
+      case 32: {
+        let col = this.cols(this._col);
+        let cell = this.cells(this._col, this._row);
+        if (cell && cell.checkBox || col && (col.checkBox || col.radioButton)) {
+          if (this._currCell) {
+            this.toggleCellValue(col, cell);
+            this._updateCell(this._currCell, cell, col);
+          }
+          ;
+          event.stopPropagation();
+        }
+        break;
+      }
+      case 33: {
+        let bottomRow = this.calcBottomRow(this._topRow);
+        let row = this.calcTopRow(bottomRow);
+        row = this.calcTopRow(row);
+        this.setCurrCell(this._col, row);
+        return true;
+      }
+      case 34: {
+        let bottomRow = this.calcBottomRow(this._topRow);
+        let row = this.calcBottomRow(bottomRow);
+        this.setCurrCell(this._col, row);
+        return true;
+      }
+      case 35: {
+        if (!this.editorMode) {
+          if (event.ctrlKey) {
+            this.setCurrCell(this._colCount - 1, this._rowCount - 1);
+          } else
+            this.setCurrCell(this._colCount - 1, this._row);
+        }
+        return true;
+      }
+      case 36: {
+        if (!this.editorMode) {
+          if (event.ctrlKey)
+            this.setCurrCell(this._fixedCol, this._fixedRow);
+          else
+            this.setCurrCell(this._fixedCol, this._row);
+        }
+        return true;
+      }
+      case 38: {
+        this.rowUp();
+        return true;
+      }
+      case 40: {
+        if (this.editorMode) {
+          this.hideEditor(true);
+        }
+        this.rowDown();
+        return true;
+      }
+      default: {
+        let col = this.cols(this._col);
+        let cell = this.cells(this._col, this._row);
+        if (cell && cell.checkBox || col && (col.checkBox || col.radioButton))
+          event.stopPropagation();
+      }
+    }
+    ;
+    if (this.editorMode) {
+      switch (keyCode) {
+        case 27:
+          this.restoreOrigCellValue();
+          this.hideEditor();
+          this.focus();
+          return true;
+        case 37:
+          return;
+        case 39:
+          return;
+      }
+      ;
+    } else {
+      switch (keyCode) {
+        case 37:
+          this.colLeft();
+          return true;
+        case 39:
+          this.colRight();
+          return true;
+      }
+    }
+    ;
+  }
+  _handleBlur(event, stopPropagation) {
+    return true;
+  }
+  showEditor(inputValue) {
+    let column = this.columns.getColumn(this._col);
+    let contextReadonly = false;
+    if (this._dataBindingContext) {
+      contextReadonly = this._dataBindingContext["readOnly"] || this._dataBindingContext["_context"]["options"]["_readOnly"];
+    }
+    if (!column._file && contextReadonly)
+      return;
+    if (!column._file && this.checkCellReadOnly())
+      return;
+    let cell = this.data.cells(this._col, this._row);
+    this._currCell = this.getTableCellByActualIndex(this._col, this._row);
+    if (this._currCell && !this.editorMode) {
+      let top = this._currCell.offsetTop - 1;
+      this.editorMode = true;
+      this.origValue = this._currCell.div.innerHTML || "";
+      if (this.editor) {
+        this.editor.owner = null;
+        this.editor["onChange"] = null;
+        this.editor["onDblClick"] = null;
+        this.editor["onKeyDown"] = null;
+        this.editor["onHideDropDownPanel"] = null;
+      }
+      let editor;
+      if (this.onGetEditControl) {
+        editor = this.onGetEditControl(this, cell);
+        if (editor)
+          this.appendChild(editor);
+      }
+      if (!editor) {
+        editor = this.getEditor(this._col, cell);
+      }
+      if (editor) {
+        editor.onchange = this.handleEditControlChange.bind(this);
+        editor.ondblclick = this._handleDblClick.bind(this);
+        editor.onkeydown = this._handleKeyDown.bind(this);
+        editor.onblur = this._handleBlur.bind(this);
+        this.editor = editor;
+        editor.style.position = "absolute";
+        editor.style.display = "block";
+        editor.value = this.edit.value;
+        editor.focus();
+        if (cell.mergeRect) {
+          let w = 0;
+          let h = 0;
+          for (let i = cell.mergeRect.startCol; i < cell.mergeRect.endCol; i++)
+            w += this.getColWidth(i);
+          editor.style.width = w - 1 + "px";
+          for (let i = cell.mergeRect.startCol; i < cell.mergeRect.endCol; i++)
+            h += this.getRowHeight(i) + 0.8;
+          editor.style.height = h - 1 + "px";
+          this.editor["setTop"](this._currCell.offsetTop + 1);
+          this.editor["setLeft"](this._currCell.offsetLeft + 1);
+        } else {
+          editor.style.width = this.getColWidth(this._col) - 2 + "px";
+          editor.style.height = this.getRowHeight(this._row) - 2 + "px";
+          editor.style.top = this._currCell.offsetTop + 2 + "px";
+          editor.style.left = this._currCell.offsetLeft + 2 + "px";
+        }
+      }
+      if (this.onEditModeChanged) {
+        this.onEditModeChanged(this);
+      }
+      ;
+      this.editor = editor;
+      let self = this;
+      setTimeout(() => {
+        if (editor) {
+          editor.style.zIndex = "9999";
+        }
+        ;
+      }, 10);
+    } else
+      this.edit.value = "";
+  }
+  _handleMouseDown(event) {
+    if (!this.enabled)
+      return true;
+    let target = event.target;
+    if (target && target.isSpliter)
+      return true;
+    let aCol = 0;
+    let aRow = 0;
+    if (target == this.editor) {
+      return true;
+    } else {
+      let rect = this.getBoundingClientRect();
+      let x = getCursorPosX(event) - rect.left;
+      let y = getCursorPosY(event) - rect.top;
+      if (x > this._scrollBox.clientWidth || y > this._scrollBox.clientHeight)
+        return true;
+      for (let row = 0; row < this._table.rows.length; row++) {
+        let tableCell = this.tableCells[row][0];
+        if (tableCell.offsetTop + tableCell.clientHeight >= y) {
+          let r = this.tableCells[row];
+          for (let col = 0; col < r.length; col++) {
+            tableCell = r[col];
+            if (tableCell && tableCell.offsetLeft + tableCell.clientWidth >= x && tableCell.offsetTop + tableCell.clientHeight >= y) {
+              let tableCellDiv = tableCell == null ? void 0 : tableCell.div;
+              aCol = this.getActualColIdx(col);
+              aRow = this.getActualRowIdx(row);
+              let cell = this.cells(aCol, aRow);
+              this.lastClickCell = cell;
+              let elms = tableCellDiv.querySelectorAll("button");
+              if (elms.length > 0) {
+                let offsetX = x - tableCell.offsetLeft;
+                for (let i = 0; i < elms.length; i++) {
+                  if (elms[i].offsetLeft + elms[i].clientWidth > offsetX) {
+                    this.setCurrCell(aCol, aRow, true);
+                    let btn;
+                    if (Array.isArray(cell._value))
+                      btn = cell._value[i];
+                    else
+                      btn = cell._value;
+                    if (this.onButtonClick) {
+                      this.onButtonClick(this, cell, btn);
+                    }
+                    if (this.onCellClick) {
+                      this.onCellClick(this, cell);
+                    }
+                  }
+                }
+                return true;
+              }
+              let column = this.columns.getColumn(aCol);
+              if (column && (cell && cell._checkBox || column._checkBox || column._radioButton)) {
+                if (aRow >= this._fixedRow || !cell.readOnly && cell._checkBox) {
+                  this.toggleCellValue(column, cell);
+                  this._updateCell(tableCell, cell, column);
+                  this.setCurrCell(aCol, aRow, true);
+                } else if (this.options._sortOnClick && column._sortable) {
+                  if (aCol == this.sortingCol)
+                    this.sort(aCol, !this.sortingDescending);
+                  else
+                    this.sort(aCol);
+                }
+              } else if (aCol == this._col && aRow == this._row) {
+                if (!this.editorMode) {
+                  let cell2 = this.data.cells(aCol, aRow);
+                  this.edit.value = cell2._displayValue || cell2._value || "";
+                  this.showEditor();
+                }
+              } else if (aRow < this._fixedRow) {
+                application.globalEvents.abortEvent(event);
+                if (this.editorMode)
+                  this.hideEditor();
+                if (this.options._sortOnClick) {
+                  if (aCol == this.sortingCol)
+                    this.sort(aCol, !this.sortingDescending);
+                  else
+                    this.sort(aCol);
+                }
+              } else {
+                this.setCurrCell(aCol, aRow, true);
+              }
+              if (cell && this.onCellClick)
+                this.onCellClick(this, cell);
+              break;
+            }
+          }
+          if (aRow != void 0)
+            break;
+        }
+      }
+    }
+    if (aRow == void 0 && this.editorMode) {
+      this.hideEditor(true);
+    }
+    if (!this.editorMode) {
+      this.edit.focus();
+    }
+    ;
+    return true;
+  }
+  _updateCell(tableCell, cell, column) {
+    let tableCellDiv = tableCell == null ? void 0 : tableCell.div;
+    let _cell = cell;
+    let _column = column;
+    let _tableCell = tableCell;
+    let withDispValue = false;
+    let disp;
+    if (tableCellDiv) {
+      tableCell.style.display = "";
+      if (cell._encrypted)
+        tableCellDiv.style.color = "green";
+      else
+        tableCellDiv.style.color = "";
+      tableCellDiv.style.display = "";
+      if (cell) {
+        _cell._tableCell = tableCellDiv;
+        let font = {
+          "bold": this.font.bold,
+          "color": this.font.color,
+          "italic": this.font.italic,
+          "name": this.font.name,
+          "size": this.font.size,
+          "underline": this.font.underline
+        };
+        let value;
+        if (this.onDisplayCell) {
+          disp = {
+            "button": _cell._button,
+            "checkBox": _cell._checkBox,
+            "col": _cell._col,
+            "color": _cell._color,
+            "dataType": _cell._dataType,
+            "font": font,
+            "formula": _cell._formula,
+            "horizontalAlign": _cell._horizontalAlign,
+            "html": _cell._html,
+            "image": _cell._image,
+            "object": _cell._object,
+            "readOnly": _cell._readOnly,
+            "row": _cell._row,
+            "text": _cell._text,
+            "value": _cell._value,
+            "visible": _cell._visible
+          };
+          try {
+            this.onDisplayCell(this, disp);
+            if (disp.value != _cell._value) {
+              _cell._displayValue = disp["value"];
+              withDispValue = true;
+            }
+            value = disp["value"];
+          } catch (e) {
+            value = "";
+          }
+        } else if (column && _column._formula) {
+          if (this.formula) {
+            this.formulaCell = cell;
+            value = this.formula["parse"](column._formula)["result"];
+          } else {
+          }
+        } else
+          value = _cell._value;
+        let c = (_cell ? _cell._color : "") || (_column ? _column._color : "");
+        tableCell.classList.remove("bg-warning", "bg-success", "bg-info", "bg-danger", "bg-highlight");
+        if (c) {
+          if (["warning", "success", "info", "danger", "highlight"].indexOf(c) > -1)
+            tableCell.classList.add("bg-" + c);
+          else
+            tableCell.style.backgroundColor = c;
+        } else
+          tableCellDiv.style.backgroundColor = "";
+        let align;
+        if (_cell._horizontalAlign != void 0)
+          align = _cell._horizontalAlign;
+        else if (_column && _column._horizontalAlign != void 0) {
+          align = _column._horizontalAlign;
+        }
+        if (align != void 0) {
+          switch (align) {
+            case 0:
+              tableCellDiv.style.textAlign = "center";
+              break;
+            case 1:
+              tableCellDiv.style.textAlign = "left";
+              break;
+            case 2:
+              tableCellDiv.style.textAlign = "right";
+              break;
+          }
+        }
+        if (!_cell.visible)
+          tableCellDiv.style.display = "none";
+        else
+          tableCellDiv.style.display = "";
+        if (_column && _column._type == "image" && _cell._file && _cell._file["url"]) {
+          tableCellDiv.classList.add("image");
+          tableCellDiv.style.height = this._defaultRowHeight + "px";
+          tableCellDiv.innerHTML = '<img src="' + withDispValue ? _cell._displayValue : _cell._file["url"] + '?size=t" style="max-height:100%;max-width=100%"/>';
+        } else if (disp && disp.image) {
+          tableCellDiv.classList.add("image");
+          tableCellDiv.style.height = this._defaultRowHeight + "px";
+          tableCellDiv.innerHTML = '<img src="' + withDispValue ? value : disp.value + '"/>';
+        } else if (disp && disp.html) {
+          tableCellDiv.innerHTML = withDispValue ? value : application.xssSanitize(disp.value);
+        } else if (_cell && (_cell.image || _cell._dataType == 5) || _column && _column._dataType == 5) {
+          tableCellDiv.classList.add("image");
+          tableCellDiv.style.height = this._defaultRowHeight + "px";
+          tableCellDiv.innerHTML = '<img src="' + withDispValue ? value : _cell._value + '"/>';
+        } else if (_cell && (_cell.html || _cell._dataType == 6) || _column && _column._dataType == 6) {
+          tableCellDiv.innerHTML = withDispValue ? value : application.xssSanitize(_cell._value);
+        } else if (value && !Array.isArray(value) && !(value instanceof Date) && typeof value == "object") {
+          if (Array.isArray(value)) {
+            let html = "";
+            for (let i = 0; i < value.length; i++)
+              html += "<button>" + (value[i]["caption"] || "...") + "</button>";
+            tableCellDiv.innerHTML = html;
+          } else
+            tableCellDiv.innerHTML = "<button>" + (value["caption"] || "...") + "</button>";
+        } else if (_column && _column._button) {
+          tableCellDiv.innerHTML = "<button>" + (value || "...") + "</button>";
+        } else if (_cell && _cell._checkBox || _column && _column._checkBox) {
+          if (value)
+            tableCellDiv.className = "check_box_checked";
+          else
+            tableCellDiv.className = "check_box_unchecked";
+          tableCellDiv.style.position = "relative";
+          tableCellDiv.style.margin = "auto";
+          tableCellDiv.style.top = (this._defaultRowHeight - 13) / 2 + "px";
+          tableCellDiv.style.left = "1px";
+          tableCellDiv.style["height"] = "100%";
+          tableCellDiv.style["width"] = "13px";
+        } else if (_column && _column._radioButton) {
+          if (value)
+            tableCellDiv.className = "radio_button.checked";
+          else
+            tableCellDiv.className = "radio_button.unchecked";
+          tableCellDiv.style.position = "relative";
+          tableCellDiv.style.margin = "auto";
+          tableCellDiv.style.top = (this._defaultRowHeight - 13) / 2 + "px";
+          tableCellDiv.style.left = "1px";
+          tableCellDiv.style["height"] = "100%";
+          tableCellDiv.style["width"] = "13px";
+        } else {
+          if (_cell._dispValue && tableCell.classList.contains("grid_fixed_cell")) {
+            tableCellDiv.textContent = _cell._dispValue;
+          } else if (withDispValue) {
+            tableCellDiv.textContent = value;
+          } else if (_cell.row < this._fixedRow) {
+            tableCellDiv.textContent = value;
+          } else {
+            if (column && _column._type == "lookupDetail") {
+              let rd;
+              if (_cell._record)
+                rd = _cell._record;
+              else {
+                let record = this.getObject(0, _cell._row);
+                if (record) {
+                  let rs = record[_column._lookupTable];
+                  if (rs) {
+                    rd = rs.first;
+                    _cell._field = _column._lookupField;
+                    let v1 = _column._lookupDetailValue;
+                    switch (_column._lookupDetailType) {
+                      case "date":
+                        v1 = new Date(v1);
+                        v1.setHours(0, 0, 0, 0);
+                        break;
+                      case "numeric":
+                        if (typeof v1 == "string")
+                          v1 = parseFloat(v1);
+                        break;
+                    }
+                    while (rd) {
+                      let v2 = rd[_column._lookupField];
+                      switch (_column._lookupDetailType) {
+                        case "date":
+                          v2 = new Date(rd[_column._lookupDetailField]);
+                          v2.setHours(0, 0, 0, 0);
+                          break;
+                        case "numeric":
+                          if (typeof v2 == "string")
+                            v2 = parseFloat(v2);
+                          break;
+                      }
+                      if (v1 == v2)
+                        break;
+                      else if (_column._lookupDetailType == "date" && v1.getTime() == v2.getTime())
+                        break;
+                      rd = rs["next"];
+                    }
+                  }
+                }
+              }
+              if (rd) {
+                _cell._value = rd[_column._lookupField];
+                _cell._record = rd;
+                tableCellDiv.textContent = rd[_column._lookupField];
+              }
+            } else if (column && _column._type == "listOfValue" && _column._listOfValue) {
+              let lsv = this._listOfValue[_column._listOfValue];
+              if (lsv != void 0)
+                tableCellDiv.textContent = lsv[value] || value;
+              else
+                tableCellDiv.textContent = value;
+            } else if (column && (_column._type == "lookup" || _column._type == "lookupCombo")) {
+            } else if (_column && _column._type == "{userAccount}") {
+            } else {
+              let type = typeof value;
+              if (type != "undefined") {
+                if (type == "number")
+                  tableCellDiv.textContent = parseNumber(value.toPrecision(12)).toString();
+                else {
+                  tableCellDiv.textContent = value;
+                }
+              } else
+                tableCellDiv.textContent = "";
+            }
+          }
+        }
+      } else {
+        if (cell && _cell._checkBox || column && _column._checkBox) {
+          tableCellDiv.className = "check_box_unchecked";
+          tableCellDiv.style.position = "relative";
+          tableCellDiv.style.top = "1px";
+          tableCellDiv.style.left = "1px";
+          tableCellDiv.style["height"] = "13px";
+          tableCellDiv.style["width"] = "13px";
+        } else if (column && _column._radioButton) {
+          tableCellDiv.className = "radio_button.unchecked";
+          tableCellDiv.style.position = "relative";
+          tableCellDiv.style.top = "1px";
+          tableCellDiv.style.left = "1px";
+          tableCellDiv.style["height"] = "13px";
+          tableCellDiv.style["width"] = "13px";
+        } else
+          tableCellDiv.textContent = "";
+      }
+    }
+  }
+  checkCellReadOnly(col, row) {
+    if (!this._enabled || this._readOnly || this.options._rowSelect)
+      return true;
+    else {
+      if (col == void 0)
+        col = this._col;
+      if (row == void 0)
+        row = this._row;
+      if ((col < this._fixedCol || row < this._fixedRow) && this.layout != "card")
+        return true;
+      let column = this.cols(col);
+      if (column._readOnly)
+        return true;
+      else {
+        let record = this.getObject(0, row);
+        if (record && record["_isReadOnly"])
+          return true;
+        let cell = this.data.cells(col, row);
+        if (cell)
+          return cell.readOnly || !cell.visible;
+        else
+          return false;
+      }
+      ;
+    }
+    ;
+  }
+  toggleCellValue(column, cell) {
+    if (!this.checkCellReadOnly(cell.col, cell.row)) {
+      cell._value = !cell._value;
+      if (this._dataBindingContext) {
+        let record = this.getObject(0, cell._row);
+        let field = this.getObject(cell._col, 0);
+        if (!record && field) {
+          record = this._dataBindingContext["append"]();
+          this.setObject(0, cell._row, record);
+        }
+        if (record && field) {
+          record[field] = cell._value;
+        }
+        this.enableUpdateTimer();
+      }
+      this.updateBindingData(cell, column);
+      if (this.onCellChange)
+        this.onCellChange(this, cell, !cell._value, cell._value);
+    }
+  }
+  _handleMouseMove(event) {
+    if (application.globalEvents._leftMouseButtonDown) {
+    }
+    if (this._colResizing) {
+      let pos = getCursorPosX(event);
+      this.setColWidth(this.resizeCol, this.origColWidth + (pos - this.mouseDownPosX), true);
+      this.showData(100);
+      this.highlightCurrCell();
+      return true;
+    }
+    return true;
+  }
+  _handleMouseUp(event) {
+    if (this._colResizing) {
+      this._colResizing = false;
+      this._updateTableSplitter();
+    }
+    return true;
+  }
+  _handleColumnResizeStart(event) {
+    if (this.editorMode) {
+      this.hideEditor(true);
+    }
+    ;
+    let pos = getCursorPosX(event);
+    this.mouseDownPosX = pos;
+    this.resizeCol = this.getActualColIdx(event.target.cellIndex);
+    this.origColWidth = this.getColWidth(this.resizeCol);
+    this._colResizing = true;
+  }
+  _updateTableSplitter() {
+    let splitter;
+    for (let i = this.tableSplitters.length - 1; i < this.visibleColCount; i++) {
+      splitter = this.tableSplitters[i];
+      if (splitter)
+        splitter.style.display = "none";
+    }
+    ;
+    for (let col = 0; col < this.visibleColCount; col++) {
+      splitter = this.tableSplitters[col];
+      if (!splitter) {
+        splitter = this.createElement("div", this);
+        this.tableSplitters[col] = splitter;
+        splitter.isSpliter = true;
+        splitter.owner = this;
+        splitter.cellIndex = col;
+        splitter.onmousedown = this._handleColumnResizeStart.bind(this);
+        this.appendChild(splitter);
+        splitter.style.zIndex = 5;
+        splitter.style.cursor = "e-resize";
+        splitter.style.position = "absolute";
+        splitter.style.top = "0px";
+        splitter.style.width = "6px";
+      }
+      ;
+      let colIdx = this.getActualColIdx(col);
+      let left = this.getColRight(colIdx);
+      let height = 0;
+      for (let row = 0; row < this._fixedRow; row++) {
+        height = height + this.getRowHeight(row) + 0.8;
+      }
+      splitter.style.left = left + "px";
+      if (this._fixedCol > 0 && col == this._fixedCol - 1)
+        splitter.style.height = this.heightValue + "px";
+      else
+        splitter.style.height = height + "px";
+      splitter.style.display = "";
+    }
+  }
+  _showDataInternalGrid() {
+    if (!this._table)
+      return;
+    for (let r = 0; r < this._fixedRow; r++) {
+      for (let c = 0; c < this._fixedCol; c++) {
+        let tableCell = this.getTableCell(c, r);
+        let column = null;
+        if (this.columns)
+          column = this.columns.getColumn(c);
+        if (tableCell) {
+          let cell = this.data.cells(c, r);
+          this._updateCell(tableCell, cell, column);
+        }
+      }
+    }
+    for (let r = 0; r < this._fixedRow; r++) {
+      for (let c = this._fixedCol; c < this.visibleColCount; c++) {
+        let tableCell = this.getTableCell(c, r);
+        if (tableCell) {
+          let cell = this.data.cells(this.getActualColIdx(c), r);
+          if (cell)
+            tableCell.cell = cell;
+          this._updateCell(tableCell, cell);
+        }
+      }
+    }
+    for (let r = this._fixedRow; r < this.visibleRowCount; r++) {
+      for (let c = 0; c < this._fixedCol; c++) {
+        let column = this.columns.getColumn(c);
+        let tableCell = this.getTableCell(c, r);
+        if (tableCell) {
+          let cell = this.data.cells(c, this.getActualRowIdx(r));
+          if (cell)
+            tableCell.cell = cell;
+          this._updateCell(tableCell, cell, column);
+        }
+      }
+    }
+    for (let c = this._fixedCol; c < this.visibleColCount; c++) {
+      let colIdx = this.getActualColIdx(c);
+      let _column = this.columns.getColumn(colIdx);
+      if (_column && (_column._type == "lookup" || _column._type == "lookupCombo")) {
+      }
+    }
+    for (let r = this._fixedRow; r < this.visibleRowCount; r++) {
+      let rowIdx = this.getActualRowIdx(r);
+      for (let c = this._fixedCol; c < this.visibleColCount; c++) {
+        let colIdx = this.getActualColIdx(c);
+        let column = this.columns.getColumn(colIdx);
+        let tableCell = this.getTableCell(c, r);
+        if (tableCell) {
+          let cell = this.data.cells(colIdx, rowIdx);
+          tableCell.cell = cell;
+          this._updateCell(tableCell, cell, column);
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    if (this.options._autoRowHeight) {
+      for (let r = 0; r < this.visibleRowCount; r++) {
+        if (this._table.rows[r].clientHeight > this._defaultRowHeight) {
+          for (let c = 0; c < this.visibleColCount; c++) {
+            let tableCell = this.getTableCell(c, r);
+            if (tableCell && tableCell.cell) {
+              let cell = tableCell.cell;
+              let row2 = this.getActualRowIdx(r);
+              if (!cell._height) {
+                cell._height = tableCell.div.clientHeight + 3;
+              }
+              if (!this._rowHeights[row2] || this._rowHeights[row2] < cell._height) {
+                this._rowHeights[row2] = cell._height;
+              }
+            }
+          }
+        }
+      }
+    }
+    ;
+    let row = this._table.rows[0];
+    if (row) {
+      if (row.cells.length > this._colCount - this._leftCol + this._fixedCol) {
+        for (let r = 0; r < this._table.rows.length; r++) {
+          let row2 = this._table.rows[r];
+          for (let c = this._colCount - this._leftCol + this._fixedCol; c < row2.cells.length; c++) {
+            row2.cells[c].style.display = "none";
+          }
+          ;
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    if (this._table.rows.length > this._rowCount - this._topRow + this._fixedRow) {
+      for (let c = this._rowCount - this._topRow + this._fixedRow; c < this._table.rows.length; c++) {
+        if (c > -1) {
+          this._table.rows[c].style.display = "none";
+        }
+        ;
+      }
+      ;
+    }
+    ;
+    this.highlightCurrCell();
+  }
+  showDataInternal() {
+    this.showDataFlag = false;
+    if (!this.showDataInternalFlag) {
+      this.showDataInternalFlag = true;
+      try {
+        if (this.layout == "card") {
+        } else
+          this._showDataInternalGrid();
+      } finally {
+        this.showDataInternalFlag = false;
+      }
+      ;
+    }
+    ;
+  }
+  _updateTableInternal(updateRowHeightFlag, updateColWidthFlag) {
+    if (!this._updateTableInternalFlag) {
+      this._updateTableInternalFlag = true;
+      try {
+        if (this.layout == "card") {
+        } else {
+          if (updateRowHeightFlag) {
+            this._updateTotalRowHeight();
+          }
+          ;
+          if (updateColWidthFlag) {
+            this._updateTotalColWidth();
+          }
+          ;
+          this.tableCells = [[]];
+          if (this._totalColWidth < this.width)
+            this.placeHolder.style.width = "100%";
+          else
+            this.placeHolder.style.width = this._totalColWidth + "px";
+          this.placeHolder.style.height = this._totalRowHeight + "px";
+          this._updateTableRows();
+          this._updateTableCols();
+          this._updateTableMergedCells();
+          this._updateTableSplitter();
+        }
+      } catch (err) {
+      } finally {
+        this._updateTableInternalFlag = false;
+      }
+      ;
+    }
+    ;
+  }
+  enableUpdateTimer(updateRowHeightFlag, updateColWidthFlag) {
+    updateRowHeightFlag = updateRowHeightFlag || false;
+    updateColWidthFlag = updateColWidthFlag || false;
+    clearTimeout(this._updateTableTimer);
+    this._updateTableTimer = setTimeout(() => {
+      if (this._scrollBox.clientWidth) {
+        this._updateTableTimer = void 0;
+        this._sorting = false;
+        if (updateRowHeightFlag)
+          this._rowHeights = [];
+        this._updateTableInternal(updateRowHeightFlag, updateColWidthFlag);
+        this.showDataInternal();
+      } else {
+        this._updateTableTimer = setTimeout(() => {
+          this._sorting = false;
+          if (updateRowHeightFlag)
+            this._rowHeights = [];
+          this._updateTableInternal(updateRowHeightFlag, updateColWidthFlag);
+          this.showDataInternal();
+        }, 100);
+      }
+    }, 10);
+  }
+};
+DataGrid = __decorateClass([
+  customElements2("i-data-grid")
+], DataGrid);
+
+// packages/markdown/src/style/markdown.css.ts
+var Theme22 = theme_exports.ThemeVars;
+cssRule("i-markdown", {
+  display: "inline-block",
+  color: Theme22.text.primary,
+  fontFamily: Theme22.typography.fontFamily,
+  fontSize: Theme22.typography.fontSize,
+  $nest: {
+    h1: {
+      fontSize: "48px",
+      fontWeight: "900",
+      marginBottom: "16px",
+      marginTop: "1.5em",
+      $nest: {
+        "@media (max-width: 700px)": {
+          fontSize: "24px"
+        }
+      }
+    },
+    h2: {
+      fontSize: "24px",
+      lineHeight: "1.5",
+      fontWeight: "600",
+      marginBottom: "16px",
+      marginTop: "1.5em",
+      $nest: {
+        "@media (max-width: 700px)": {
+          fontSize: "20px"
+        }
+      }
+    },
+    h3: {
+      fontSize: "20px",
+      lineHeight: "24px",
+      fontWeight: "600",
+      marginBottom: "16px",
+      marginTop: "1.5em",
+      $nest: {
+        "@media (max-width: 700px)": {
+          fontSize: "16px"
+        }
+      }
+    },
+    h4: {
+      fontSize: "16px",
+      fontWeight: "600",
+      marginBottom: "16px",
+      marginTop: "1.5em"
+    },
+    h5: {
+      fontSize: "14px",
+      fontWeight: "600",
+      marginBottom: "16px",
+      marginTop: "1.5em"
+    },
+    h6: {
+      fontSize: "13.6px",
+      fontWeight: "600",
+      marginBottom: "16px",
+      marginTop: "1.5em"
+    },
+    p: {
+      display: "block",
+      lineHeight: "150%",
+      marginBottom: "1em",
+      marginTop: "0",
+      fontSize: "15px"
+    },
+    "p:has(img)": {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "16px",
+      $nest: {
+        "@media (max-width: 700px)": {
+          flexWrap: "wrap"
+        }
+      }
+    },
+    ".img-caption": {
+      display: "block",
+      textAlign: "center",
+      color: "rgba(136,153,168,1.00)",
+      fontSize: 14,
+      fontWeight: 400,
+      lineHeight: "18px",
+      paddingTop: "6px"
+    },
+    "p img": {
+      width: "100%",
+      borderRadius: "5px"
+    },
+    "p a": {
+      display: "contents"
+    },
+    "table": {
+      borderSpacing: "0",
+      border: "1px solid #393939",
+      width: "100%",
+      marginBottom: "20px",
+      $nest: {
+        "thead": {
+          background: "#FFF"
+        },
+        "th": {
+          padding: "10px"
+        },
+        "td": {
+          padding: "10px",
+          borderTop: "1px solid #393939"
+        },
+        "tbody": {
+          $nest: {
+            "tr:nth-child(odd)": {
+              backgroundColor: "#EEE"
+            },
+            "tr:nth-child(even)": {
+              backgroundColor: "#FFF"
+            }
+          }
+        }
+      }
+    },
+    strong: {
+      fontWeight: "600"
+    },
+    blockquote: {
+      background: "#e3e3ff",
+      borderLeft: "0.25em solid #55f",
+      display: "block",
+      padding: "15px 30px 15px 15px",
+      color: "#6a737d",
+      fontSize: "16px",
+      margin: "0 0 16px",
+      $nest: {
+        p: {
+          marginBottom: "0"
+        }
+      }
+    },
+    hr: {
+      border: "1px solid #dfe2e5",
+      boxSizing: "content-box",
+      margin: "1.5em 0",
+      overflow: "hidden",
+      padding: "0"
+    },
+    ol: {
+      marginBottom: "1em",
+      marginTop: "0",
+      paddingLeft: "2em",
+      $nest: {
+        li: {
+          fontSize: "16px"
+        },
+        "li+li": {
+          marginTop: "0.5em"
+        }
+      }
+    },
+    ul: {
+      marginBottom: "1em",
+      marginTop: "0",
+      paddingLeft: "2em",
+      $nest: {
+        li: {
+          fontSize: "16px"
+        },
+        "li+li": {
+          marginTop: "0.5em"
+        }
+      }
+    },
+    "ol ol, ul ul, ol ul, ul ol": {
+      marginTop: "0.5em"
+    },
+    "code, pre code": {
+      borderRadius: "3px",
+      background: "#ebeff3",
+      overflowX: "scroll",
+      border: "0",
+      display: "inline",
+      margin: "0",
+      overflow: "visible",
+      padding: "0",
+      whiteSpace: "pre",
+      wordBreak: "normal",
+      wordWrap: "normal"
+    },
+    "a, a:hover": {
+      color: "#55f",
+      textDecoration: "none"
+    }
+  }
+});
+
+// packages/markdown/src/markdown.ts
+var libs = [`${LibPath}lib/marked/marked.umd.js`];
+var Markdown = class extends Control {
+  constructor() {
+    super();
+    this.gitbookProcess = true;
+  }
+  getRenderer() {
+    const renderer = {
+      image(href, title, text) {
+        if (href === null) {
+          return text;
+        }
+        var out = '<span><img style="width: 100%;" src="' + href + '" alt="' + text + '"';
+        if (title) {
+          out += ' title="' + title + '"';
+        }
+        out += '><span class="img-caption">' + text + "</span></span>";
+        return out;
+      }
+    };
+    return renderer;
+  }
+  async load(text) {
+    if (!this.marked)
+      this.marked = await this.loadLib();
+    let renderer = this.getRenderer();
+    this.marked.use({ renderer });
+    text = await this.marked.parse(text);
+    text = await this.processText(text);
+    this.innerHTML = text;
+    return this.innerHTML;
+  }
+  async beforeRender(text) {
+    this.innerHTML = text;
+  }
+  async processText(text) {
+    if (this.gitbookProcess) {
+      text = text.replace(/\*\*\*\*/g, "\n	").replace(/\\/g, "");
+    }
+    return text;
+  }
+  async loadLib() {
+    return new Promise((resolve, reject) => {
+      RequireJS.require(libs, async (marked) => {
+        resolve(marked);
+      });
+    });
+  }
+  init() {
+    super.init();
+  }
+};
+Markdown = __decorateClass([
+  customElements2("i-markdown")
+], Markdown);
+
+// packages/markdown-editor/src/markdown-editor.ts
+var TOOLBAR_ITEMS_DEFAULT = [
+  ["heading", "bold", "italic", "strike"],
+  ["hr", "quote"],
+  ["ul", "ol", "task", "indent", "outdent"],
+  ["table", "image", "link"],
+  ["code", "codeblock"]
+];
+RequireJS.config({
+  paths: {
+    "tui-color-picker": `${LibPath}lib/tui-editor/tui-color-picker.min.js`
+  }
+});
+var libs2 = [`${LibPath}lib/tui-editor/toastui-editor-all.min.js`];
+var libPlugins = [
+  { name: "colorSyntax", path: [`${LibPath}lib/tui-editor/toastui-editor-plugin-color-syntax.min.js`] },
+  { name: "codeSyntaxHighlight", path: [`${LibPath}lib/tui-editor/toastui-editor-plugin-code-syntax-highlight-all.min.js`] },
+  { name: "tableMergedCell", path: [`${LibPath}lib/tui-editor/toastui-editor-plugin-table-merged-cell.min.js`] },
+  { name: "uml", path: [`${LibPath}lib/tui-editor/toastui-editor-plugin-uml.min.js`] }
+];
+var editorCSS = [
+  { name: "toastui-editor", href: `${LibPath}lib/tui-editor/toastui-editor.min.css` },
+  { name: "toastui-plugins", href: `${LibPath}lib/tui-editor/toastui-plugins.min.css` }
+];
+var MarkdownEditor = class extends Control {
+  constructor(parent, options) {
+    super(parent, options);
+    this.editorPlugins = {};
+    this._theme = "light";
+    this._mode = "markdown";
+    this._previewStyle = "vertical";
+    this._value = "";
+    this._viewer = false;
+    this._heightValue = "500px";
+    this._toolbarItems = TOOLBAR_ITEMS_DEFAULT;
+    this._customPlugins = [];
+    this._widgetRules = [];
+  }
+  get mode() {
+    return this._mode;
+  }
+  set mode(value) {
+    this._mode = value;
+    if (this.viewer)
+      return;
+    if (this.editorObj) {
+      this.editorObj.changeMode(value, false);
+    }
+  }
+  get theme() {
+    return this._theme;
+  }
+  set theme(value) {
+    this._theme = value;
+    if (!this.editor)
+      return;
+    this.renderEditor(true);
+  }
+  get previewStyle() {
+    return this._previewStyle;
+  }
+  set previewStyle(value) {
+    this._previewStyle = value;
+    if (this.viewer)
+      return;
+    if (this.editorObj) {
+      this.editorObj.changePreviewStyle(value);
+    }
+  }
+  get viewer() {
+    return this._viewer;
+  }
+  set viewer(value) {
+    if (this._viewer === value)
+      return;
+    this._viewer = value;
+    if (!this.editor)
+      return;
+    this.renderEditor(true);
+  }
+  get value() {
+    return this._value;
+  }
+  set value(value) {
+    this._value = value;
+    const targetObj = this.viewer ? this.viewerObj : this.editorObj;
+    if (targetObj) {
+      targetObj.setMarkdown(value);
+    }
+  }
+  get height() {
+    return this._heightValue;
+  }
+  set height(value) {
+    this._heightValue = value;
+    if (this.viewer)
+      return;
+    if (this.editorObj) {
+      this.editorObj.setHeight(value);
+    }
+  }
+  get toolbarItems() {
+    return this._toolbarItems || TOOLBAR_ITEMS_DEFAULT;
+  }
+  set toolbarItems(items) {
+    this._toolbarItems = items;
+    if (!this.editor)
+      return;
+    this.renderEditor(true);
+  }
+  get plugins() {
+    return this._customPlugins || [];
+  }
+  set plugins(plugins) {
+    this._customPlugins = plugins;
+    if (!this.editor)
+      return;
+    this.renderEditor(true);
+  }
+  get widgetRules() {
+    return this._widgetRules || [];
+  }
+  set widgetRules(rules) {
+    this._widgetRules = rules;
+    if (!this.editor)
+      return;
+    this.renderEditor(true);
+  }
+  static async create(options, parent) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+  async loadLib() {
+    return new Promise((resolve, reject) => {
+      RequireJS.require(libs2, async (marked) => {
+        resolve(marked);
+      });
+    });
+  }
+  async loadPlugin(plugin) {
+    return new Promise((resolve, reject) => {
+      RequireJS.require(plugin, async (marked) => {
+        resolve(marked);
+      });
+    });
+  }
+  async loadPlugins() {
+    for (const _plugin of libPlugins) {
+      this.editorPlugins[_plugin.name] = await this.loadPlugin(_plugin.path);
+    }
+  }
+  addCSS(href, name) {
+    const css = document.head.querySelector(`[name="${name}"]`);
+    if (css)
+      return;
+    let link = document.createElement("link");
+    link.setAttribute("type", "text/css");
+    link.setAttribute("rel", "stylesheet");
+    link.setAttribute("name", name);
+    link.href = href;
+    document.head.append(link);
+  }
+  async initEditor() {
+    for (const item of editorCSS) {
+      this.addCSS(item.href, item.name);
+    }
+    this.editor = await this.loadLib();
+    await this.loadPlugins();
+    try {
+      this.renderEditor();
+    } catch (e) {
+    }
+  }
+  renderEditor(valueChanged) {
+    const editorPlugins = Object.values(this.editorPlugins);
+    if (this.viewer) {
+      if (this.editorObj) {
+        this.editorObj.destroy();
+      }
+      if (!this.elm) {
+        this.elm = this.createElement("div", this);
+      } else {
+        this.elm.innerHTML = "";
+        this.elm.style.height = "auto";
+      }
+      this.viewerObj = this.editor.factory({
+        el: this.elm,
+        viewer: true,
+        initialValue: this.value,
+        theme: this.theme,
+        plugins: [...editorPlugins, ...this.plugins],
+        widgetRules: this.widgetRules
+      });
+    } else {
+      if (this.viewerObj) {
+        this.viewerObj.destroy();
+      }
+      if (!this.elm) {
+        this.elm = this.createElement("div", this);
+      } else {
+        this.elm.innerHTML = "";
+      }
+      const currentValue = valueChanged && this.editorObj ? this.editorObj.getMarkdown() : this.value;
+      this.editorObj = new this.editor({
+        el: this.elm,
+        previewStyle: this.previewStyle,
+        height: this.height,
+        initialEditType: this.mode,
+        initialValue: currentValue,
+        theme: this.theme,
+        toolbarItems: this.toolbarItems,
+        plugins: [...editorPlugins, ...this.plugins],
+        widgetRules: this.widgetRules
+      });
+    }
+  }
+  getMarkdownValue() {
+    if (this.editorObj && !this.viewer) {
+      return this.editorObj.getMarkdown();
+    }
+    return "";
+  }
+  getEditorElm() {
+    if (this.editorObj && !this.viewer) {
+      return this.editorObj;
+    }
+    return null;
+  }
+  getViewerElm() {
+    if (this.viewerObj && this.viewer) {
+      return this.viewerObj;
+    }
+    return null;
+  }
+  async init() {
+    super.init();
+    const mode = this.getAttribute("mode", true, "");
+    if (mode) {
+      this._mode = mode;
+    }
+    const previewStyle = this.getAttribute("previewStyle", true, "");
+    if (previewStyle) {
+      this._previewStyle = previewStyle;
+    }
+    const value = this.getAttribute("value", true, "");
+    if (value) {
+      this._value = value;
+    }
+    const viewer = this.getAttribute("viewer", true, null);
+    if (viewer !== null) {
+      this.viewer = viewer;
+    }
+    const height = this.getAttribute("height", true, "");
+    if (height) {
+      this._heightValue = height;
+    }
+    const width = this.getAttribute("width", true, "");
+    if (width) {
+      this.width = width;
+    }
+    const theme = this.getAttribute("theme", true, "");
+    if (theme) {
+      this._theme = theme;
+    }
+    const toolbarItems = this.getAttribute("toolbarItems", true, "");
+    if (toolbarItems) {
+      this._toolbarItems = toolbarItems;
+    }
+    const plugins = this.getAttribute("plugins", true, "");
+    if (plugins) {
+      this._customPlugins = plugins;
+    }
+    const widgetRules = this.getAttribute("widgetRules", true, "");
+    if (widgetRules) {
+      this._widgetRules = widgetRules;
+    }
+    this.initEditor();
+  }
+};
+MarkdownEditor = __decorateClass([
+  customElements2("i-markdown-editor")
+], MarkdownEditor);
+
+// packages/menu/src/style/menu.css.ts
+var Theme23 = theme_exports.ThemeVars;
 var fadeInRight = keyframes({
   "0%": {
     opacity: 0,
@@ -18973,8 +31052,8 @@ var fadeInRight = keyframes({
   }
 });
 var menuStyle = style({
-  fontFamily: Theme17.typography.fontFamily,
-  fontSize: Theme17.typography.fontSize,
+  fontFamily: Theme23.typography.fontFamily,
+  fontSize: Theme23.typography.fontSize,
   position: "relative",
   display: "block",
   overflow: "hidden",
@@ -19005,7 +31084,7 @@ var menuStyle = style({
         ".menu-item-arrow-active": {
           transform: "rotate(180deg)",
           transition: "transform 0.25s",
-          fill: `${Theme17.text.primary} !important`
+          fill: `${Theme23.text.primary} !important`
         },
         "li": {
           position: "relative",
@@ -19013,7 +31092,7 @@ var menuStyle = style({
             "&:hover": {
               $nest: {
                 ".menu-item": {
-                  color: Theme17.colors.primary.main
+                  color: Theme23.colors.primary.main
                 },
                 ".menu-item-arrow-active": {
                   fill: "currentColor !important"
@@ -19029,7 +31108,7 @@ var menuStyle = style({
 var meunItemStyle = style({
   position: "relative",
   display: "block",
-  color: Theme17.text.secondary,
+  color: Theme23.text.secondary,
   $nest: {
     ".menu-item": {
       position: "relative",
@@ -19049,8 +31128,8 @@ var meunItemStyle = style({
       paddingRight: "2.25rem"
     },
     ".menu-item.menu-active, .menu-item.menu-selected, .menu-item:hover": {
-      background: Theme17.action.hover,
-      color: Theme17.text.primary
+      background: Theme23.action.hover,
+      color: Theme23.text.primary
     },
     ".menu-item.menu-active > .menu-item-arrow": {
       transform: "rotate(180deg)",
@@ -19235,7 +31314,8 @@ var Menu = class extends Control {
     this._oldWidth = newWidth;
   }
   handleResize() {
-    setTimeout(() => {
+    clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = setTimeout(() => {
       this.onResize();
     }, 200);
   }
@@ -19659,7 +31739,7 @@ var Module = class extends Container {
         if (value == null ? void 0 : value.__target) {
           let target = value.__target;
           let paths = value.__path;
-          let targetValue = this.getValue(target, paths);
+          let targetValue = this.getAttributeValue(target, paths);
           let observable3 = getObservable(target, paths);
           if (isObservable(observable3)) {
             if (paths.length > 0)
@@ -19726,120 +31806,14 @@ Module = __decorateClass([
   customElements2("i-module")
 ], Module);
 
-// packages/label/src/style/label.css.ts
-var Theme18 = theme_exports.ThemeVars;
-var captionStyle2 = style({
-  display: "inline-block",
-  color: Theme18.text.primary,
-  fontFamily: Theme18.typography.fontFamily,
-  fontSize: Theme18.typography.fontSize
-});
-
-// packages/label/src/label.ts
-var Label = class extends Control {
-  constructor(parent, options) {
-    super(parent, options);
-  }
-  get caption() {
-    return this.captionSpan.innerHTML;
-  }
-  set caption(value) {
-    this.captionSpan.innerHTML = value || "";
-  }
-  get link() {
-    if (!this._link) {
-      this._link = new Link(this, {
-        href: "#",
-        target: "_blank",
-        font: this.font
-      });
-      this._link.append(this.captionSpan);
-      this.appendChild(this._link);
-    }
-    return this._link;
-  }
-  set link(value) {
-    if (this._link) {
-      this._link.prepend(this.captionSpan);
-      this._link.remove();
-    }
-    this._link = value;
-    if (this._link) {
-      this._link.append(this.captionSpan);
-      this.appendChild(this._link);
-    }
-  }
-  set height(value) {
-    this.setPosition("height", value);
-    if (this.captionSpan)
-      this.captionSpan.style.height = value + "px";
-  }
-  set width(value) {
-    this.setPosition("width", value);
-    if (this.captionSpan)
-      this.captionSpan.style.width = value + "px";
-  }
-  get wordBreak() {
-    return this.style.wordBreak;
-  }
-  set wordBreak(value) {
-    this.style.wordBreak = value;
-  }
-  get overflowWrap() {
-    return this.style.overflowWrap;
-  }
-  set overflowWrap(value) {
-    this.style.overflowWrap = value;
-  }
-  init() {
-    if (!this.captionSpan) {
-      let childNodes = [];
-      for (let i = 0; i < this.childNodes.length; i++) {
-        childNodes.push(this.childNodes[i]);
-      }
-      this.captionSpan = this.createElement("span", this);
-      this.classList.add(captionStyle2);
-      this.caption = this.getAttribute("caption", true) || "";
-      if (childNodes && childNodes.length) {
-        for (let i = 0; i < childNodes.length; i++) {
-          this.captionSpan.appendChild(childNodes[i]);
-        }
-      }
-      const linkAttr = this.getAttribute("link", true);
-      if (linkAttr) {
-        const link = new Link(this, {
-          ...linkAttr,
-          font: this.font
-        });
-        this.link = link;
-      }
-      const wordBreak = this.getAttribute("wordBreak", true);
-      if (wordBreak)
-        this.wordBreak = wordBreak;
-      const overflowWrap = this.getAttribute("overflowWrap", true);
-      if (overflowWrap)
-        this.overflowWrap = overflowWrap;
-      super.init();
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-Label = __decorateClass([
-  customElements2("i-label")
-], Label);
-
 // packages/tree-view/src/style/treeView.css.ts
-var Theme19 = theme_exports.ThemeVars;
+var Theme24 = theme_exports.ThemeVars;
 cssRule("i-tree-view", {
   display: "block",
   overflowY: "auto",
   overflowX: "hidden",
-  fontFamily: Theme19.typography.fontFamily,
-  fontSize: Theme19.typography.fontSize,
+  fontFamily: Theme24.typography.fontFamily,
+  fontSize: Theme24.typography.fontSize,
   $nest: {
     ".i-tree-node_content": {
       display: "flex",
@@ -19873,7 +31847,7 @@ cssRule("i-tree-view", {
     ".i-tree-node_label": {
       position: "relative",
       display: "inline-block",
-      color: Theme19.text.primary,
+      color: Theme24.text.primary,
       cursor: "pointer",
       fontSize: 14
     },
@@ -19907,7 +31881,7 @@ cssRule("i-tree-view", {
       position: "relative",
       $nest: {
         ".is-checked:before": {
-          borderLeft: `1px solid ${Theme19.divider}`,
+          borderLeft: `1px solid ${Theme24.divider}`,
           height: "calc(100% - 1em)",
           top: "1em"
         },
@@ -19916,12 +31890,12 @@ cssRule("i-tree-view", {
           top: 25
         },
         "i-tree-node.active > .i-tree-node_content": {
-          backgroundColor: Theme19.action.selected,
-          border: `1px solid ${Theme19.colors.info.dark}`,
-          color: Theme19.text.primary
+          backgroundColor: Theme24.action.selected,
+          border: `1px solid ${Theme24.colors.info.dark}`,
+          color: Theme24.text.primary
         },
         ".i-tree-node_content:hover": {
-          backgroundColor: Theme19.action.hover,
+          backgroundColor: Theme24.action.hover,
           $nest: {
             "> .is-right .button-group *": {
               display: "inline-flex"
@@ -19949,8 +31923,8 @@ cssRule("i-tree-view", {
           marginLeft: "1em"
         },
         "input ~ .i-tree-node_label:before": {
-          background: Theme19.colors.primary.main,
-          color: Theme19.colors.primary.contrastText,
+          background: Theme24.colors.primary.main,
+          color: Theme24.colors.primary.contrastText,
           position: "relative",
           zIndex: "1",
           float: "left",
@@ -19991,7 +31965,7 @@ cssRule("i-tree-view", {
           left: "-.1em",
           display: "block",
           width: "1px",
-          borderLeft: `1px solid ${Theme19.divider}`,
+          borderLeft: `1px solid ${Theme24.divider}`,
           content: "''"
         },
         ".i-tree-node_icon:not(.custom-icon)": {
@@ -20007,15 +31981,15 @@ cssRule("i-tree-view", {
           display: "block",
           height: "0.5em",
           width: "1em",
-          borderBottom: `1px solid ${Theme19.divider}`,
-          borderLeft: `1px solid ${Theme19.divider}`,
+          borderBottom: `1px solid ${Theme24.divider}`,
+          borderLeft: `1px solid ${Theme24.divider}`,
           borderRadius: " 0 0 0 0",
           content: "''"
         },
         "i-tree-node input:checked ~ .i-tree-node_label:after": {
           borderRadius: "0 .1em 0 0",
-          borderTop: `1px solid ${Theme19.divider}`,
-          borderRight: `0.5px solid ${Theme19.divider}`,
+          borderTop: `1px solid ${Theme24.divider}`,
+          borderRight: `0.5px solid ${Theme24.divider}`,
           borderBottom: "0",
           borderLeft: "0",
           bottom: "0",
@@ -20034,7 +32008,7 @@ cssRule("i-tree-view", {
       width: "100%",
       $nest: {
         "&:focus": {
-          borderBottom: `2px solid ${Theme19.colors.primary.main}`
+          borderBottom: `2px solid ${Theme24.colors.primary.main}`
         }
       }
     },
@@ -20061,11 +32035,11 @@ cssRule("i-tree-view", {
 });
 
 // packages/tree-view/src/treeView.ts
-var Theme20 = theme_exports.ThemeVars;
+var Theme25 = theme_exports.ThemeVars;
 var beforeExpandEvent = new Event("beforeExpand");
 var defaultIcon3 = {
   name: "caret-right",
-  fill: Theme20.text.secondary,
+  fill: Theme25.text.secondary,
   width: 12,
   height: 12
 };
@@ -20075,6 +32049,7 @@ var TreeView = class extends Control {
       editable: false
     });
     this._items = [];
+    this._alwaysExpanded = false;
   }
   get activeItem() {
     return this._activeItem;
@@ -20085,6 +32060,12 @@ var TreeView = class extends Control {
     treeNodes.forEach((treeNode) => treeNode.active = false);
     if (value)
       value.active = true;
+  }
+  get alwaysExpanded() {
+    return this._alwaysExpanded;
+  }
+  set alwaysExpanded(value) {
+    this._alwaysExpanded = value;
   }
   get data() {
     return this._items.map((node) => node.data);
@@ -20119,6 +32100,7 @@ var TreeView = class extends Control {
     const childNode = new TreeNode(this, { ...childData });
     this.initNode(childNode);
     childNode.editable = this.editable;
+    childNode.alwaysExpanded = this.alwaysExpanded;
     if (this.onRenderNode)
       this.onRenderNode(this, childNode);
     if (parentNode) {
@@ -20244,6 +32226,7 @@ var TreeView = class extends Control {
       this.classList.add("i-tree-view");
       if ((_a = this.options) == null ? void 0 : _a.onRenderNode)
         this.onRenderNode = this.options.onRenderNode;
+      this.alwaysExpanded = this.getAttribute("alwaysExpanded", true, false);
       this.editable = this.getAttribute("editable", true, false);
       this.actionButtons = this.getAttribute("actionButtons", true);
       this.data = this.getAttribute("data", true);
@@ -20264,6 +32247,7 @@ var TreeNode = class extends Control {
   constructor(parent, options) {
     super(parent, options);
     this._editable = false;
+    this._alwaysExpanded = false;
     options && (this.data = options);
     this.handleEdit = this.handleEdit.bind(this);
   }
@@ -20309,6 +32293,12 @@ var TreeNode = class extends Control {
         this._expandElm.checked = false;
       this.classList.remove("is-checked");
     }
+  }
+  get alwaysExpanded() {
+    return this._alwaysExpanded;
+  }
+  set alwaysExpanded(value) {
+    this._alwaysExpanded = value;
   }
   get active() {
     return this._active;
@@ -20420,7 +32410,7 @@ var TreeNode = class extends Control {
       this._expandElm.checked = !this._expandElm.checked;
       if (this._expandElm.checked)
         this.classList.add("is-checked");
-      else
+      else if (!this.alwaysExpanded)
         this.classList.remove("is-checked");
     }
     ;
@@ -20513,11 +32503,11 @@ TreeNode = __decorateClass([
 ], TreeNode);
 
 // packages/switch/src/style/switch.css.ts
-var Theme21 = theme_exports.ThemeVars;
+var Theme26 = theme_exports.ThemeVars;
 cssRule("i-switch", {
   display: "block",
-  fontFamily: Theme21.typography.fontFamily,
-  fontSize: Theme21.typography.fontSize,
+  fontFamily: Theme26.typography.fontFamily,
+  fontSize: Theme26.typography.fontSize,
   $nest: {
     ".wrapper": {
       width: "48px",
@@ -20937,539 +32927,6 @@ ScatterLineChart = __decorateClass([
   customElements2("i-scatter-line-chart")
 ], ScatterLineChart);
 
-// packages/upload/src/style/upload.css.ts
-var Theme22 = theme_exports.ThemeVars;
-cssRule("i-upload", {
-  margin: "1rem 0",
-  listStyle: "none",
-  minHeight: 200,
-  minWidth: 200,
-  height: "100%",
-  width: "100%",
-  display: "flex",
-  flexWrap: "wrap",
-  $nest: {
-    ".i-upload-wrapper": {
-      position: "relative",
-      border: `2px dashed ${Theme22.divider}`,
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: "1rem"
-    },
-    "i-upload-drag": {
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    ".i-upload-drag_area": {
-      marginTop: "4rem"
-    },
-    ".i-upload-dragger_active": {
-      border: `2px dashed ${Theme22.colors.primary.main}`,
-      backgroundColor: Theme22.colors.info.light,
-      opacity: "0.8"
-    },
-    'input[type="file"]': {
-      display: "none"
-    },
-    ".i-upload_preview": {
-      display: "none",
-      minHeight: 200,
-      position: "relative",
-      overflow: "hidden",
-      width: "100%",
-      height: "100%"
-    },
-    ".i-upload_preview img": {
-      maxHeight: "inherit",
-      maxWidth: "100%"
-    },
-    ".i-upload_preview-img": {
-      maxHeight: "inherit",
-      maxWidth: "100%",
-      display: "table"
-    },
-    ".i-upload_preview-crop": {
-      position: "absolute",
-      border: `1px dashed ${Theme22.background.paper}`,
-      width: 150,
-      height: 150,
-      left: "50%",
-      top: "50%",
-      transform: "translate(-50%, -50%)",
-      boxSizing: "border-box",
-      boxShadow: "0 0 0 9999em",
-      color: "rgba(0, 0, 0, 0.5)",
-      overflow: "hidden",
-      cursor: "crosshair"
-    },
-    ".i-upload_preview-remove": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      visibility: "hidden",
-      opacity: 0,
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "rgba(0, 0, 0, 0.58)",
-      cursor: "pointer",
-      $nest: {
-        "> span": {
-          padding: "1rem",
-          border: "2px solid #fff",
-          borderRadius: "5px",
-          color: "#fff",
-          fontWeight: "bold"
-        }
-      }
-    },
-    ".i-upload_preview:hover .i-upload_preview-remove.active": {
-      visibility: "visible",
-      opacity: 1
-    },
-    ".i-upload_list": {
-      margin: "1rem 0 2rem",
-      display: "flex",
-      gap: 7,
-      width: "100%"
-    },
-    ".i-upload_list.i-upload_list-picture": {
-      flexDirection: "row"
-    },
-    ".i-upload_list.i-upload_list-text": {
-      flexDirection: "column",
-      alignContent: "center"
-    },
-    ".i-upload_list.i-upload_list-text i-icon": {
-      position: "unset"
-    },
-    ".i-upload_list-item": {
-      display: "inline-flex",
-      position: "relative",
-      justifyContent: "space-between"
-    },
-    ".i-upload_list-item:hover i-icon": {
-      display: "block"
-    },
-    ".i-upload_list.i-upload_list-text .i-upload_list-item:hover": {
-      backgroundColor: ThemeVars.background.default
-    },
-    ".i-upload_list.i-upload_list-text .i-upload_list-item": {
-      width: "100%",
-      padding: ".25rem"
-    },
-    ".i-upload_list-item .i-upload_list-img": {
-      width: 100,
-      height: 50,
-      objectFit: "cover"
-    },
-    ".i-upload_list-item i-icon": {
-      cursor: "pointer",
-      position: "absolute",
-      right: -5,
-      top: -5,
-      display: "none"
-    }
-  }
-});
-
-// packages/upload/src/upload.ts
-var Theme23 = theme_exports.ThemeVars;
-var fileId = 1;
-var genFileId = () => Date.now() + fileId++;
-var UploadDrag = class extends Control {
-  constructor(parent, options) {
-    super(parent, options);
-    this.counter = 0;
-  }
-  get caption() {
-    return this._caption;
-  }
-  set caption(value) {
-    this._caption = value;
-    this._labelElm.textContent = this._caption || "";
-    if (!value)
-      this._labelElm.style.display = "none";
-    else
-      this._labelElm.style.display = "";
-  }
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value) {
-    this._disabled = value;
-  }
-  handleOnDragEnter(source, event) {
-    var _a;
-    source.preventDefault();
-    if (this.disabled)
-      return;
-    this.counter++;
-    (_a = this.parentElement) == null ? void 0 : _a.classList.add("i-upload-dragger_active");
-  }
-  handleOnDragOver(source, event) {
-    source.preventDefault();
-  }
-  handleOnDragLeave(source, event) {
-    var _a;
-    if (this.disabled)
-      return;
-    this.counter--;
-    if (this.counter === 0) {
-      (_a = this.parentElement) == null ? void 0 : _a.classList.remove("i-upload-dragger_active");
-    }
-  }
-  handleOnDrop(source, event) {
-    var _a, _b;
-    source.preventDefault();
-    if (this.disabled)
-      return;
-    this.counter = 0;
-    (_a = this.parentElement) == null ? void 0 : _a.classList.remove("i-upload-dragger_active");
-    const accept = (_b = this.parentElement) == null ? void 0 : _b.getAttribute("accept");
-    if (!accept) {
-      if (this.onDrop)
-        this.onDrop(this, source.dataTransfer.files);
-      return;
-    }
-    const valids = [].slice.call(source.dataTransfer.files).filter((file) => {
-      const { type, name } = file;
-      const extension = name.indexOf(".") > -1 ? `.${name.split(".").pop()}` : "";
-      const baseType = type.replace(/\/.*$/, "");
-      return accept.split(",").map((type2) => type2.trim()).filter((type2) => type2).some((acceptedType) => {
-        if (/\..+$/.test(acceptedType)) {
-          return extension === acceptedType;
-        }
-        if (/\/\*$/.test(acceptedType)) {
-          return baseType === acceptedType.replace(/\/\*$/, "");
-        }
-        if (/^[^\/]+\/[^\/]+$/.test(acceptedType)) {
-          return type === acceptedType;
-        }
-        return false;
-      });
-    });
-    if (this.onDrop)
-      this.onDrop(this, valids);
-  }
-  init() {
-    if (!this._wrapperElm) {
-      super.init();
-      this.onDrop = this.getAttribute("onDrop", true) || this.onDrop;
-      this._wrapperElm = this.createElement("div", this);
-      this._wrapperElm.classList.add("i-upload-drag_area");
-      this._labelElm = this.createElement("span", this._wrapperElm);
-      this._labelElm.style.color = Theme23.text.primary;
-      this.caption = this.getAttribute("caption", true);
-      this.disabled = this.getAttribute("disabled", true);
-      this.addEventListener("dragenter", this.handleOnDragEnter.bind(this));
-      this.addEventListener("dragover", this.handleOnDragOver.bind(this));
-      this.addEventListener("dragleave", this.handleOnDragLeave.bind(this));
-      this.addEventListener("drop", this.handleOnDrop.bind(this));
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-UploadDrag = __decorateClass([
-  customElements2("i-upload-drag")
-], UploadDrag);
-var Upload = class extends Control {
-  constructor(parent, options) {
-    super(parent, options, {
-      multiple: false
-    });
-    this._dt = new DataTransfer();
-    this._fileList = [];
-    this.handleRemoveImagePreview = (event) => {
-      if (!this.isPreviewing || !this.enabled)
-        return;
-      event.stopPropagation();
-      const file = this._dt.files.length ? this._dt.files[0] : void 0;
-      this.clear();
-      if (this.onRemoved)
-        this.onRemoved(this, file);
-    };
-    this.toBase64 = (file) => new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  }
-  get caption() {
-    return this._caption;
-  }
-  set caption(value) {
-    this._caption = value;
-  }
-  get accept() {
-    return this._accept;
-  }
-  set accept(value) {
-    this._accept = value;
-    this._fileElm && value && this._fileElm.setAttribute("accept", `${value}`);
-  }
-  get draggable() {
-    return this._draggable;
-  }
-  set draggable(value) {
-    this._draggable = value;
-    if (value)
-      this.classList.add("el-upload-dragger");
-    else
-      this.classList.remove("el-upload-dragger");
-  }
-  get multiple() {
-    return this._multiple;
-  }
-  set multiple(value) {
-    this._multiple = value;
-    if (this._fileElm && value)
-      this._fileElm.setAttribute("multiple", `${value}`);
-  }
-  get fileList() {
-    return this._fileList;
-  }
-  set fileList(value) {
-    this._fileList = value;
-    if (value && value.length) {
-      value.forEach((f) => {
-        this._dt.items.add(f);
-      });
-      if (this._fileElm) {
-        this._fileElm.files = this._dt.files;
-        this.updateFileListUI(this._fileElm.files);
-      }
-    }
-  }
-  get enabled() {
-    return super.enabled;
-  }
-  set enabled(value) {
-    super.enabled = value;
-    if (this._uploadDragElm)
-      this._uploadDragElm.disabled = !value || !this.draggable;
-    if (!this._previewRemoveElm)
-      return;
-    if (value)
-      this._previewRemoveElm.classList.add("active");
-    else
-      this._previewRemoveElm.classList.remove("active");
-  }
-  addFile(file) {
-    this._dt.items.add(file);
-    this._fileList.push(file);
-    if (this.onAdded)
-      this.onAdded(this, file);
-  }
-  previewFile(files) {
-    if (!files || !files.length)
-      return;
-    const imgUrl = URL.createObjectURL(files[files.length - 1]);
-    this.preview(imgUrl);
-  }
-  handleUpload(source, event) {
-    const files = source.target.files;
-    this.proccessFiles(files);
-  }
-  async proccessFiles(files) {
-    if (!files || !files.length)
-      return;
-    if (!this.fileList)
-      this._dt = new DataTransfer();
-    for (let file of files) {
-      const rawFile = file;
-      rawFile.uid = genFileId();
-      if (!!this.onUploading)
-        await this.checkBeforeUpload(rawFile);
-      else
-        this.addFile(rawFile);
-    }
-    this.updateFileListUI(this._dt.files);
-    this.previewFile(this._dt.files);
-    if (this.onChanged)
-      this.onChanged(this, this.fileList);
-  }
-  async checkBeforeUpload(file) {
-    const before = this.onUploading(this, file);
-    if (before && before.then) {
-      before.then((value) => {
-        if (value)
-          this.addFile(file);
-      }, () => {
-        if (this.onRemoved)
-          this.onRemoved(this, file);
-      });
-    } else {
-      if (this.onRemoved)
-        this.onRemoved(this, file);
-    }
-  }
-  updateFileListUI(files) {
-    if (this._fileListElm) {
-      this._fileListElm.innerHTML = "";
-      for (let file of files) {
-        const itemElm = this.createElement("div", this._fileListElm);
-        itemElm.classList.add("i-upload_list-item");
-        if (file.type.includes("image/")) {
-          this._fileListElm.classList.add("i-upload_list-picture");
-          const imgElm = new Image();
-          imgElm.src = URL.createObjectURL(file);
-          imgElm.classList.add("i-upload_list-img");
-          imgElm.onload = function() {
-            URL.revokeObjectURL(imgElm.src);
-          };
-          itemElm.appendChild(imgElm);
-        } else {
-          this._fileListElm.classList.add("i-upload_list-text");
-          const spanElm = this.createElement("span", itemElm);
-          spanElm.textContent = file.name;
-        }
-        const removeIcon = new Icon(void 0, {
-          width: 12,
-          height: 12,
-          fill: Theme23.action.active,
-          name: "trash"
-        });
-        itemElm.appendChild(removeIcon);
-        removeIcon.addEventListener("click", () => this.handleRemove(file));
-      }
-      this._fileListElm.style.display = files.length ? "flex" : "none";
-    }
-  }
-  renderPreview() {
-    this._previewElm = this.createElement("div", this._wrapperElm);
-    this._previewElm.classList.add("i-upload_preview");
-    this._wrapImgElm = this.createElement("div", this._previewElm);
-    this._wrapImgElm.classList.add("i-upload_preview-img");
-    this._previewRemoveElm = this.createElement("div", this._previewElm);
-    if (this.enabled) {
-      this._previewRemoveElm.classList.add("active");
-    } else {
-      this._previewRemoveElm.classList.remove("active");
-    }
-    this._previewRemoveElm.classList.add("i-upload_preview-remove");
-    this._previewRemoveElm.onclick = this.handleRemoveImagePreview;
-    const span = this.createElement("span", this._previewRemoveElm);
-    span.style.fontFamily = Theme23.typography.fontFamily;
-    span.innerHTML = "Click to remove";
-  }
-  handleRemove(file) {
-    const rawFile = file;
-    for (let i = 0; i < this._dt.items.length; i++) {
-      if (rawFile.uid === this._dt.files[i].uid) {
-        this._dt.items.remove(i);
-        this.fileList = this._fileList.filter((f) => f.uid !== rawFile.uid);
-        if (this.onRemoved)
-          this.onRemoved(this, file);
-        break;
-      }
-    }
-    this._fileElm.files = this._dt.files;
-    this.updateFileListUI(this._dt.files);
-    if (!this._dt.items.length)
-      this.clear();
-  }
-  preview(uri) {
-    if (!uri)
-      return;
-    this.isPreviewing = true;
-    this._wrapImgElm.innerHTML = "";
-    this._previewImgElm = new Image2();
-    this._wrapImgElm.appendChild(this._previewImgElm);
-    this._previewImgElm.url = uri;
-    this._previewElm.style.display = "block";
-    this._wrapperFileElm.style.display = "none";
-    if (this._uploadDragElm)
-      this._uploadDragElm.style.display = "none";
-  }
-  clear() {
-    this._fileElm.value = "";
-    this._wrapperFileElm.style.display = "block";
-    if (this._uploadDragElm)
-      this._uploadDragElm.style.display = this.draggable ? "flex" : "none";
-    if (this._previewElm)
-      this._previewElm.style.display = "none";
-    this._wrapImgElm && (this._wrapImgElm.innerHTML = "");
-    if (this._fileListElm)
-      this._fileListElm.style.display = "none";
-    this._dt = new DataTransfer();
-    this.isPreviewing = false;
-    this._fileList = [];
-  }
-  addFiles() {
-  }
-  addFolder() {
-  }
-  init() {
-    if (!this.initialized) {
-      super.init();
-      this._wrapperElm = this.createElement("div", this);
-      this._wrapperElm.classList.add("i-upload-wrapper");
-      this._wrapperFileElm = this.createElement("div", this._wrapperElm);
-      this.caption = this.getAttribute("caption", true);
-      this.draggable = this.getAttribute("draggable", true, false);
-      this._uploadDragElm = new UploadDrag(this, {
-        caption: this.caption,
-        disabled: !this.enabled || !this.draggable,
-        onDrop: (source, value) => {
-          value && this.proccessFiles(value);
-        }
-      });
-      this._wrapperElm.appendChild(this._uploadDragElm);
-      this._fileElm = this.createElement("input", this._wrapperFileElm);
-      this._fileElm.type = "file";
-      this.multiple = this.getAttribute("multiple", true);
-      this.accept = this.getAttribute("accept");
-      if (!this.enabled)
-        this._fileElm.setAttribute("disabled", "");
-      const btn = new Button(this, {
-        caption: "Choose an image"
-      });
-      btn.className = `i-upload_btn ${!this.enabled && "disabled"}`;
-      this._wrapperFileElm.appendChild(btn);
-      const fileListAttr = this.getAttribute("showFileList", true);
-      if (fileListAttr && !this._fileListElm) {
-        this._fileListElm = this.createElement("div", this);
-        this._fileListElm.classList.add("i-upload_list");
-        this._fileListElm.style.display = "none";
-      }
-      this.renderPreview();
-      const fileList = this.getAttribute("fileList", true);
-      fileList && (this.fileList = fileList);
-      this._wrapperElm.addEventListener("click", (event) => {
-        event.stopPropagation();
-        if (!this.enabled)
-          return;
-        if (!this.isPreviewing)
-          this._fileElm.click();
-      });
-      this._fileElm.addEventListener("change", this.handleUpload.bind(this));
-    }
-  }
-  static async create(options, parent) {
-    let self = new this(parent, options);
-    await self.ready();
-    return self;
-  }
-};
-Upload = __decorateClass([
-  customElements2("i-upload")
-], Upload);
-
 // packages/iframe/src/iframe.ts
 var Iframe = class extends Control {
   constructor(parent, options) {
@@ -21526,16 +32983,16 @@ Iframe = __decorateClass([
 ], Iframe);
 
 // packages/pagination/src/style/pagination.css.ts
-var Theme24 = theme_exports.ThemeVars;
+var Theme27 = theme_exports.ThemeVars;
 cssRule("i-pagination", {
   display: "block",
   width: "100%",
   maxWidth: "100%",
   verticalAlign: "baseline",
-  fontFamily: Theme24.typography.fontFamily,
-  fontSize: Theme24.typography.fontSize,
+  fontFamily: Theme27.typography.fontFamily,
+  fontSize: Theme27.typography.fontSize,
   lineHeight: "25px",
-  color: Theme24.text.primary,
+  color: Theme27.text.primary,
   "$nest": {
     ".pagination": {
       display: "inline-flex",
@@ -21543,7 +33000,7 @@ cssRule("i-pagination", {
       justifyContent: "center"
     },
     ".pagination a": {
-      color: Theme24.text.primary,
+      color: Theme27.text.primary,
       float: "left",
       padding: "4px 8px",
       textAlign: "center",
@@ -21559,7 +33016,7 @@ cssRule("i-pagination", {
       cursor: "default"
     },
     ".pagination a.disabled": {
-      color: Theme24.text.disabled,
+      color: Theme27.text.disabled,
       pointerEvents: "none"
     }
   }
@@ -21799,7 +33256,7 @@ Pagination = __decorateClass([
 ], Pagination);
 
 // packages/progress/src/style/progress.css.ts
-var Theme25 = theme_exports.ThemeVars;
+var Theme28 = theme_exports.ThemeVars;
 var loading = keyframes({
   "0%": {
     left: "-100%"
@@ -21812,9 +33269,9 @@ cssRule("i-progress", {
   display: "block",
   maxWidth: "100%",
   verticalAlign: "baseline",
-  fontFamily: Theme25.typography.fontFamily,
-  fontSize: Theme25.typography.fontSize,
-  color: Theme25.text.primary,
+  fontFamily: Theme28.typography.fontFamily,
+  fontSize: Theme28.typography.fontSize,
+  color: Theme28.text.primary,
   position: "relative",
   $nest: {
     "&.is-loading .i-progress_overlay": {
@@ -21837,13 +33294,13 @@ cssRule("i-progress", {
     ".i-progress--exception": {
       $nest: {
         "> .i-progress_wrapbar > .i-progress_overlay": {
-          backgroundColor: Theme25.colors.error.light
+          backgroundColor: Theme28.colors.error.light
         },
         "> .i-progress_wrapbar > .i-progress_bar .i-progress_bar-item": {
-          backgroundColor: Theme25.colors.error.light
+          backgroundColor: Theme28.colors.error.light
         },
         ".i-progress_item.i-progress_item-start": {
-          borderColor: Theme25.colors.error.light
+          borderColor: Theme28.colors.error.light
         },
         ".i-progress_item.i-progress_item-end": {}
       }
@@ -21851,13 +33308,13 @@ cssRule("i-progress", {
     ".i-progress--success": {
       $nest: {
         "> .i-progress_wrapbar > .i-progress_overlay": {
-          backgroundColor: Theme25.colors.success.light
+          backgroundColor: Theme28.colors.success.light
         },
         "> .i-progress_wrapbar > .i-progress_bar .i-progress_bar-item": {
-          backgroundColor: Theme25.colors.success.light
+          backgroundColor: Theme28.colors.success.light
         },
         ".i-progress_item.i-progress_item-start": {
-          borderColor: Theme25.colors.success.light
+          borderColor: Theme28.colors.success.light
         },
         ".i-progress_item.i-progress_item-end": {}
       }
@@ -21865,13 +33322,13 @@ cssRule("i-progress", {
     ".i-progress--warning": {
       $nest: {
         "> .i-progress_wrapbar > .i-progress_overlay": {
-          backgroundColor: Theme25.colors.warning.light
+          backgroundColor: Theme28.colors.warning.light
         },
         "> .i-progress_wrapbar > .i-progress_bar .i-progress_bar-item": {
-          backgroundColor: Theme25.colors.warning.light
+          backgroundColor: Theme28.colors.warning.light
         },
         ".i-progress_item.i-progress_item-start": {
-          borderColor: Theme25.colors.warning.light
+          borderColor: Theme28.colors.warning.light
         },
         ".i-progress_item.i-progress_item-end": {}
       }
@@ -21879,14 +33336,14 @@ cssRule("i-progress", {
     ".i-progress--active": {
       $nest: {
         "> .i-progress_wrapbar > .i-progress_overlay": {
-          backgroundColor: Theme25.colors.primary.light
+          backgroundColor: Theme28.colors.primary.light
         },
         "> .i-progress_wrapbar > .i-progress_bar .i-progress_bar-item": {
-          backgroundColor: Theme25.colors.primary.light
+          backgroundColor: Theme28.colors.primary.light
         },
         ".i-progress_item.i-progress_item-start": {
           backgroundColor: "transparent",
-          borderColor: Theme25.colors.primary.light
+          borderColor: Theme28.colors.primary.light
         }
       }
     },
@@ -21908,11 +33365,11 @@ cssRule("i-progress", {
           gap: "1px",
           $nest: {
             "&.has-bg": {
-              backgroundColor: Theme25.divider
+              backgroundColor: Theme28.divider
             },
             ".i-progress_bar-item": {
               flex: "auto",
-              backgroundColor: Theme25.divider
+              backgroundColor: Theme28.divider
             }
           }
         },
@@ -21937,7 +33394,7 @@ cssRule("i-progress", {
           borderStyle: "solid",
           borderImage: "initial",
           borderRadius: 14,
-          borderColor: Theme25.divider,
+          borderColor: Theme28.divider,
           padding: "4px 12px",
           order: 1
         },
@@ -21993,7 +33450,7 @@ cssRule("i-progress", {
 });
 
 // packages/progress/src/progress.ts
-var Theme26 = theme_exports.ThemeVars;
+var Theme29 = theme_exports.ThemeVars;
 var defaultVals = {
   percent: 0,
   height: 20,
@@ -22037,7 +33494,7 @@ var Progress = class extends Control {
     }
   }
   get strokeColor() {
-    return this._strokeColor || Theme26.colors.primary.main;
+    return this._strokeColor || Theme29.colors.primary.main;
   }
   set strokeColor(value) {
     this._strokeColor = value;
@@ -22172,11 +33629,11 @@ var Progress = class extends Control {
   get stroke() {
     let ret = this.strokeColor;
     if (this.percent === 100)
-      ret = Theme26.colors.success.main;
+      ret = Theme29.colors.success.main;
     return ret;
   }
   get trackColor() {
-    return Theme26.divider;
+    return Theme29.divider;
   }
   get progressTextSize() {
     return this.type === "line" ? 12 + this.strokeWidth * 0.4 : +this.width * 0.111111 + 2;
@@ -22264,11 +33721,11 @@ Progress = __decorateClass([
 ], Progress);
 
 // packages/table/src/style/table.css.ts
-var Theme27 = theme_exports.ThemeVars;
+var Theme30 = theme_exports.ThemeVars;
 var tableStyle = style({
-  fontFamily: Theme27.typography.fontFamily,
-  fontSize: Theme27.typography.fontSize,
-  color: Theme27.text.primary,
+  fontFamily: Theme30.typography.fontFamily,
+  fontSize: Theme30.typography.fontSize,
+  color: Theme30.text.primary,
   display: "block",
   $nest: {
     "> .i-table-container": {
@@ -22290,26 +33747,26 @@ var tableStyle = style({
     ".i-table-header>tr>th": {
       fontWeight: 600,
       transition: "background .3s ease",
-      borderBottom: `1px solid ${Theme27.divider}`
+      borderBottom: `1px solid ${Theme30.divider}`
     },
     ".i-table-body>tr>td": {
-      borderBottom: `1px solid ${Theme27.divider}`,
+      borderBottom: `1px solid ${Theme30.divider}`,
       transition: "background .3s ease"
     },
     "tr:hover td": {
-      background: Theme27.background.paper,
-      color: Theme27.text.secondary
+      background: Theme30.background.paper,
+      color: Theme30.text.secondary
     },
     "&.i-table--bordered": {
       $nest: {
         "> .i-table-container > table": {
-          borderTop: `1px solid ${Theme27.divider}`,
-          borderLeft: `1px solid ${Theme27.divider}`,
+          borderTop: `1px solid ${Theme30.divider}`,
+          borderLeft: `1px solid ${Theme30.divider}`,
           borderRadius: "2px"
         },
         "> .i-table-container > table .i-table-cell": {
-          borderRight: `1px solid ${Theme27.divider} !important`,
-          borderBottom: `1px solid ${Theme27.divider}`
+          borderRight: `1px solid ${Theme30.divider} !important`,
+          borderBottom: `1px solid ${Theme30.divider}`
         }
       }
     },
@@ -22330,7 +33787,7 @@ var tableStyle = style({
           cursor: "pointer"
         },
         ".sort-icon.sort-icon--active > svg": {
-          fill: Theme27.colors.primary.main
+          fill: Theme30.colors.primary.main
         },
         ".sort-icon.sort-icon--desc": {
           marginTop: -5
@@ -22359,12 +33816,12 @@ var tableStyle = style({
           display: "inline-block"
         },
         "i-icon svg": {
-          fill: Theme27.text.primary
+          fill: Theme30.text.primary
         }
       }
     },
     ".i-table-row--child > td": {
-      borderRight: `1px solid ${Theme27.divider}`
+      borderRight: `1px solid ${Theme30.divider}`
     },
     "@media (max-width: 767px)": {
       $nest: {
@@ -22435,7 +33892,7 @@ var getTableMediaQueriesStyleClass = (columns, mediaQueries) => {
 };
 
 // packages/table/src/tableColumn.ts
-var Theme28 = theme_exports.ThemeVars;
+var Theme31 = theme_exports.ThemeVars;
 var TableColumn = class extends Control {
   constructor(parent, options) {
     super(parent, options);
@@ -22490,7 +33947,7 @@ var TableColumn = class extends Control {
         name: "caret-up",
         width: 14,
         height: 14,
-        fill: Theme28.text.primary
+        fill: Theme31.text.primary
       });
       this.ascElm.classList.add("sort-icon", "sort-icon--asc");
       this.ascElm.onClick = () => this.sortOrder = this.sortOrder === "asc" ? "none" : "asc";
@@ -22498,7 +33955,7 @@ var TableColumn = class extends Control {
         name: "caret-down",
         width: 14,
         height: 14,
-        fill: Theme28.text.primary
+        fill: Theme31.text.primary
       });
       this.descElm.classList.add("sort-icon", "sort-icon--desc");
       this.descElm.onClick = () => this.sortOrder = this.sortOrder === "desc" ? "none" : "desc";
@@ -22781,7 +34238,7 @@ var Table = class extends Control {
       const rowData = colElm ? colElm.rowData : null;
       const rowIndex = (rowElm == null ? void 0 : rowElm.getAttribute("data-index")) || -1;
       const colIndex = (tdElm == null ? void 0 : tdElm.getAttribute("data-index")) || -1;
-      if (this.onCellClick)
+      if (this.onCellClick && rowIndex !== -1)
         this.onCellClick(this, +rowIndex, +colIndex, rowData);
       if (this.expandable && rowElm) {
         const expandTd = rowElm.querySelector(".i-table-cell--expand");
@@ -22951,7 +34408,7 @@ Table = __decorateClass([
 ], Table);
 
 // packages/carousel/src/style/carousel.css.ts
-var Theme29 = theme_exports.ThemeVars;
+var Theme32 = theme_exports.ThemeVars;
 cssRule("i-carousel-slider", {
   display: "block",
   position: "relative",
@@ -22972,7 +34429,7 @@ cssRule("i-carousel-slider", {
     ".slider-arrow": {
       width: 28,
       height: 28,
-      fill: Theme29.colors.primary.main,
+      fill: Theme32.colors.primary.main,
       cursor: "pointer"
     },
     ".slider-arrow-hidden": {
@@ -23005,7 +34462,7 @@ cssRule("i-carousel-slider", {
           minWidth: "0.8rem",
           minHeight: "0.8rem",
           backgroundColor: "transparent",
-          border: `2px solid ${Theme29.colors.primary.main}`,
+          border: `2px solid ${Theme32.colors.primary.main}`,
           borderRadius: "50%",
           transition: "background-color 0.35s ease-in-out",
           textAlign: "center",
@@ -23016,7 +34473,7 @@ cssRule("i-carousel-slider", {
           textOverflow: "ellipsis"
         },
         ".--active > span": {
-          backgroundColor: Theme29.colors.primary.main
+          backgroundColor: Theme32.colors.primary.main
         }
       }
     }
@@ -23433,38 +34890,6 @@ CarouselItem = __decorateClass([
   customElements2("i-carousel-item")
 ], CarouselItem);
 
-// packages/ipfs/src/index.ts
-var src_exports2 = {};
-__export(src_exports2, {
-  hashContent: () => hashContent,
-  hashItems: () => hashItems,
-  parse: () => parse
-});
-var import_ipfs_utils = __toModule(require("@ijstech/ipfs-utils"));
-function parse(cid) {
-  return import_ipfs_utils.default.parse(cid);
-}
-async function hashItems(items, version) {
-  return await import_ipfs_utils.default.hashItems(items || [], version);
-}
-async function hashContent(content, version) {
-  if (version == void 0)
-    version = 1;
-  if (content.length == 0) {
-    return await import_ipfs_utils.default.hashContent("", version);
-  }
-  let result;
-  if (version == 1) {
-    result = await import_ipfs_utils.default.hashFile(content, version, {
-      rawLeaves: true,
-      maxChunkSize: 1048576,
-      maxChildrenPerNode: 1024
-    });
-  } else
-    result = await import_ipfs_utils.default.hashFile(content, version);
-  return result.cid;
-}
-
 // packages/moment/src/index.ts
 RequireJS.config({
   paths: {
@@ -23557,5 +34982,10 @@ Video = __decorateClass([
 * Released under dual AGPLv3/commercial license
 * https://ijs.network
 *-----------------------------------------------------------*/
+//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
+//! license : MIT
+//! moment.js
+//! momentjs.com
+//! version : 2.29.4
   
 });
