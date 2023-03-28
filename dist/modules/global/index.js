@@ -8,13 +8,13 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-define("@carousel/global/interface.ts", ["require", "exports"], function (require, exports) {
+define("@scom-carousel/global/interface.ts", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
 });
-define("@carousel/global", ["require", "exports", "@carousel/global/interface.ts"], function (require, exports, interface_1) {
+define("@scom-carousel/global", ["require", "exports", "@scom-carousel/global/interface.ts"], function (require, exports, interface_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    ///<amd-module name='@carousel/global'/> 
+    ///<amd-module name='@scom-carousel/global'/> 
     __exportStar(interface_1, exports);
 });
