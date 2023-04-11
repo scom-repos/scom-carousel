@@ -4,15 +4,18 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "main": "dist/index.js",
+  "plugin": "dist",
+  "pluginTypes": "pluginTypes/index.d.ts",
+  "types": "pluginTypes/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && npx @ijstech/compiler",
-    "serve": "npx @ijstech/cli serve 8080",
-    "test": "npm run build && npm run serve"
+    "test": "cd test && npm run test && cd .."
   },
   "keywords": [],
   "devDependencies": {
-    "@ijstech/cli": "^0.1.26",
+    "@ijstech/cli": "^0.1.28",
     "@ijstech/compiler": "^0.1.22",
-    "@ijstech/components": "^0.1.35"
+    "@ijstech/components": "^0.1.50"
   }
 }
