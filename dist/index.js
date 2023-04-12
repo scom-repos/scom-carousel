@@ -131,10 +131,6 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                             type: 'string',
                             required: true
                         },
-                        color: {
-                            type: 'string',
-                            format: 'color',
-                        },
                         link: {
                             type: 'string'
                         }

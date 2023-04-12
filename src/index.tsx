@@ -51,10 +51,6 @@ const propertiesSchema: IDataSchema = {
             type: 'string',
             required: true
           },
-          color: {
-            type: 'string',
-            format: 'color',
-          },
           link: {
             type: 'string'
           }
