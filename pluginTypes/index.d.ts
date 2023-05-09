@@ -50,8 +50,8 @@ declare module "@scom/scom-carousel/index.css.ts" {
 }
 /// <amd-module name="@scom/scom-carousel" />
 declare module "@scom/scom-carousel" {
-    import { Module, ControlElement, Container, IDataSchema } from '@ijstech/components';
-    import { IConfig, IPageBlockAction, PageBlock } from "@scom/scom-carousel/interface.ts";
+    import { Module, ControlElement, Container } from '@ijstech/components';
+    import { IConfig, IPageBlockAction } from "@scom/scom-carousel/interface.ts";
     interface ScomCarouselElement extends ControlElement {
         data?: IConfig;
     }
@@ -62,7 +62,7 @@ declare module "@scom/scom-carousel" {
             }
         }
     }
-    export default class Carousel extends Module implements PageBlock {
+    export default class Carousel extends Module {
         private carouselSlider;
         private btnPrev;
         private btnNext;
@@ -77,22 +77,34 @@ declare module "@scom/scom-carousel" {
         readonly onEdit: () => Promise<void>;
         constructor(parent?: Container, options?: ScomCarouselElement);
         init(): void;
-        getData(): IConfig;
-        setData(data: IConfig): Promise<void>;
-        getTag(): any;
-        setTag(value: any): Promise<void>;
-        edit(): Promise<void>;
-        confirm(): Promise<void>;
-        discard(): Promise<void>;
-        config(): Promise<void>;
-        getActions(): IPageBlockAction[];
-        _getActions(propertiesSchema: IDataSchema, themeSchema: IDataSchema): IPageBlockAction[];
+        private getData;
+        private setData;
+        private getTag;
+        private setTag;
+        private _getActions;
+        getConfigurators(): ({
+            name: string;
+            target: string;
+            getActions: () => IPageBlockAction[];
+            getData: any;
+            setData: any;
+            getTag: any;
+            setTag: any;
+        } | {
+            name: string;
+            target: string;
+            getData: any;
+            setData: any;
+            getTag: any;
+            setTag: any;
+            getActions?: undefined;
+        })[];
         private updateCarousel;
         private openLink;
         private prev;
         private next;
-        onSwipeStart(): void;
-        onSwipeEnd(isSwiping: boolean): void;
+        private onSwipeStart;
+        private onSwipeEnd;
         render(): any;
     }
 }

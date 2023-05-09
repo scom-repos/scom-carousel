@@ -2,7 +2,6 @@ import {
   Module,
   customModule,
   Styles,
-  Panel,
   CarouselSlider,
   Button,
   customElements,
@@ -11,11 +10,11 @@ import {
   IDataSchema,
   IUISchema
 } from '@ijstech/components';
-import { IConfig, IPageBlockAction, PageBlock } from './interface';
+import { IConfig, IPageBlockAction } from './interface';
 import customStyles from './index.css';
 
 const Theme = Styles.Theme.ThemeVars;
-const propertiesSchema: IDataSchema = {
+const propertiesSchema: any = {
   type: 'object',
   properties: {
     autoplay: {
@@ -117,7 +116,7 @@ declare global {
 
 @customModule
 @customElements('i-scom-carousel')
-export default class Carousel extends Module implements PageBlock {
+export default class Carousel extends Module {
   private carouselSlider: CarouselSlider;
   private btnPrev: Button;
   private btnNext: Button;
@@ -126,7 +125,7 @@ export default class Carousel extends Module implements PageBlock {
   private _oldData: IConfig = {};
   private _data: IConfig = {};
   private oldTag: any = {};
-  tag: any;
+  tag: any = {};
   defaultEdit: boolean = true;
   readonly onConfirm: () => Promise<void>;
   readonly onDiscard: () => Promise<void>;
@@ -144,55 +143,42 @@ export default class Carousel extends Module implements PageBlock {
     }
   }
 
-  getData() {
+  private getData() {
     return this._data;
   }
 
-  async setData(data: IConfig) {
-    this._oldData = { ...this._data };
+  private async setData(data: IConfig) {
     this._data = data
     this.updateCarousel(this.tag);
   }
 
-  getTag() {
+  private getTag() {
     return this.tag;
   }
 
-  async setTag(value: any) {
-    this.tag = value;
-    this.updateCarousel(value);
-  }
-
-  async edit() {
-  }
-
-  async confirm() {
+  private async setTag(value: any) {
+    const newValue = value || {};
+    for (let prop in newValue) {
+      if (newValue.hasOwnProperty(prop)) {
+        this.tag[prop] = newValue[prop];
+      }
+    }
     this.updateCarousel(this.tag);
   }
 
-  async discard() {
-  }
+  // async edit() {
+  // }
 
-  async config() { }
+  // async confirm() {
+  //   this.updateCarousel(this.tag);
+  // }
 
-  getActions() {
-    const themeSchema: IDataSchema = {
-      type: 'object',
-      properties: {
-        titleFontColor: {
-          type: 'string',
-          format: 'color',
-        },
-        descriptionFontColor: {
-          type: 'string',
-          format: 'color',
-        },
-      }
-    }
-    return this._getActions(propertiesSchema, themeSchema);
-  }
+  // async discard() {
+  // }
 
-  _getActions(propertiesSchema: IDataSchema, themeSchema: IDataSchema) {
+  // async config() { }
+
+  private _getActions(propertiesSchema: IDataSchema, themeSchema: IDataSchema) {
     const actions: IPageBlockAction[] = [
       {
         name: 'Settings',
@@ -200,6 +186,7 @@ export default class Carousel extends Module implements PageBlock {
         command: (builder: any, userInputData: any) => {
           return {
             execute: async () => {
+              this._oldData = JSON.parse(JSON.stringify(this._data));
               if (builder?.setData) builder.setData(userInputData);
               this.setData(userInputData);
             },
@@ -220,7 +207,7 @@ export default class Carousel extends Module implements PageBlock {
           return {
             execute: async () => {
               if (!userInputData) return;
-              this.oldTag = { ...this.tag };
+              this.oldTag = JSON.parse(JSON.stringify(this.tag));
               this.setTag(userInputData);
               if (builder) builder.setTag(userInputData);
             },
@@ -236,6 +223,43 @@ export default class Carousel extends Module implements PageBlock {
       }
     ]
     return actions;
+  }
+
+  getConfigurators() {
+    return [
+      {
+        name: 'Builder Configurator',
+        target: 'Builders',
+        getActions: () => {
+          const themeSchema: IDataSchema = {
+            type: 'object',
+            properties: {
+              titleFontColor: {
+                type: 'string',
+                format: 'color',
+              },
+              descriptionFontColor: {
+                type: 'string',
+                format: 'color',
+              },
+            }
+          }
+          return this._getActions(propertiesSchema, themeSchema);
+        },
+        getData: this.getData.bind(this),
+        setData: this.setData.bind(this),
+        getTag: this.getTag.bind(this),
+        setTag: this.setTag.bind(this)
+      },
+      {
+        name: 'Emdedder Configurator',
+        target: 'Embedders',
+        getData: this.getData.bind(this),
+        setData: this.setData.bind(this),
+        getTag: this.getTag.bind(this),
+        setTag: this.setTag.bind(this)
+      }
+    ]
   }
 
   private updateCarousel(config: any) {
@@ -332,11 +356,11 @@ export default class Carousel extends Module implements PageBlock {
     this.carouselSlider.next();
   }
 
-  onSwipeStart() {
+  private onSwipeStart() {
     this.isSwiping = false;
   }
 
-  onSwipeEnd(isSwiping: boolean) {
+  private onSwipeEnd(isSwiping: boolean) {
     this.isSwiping = isSwiping;
   }
 

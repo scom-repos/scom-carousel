@@ -187,6 +187,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             this._oldData = {};
             this._data = {};
             this.oldTag = {};
+            this.tag = {};
             this.defaultEdit = true;
             this.openLink = (url) => {
                 if (url && !this.isSwiping)
@@ -204,7 +205,6 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             return this._data;
         }
         async setData(data) {
-            this._oldData = Object.assign({}, this._data);
             this._data = data;
             this.updateCarousel(this.tag);
         }
@@ -212,33 +212,22 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             return this.tag;
         }
         async setTag(value) {
-            this.tag = value;
-            this.updateCarousel(value);
-        }
-        async edit() {
-        }
-        async confirm() {
+            const newValue = value || {};
+            for (let prop in newValue) {
+                if (newValue.hasOwnProperty(prop)) {
+                    this.tag[prop] = newValue[prop];
+                }
+            }
             this.updateCarousel(this.tag);
         }
-        async discard() {
-        }
-        async config() { }
-        getActions() {
-            const themeSchema = {
-                type: 'object',
-                properties: {
-                    titleFontColor: {
-                        type: 'string',
-                        format: 'color',
-                    },
-                    descriptionFontColor: {
-                        type: 'string',
-                        format: 'color',
-                    },
-                }
-            };
-            return this._getActions(propertiesSchema, themeSchema);
-        }
+        // async edit() {
+        // }
+        // async confirm() {
+        //   this.updateCarousel(this.tag);
+        // }
+        // async discard() {
+        // }
+        // async config() { }
         _getActions(propertiesSchema, themeSchema) {
             const actions = [
                 {
@@ -247,6 +236,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                     command: (builder, userInputData) => {
                         return {
                             execute: async () => {
+                                this._oldData = JSON.parse(JSON.stringify(this._data));
                                 if (builder === null || builder === void 0 ? void 0 : builder.setData)
                                     builder.setData(userInputData);
                                 this.setData(userInputData);
@@ -270,7 +260,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                             execute: async () => {
                                 if (!userInputData)
                                     return;
-                                this.oldTag = Object.assign({}, this.tag);
+                                this.oldTag = JSON.parse(JSON.stringify(this.tag));
                                 this.setTag(userInputData);
                                 if (builder)
                                     builder.setTag(userInputData);
@@ -289,6 +279,42 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                 }
             ];
             return actions;
+        }
+        getConfigurators() {
+            return [
+                {
+                    name: 'Builder Configurator',
+                    target: 'Builders',
+                    getActions: () => {
+                        const themeSchema = {
+                            type: 'object',
+                            properties: {
+                                titleFontColor: {
+                                    type: 'string',
+                                    format: 'color',
+                                },
+                                descriptionFontColor: {
+                                    type: 'string',
+                                    format: 'color',
+                                },
+                            }
+                        };
+                        return this._getActions(propertiesSchema, themeSchema);
+                    },
+                    getData: this.getData.bind(this),
+                    setData: this.setData.bind(this),
+                    getTag: this.getTag.bind(this),
+                    setTag: this.setTag.bind(this)
+                },
+                {
+                    name: 'Emdedder Configurator',
+                    target: 'Embedders',
+                    getData: this.getData.bind(this),
+                    setData: this.setData.bind(this),
+                    getTag: this.getTag.bind(this),
+                    setTag: this.setTag.bind(this)
+                }
+            ];
         }
         updateCarousel(config) {
             const { titleFontColor = Theme.text.primary, descriptionFontColor = Theme.text.primary, } = config || {};
