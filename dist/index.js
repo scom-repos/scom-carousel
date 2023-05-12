@@ -206,9 +206,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
     let Carousel = class Carousel extends components_2.Module {
         constructor(parent, options) {
             super(parent, options);
-            this._oldData = {};
             this._data = {};
-            this.oldTag = {};
             this.tag = {};
             this.defaultEdit = true;
             this.openLink = (url) => {
@@ -255,17 +253,28 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                     name: 'Settings',
                     icon: 'cog',
                     command: (builder, userInputData) => {
+                        let _oldData = {};
                         return {
                             execute: async () => {
-                                this._oldData = JSON.parse(JSON.stringify(this._data));
+                                _oldData = JSON.parse(JSON.stringify(this._data));
+                                if ((userInputData === null || userInputData === void 0 ? void 0 : userInputData.autoplay) !== undefined)
+                                    this._data.autoplay = userInputData.autoplay;
+                                if ((userInputData === null || userInputData === void 0 ? void 0 : userInputData.controls) !== undefined)
+                                    this._data.controls = userInputData.controls;
+                                if ((userInputData === null || userInputData === void 0 ? void 0 : userInputData.indicators) !== undefined)
+                                    this._data.indicators = userInputData.indicators;
+                                if ((userInputData === null || userInputData === void 0 ? void 0 : userInputData.swipe) !== undefined)
+                                    this._data.swipe = userInputData.swipe;
+                                if ((userInputData === null || userInputData === void 0 ? void 0 : userInputData.data) !== undefined)
+                                    this._data.data = userInputData.data;
+                                this.updateCarousel(this.tag);
                                 if (builder === null || builder === void 0 ? void 0 : builder.setData)
-                                    builder.setData(userInputData);
-                                this.setData(userInputData);
+                                    builder.setData(this._data);
                             },
                             undo: () => {
                                 if (builder === null || builder === void 0 ? void 0 : builder.setData)
-                                    builder.setData(this._oldData);
-                                this.setData(this._oldData);
+                                    builder.setData(_oldData);
+                                this.setData(_oldData);
                             },
                             redo: () => { }
                         };
@@ -277,21 +286,25 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                     name: 'Theme Settings',
                     icon: 'palette',
                     command: (builder, userInputData) => {
+                        let oldTag = {};
                         return {
                             execute: async () => {
                                 if (!userInputData)
                                     return;
-                                this.oldTag = JSON.parse(JSON.stringify(this.tag));
-                                this.setTag(userInputData);
+                                oldTag = JSON.parse(JSON.stringify(this.tag));
                                 if (builder)
                                     builder.setTag(userInputData);
+                                else
+                                    this.setTag(userInputData);
                             },
                             undo: () => {
                                 if (!userInputData)
                                     return;
-                                this.setTag(this.oldTag);
+                                this.tag = JSON.parse(JSON.stringify(oldTag));
                                 if (builder)
-                                    builder.setTag(this.oldTag);
+                                    builder.setTag(this.tag);
+                                else
+                                    this.setTag(this.tag);
                             },
                             redo: () => { }
                         };

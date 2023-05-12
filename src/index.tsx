@@ -123,9 +123,7 @@ export default class Carousel extends Module {
   private btnNext: Button;
 
   private isSwiping: Boolean;
-  private _oldData: IConfig = {};
   private _data: IConfig = {};
-  private oldTag: any = {};
   tag: any = {};
   defaultEdit: boolean = true;
   readonly onConfirm: () => Promise<void>;
@@ -183,15 +181,21 @@ export default class Carousel extends Module {
         name: 'Settings',
         icon: 'cog',
         command: (builder: any, userInputData: any) => {
+          let _oldData = {};
           return {
             execute: async () => {
-              this._oldData = JSON.parse(JSON.stringify(this._data));
-              if (builder?.setData) builder.setData(userInputData);
-              this.setData(userInputData);
+              _oldData = JSON.parse(JSON.stringify(this._data));
+              if (userInputData?.autoplay !== undefined) this._data.autoplay = userInputData.autoplay;
+              if (userInputData?.controls !== undefined) this._data.controls = userInputData.controls;
+              if (userInputData?.indicators !== undefined) this._data.indicators = userInputData.indicators;
+              if (userInputData?.swipe !== undefined) this._data.swipe = userInputData.swipe;
+              if (userInputData?.data !== undefined) this._data.data = userInputData.data;
+              this.updateCarousel(this.tag);
+              if (builder?.setData) builder.setData(this._data);
             },
             undo: () => {
-              if (builder?.setData) builder.setData(this._oldData);
-              this.setData(this._oldData);
+              if (builder?.setData) builder.setData(_oldData);
+              this.setData(_oldData);
             },
             redo: () => { }
           }
@@ -203,17 +207,19 @@ export default class Carousel extends Module {
         name: 'Theme Settings',
         icon: 'palette',
         command: (builder: any, userInputData: any) => {
+          let oldTag = {};
           return {
             execute: async () => {
               if (!userInputData) return;
-              this.oldTag = JSON.parse(JSON.stringify(this.tag));
-              this.setTag(userInputData);
+              oldTag = JSON.parse(JSON.stringify(this.tag));
               if (builder) builder.setTag(userInputData);
+              else this.setTag(userInputData);
             },
             undo: () => {
               if (!userInputData) return;
-              this.setTag(this.oldTag);
-              if (builder) builder.setTag(this.oldTag);
+              this.tag = JSON.parse(JSON.stringify(oldTag));
+              if (builder) builder.setTag(this.tag);
+              else this.setTag(this.tag);
             },
             redo: () => { }
           }
