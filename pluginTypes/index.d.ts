@@ -82,9 +82,7 @@ declare module "@scom/scom-carousel" {
         private btnPrev;
         private btnNext;
         private isSwiping;
-        private _oldData;
         private _data;
-        private oldTag;
         tag: any;
         defaultEdit: boolean;
         readonly onConfirm: () => Promise<void>;
