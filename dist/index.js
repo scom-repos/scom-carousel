@@ -91,7 +91,29 @@ define("@scom/scom-carousel/index.css.ts", ["require", "exports", "@ijstech/comp
         },
     });
 });
-define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@scom/scom-carousel/index.css.ts"], function (require, exports, components_2, index_css_1) {
+define("@scom/scom-carousel/data.json.ts", ["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    ///<amd-module name='@scom/scom-carousel/data.json.ts'/> 
+    exports.default = {
+        "defaultBuilderData": {
+            "autoplay": true,
+            "controls": true,
+            "indicators": true,
+            data: [
+                {
+                    title: 'First slide',
+                    imageUrl: 'http://placehold.it/1170x400&amp;text=First+Slide'
+                },
+                {
+                    title: 'Second slide',
+                    imageUrl: 'http://placehold.it/1170x400&amp;text=Second+Slide'
+                }
+            ]
+        }
+    };
+});
+define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@scom/scom-carousel/index.css.ts", "@scom/scom-carousel/data.json.ts"], function (require, exports, components_2, index_css_1, data_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const Theme = components_2.Styles.Theme.ThemeVars;
@@ -197,9 +219,8 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
         init() {
             super.init();
             const data = this.getAttribute('data', true);
-            if (data) {
+            if (data)
                 this.setData(data);
-            }
         }
         getData() {
             return this._data;
@@ -302,7 +323,10 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                         return this._getActions(propertiesSchema, themeSchema);
                     },
                     getData: this.getData.bind(this),
-                    setData: this.setData.bind(this),
+                    setData: async (data) => {
+                        const defaultData = data_json_1.default.defaultBuilderData;
+                        await this.setData(Object.assign(Object.assign({}, defaultData), data));
+                    },
                     getTag: this.getTag.bind(this),
                     setTag: this.setTag.bind(this)
                 },
@@ -317,7 +341,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             ];
         }
         updateCarousel(config) {
-            const { titleFontColor = Theme.text.primary, descriptionFontColor = Theme.text.primary, } = config || {};
+            const { titleFontColor = Theme.colors.primary.contrastText, descriptionFontColor = Theme.colors.primary.contrastText, } = config || {};
             this.isSwiping = false;
             this.carouselSlider.autoplay = this._data.autoplay;
             this.carouselSlider.swipe = this._data.swipe;

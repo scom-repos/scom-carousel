@@ -12,6 +12,7 @@ import {
 } from '@ijstech/components';
 import { IConfig, IPageBlockAction } from './interface';
 import customStyles from './index.css';
+import dataJson from './data.json';
 
 const Theme = Styles.Theme.ThemeVars;
 const propertiesSchema: any = {
@@ -138,9 +139,7 @@ export default class Carousel extends Module {
   init() {
     super.init();
     const data = this.getAttribute('data', true);
-    if (data) {
-      this.setData(data);
-    }
+    if (data) this.setData(data);
   }
 
   private getData() {
@@ -247,7 +246,10 @@ export default class Carousel extends Module {
           return this._getActions(propertiesSchema, themeSchema);
         },
         getData: this.getData.bind(this),
-        setData: this.setData.bind(this),
+        setData: async (data: IConfig) => {
+          const defaultData = dataJson.defaultBuilderData as any;
+          await this.setData({...defaultData, ...data})
+        },
         getTag: this.getTag.bind(this),
         setTag: this.setTag.bind(this)
       },
@@ -264,8 +266,8 @@ export default class Carousel extends Module {
 
   private updateCarousel(config: any) {
     const {
-      titleFontColor = Theme.text.primary,
-      descriptionFontColor = Theme.text.primary,
+      titleFontColor = Theme.colors.primary.contrastText,
+      descriptionFontColor = Theme.colors.primary.contrastText,
     } = config || {};
     this.isSwiping = false;
     this.carouselSlider.autoplay = this._data.autoplay;

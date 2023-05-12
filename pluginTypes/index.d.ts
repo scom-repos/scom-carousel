@@ -48,6 +48,21 @@ declare module "@scom/scom-carousel/index.css.ts" {
     const _default: string;
     export default _default;
 }
+/// <amd-module name="@scom/scom-carousel/data.json.ts" />
+declare module "@scom/scom-carousel/data.json.ts" {
+    const _default_1: {
+        defaultBuilderData: {
+            autoplay: boolean;
+            controls: boolean;
+            indicators: boolean;
+            data: {
+                title: string;
+                imageUrl: string;
+            }[];
+        };
+    };
+    export default _default_1;
+}
 /// <amd-module name="@scom/scom-carousel" />
 declare module "@scom/scom-carousel" {
     import { Module, ControlElement, Container } from '@ijstech/components';
@@ -87,7 +102,7 @@ declare module "@scom/scom-carousel" {
             target: string;
             getActions: () => IPageBlockAction[];
             getData: any;
-            setData: any;
+            setData: (data: IConfig) => Promise<void>;
             getTag: any;
             setTag: any;
         } | {
