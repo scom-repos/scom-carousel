@@ -57,7 +57,7 @@ export default Styles.style({
           borderRadius: '50%',
           $nest: {
             '> i-icon': {
-              visibility: 'visible',
+              visibility: 'visible'
             },
           },
         },
@@ -71,6 +71,11 @@ export default Styles.style({
         },
         '& > i-icon': {
           visibility: 'hidden',
+          $nest: {
+            'svg': {
+              fill: 'inherit'
+            }
+          }
         },
       },
     },

@@ -68,7 +68,7 @@ define("@scom/scom-carousel/index.css.ts", ["require", "exports", "@ijstech/comp
                         borderRadius: '50%',
                         $nest: {
                             '> i-icon': {
-                                visibility: 'visible',
+                                visibility: 'visible'
                             },
                         },
                     },
@@ -82,6 +82,11 @@ define("@scom/scom-carousel/index.css.ts", ["require", "exports", "@ijstech/comp
                     },
                     '& > i-icon': {
                         visibility: 'hidden',
+                        $nest: {
+                            'svg': {
+                                fill: 'inherit'
+                            }
+                        }
                     },
                 },
             },
