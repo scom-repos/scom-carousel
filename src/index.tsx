@@ -14,7 +14,7 @@ import { IConfig, IPageBlockAction } from './interface';
 import customStyles from './index.css';
 import dataJson from './data.json';
 
-const Theme = Styles.Theme.ThemeVars;
+const Theme = Styles.Theme.currentTheme;
 const propertiesSchema: any = {
   type: 'object',
   properties: {
@@ -138,6 +138,10 @@ export default class Carousel extends Module {
     super.init();
     const data = this.getAttribute('data', true);
     if (data) this.setData(data);
+    this.setTag({
+      titleFontColor: Theme.colors.primary.contrastText,
+      descriptionFontColor: Theme.colors.primary.contrastText
+    });
   }
 
   private getData() {
@@ -162,18 +166,6 @@ export default class Carousel extends Module {
     }
     this.updateCarousel(this.tag);
   }
-
-  // async edit() {
-  // }
-
-  // async confirm() {
-  //   this.updateCarousel(this.tag);
-  // }
-
-  // async discard() {
-  // }
-
-  // async config() { }
 
   private _getActions(propertiesSchema: IDataSchema, themeSchema: IDataSchema) {
     const actions: IPageBlockAction[] = [
