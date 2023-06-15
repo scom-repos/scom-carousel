@@ -68,6 +68,7 @@ declare module "@scom/scom-carousel" {
     import { Module, ControlElement, Container } from '@ijstech/components';
     import { IConfig, IPageBlockAction } from "@scom/scom-carousel/interface.ts";
     interface ScomCarouselElement extends ControlElement {
+        lazyLoad?: boolean;
         data?: IConfig;
     }
     global {

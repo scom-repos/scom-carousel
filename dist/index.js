@@ -221,12 +221,15 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
         }
         init() {
             super.init();
-            const data = this.getAttribute('data', true);
-            if (data)
-                this.setData(data);
+            const lazyLoad = this.getAttribute('lazyLoad', true, false);
+            if (!lazyLoad) {
+                const data = this.getAttribute('data', true);
+                if (data)
+                    this.setData(data);
+            }
             this.setTag({
-                titleFontColor: '#ffffff',
-                descriptionFontColor: '#ffffff' // Theme.colors.primary.contrastText
+                titleFontColor: Theme.colors.primary.contrastText,
+                descriptionFontColor: Theme.colors.primary.contrastText
             });
         }
         getData() {
@@ -421,7 +424,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
     };
     Carousel = __decorate([
         components_2.customModule,
-        components_2.customElements('i-scom-carousel')
+        (0, components_2.customElements)('i-scom-carousel')
     ], Carousel);
     exports.default = Carousel;
 });
