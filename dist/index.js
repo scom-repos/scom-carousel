@@ -55,8 +55,11 @@ define("@scom/scom-carousel/index.css.ts", ["require", "exports", "@ijstech/comp
             },
             '.--carousel-item > img': {
                 width: '100%',
+                height: '100%',
                 maxWidth: '100%',
                 maxHeight: '100%',
+                objectPosition: 'center',
+                objectFit: 'cover'
                 // borderRadius: 13
             },
             '.--button-wrap:hover': {
@@ -93,7 +96,24 @@ define("@scom/scom-carousel/index.css.ts", ["require", "exports", "@ijstech/comp
             '.text-left': {
                 textAlign: 'left',
             },
-        },
+            'i-carousel-slider': {
+                height: '100%',
+                $nest: {
+                    '> div': {
+                        height: '100%'
+                    },
+                    'i-carousel-item': {
+                        height: '100%'
+                    },
+                    '.wrapper-slider-list': {
+                        height: '100%'
+                    },
+                    '.slider-list': {
+                        height: '100%'
+                    }
+                }
+            }
+        }
     });
 });
 define("@scom/scom-carousel/data.json.ts", ["require", "exports"], function (require, exports) {
@@ -224,6 +244,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             const data = this.getAttribute('data', true);
             if (data)
                 this.setData(data);
+            this.height = '100%';
         }
         getData() {
             return this._data;
@@ -236,6 +257,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             return this.tag;
         }
         async setTag(value) {
+            var _a, _b, _c, _d;
             const newValue = value || {};
             for (let prop in newValue) {
                 if (newValue.hasOwnProperty(prop)) {
@@ -243,15 +265,13 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                 }
             }
             this.updateCarousel(this.tag);
+            if ((_a = this.tag) === null || _a === void 0 ? void 0 : _a.height) {
+                this.height = (_b = this.tag) === null || _b === void 0 ? void 0 : _b.height;
+            }
+            if ((_c = this.tag) === null || _c === void 0 ? void 0 : _c.width) {
+                this.width = (_d = this.tag) === null || _d === void 0 ? void 0 : _d.width;
+            }
         }
-        // async edit() {
-        // }
-        // async confirm() {
-        //   this.updateCarousel(this.tag);
-        // }
-        // async discard() {
-        // }
-        // async config() { }
         _getActions(propertiesSchema, themeSchema) {
             const actions = [
                 {
@@ -382,7 +402,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                 return {
                     name: item.title,
                     controls: [
-                        this.$render("i-panel", { class: item.link ? 'pointer' : '', padding: { left: '0.5em', right: '0.5em' }, onClick: () => this.openLink(item.link) },
+                        this.$render("i-panel", { height: "100%", class: item.link ? 'pointer' : '', padding: { left: '0.5em', right: '0.5em' }, onClick: () => this.openLink(item.link) },
                             this.$render("i-panel", { display: "flex", width: "100%", height: "100%", overflow: "hidden", border: { radius: '0.75rem' } },
                                 this.$render("i-image", { display: "block", class: `--carousel-item`, width: "100%", url: imageUrl, overflow: "hidden" }),
                                 this.$render("i-panel", { position: "absolute", width: "100%", height: "100%", background: {
@@ -412,9 +432,9 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
             this.isSwiping = isSwiping;
         }
         render() {
-            return (this.$render("i-panel", { id: "pnlBlock", class: index_css_1.default, maxHeight: "100%", minHeight: 48 },
-                this.$render("i-panel", { id: "pnlCarousel", maxHeight: "100%", overflow: { y: 'hidden' } },
-                    this.$render("i-panel", { class: "container" },
+            return (this.$render("i-panel", { id: "pnlBlock", class: index_css_1.default, maxHeight: "100%", minHeight: 48, height: "100%" },
+                this.$render("i-panel", { id: "pnlCarousel", maxHeight: "100%", overflow: { y: 'hidden' }, height: "100%" },
+                    this.$render("i-panel", { class: "container", height: "100%" },
                         this.$render("i-grid-layout", { id: "gridCarousel", width: "100%", height: "100%", position: "relative" },
                             this.$render("i-vstack", { height: "100%", width: "45px", position: "absolute", left: "2rem", zIndex: 1, verticalAlignment: "center", class: "--button-wrap" },
                                 this.$render("i-button", { id: "btnPrev", height: "32px", width: "32px", icon: { name: 'chevron-left', fill: '#000' }, background: { color: 'transparent' }, border: { radius: '50%', width: '0px' }, onClick: this.prev.bind(this) })),

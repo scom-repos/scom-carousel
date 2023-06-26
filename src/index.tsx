@@ -138,6 +138,7 @@ export default class Carousel extends Module {
     super.init();
     const data = this.getAttribute('data', true);
     if (data) this.setData(data);
+    this.height = '100%';
   }
 
   private getData() {
@@ -161,19 +162,13 @@ export default class Carousel extends Module {
       }
     }
     this.updateCarousel(this.tag);
+    if (this.tag?.height) {
+      this.height = this.tag?.height;
+    }
+    if (this.tag?.width) {
+      this.width = this.tag?.width;
+    }
   }
-
-  // async edit() {
-  // }
-
-  // async confirm() {
-  //   this.updateCarousel(this.tag);
-  // }
-
-  // async discard() {
-  // }
-
-  // async config() { }
 
   private _getActions(propertiesSchema: IDataSchema, themeSchema: IDataSchema) {
     const actions: IPageBlockAction[] = [
@@ -295,6 +290,7 @@ export default class Carousel extends Module {
         name: item.title,
         controls: [
           <i-panel
+            height="100%"
             class={item.link ? 'pointer' : ''}
             padding={{ left: '0.5em', right: '0.5em' }}
             onClick={() => this.openLink(item.link)}
@@ -374,9 +370,9 @@ export default class Carousel extends Module {
 
   render() {
     return (
-      <i-panel id="pnlBlock" class={customStyles} maxHeight="100%" minHeight={48}>
-        <i-panel id="pnlCarousel" maxHeight="100%" overflow={{ y: 'hidden' }}>
-          <i-panel class="container">
+      <i-panel id="pnlBlock" class={customStyles} maxHeight="100%" minHeight={48} height="100%">
+        <i-panel id="pnlCarousel" maxHeight="100%" overflow={{ y: 'hidden' }} height="100%">
+          <i-panel class="container" height="100%">
             <i-grid-layout id="gridCarousel" width="100%" height="100%" position="relative">
               <i-vstack
                 height="100%"
