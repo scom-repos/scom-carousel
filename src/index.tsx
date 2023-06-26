@@ -14,7 +14,7 @@ import { IConfig, IPageBlockAction } from './interface';
 import customStyles from './index.css';
 import dataJson from './data.json';
 
-const Theme = Styles.Theme.ThemeVars;
+const Theme = Styles.Theme.currentTheme;
 const propertiesSchema: any = {
   type: 'object',
   properties: {
@@ -104,6 +104,7 @@ const UISchema: IUISchema = {
 }
 
 interface ScomCarouselElement extends ControlElement {
+  lazyLoad?: boolean;
   data?: IConfig;
 }
 
@@ -136,9 +137,15 @@ export default class Carousel extends Module {
 
   init() {
     super.init();
-    const data = this.getAttribute('data', true);
-    if (data) this.setData(data);
-    this.height = '100%';
+    const lazyLoad = this.getAttribute('lazyLoad', true, false);
+    if (!lazyLoad) {
+      const data = this.getAttribute('data', true);
+      if (data) this.setData(data);
+    }
+    this.setTag({
+      titleFontColor: Theme.colors.primary.contrastText,
+      descriptionFontColor: Theme.colors.primary.contrastText
+    });
   }
 
   private getData() {

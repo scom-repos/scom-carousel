@@ -141,7 +141,7 @@ define("@scom/scom-carousel/data.json.ts", ["require", "exports"], function (req
 define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@scom/scom-carousel/index.css.ts", "@scom/scom-carousel/data.json.ts"], function (require, exports, components_2, index_css_1, data_json_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    const Theme = components_2.Styles.Theme.ThemeVars;
+    const Theme = components_2.Styles.Theme.currentTheme;
     const propertiesSchema = {
         type: 'object',
         properties: {
@@ -241,10 +241,16 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
         }
         init() {
             super.init();
-            const data = this.getAttribute('data', true);
-            if (data)
-                this.setData(data);
-            this.height = '100%';
+            const lazyLoad = this.getAttribute('lazyLoad', true, false);
+            if (!lazyLoad) {
+                const data = this.getAttribute('data', true);
+                if (data)
+                    this.setData(data);
+            }
+            this.setTag({
+                titleFontColor: Theme.colors.primary.contrastText,
+                descriptionFontColor: Theme.colors.primary.contrastText
+            });
         }
         getData() {
             return this._data;
@@ -445,7 +451,7 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
     };
     Carousel = __decorate([
         components_2.customModule,
-        components_2.customElements('i-scom-carousel')
+        (0, components_2.customElements)('i-scom-carousel')
     ], Carousel);
     exports.default = Carousel;
 });
