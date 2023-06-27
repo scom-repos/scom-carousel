@@ -44,8 +44,11 @@ export default Styles.style({
     },
     '.--carousel-item > img': {
       width: '100%',
+      height: '100%',
       maxWidth: '100%',
       maxHeight: '100%',
+      objectPosition: 'center',
+      objectFit: 'cover'
       // borderRadius: 13
     },
     '.--button-wrap:hover': {
@@ -82,5 +85,22 @@ export default Styles.style({
     '.text-left': {
       textAlign: 'left',
     },
-  },
+    'i-carousel-slider': {
+      height: '100%',
+      $nest: {
+        '> div': {
+          height: '100%'
+        },
+        'i-carousel-item': {
+          height: '100%'
+        },
+        '.wrapper-slider-list': {
+          height: '100%'
+        },
+        '.slider-list': {
+          height: '100%'
+        }
+      }
+    }
+  }
 });
