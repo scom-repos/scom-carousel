@@ -246,11 +246,11 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                 const data = this.getAttribute('data', true);
                 if (data)
                     this.setData(data);
+                this.setTag({
+                    titleFontColor: Theme.colors.primary.contrastText,
+                    descriptionFontColor: Theme.colors.primary.contrastText
+                });
             }
-            this.setTag({
-                titleFontColor: Theme.colors.primary.contrastText,
-                descriptionFontColor: Theme.colors.primary.contrastText
-            });
         }
         getData() {
             return this._data;

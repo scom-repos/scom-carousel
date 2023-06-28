@@ -141,11 +141,11 @@ export default class Carousel extends Module {
     if (!lazyLoad) {
       const data = this.getAttribute('data', true);
       if (data) this.setData(data);
+      this.setTag({
+        titleFontColor: Theme.colors.primary.contrastText,
+        descriptionFontColor: Theme.colors.primary.contrastText
+      });
     }
-    this.setTag({
-      titleFontColor: Theme.colors.primary.contrastText,
-      descriptionFontColor: Theme.colors.primary.contrastText
-    });
   }
 
   private getData() {
