@@ -50,17 +50,7 @@ declare module "@scom/scom-carousel/index.css.ts" {
 }
 /// <amd-module name="@scom/scom-carousel/data.json.ts" />
 declare module "@scom/scom-carousel/data.json.ts" {
-    const _default_1: {
-        defaultBuilderData: {
-            autoplay: boolean;
-            controls: boolean;
-            indicators: boolean;
-            data: {
-                title: string;
-                imageUrl: string;
-            }[];
-        };
-    };
+    const _default_1: {};
     export default _default_1;
 }
 /// <amd-module name="@scom/scom-carousel" />
