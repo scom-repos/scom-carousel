@@ -255,8 +255,9 @@ export default class Carousel extends Module {
         },
         getData: this.getData.bind(this),
         setData: async (data: IConfig) => {
-          const defaultData = dataJson.defaultBuilderData as any;
-          await this.setData({...defaultData, ...data})
+          // const defaultData = dataJson.defaultBuilderData as any;
+          // await this.setData({...defaultData, ...data})
+          await this.setData({...data})
         },
         getTag: this.getTag.bind(this),
         setTag: this.setTag.bind(this)
@@ -291,7 +292,9 @@ export default class Carousel extends Module {
     }
     if (this._data.indicators) this.carouselSlider.classList.add('--indicators');
     else this.carouselSlider.classList.remove('--indicators');
-    this.carouselSlider.items = (this._data.data || []).map((item) => {
+    this.carouselSlider.items = (this._data.data || [
+      {imageUrl: 'https://placehold.co/600x400?text=No+Image'}
+    ]).map((item) => {
       const imageUrl = item.imageUrl || '';
       return {
         name: item.title,

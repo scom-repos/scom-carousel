@@ -121,24 +121,24 @@ define("@scom/scom-carousel/data.json.ts", ["require", "exports"], function (req
     Object.defineProperty(exports, "__esModule", { value: true });
     ///<amd-module name='@scom/scom-carousel/data.json.ts'/> 
     exports.default = {
-        "defaultBuilderData": {
-            "autoplay": true,
-            "controls": true,
-            "indicators": true,
-            data: [
-                {
-                    title: 'First slide',
-                    imageUrl: 'http://placehold.it/1170x400&amp;text=First+Slide'
-                },
-                {
-                    title: 'Second slide',
-                    imageUrl: 'http://placehold.it/1170x400&amp;text=Second+Slide'
-                }
-            ]
-        }
+    // "defaultBuilderData": {
+    //   "autoplay": true,
+    //   "controls": true,
+    //   "indicators": true,
+    //   data: [
+    //     {
+    //       title: 'First slide',
+    //       imageUrl: 'http://placehold.it/1170x400&amp;text=First+Slide'
+    //     },
+    //     {
+    //       title: 'Second slide',
+    //       imageUrl: 'http://placehold.it/1170x400&amp;text=Second+Slide'
+    //     }
+    //   ]
+    // }
     };
 });
-define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@scom/scom-carousel/index.css.ts", "@scom/scom-carousel/data.json.ts"], function (require, exports, components_2, index_css_1, data_json_1) {
+define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@scom/scom-carousel/index.css.ts"], function (require, exports, components_2, index_css_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const Theme = components_2.Styles.Theme.currentTheme;
@@ -368,8 +368,9 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                     },
                     getData: this.getData.bind(this),
                     setData: async (data) => {
-                        const defaultData = data_json_1.default.defaultBuilderData;
-                        await this.setData(Object.assign(Object.assign({}, defaultData), data));
+                        // const defaultData = dataJson.defaultBuilderData as any;
+                        // await this.setData({...defaultData, ...data})
+                        await this.setData(Object.assign({}, data));
                     },
                     getTag: this.getTag.bind(this),
                     setTag: this.setTag.bind(this)
@@ -403,7 +404,9 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                 this.carouselSlider.classList.add('--indicators');
             else
                 this.carouselSlider.classList.remove('--indicators');
-            this.carouselSlider.items = (this._data.data || []).map((item) => {
+            this.carouselSlider.items = (this._data.data || [
+                { imageUrl: 'https://placehold.co/600x400?text=No+Image' }
+            ]).map((item) => {
                 const imageUrl = item.imageUrl || '';
                 return {
                     name: item.title,
