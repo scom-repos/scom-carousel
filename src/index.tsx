@@ -47,9 +47,13 @@ const propertiesSchema: any = {
           description: {
             type: 'string'
           },
-          imageUrl: {
+          imageCid: {
+            title: 'Image',
             type: 'string',
-            required: true
+            format: 'data-cid'
+          },
+          imageUrl: {
+            type: 'string'
           },
           link: {
             type: 'string'
@@ -293,7 +297,7 @@ export default class Carousel extends Module {
     if (this._data.indicators) this.carouselSlider.classList.add('--indicators');
     else this.carouselSlider.classList.remove('--indicators');
     this.carouselSlider.items = (this._data.data || [
-      {imageUrl: 'https://placehold.co/600x400?text=No+Image'}
+      { imageUrl: 'https://placehold.co/600x400?text=No+Image', title: 'title' }
     ]).map((item) => {
       const imageUrl = item.imageUrl || '';
       return {
