@@ -85,6 +85,7 @@ declare module "@scom/scom-carousel" {
         private setData;
         private getTag;
         private setTag;
+        private splitData;
         private _getActions;
         getConfigurators(): ({
             name: string;
