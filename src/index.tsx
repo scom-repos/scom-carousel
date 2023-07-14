@@ -60,7 +60,15 @@ const propertiesSchema: any = {
           }
         }
       }
-    }
+    },
+    titleFontColor: { 
+      type: 'string',
+      format: 'color',
+    },
+    descriptionFontColor: {
+      type: 'string',
+      format: 'color',
+    },
   }
 }
 
@@ -72,40 +80,74 @@ const UISchema: IUISchema = {
       label: 'General',
       elements: [
         {
-          type: 'Control',
-          scope: '#/properties/autoplay'
+          type: 'VerticalLayout',
+          elements: [
+            {
+              type: 'HorizontalLayout',
+              elements: [
+                {
+                  type: 'Group',
+                  label: 'Behaviour',
+                  elements: [
+                    {
+                      type: 'HorizontalLayout',
+                      elements: [
+                        {
+                          type: 'Control',
+                          scope: '#/properties/autoplay',
+                        },
+                        {
+                          type: 'Control',
+                          scope: '#/properties/controls',
+                        },
+                        {
+                          type: 'Control',
+                          scope: '#/properties/indicators',
+                        },
+                        {
+                          type: 'Control',
+                          scope: '#/properties/swipe',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'HorizontalLayout',
+              elements: [
+                {
+                  type: 'Control',
+                  scope: '#/properties/data',
+                  options: {
+                    detail: {
+                      type: 'VerticalLayout',
+                    },
+                  },
+                },
+              ],
+            },
+          ],
         },
-        {
-          type: 'Control',
-          scope: '#/properties/controls'
-        },
-        {
-          type: 'Control',
-          scope: '#/properties/indicators'
-        },
-        {
-          type: 'Control',
-          scope: '#/properties/swipe'
-        },
-      ]
+      ],
     },
     {
       type: 'Category',
-      label: 'Data',
+      label: 'Theme',
       elements: [
         {
           type: 'Control',
-          scope: '#/properties/data',
-          options: {
-            detail: {
-              type: 'VerticalLayout'
-            }
-          }
-        }
-      ]
-    }
-  ]
-}
+          scope: '#/properties/titleFontColor',
+        },
+        {
+          type: 'Control',
+          scope: '#/properties/descriptionFontColor',
+        },
+      ],
+    },
+  ],
+};
 
 interface ScomCarouselElement extends ControlElement {
   lazyLoad?: boolean;
@@ -144,7 +186,10 @@ export default class Carousel extends Module {
     const lazyLoad = this.getAttribute('lazyLoad', true, false);
     if (!lazyLoad) {
       const data = this.getAttribute('data', true);
-      if (data) this.setData(data);
+      if (data) {
+        const [dataSettings] = this.splitData(data)
+        if (dataSettings) this.setData(dataSettings);
+      }
       this.setTag({
         titleFontColor: Theme.colors.primary.contrastText,
         descriptionFontColor: Theme.colors.primary.contrastText
@@ -181,6 +226,20 @@ export default class Carousel extends Module {
     }
   }
 
+  private splitData(userInputData: any) {
+    const {
+      titleFontColor = Theme.colors.primary.contrastText,
+      descriptionFontColor = Theme.colors.primary.contrastText,
+      ...data
+    } = userInputData;
+    const themeSettings = {
+      titleFontColor,
+      descriptionFontColor,
+    }
+    return [data, themeSettings]
+  }
+
+
   private _getActions(propertiesSchema: IDataSchema, themeSchema: IDataSchema) {
     const actions: IPageBlockAction[] = [
       {
@@ -188,50 +247,65 @@ export default class Carousel extends Module {
         icon: 'cog',
         command: (builder: any, userInputData: any) => {
           let _oldData = {};
+          let _oldTag = {};
+          const [dataSettings, themeSettings] = this.splitData(userInputData)
+
           return {
             execute: async () => {
               _oldData = JSON.parse(JSON.stringify(this._data));
-              if (userInputData?.autoplay !== undefined) this._data.autoplay = userInputData.autoplay;
-              if (userInputData?.controls !== undefined) this._data.controls = userInputData.controls;
-              if (userInputData?.indicators !== undefined) this._data.indicators = userInputData.indicators;
-              if (userInputData?.swipe !== undefined) this._data.swipe = userInputData.swipe;
-              if (userInputData?.data !== undefined) this._data.data = userInputData.data;
+              if (dataSettings?.autoplay !== undefined) this._data.autoplay = dataSettings.autoplay;
+              if (dataSettings?.controls !== undefined) this._data.controls = dataSettings.controls;
+              if (dataSettings?.indicators !== undefined) this._data.indicators = dataSettings.indicators;
+              if (dataSettings?.swipe !== undefined) this._data.swipe = dataSettings.swipe;
+              if (dataSettings?.data !== undefined) this._data.data = dataSettings.data;
               this.updateCarousel(this.tag);
               if (builder?.setData) builder.setData(this._data);
+
+              if (themeSettings) {
+                _oldTag = {...this.tag};
+                if (builder) builder.setTag(themeSettings);
+                else this.setTag(themeSettings);
+              }
             },
             undo: () => {
               if (builder?.setData) builder.setData(_oldData);
               this.setData(_oldData);
+
+              if (themeSettings) {
+                this.tag = {..._oldTag};
+                if (builder) builder.setTag(this.tag);
+                else this.setTag(this.tag);
+              }
             },
             redo: () => { }
           }
         },
         userInputDataSchema: propertiesSchema,
         userInputUISchema: UISchema
-      },
-      {
-        name: 'Theme Settings',
-        icon: 'palette',
-        command: (builder: any, userInputData: any) => {
-          let oldTag = {};
-          return {
-            execute: async () => {
-              if (!userInputData) return;
-              oldTag = JSON.parse(JSON.stringify(this.tag));
-              if (builder) builder.setTag(userInputData);
-              else this.setTag(userInputData);
-            },
-            undo: () => {
-              if (!userInputData) return;
-              this.tag = JSON.parse(JSON.stringify(oldTag));
-              if (builder) builder.setTag(this.tag);
-              else this.setTag(this.tag);
-            },
-            redo: () => { }
-          }
-        },
-        userInputDataSchema: themeSchema
       }
+      // {
+      //   name: 'Theme Settings',
+      //   icon: 'palette',
+      //   command: (builder: any, userInputData: any) => {
+      //     let oldTag = {};
+      //     return {
+      //       execute: async () => {
+      //         if (!userInputData) return;
+      //         oldTag = JSON.parse(JSON.stringify(this.tag));
+      //         if (builder) builder.setTag(userInputData);
+      //         else this.setTag(userInputData);
+      //       },
+      //       undo: () => {
+      //         if (!userInputData) return;
+      //         this.tag = JSON.parse(JSON.stringify(oldTag));
+      //         if (builder) builder.setTag(this.tag);
+      //         else this.setTag(this.tag);
+      //       },
+      //       redo: () => { }
+      //     }
+      //   },
+      //   userInputDataSchema: themeSchema
+      // }
     ]
     return actions;
   }
