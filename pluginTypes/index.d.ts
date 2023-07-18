@@ -27,7 +27,8 @@ declare module "@scom/scom-carousel/interface.ts" {
     export interface IData {
         title?: string;
         description?: string;
-        imageUrl: string;
+        imageUrl?: string;
+        imageCid?: string;
         link?: string;
     }
     export interface ICommand {

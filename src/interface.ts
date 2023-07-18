@@ -34,7 +34,8 @@ export interface IConfig {
 export interface IData {
   title?: string;
   description?: string;
-  imageUrl: string;
+  imageUrl?: string;
+  imageCid?: string;
   link?: string;
 }
 

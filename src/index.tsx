@@ -373,7 +373,7 @@ export default class Carousel extends Module {
     this.carouselSlider.items = (this._data.data || [
       { imageUrl: 'https://placehold.co/600x400?text=No+Image', title: 'title' }
     ]).map((item) => {
-      const imageUrl = item.imageUrl || '';
+      const imageUrl = item.imageCid ? "https://ipfs.scom.dev/ipfs/" + item.imageCid : item.imageUrl || '';
       return {
         name: item.title,
         controls: [
