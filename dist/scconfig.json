@@ -1,0 +1,8 @@
+{
+    "name": "@scom/scom-carousel",
+    "type": "widget",
+    "version": "0.1.10",
+    "dependencies": [
+        "@ijstech/components"
+    ]
+}
