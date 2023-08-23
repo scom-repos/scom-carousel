@@ -349,8 +349,8 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
         _getActions(propertiesSchema, themeSchema) {
             const actions = [
                 {
-                    name: 'Settings',
-                    icon: 'cog',
+                    name: 'Edit',
+                    icon: 'edit',
                     command: (builder, userInputData) => {
                         let _oldData = {};
                         let _oldTag = {};
