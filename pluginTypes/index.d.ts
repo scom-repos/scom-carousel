@@ -1,27 +1,13 @@
+/// <reference path="@ijstech/components/index.d.ts" />
 /// <amd-module name="@scom/scom-carousel/interface.ts" />
 declare module "@scom/scom-carousel/interface.ts" {
-    import { IconName, IDataSchema, IUISchema } from "@ijstech/components";
-    export interface PageBlock {
-        getData: () => any;
-        setData: (data: any) => Promise<void>;
-        getTag: () => any;
-        setTag: (tag: any) => Promise<void>;
-        validate?: () => boolean;
-        defaultEdit?: boolean;
-        tag?: any;
-        readonly onEdit: () => Promise<void>;
-        readonly onConfirm: () => Promise<void>;
-        readonly onDiscard: () => Promise<void>;
-        edit: () => Promise<void>;
-        confirm: () => Promise<void>;
-        discard: () => Promise<void>;
-        config: () => Promise<void>;
-    }
+    import { IFont } from "@ijstech/components";
     export interface IConfig {
         autoplay?: boolean;
         controls?: boolean;
         indicators?: boolean;
         swipe?: boolean;
+        isFullWidth?: boolean;
         data?: IData[];
     }
     export interface IData {
@@ -31,17 +17,14 @@ declare module "@scom/scom-carousel/interface.ts" {
         imageCid?: string;
         link?: string;
     }
-    export interface ICommand {
-        execute(): void;
-        undo(): void;
-        redo(): void;
+    interface IStyles {
+        font?: IFont;
     }
-    export interface IPageBlockAction {
-        name?: string;
-        icon?: IconName;
-        command?: (builder: any, userInputData: any) => ICommand;
-        userInputDataSchema?: IDataSchema;
-        userInputUISchema?: IUISchema;
+    export interface ISettings {
+        title?: IStyles;
+        description?: IStyles;
+        width?: string | number;
+        height?: string | number;
     }
 }
 /// <amd-module name="@scom/scom-carousel/index.css.ts" />
@@ -49,18 +32,72 @@ declare module "@scom/scom-carousel/index.css.ts" {
     const _default: string;
     export default _default;
 }
-/// <amd-module name="@scom/scom-carousel/data.json.ts" />
-declare module "@scom/scom-carousel/data.json.ts" {
-    const _default_1: {};
-    export default _default_1;
+/// <amd-module name="@scom/scom-carousel/schema.ts" />
+declare module "@scom/scom-carousel/schema.ts" {
+    import { IUISchema } from "@ijstech/components";
+    const propertiesSchema: any;
+    const UISchema: IUISchema;
+    export { propertiesSchema, UISchema };
+}
+/// <amd-module name="@scom/scom-carousel/model.ts" />
+declare module "@scom/scom-carousel/model.ts" {
+    import { IDataSchema } from '@ijstech/components';
+    import { IConfig, ISettings } from "@scom/scom-carousel/interface.ts";
+    interface IOptions {
+        onUpdateBlock: () => void;
+    }
+    export class Model {
+        private _tag;
+        private _data;
+        private _options;
+        constructor(options: IOptions);
+        get tag(): ISettings;
+        set tag(value: ISettings);
+        get data(): IConfig;
+        set data(value: IConfig);
+        private getData;
+        setData(value: IConfig): void;
+        private getTag;
+        setTag(value: ISettings): Promise<void>;
+        private splitData;
+        private _getActions;
+        getConfigurators(): ({
+            name: string;
+            target: string;
+            getActions: () => {
+                name: string;
+                icon: string;
+                command: (builder: any, userInputData: any) => {
+                    execute: () => Promise<void>;
+                    undo: () => void;
+                    redo: () => void;
+                };
+                userInputDataSchema: IDataSchema;
+                userInputUISchema: import("@ijstech/components").IUISchema;
+            }[];
+            getData: any;
+            setData: any;
+            getTag: any;
+            setTag: any;
+        } | {
+            name: string;
+            target: string;
+            getData: any;
+            setData: any;
+            getTag: any;
+            setTag: any;
+            getActions?: undefined;
+        })[];
+    }
 }
 /// <amd-module name="@scom/scom-carousel" />
 declare module "@scom/scom-carousel" {
     import { Module, ControlElement, Container } from '@ijstech/components';
-    import { IConfig, IPageBlockAction } from "@scom/scom-carousel/interface.ts";
+    import { IConfig, ISettings } from "@scom/scom-carousel/interface.ts";
     interface ScomCarouselElement extends ControlElement {
         lazyLoad?: boolean;
         data?: IConfig;
+        tag?: ISettings;
     }
     global {
         namespace JSX {
@@ -69,31 +106,35 @@ declare module "@scom/scom-carousel" {
             }
         }
     }
-    export default class Carousel extends Module {
+    export default class ScomCarousel extends Module {
+        private pnlContainer;
         private carouselSlider;
         private btnPrev;
         private btnNext;
         private isSwiping;
-        private _data;
-        tag: any;
-        defaultEdit: boolean;
-        readonly onConfirm: () => Promise<void>;
-        readonly onDiscard: () => Promise<void>;
-        readonly onEdit: () => Promise<void>;
+        private model;
         constructor(parent?: Container, options?: ScomCarouselElement);
         init(): void;
-        private getData;
         private setData;
-        private getTag;
         private setTag;
-        private splitData;
-        private _getActions;
+        get data(): IConfig;
+        set data(value: IConfig);
         getConfigurators(): ({
             name: string;
             target: string;
-            getActions: () => IPageBlockAction[];
+            getActions: () => {
+                name: string;
+                icon: string;
+                command: (builder: any, userInputData: any) => {
+                    execute: () => Promise<void>;
+                    undo: () => void;
+                    redo: () => void;
+                };
+                userInputDataSchema: import("@ijstech/components").IDataSchema;
+                userInputUISchema: import("@ijstech/components").IUISchema;
+            }[];
             getData: any;
-            setData: (data: IConfig) => Promise<void>;
+            setData: any;
             getTag: any;
             setTag: any;
         } | {
