@@ -114,9 +114,10 @@ declare module "@scom/scom-carousel" {
         private isSwiping;
         private model;
         constructor(parent?: Container, options?: ScomCarouselElement);
+        static create(options?: ScomCarouselElement, parent?: Container): Promise<ScomCarousel>;
         init(): void;
-        private setData;
-        private setTag;
+        setData(data: IConfig): Promise<void>;
+        setTag(value: ISettings): Promise<void>;
         get data(): IConfig;
         set data(value: IConfig);
         getConfigurators(): ({

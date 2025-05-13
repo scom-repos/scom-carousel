@@ -427,6 +427,11 @@ define("@scom/scom-carousel", ["require", "exports", "@ijstech/components", "@sc
                     window.open(url, '_self');
             };
         }
+        static async create(options, parent) {
+            let self = new this(parent, options);
+            await self.ready();
+            return self;
+        }
         init() {
             super.init();
             this.model = new model_1.Model({

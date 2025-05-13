@@ -103,6 +103,12 @@ export default class ScomCarousel extends Module {
     super(parent, options);
   }
 
+  static async create(options?: ScomCarouselElement, parent?: Container) {
+    let self = new this(parent, options);
+    await self.ready();
+    return self;
+  }
+
   init() {
     super.init();
     this.model = new Model({
@@ -117,11 +123,11 @@ export default class ScomCarousel extends Module {
     }
   }
 
-  private async setData(data: IConfig) {
+  async setData(data: IConfig) {
     this.model.setData(data)
   }
 
-  private async setTag(value: ISettings) {
+  async setTag(value: ISettings) {
     this.model.setTag(value);
   }
 
