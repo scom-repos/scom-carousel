@@ -43,13 +43,7 @@ export default Styles.style({
       display: 'none',
     },
     '.--carousel-item > img': {
-      width: '100%',
-      height: '100%',
-      maxWidth: '100%',
-      maxHeight: '100%',
-      objectPosition: 'center',
-      objectFit: 'cover'
-      // borderRadius: 13
+      objectPosition: 'center'
     },
     '.--button-wrap:hover': {
       $nest: {
