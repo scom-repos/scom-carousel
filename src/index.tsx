@@ -61,31 +61,56 @@ declare global {
     properties: {
       autoplay: {
         type: 'boolean',
-        default: false
+        default: false,
+        required: false
       },
       controls: {
         type: 'boolean',
-        default: false
+        default: false,
+        required: false
       },
       indicators: {
         type: 'boolean',
-        default: false
+        default: false,
+        required: false
       },
       swipe: {
         type: 'boolean',
-        default: false
+        default: false,
+        required: false
       },
       isFullWidth: {
         type: 'boolean',
-        default: false
+        default: false,
+        required: false
       },
       data: {
         type: 'array',
         items: {
           type: 'object',
           properties: {
+            title: {
+              type: 'string',
+              required: false
+            },
+            description: {
+              type: 'string',
+              required: false
+            },
+            imageUrl: {
+              type: 'string',
+              required: false
+            },
+            link: {
+              type: 'string',
+              required: false
+            },
+            imageCid: {
+              type: 'string',
+              required: false
+            }
           }
-        },
+        }
       }
     }
   }
